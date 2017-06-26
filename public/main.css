@@ -1,1 +1,24 @@
 /* Add css here */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#desktop-background {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: lightgrey;
+}
+
+#d3-canvas {
+  width: 360px;
+  height: 640px;
+}
+
+svg {
+  background: linear-gradient(#8EA5CE, #91CFCF);
+}
