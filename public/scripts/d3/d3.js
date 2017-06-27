@@ -30,25 +30,23 @@ d3.json(jsonUrl, function(err, data) {
     });
   });
 
-
+var tagObject;
 
 uniqueTags.forEach(function(t){
-  var tagObject = sortedByTag[t]
+  tagObject = sortedByTag[t]
   var i = 0;
-
   for (var key in tagObject){
     if (i === 0){
       var firstKey = tagObject[key];
-      // console.log(firstKey);
     } else {
       var difference = firstKey.avgRating - tagObject[key].avgRating;
       tagObject[key].distance = difference * 2;
-      console.log(tagObject[key]);
     }
     i++;
   }
+});
 
-})
+console.log(tagObject);
 
   var rScale = d3.scaleSqrt()
     .domain([0, d3.max(data, d => d.likes)])
