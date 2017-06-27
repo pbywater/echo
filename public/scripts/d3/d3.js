@@ -3,23 +3,12 @@ d3.json(jsonUrl, function(err, data) {
   data = data.sort(function (a,b) {
     return d3.descending(a.avgRating, b.avgRating);
   });
-console.log(data);
-
-  // var ratingsDescOrder = [];
-  //
-  // data.forEach(function(d, i){
-  //   ratingsDescOrder.push(d)
-  // })
-  // ratingsDescOrder[i].avgRating.sort(function(a, b){
-  //   return b - a;
-  // })
-
 
   var uniqueTags = [];
   data.forEach(function(d){
-    tags.push(d.tag)
+    uniqueTags.push(d.tag)
   })
-  uniqueTags = tags.filter(onlyUnique);
+  uniqueTags = uniqueTags.filter(onlyUnique);
   var nodePosition = [];
 
   var startingCx = 0;
@@ -40,6 +29,26 @@ console.log(data);
       }
     });
   });
+
+
+
+uniqueTags.forEach(function(t){
+  var tagObject = sortedByTag[t]
+  var i = 0;
+
+  for (var key in tagObject){
+    if (i === 0){
+      var firstKey = tagObject[key];
+      // console.log(firstKey);
+    } else {
+      var difference = firstKey.avgRating - tagObject[key].avgRating;
+      tagObject[key].distance = difference * 2;
+      console.log(tagObject[key]);
+    }
+    i++;
+  }
+
+})
 
   var rScale = d3.scaleSqrt()
     .domain([0, d3.max(data, d => d.likes)])
