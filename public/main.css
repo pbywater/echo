@@ -19,6 +19,6 @@
   height: 640px;
 }
 
-svg {
+.d3-background {
   background: linear-gradient(#8EA5CE, #91CFCF);
 }
