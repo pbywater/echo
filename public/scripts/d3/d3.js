@@ -22,31 +22,29 @@ d3.json(jsonUrl, (err, data) => {
 
     data.forEach((d, i) => {
       if (d.tag == t) {
-        sortedByTag[t][`node${i}`] = d;
+        sortedByTag[t][`node${d.id}`] = d;
       }
     });
   });
 
-  let tagObject = {};
+  const tagObject = {};
   const sortedWithDistances = [];
 
   uniqueTags.forEach((t) => {
-    tagObject = sortedByTag[t];
+    sortedWithDistances[t] = sortedByTag[t];
     let i = 0;
-    for (const key in tagObject) {
+    for (const key in sortedWithDistances[t]) {
       if (i === 0) {
-        var firstKey = tagObject[key];
-        tagObject[key].distance = 0;
+        var firstKey = sortedWithDistances[t][key];
+        sortedWithDistances[t][key].distance = 0;
       } else {
-        const difference = firstKey.avgRating - tagObject[key].avgRating;
-        tagObject[key].distance = difference * 2;
+        const difference =
+          firstKey.avgRating - sortedWithDistances[t][key].avgRating;
+        sortedWithDistances[t][key].distance = difference * 30;
       }
       i++;
     }
-    sortedWithDistances.push(tagObject);
   });
-
-  console.log(sortedWithDistances);
 
   const rScale = d3
     .scaleSqrt()
@@ -55,7 +53,7 @@ d3.json(jsonUrl, (err, data) => {
 
   const circles = svg
     .selectAll('.memory')
-    .data(sortedWithDistances)
+    .data(data)
     .enter()
     .append('g')
     .attr('id', d => d.id)
@@ -63,10 +61,16 @@ d3.json(jsonUrl, (err, data) => {
 
   circles
     .append('circle')
-    .attr('cy', (d) => {
-      // nodePosition[d.tag].cy;
-    })
-    .attr('cx', d => nodePosition[d.tag].cx)
+    .attr('cy', d => (
+      sortedWithDistances[d.tag][`node${d.id}`].distance +
+        nodePosition[d.tag].cy
+    ))
+    .attr(
+      'cx',
+      d =>
+        sortedWithDistances[d.tag][`node${d.id}`].distance +
+        nodePosition[d.tag].cx,
+    )
     .attr('x', 50)
     .attr('class', 'memory')
     .attr('r', d => rScale(d.likes))
