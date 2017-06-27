@@ -1,0 +1,27 @@
+{
+  "name": "echo",
+  "version": "1.0.0",
+  "description": "Anna Freud happy memory app",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pbywater/echo.git"
+  },
+  "author": "pbywater, ConchobarMacNessa, joeylouise",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pbywater/echo/issues"
+  },
+  "homepage": "https://github.com/pbywater/echo#readme",
+  "devDependencies": {
+    "eslint": "^4.1.1",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.6.0"
+  }
+}
