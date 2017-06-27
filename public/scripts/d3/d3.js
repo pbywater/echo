@@ -1,21 +1,18 @@
-d3.json(jsonUrl, function(err, data) {
+d3.json(jsonUrl, (err, data) => {
+  data = data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
 
-  data = data.sort(function (a,b) {
-    return d3.descending(a.avgRating, b.avgRating);
+  let uniqueTags = [];
+  data.forEach((d) => {
+    uniqueTags.push(d.tag);
   });
-
-  var uniqueTags = [];
-  data.forEach(function(d){
-    uniqueTags.push(d.tag)
-  })
   uniqueTags = uniqueTags.filter(onlyUnique);
-  var nodePosition = [];
+  const nodePosition = [];
 
-  var startingCx = 0;
-  var startingCy = 0;
-  var sortedByTag = {};
+  let startingCx = 0;
+  let startingCy = 0;
+  const sortedByTag = {};
 
-  uniqueTags.forEach(function(t){
+  uniqueTags.forEach((t) => {
     nodePosition[t] = {};
     nodePosition[t].cy = startingCx;
     nodePosition[t].cx = startingCy;
@@ -23,64 +20,55 @@ d3.json(jsonUrl, function(err, data) {
     startingCx += 100;
     sortedByTag[t] = {};
 
-    data.forEach(function(d, i){
-      if (d.tag == t){
+    data.forEach((d, i) => {
+      if (d.tag == t) {
         sortedByTag[t][`node${i}`] = d;
       }
     });
   });
 
-var tagObject;
+  let tagObject = {};
+  const sortedWithDistances = [];
 
-uniqueTags.forEach(function(t){
-  tagObject = sortedByTag[t]
-  var i = 0;
-  for (var key in tagObject){
-    if (i === 0){
-      var firstKey = tagObject[key];
-    } else {
-      var difference = firstKey.avgRating - tagObject[key].avgRating;
-      tagObject[key].distance = difference * 2;
+  uniqueTags.forEach((t) => {
+    tagObject = sortedByTag[t];
+    let i = 0;
+    for (const key in tagObject) {
+      if (i === 0) {
+        var firstKey = tagObject[key];
+        tagObject[key].distance = 0;
+      } else {
+        const difference = firstKey.avgRating - tagObject[key].avgRating;
+        tagObject[key].distance = difference * 2;
+      }
+      i++;
     }
-    i++;
-  }
-});
+    sortedWithDistances.push(tagObject);
+  });
 
-console.log(tagObject);
+  console.log(sortedWithDistances);
 
-  var rScale = d3.scaleSqrt()
+  const rScale = d3
+    .scaleSqrt()
     .domain([0, d3.max(data, d => d.likes)])
     .range([0, 30]);
 
-  var circles = svg
+  const circles = svg
     .selectAll('.memory')
-    .data(data)
+    .data(sortedWithDistances)
     .enter()
     .append('g')
-      .attr('id', (d) => {
-        return d.id
-      })
-      .attr('class', 'memoryG');
+    .attr('id', d => d.id)
+    .attr('class', 'memoryG');
 
   circles
     .append('circle')
-      .attr('cy', (d) => {
-        var prevData = circles.data()[i-1];
-      })
-      .attr('cx', (d, i) => {
-        if (i > 0) {
-          var prevData = circles.data()[i-1];
-          if (d.tag === prevData.tag){
-            return startCx;
-          } else {
-            startCx += 100;
-            return startCx;
-          }
-        }
-      })
-      .attr('x', 50)
-      .attr('class', 'memory')
-      .attr('r', d => rScale(d.likes))
-      .style('fill', 'white');
-
-})
+    .attr('cy', (d) => {
+      // nodePosition[d.tag].cy;
+    })
+    .attr('cx', d => nodePosition[d.tag].cx)
+    .attr('x', 50)
+    .attr('class', 'memory')
+    .attr('r', d => rScale(d.likes))
+    .style('fill', 'white');
+});
