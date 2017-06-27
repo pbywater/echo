@@ -8,16 +8,16 @@ d3.json(jsonUrl, (err, data) => {
   uniqueTags = uniqueTags.filter(onlyUnique);
   const nodePosition = [];
 
-  let startingCx = 0;
-  let startingCy = 0;
+  let startingCx = 80;
+  let startingCy = 80;
   const sortedByTag = {};
 
   uniqueTags.forEach((t) => {
     nodePosition[t] = {};
     nodePosition[t].cy = startingCx;
     nodePosition[t].cx = startingCy;
-    startingCy += 100;
-    startingCx += 100;
+    startingCy += 200;
+    startingCx += 200;
     sortedByTag[t] = {};
 
     data.forEach((d, i) => {
@@ -61,17 +61,23 @@ d3.json(jsonUrl, (err, data) => {
 
   circles
     .append('circle')
-    .attr('cy', d => (
-      sortedWithDistances[d.tag][`node${d.id}`].distance +
-        nodePosition[d.tag].cy
-    ))
     .attr(
-      'cx',
+      'cy',
       d =>
-        sortedWithDistances[d.tag][`node${d.id}`].distance +
+        -sortedWithDistances[d.tag][`node${d.id}`].distance +
         nodePosition[d.tag].cx,
     )
+    .attr('cx', d => nodePosition[d.tag].cy)
     .attr('x', 50)
+    .attr('transform', (d) => {
+      if (d.distance !== 0) {
+        const radius = sortedWithDistances[d.tag][`node${d.id}`].distance;
+        const length = Object.keys(sortedWithDistances[d.tag]).length;
+        const angleIncrease = 360 - length;
+        angleIncrease + angleIncrease;
+        return `rotate(${angleIncrease}, ${radius}, ${radius})`;
+      }
+    })
     .attr('class', 'memory')
     .attr('r', d => rScale(d.likes))
     .style('fill', 'white');
