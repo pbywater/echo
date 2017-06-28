@@ -23,5 +23,9 @@
     "eslint": "^4.1.1",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.6.0"
+  },
+  "dependencies": {
+    "env2": "^2.2.0",
+    "pg": "^6.4.0"
   }
 }
