@@ -48,7 +48,7 @@ d3.json(jsonUrl, (err, data) => {
 
   // console.log(sortedWithDistances);
 
-  for (var keys in sortedWithDistances) {
+  for (const keys in sortedWithDistances) {
     calculateXY(sortedWithDistances[keys]);
   }
 
@@ -67,15 +67,28 @@ d3.json(jsonUrl, (err, data) => {
 
   circles
     .append('circle')
-    .attr('cy', d =>
+    .attr(
+      'cy',
+      d =>
         sortedWithDistances[d.tag][`node${d.id}`].yDistance +
         nodePosition[d.tag].cy,
     )
-    .attr('cx', d =>
-       sortedWithDistances[d.tag][`node${d.id}`].xDistance +
-       nodePosition[d.tag].cx,
+    .attr(
+      'cx',
+      d =>
+        sortedWithDistances[d.tag][`node${d.id}`].xDistance +
+        nodePosition[d.tag].cx,
     )
     .attr('class', 'memory')
     .attr('r', d => rScale(d.likes))
     .style('fill', 'white');
+
+  const link = svg.selectAll('line').data(data).enter().append('line');
+  link
+    .attr('x1', 221.751)
+    .attr('y1', 237.679)
+    .attr('x2', 329.134)
+    .attr('y2', 128.782)
+    .style('stroke', 'white')
+    .style('stroke-width', '3px');
 });
