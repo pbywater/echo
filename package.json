@@ -4,10 +4,10 @@
   "description": "Anna Freud happy memory app",
   "main": "index.js",
   "directories": {
-    "test": "tests"
+    "test": "node tests/public/frontEndTests.js | tap-spec"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/public/frontEndTests.js | tap-spec"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,8 @@
   "devDependencies": {
     "eslint": "^4.1.1",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.6.0"
+    "eslint-plugin-import": "^2.6.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.7.0"
   }
 }
