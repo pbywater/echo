@@ -1,4 +1,4 @@
-d3.json(jsonUrl, (err, data) => {
+d3.json(echo.margins.jsonUrl, (err, data) => {
   data = data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
 
   let uniqueTags = [];
@@ -63,7 +63,7 @@ d3.json(jsonUrl, (err, data) => {
     .domain([0, d3.max(data, d => d.likes)])
     .range([0, 10]);
 
-  const circles = svg
+  const circles = echo.margins.svg
     .selectAll('.memory')
     .data(data)
     .enter()
@@ -89,7 +89,7 @@ d3.json(jsonUrl, (err, data) => {
     .attr('r', d => rScale(d.likes))
     .style('fill', 'white');
 
-  const link = svg.selectAll('line').data(data).enter().append('line');
+  const link = echo.margins.svg.selectAll('line').data(data).enter().append('line');
   link
     .attr('x1', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
