@@ -20,14 +20,13 @@ d3.json(jsonUrl, (err, data) => {
     startingCx += 200;
     sortedByTag[t] = {};
 
-    data.forEach((d, i) => {
-      if (d.tag == t) {
+    data.forEach((d) => {
+      if (d.tag === t) {
         sortedByTag[t][`node${d.id}`] = d;
       }
     });
   });
 
-  const tagObject = {};
   const sortedWithDistances = [];
 
   uniqueTags.forEach((t) => {
@@ -84,12 +83,16 @@ d3.json(jsonUrl, (err, data) => {
     .attr('r', d => rScale(d.likes))
     .style('fill', 'white');
 
-  const link = svg.selectAll('line').data(data).enter().append('line');
+  const link = svg
+    .selectAll('line')
+    .data(data)
+    .enter()
+    .append('line');
+
   link
     .attr('x1', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
       if (sourceId !== 'source') {
-        console.log(sortedWithDistances[d.tag][`node${sourceId}`]);
         return (
           sortedWithDistances[d.tag][`node${sourceId}`].xDistance +
           nodePosition[d.tag].cx
