@@ -9,6 +9,7 @@ d3.json(jsonUrl, (err, data) => {
   uniqueTags.forEach((tag) => {
     $('.tags').append(`<li>${tag}</li>`);
   });
+  $('.tags').append('<li class=\'remove\'> Remove filter</li>');
 
   const nodePosition = [];
 
@@ -84,7 +85,7 @@ d3.json(jsonUrl, (err, data) => {
         sortedWithDistances[d.tag][`node${d.id}`].xDistance +
         nodePosition[d.tag].cx,
     )
-    .attr('class', 'memory')
+    .attr('class', d => `memory ${d.tag}`)
     .attr('r', d => rScale(d.likes))
     .style('fill', 'white');
 
@@ -127,6 +128,20 @@ d3.json(jsonUrl, (err, data) => {
         );
       }
     })
+    .attr('class', d => `memory ${d.tag}`)
     .style('stroke', 'white')
     .style('stroke-width', '3px');
+
+  $('.tags li').on('click', function () {
+    $('.memory').show();
+    const clickedTag = $(this).text();
+    $('.memory').each(function () {
+      if (!$(this).hasClass(clickedTag)) {
+        $(this).hide();
+      }
+    });
+  });
+  $('.remove').on('click', () => {
+    $('.memory').show();
+  });
 });

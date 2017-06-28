@@ -28,14 +28,12 @@ const exampleData = {
 };
 
 function calculateXY(nodeList) {
-  console.log(nodeList);
   const objLength = Object.keys(nodeList).length;
   const angleIncrease = 2 * Math.PI / objLength;
   let angle = angleIncrease;
   let i = 0;
   for (const keys in nodeList) {
     const distance = nodeList[keys].distance;
-    console.log(distance);
     if (i === 0) {
       nodeList[keys].xDistance = 0;
       nodeList[keys].yDistance = 0;
@@ -50,7 +48,5 @@ function calculateXY(nodeList) {
     }
     i++;
     angle += angleIncrease;
-    console.log('x distance ', nodeList[keys].xDistance);
-    console.log('y distance ', nodeList[keys].yDistance);
   }
 }
