@@ -1,10 +1,14 @@
 /* eslint-disable */
 
-// (function createSVG(){
-  var width = 1000;
-  var height = 1000;
+var echo = {};
 
-  var svg = d3.select("#d3-container")
+(() => {
+  var self = {};
+
+  self.width = 1000;
+  self.height = 1000;
+
+  self.svg = d3.select("#d3-container")
     .append("svg")
       .attr("width", "100%")
       .classed("d3-background", true)
@@ -14,4 +18,6 @@
       .attr("transform", "translate(0,0)");
 
   var jsonUrl = 'https://gist.githubusercontent.com/ConchobarMacNessa/8d852e941cf9c86c98b4b22a269f462e/raw/7b36c7bec844ab5e1644fef2c85fddcaff6dd279/EchoTestData.json'
-// })()
+  echo.margins = self;
+
+})();
