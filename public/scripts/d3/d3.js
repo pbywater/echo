@@ -46,10 +46,16 @@ d3.json(jsonUrl, (err, data) => {
     }
   });
 
+  // console.log(sortedWithDistances);
+
+  for (var keys in sortedWithDistances) {
+    calculateXY(sortedWithDistances[keys]);
+  }
+
   const rScale = d3
     .scaleSqrt()
     .domain([0, d3.max(data, d => d.likes)])
-    .range([0, 30]);
+    .range([0, 10]);
 
   const circles = svg
     .selectAll('.memory')
@@ -61,23 +67,14 @@ d3.json(jsonUrl, (err, data) => {
 
   circles
     .append('circle')
-    .attr(
-      'cy',
-      d =>
-        -sortedWithDistances[d.tag][`node${d.id}`].distance +
-        nodePosition[d.tag].cx,
+    .attr('cy', d =>
+        sortedWithDistances[d.tag][`node${d.id}`].yDistance +
+        nodePosition[d.tag].cy,
     )
-    .attr('cx', d => nodePosition[d.tag].cy)
-    .attr('x', 50)
-    .attr('transform', (d) => {
-      if (d.distance !== 0) {
-        const radius = sortedWithDistances[d.tag][`node${d.id}`].distance;
-        const length = Object.keys(sortedWithDistances[d.tag]).length;
-        const angleIncrease = 360 - length;
-        angleIncrease + angleIncrease;
-        return `rotate(${angleIncrease}, ${radius}, ${radius})`;
-      }
-    })
+    .attr('cx', d =>
+       sortedWithDistances[d.tag][`node${d.id}`].xDistance +
+       nodePosition[d.tag].cx,
+    )
     .attr('class', 'memory')
     .attr('r', d => rScale(d.likes))
     .style('fill', 'white');
