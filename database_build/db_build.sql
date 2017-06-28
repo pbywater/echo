@@ -8,7 +8,7 @@ CREATE TABLE memories (
   likes       INTEGER,
   rating      INTEGER,
   visits      INTEGER,
-  memory      VARCHAR(500)    NOT NULL,
+  memory      VARCHAR(500)    NOT NULL
 );
 
 CREATE TABLE users (
