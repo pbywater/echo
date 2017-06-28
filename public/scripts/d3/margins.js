@@ -8,7 +8,7 @@ var echo = {};
   self.width = 1000;
   self.height = 1000;
 
-  var svg = d3.select("#d3-container")
+  self.svg = d3.select("#d3-container")
     .append("svg")
       .attr("width", "100%")
       .classed("d3-background", true)
