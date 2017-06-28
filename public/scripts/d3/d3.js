@@ -33,20 +33,21 @@ d3.json(jsonUrl, (err, data) => {
   uniqueTags.forEach((t) => {
     sortedWithDistances[t] = sortedByTag[t];
     let i = 0;
+    let firstKey;
     for (const key in sortedWithDistances[t]) {
       if (i === 0) {
-        var firstKey = sortedWithDistances[t][key];
+        firstKey = sortedWithDistances[t][key];
         sortedWithDistances[t][key].distance = 0;
+        sortedWithDistances[t][key].target = 'source';
       } else {
         const difference =
           firstKey.avgRating - sortedWithDistances[t][key].avgRating;
         sortedWithDistances[t][key].distance = difference * 30;
+        sortedWithDistances[t][key].target = firstKey.id;
       }
       i++;
     }
   });
-
-  // console.log(sortedWithDistances);
 
   for (const keys in sortedWithDistances) {
     calculateXY(sortedWithDistances[keys]);
@@ -85,10 +86,43 @@ d3.json(jsonUrl, (err, data) => {
 
   const link = svg.selectAll('line').data(data).enter().append('line');
   link
-    .attr('x1', 221.751)
-    .attr('y1', 237.679)
-    .attr('x2', 329.134)
-    .attr('y2', 128.782)
+    .attr('x1', (d) => {
+      const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
+      if (sourceId !== 'source') {
+        console.log(sortedWithDistances[d.tag][`node${sourceId}`]);
+        return (
+          sortedWithDistances[d.tag][`node${sourceId}`].xDistance +
+          nodePosition[d.tag].cx
+        );
+      }
+    })
+    .attr('y1', (d) => {
+      const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
+      if (sourceId !== 'source') {
+        return (
+          sortedWithDistances[d.tag][`node${sourceId}`].yDistance +
+          nodePosition[d.tag].cy
+        );
+      }
+    })
+    .attr('x2', (d) => {
+      const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
+      if (sourceId !== 'source') {
+        return (
+          sortedWithDistances[d.tag][`node${d.id}`].xDistance +
+          nodePosition[d.tag].cx
+        );
+      }
+    })
+    .attr('y2', (d) => {
+      const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
+      if (sourceId !== 'source') {
+        return (
+          sortedWithDistances[d.tag][`node${d.id}`].yDistance +
+          nodePosition[d.tag].cy
+        );
+      }
+    })
     .style('stroke', 'white')
     .style('stroke-width', '3px');
 });
