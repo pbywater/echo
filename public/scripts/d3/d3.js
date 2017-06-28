@@ -94,7 +94,6 @@ d3.json(jsonUrl, (err, data) => {
     .attr('x1', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
       if (sourceId !== 'source') {
-        console.log(sortedWithDistances[d.tag][`node${sourceId}`]);
         return (
           sortedWithDistances[d.tag][`node${sourceId}`].xDistance +
           nodePosition[d.tag].cx
