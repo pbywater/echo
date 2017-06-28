@@ -22,3 +22,18 @@
 .d3-background {
   background: linear-gradient(#8EA5CE, #91CFCF);
 }
+
+.tags {
+  position: absolute;
+    top: 7%;
+    left: 35%;
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.tags li {
+  display: inline-block;
+  list-style-type: none;
+}

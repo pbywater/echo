@@ -6,6 +6,10 @@ d3.json(jsonUrl, (err, data) => {
     uniqueTags.push(d.tag);
   });
   uniqueTags = uniqueTags.filter(onlyUnique);
+  uniqueTags.forEach((tag) => {
+    $('.tags').append(`<li>${tag}</li>`);
+  });
+
   const nodePosition = [];
 
   let startingCx = 80;
