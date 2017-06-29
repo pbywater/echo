@@ -101,32 +101,28 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     .append('line');
 
   link
-    .attr('x1', (d) => {
+    .attr('x2', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
       d.source = d;
       if (sourceId !== 'source') {
-        d.source.x = sortedWithDistances[d.tag][`node${sourceId}`].xDistance +
+        return sortedWithDistances[d.tag][`node${sourceId}`].xDistance +
         nodePosition[d.tag].cx;
-        return d.source.x;
       }
 
-      d.source.x = sortedWithDistances[d.tag][`node${d.id}`].xDistance +
+      return sortedWithDistances[d.tag][`node${d.id}`].xDistance +
         nodePosition[d.tag].cx;
-      return d.source.x;
     })
-    .attr('y1', (d) => {
+    .attr('y2', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
       if (sourceId !== 'source') {
-        d.source.y = sortedWithDistances[d.tag][`node${sourceId}`].yDistance +
+        return sortedWithDistances[d.tag][`node${sourceId}`].yDistance +
         nodePosition[d.tag].cy;
-        return d.source.y;
       }
 
-      d.source.y = sortedWithDistances[d.tag][`node${d.id}`].yDistance +
+      return sortedWithDistances[d.tag][`node${d.id}`].yDistance +
         nodePosition[d.tag].cy;
-      return d.source.y;
     })
-    .attr('x2', (d) => {
+    .attr('x1', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
       if (sourceId !== 'source') {
         data.forEach((t) => {
@@ -137,13 +133,11 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
       }
       return sortedWithDistances[d.tag][`node${d.id}`].xDistance +
         nodePosition[d.tag].cx;
-      // return d.target.x;
     })
-    .attr('y2', (d) => {
+    .attr('y1', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
       return sortedWithDistances[d.tag][`node${d.id}`].yDistance +
         nodePosition[d.tag].cy;
-      // return d.target.y;
     })
     .style('stroke', 'white')
     .style('stroke-width', '3px');
