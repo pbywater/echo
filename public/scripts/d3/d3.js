@@ -1,11 +1,7 @@
 d3.json(echo.margins.jsonUrl, (err, data) => {
   data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
 
-  let uniqueTags = [];
-  data.forEach((d) => {
-    uniqueTags.push(d.tag);
-  });
-  uniqueTags = uniqueTags.filter(onlyUnique);
+  const uniqueTags = data.map(d => d.tag).filter(onlyUnique);
 
   const nodePosition = [];
   const startingCx = 160;
