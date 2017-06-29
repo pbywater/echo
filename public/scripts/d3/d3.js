@@ -123,4 +123,6 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     })
     .style('stroke', 'white')
     .style('stroke-width', '3px');
+
+  echo.animation.nodeSimulation(data);
 });
