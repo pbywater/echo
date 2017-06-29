@@ -1,7 +1,7 @@
 d3.json(echo.margins.jsonUrl, (err, data) => {
   data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
 
-  const uniqueTags = data.map(d => d.tag).filter(onlyUnique);
+  const uniqueTags = data.map(d => d.tag).filter(echo.helpers.onlyUnique);
 
   const nodePosition = [];
   const startingCx = 160;
@@ -44,7 +44,7 @@ d3.json(echo.margins.jsonUrl, (err, data) => {
   });
 
   for (const keys in sortedWithDistances) {
-    calculateXY(sortedWithDistances[keys]);
+    echo.helpers.calculateXY(sortedWithDistances[keys]);
   }
 
   const rScale = d3
