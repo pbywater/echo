@@ -15,6 +15,6 @@
 
   self.dragstarted = dragstarted;
   self.dragged = dragged;
-  self.dragended = dragended;
+  self.dragended = dragstarted;
   echo.animation = self;
 }());

@@ -47,6 +47,13 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     echo.helpers.calculateXY(sortedWithDistances[keys]);
   }
 
+  const simulation = d3.forceSimulation()
+    .force('link', d3.forceLink().id(d => d.id))
+    .force('charge', d3.forceManyBody())
+    .force('center', d3.forceCenter(echo.setup.width / 2, echo.setup.height / 2))
+    .on('tick', ticked)
+    .stop();
+
   const rScale = d3
     .scaleSqrt()
     .domain([0, d3.max(data, d => d.likes)])
@@ -64,15 +71,20 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     .append('circle')
     .attr(
       'cy',
-      d =>
+      (d) => {
+        d.y =
         sortedWithDistances[d.tag][`node${d.id}`].yDistance +
-        nodePosition[d.tag].cy,
+        nodePosition[d.tag].cy;
+        return d.y;
+      },
     )
     .attr(
       'cx',
-      d =>
-        sortedWithDistances[d.tag][`node${d.id}`].xDistance +
-        nodePosition[d.tag].cx,
+      (d) => {
+        d.x = sortedWithDistances[d.tag][`node${d.id}`].xDistance +
+        nodePosition[d.tag].cx;
+        return d.x;
+      },
     )
     .attr('class', 'memory')
     .attr('r', d => rScale(d.likes))
@@ -91,42 +103,63 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
   link
     .attr('x1', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
+      d.source = d;
       if (sourceId !== 'source') {
-        return (
-          sortedWithDistances[d.tag][`node${sourceId}`].xDistance +
-          nodePosition[d.tag].cx
-        );
+        d.source.x = sortedWithDistances[d.tag][`node${sourceId}`].xDistance +
+        nodePosition[d.tag].cx;
+        return d.source.x;
       }
+
+      d.source.x = sortedWithDistances[d.tag][`node${d.id}`].xDistance +
+        nodePosition[d.tag].cx;
+      return d.source.x;
     })
     .attr('y1', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
       if (sourceId !== 'source') {
-        return (
-          sortedWithDistances[d.tag][`node${sourceId}`].yDistance +
-          nodePosition[d.tag].cy
-        );
+        d.source.y = sortedWithDistances[d.tag][`node${sourceId}`].yDistance +
+        nodePosition[d.tag].cy;
+        return d.source.y;
       }
+
+      d.source.y = sortedWithDistances[d.tag][`node${d.id}`].yDistance +
+        nodePosition[d.tag].cy;
+      return d.source.y;
     })
     .attr('x2', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
       if (sourceId !== 'source') {
-        return (
-          sortedWithDistances[d.tag][`node${d.id}`].xDistance +
-          nodePosition[d.tag].cx
-        );
+        data.forEach((t) => {
+          if (t.id === sourceId) {
+            d.target = t;
+          }
+        });
       }
+      return sortedWithDistances[d.tag][`node${d.id}`].xDistance +
+        nodePosition[d.tag].cx;
+      // return d.target.x;
     })
     .attr('y2', (d) => {
       const sourceId = sortedWithDistances[d.tag][`node${d.id}`].target;
-      if (sourceId !== 'source') {
-        return (
-          sortedWithDistances[d.tag][`node${d.id}`].yDistance +
-          nodePosition[d.tag].cy
-        );
-      }
+      return sortedWithDistances[d.tag][`node${d.id}`].yDistance +
+        nodePosition[d.tag].cy;
+      // return d.target.y;
     })
     .style('stroke', 'white')
     .style('stroke-width', '3px');
 
-  echo.animation.nodeSimulation(data);
+  simulation.nodes(circles);
+  simulation.force('link').links(link);
+  simulation.restart();
+
+  function ticked() {
+    link
+      .attr('x1', d => d.source.x)
+      .attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x)
+      .attr('y2', d => d.target.y);
+    circles
+      .attr('cx', d => d.x)
+      .attr('cy', d => d.y);
+  }
 });
