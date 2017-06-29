@@ -76,7 +76,11 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     )
     .attr('class', 'memory')
     .attr('r', d => rScale(d.likes))
-    .style('fill', 'white');
+    .style('fill', 'white')
+    .call(d3.drag()
+      .on('start', echo.animation.dragstarted)
+      .on('drag', echo.animation.dragged)
+      .on('end', echo.animation.dragended));
 
   const link = echo.setup.svg
     .selectAll('line')
