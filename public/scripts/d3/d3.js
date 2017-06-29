@@ -1,4 +1,4 @@
-d3.json(echo.margins.jsonUrl, (err, data) => {
+d3.json(echo.setup.jsonUrl, (err, data) => {
   data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
 
   const uniqueTags = data.map(d => d.tag).filter(echo.helpers.onlyUnique);
@@ -52,7 +52,7 @@ d3.json(echo.margins.jsonUrl, (err, data) => {
     .domain([0, d3.max(data, d => d.likes)])
     .range([0, 10]);
 
-  const circles = echo.margins.svg
+  const circles = echo.setup.svg
     .selectAll('.memory')
     .data(data)
     .enter()
@@ -78,7 +78,7 @@ d3.json(echo.margins.jsonUrl, (err, data) => {
     .attr('r', d => rScale(d.likes))
     .style('fill', 'white');
 
-  const link = echo.margins.svg
+  const link = echo.setup.svg
     .selectAll('line')
     .data(data)
     .enter()

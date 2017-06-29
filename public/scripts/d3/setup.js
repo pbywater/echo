@@ -19,6 +19,6 @@ var echo = {};
 
   self.jsonUrl = 'https://gist.githubusercontent.com/ConchobarMacNessa/8d852e941cf9c86c98b4b22a269f462e/raw/243656f4ea084136e16851767206bda6932e78d1/EchoTestData.json'
 
-  echo.margins = self;
+  echo.setup = self;
 
 })();
