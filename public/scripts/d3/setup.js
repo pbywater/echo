@@ -17,7 +17,7 @@ var echo = {};
     .append("g")
       .attr("transform", "translate(0,0)");
 
-  self.jsonUrl = 'https://gist.githubusercontent.com/ConchobarMacNessa/8d852e941cf9c86c98b4b22a269f462e/raw/243656f4ea084136e16851767206bda6932e78d1/EchoTestData.json'
+  self.jsonUrl = 'https://gist.githubusercontent.com/ConchobarMacNessa/8d852e941cf9c86c98b4b22a269f462e/raw/7b36c7bec844ab5e1644fef2c85fddcaff6dd279/EchoTestData.json'
 
   echo.setup = self;
 
