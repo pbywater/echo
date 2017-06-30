@@ -34,5 +34,27 @@
 
   self.calculateXY = calculateXY;
 
+  var binByKey = function(key, xs) {
+    var tagMap = xs.reduce(function(binnedArray, elem) {
+      var targetBin = binnedArray[elem[key]]
+      if (targetBin === undefined) {
+        binnedArray[elem[key]] = []
+      }
+
+      binnedArray[elem[key]].push(elem)
+
+      return binnedArray
+    }, {})
+
+    // { 'cat': [{}, {}]}
+
+    // ['cat', 'dog']
+    // [{tag: 'cat', nodes: [{}, {}]}, {tag: 'cat'}]
+    return Object.keys(tagMap).map(function(tag) {
+      return { tag: tag, nodes: tagMap[tag] }
+    })
+  }
+  self.binByKey = binByKey
+
   echo.helpers = self;
 }());

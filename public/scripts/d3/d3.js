@@ -1,26 +1,39 @@
 d3.json(echo.setup.jsonUrl, (err, data) => {
+  const startingCx = 160;
+  const startingCy = 120;
+
   data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
 
-  const uniqueTags = data.map(d => d.tag).filter(echo.helpers.onlyUnique);
+  var nodeTagsArrayToLinsAndNodes = function(nodes, centerPosition) {
+    var maxNode = getHighestRated(nodes)
+    var restNodes = nodes.filter(node => node.id !== maxNode.id)
 
-  const nodePosition = [];
-  const startingCx = 160;
-  let startingCy = 120;
-  const sortedByTag = {};
+    maxNode.cx = centerPosition.cx
+    maxNode.cy = centerPosition.cy
 
-  uniqueTags.forEach((t) => {
-    nodePosition[t] = {};
-    nodePosition[t].cx = startingCx;
-    nodePosition[t].cy = startingCy;
-    startingCy += 200;
-    sortedByTag[t] = {};
+    restNodes.forEach((node, i) => {
+      node.cx // do some trig
+    })
 
-    data.forEach((d) => {
-      if (d.tag === t) {
-        sortedByTag[t][`node${d.id}`] = d;
-      }
-    });
-  });
+    links = restNodes.map(sourceNode => {
+      { source: sourceNode.id, target: maxNode.id }
+    })
+
+    return { nodes, links }
+    //{
+    //  nodes {
+    //    node_1: {}
+    //    node_2: {}
+    // }, links: {
+        //  { source: node_1, target: node_2}
+    // }
+    // }
+  }
+
+  var sortedByTag = binByKey('tag', data);
+  //[{tag, cx, cy, nodes: [{}]}]
+  var tagPositions = sortedByTag.map((tagObj, i) =>
+    ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
 
   const sortedWithDistances = [];
 
