@@ -4,22 +4,44 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
 
   data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
 
-  var nodeTagsArrayToLinsAndNodes = function(nodes, centerPosition) {
-    var maxNode = getHighestRated(nodes)
-    var restNodes = nodes.filter(node => node.id !== maxNode.id)
+  var sortedByTag = echo.helpers.binByKey('tag', data);
+  //[{tag, cx, cy, nodes: [{}]}]
+  var tagPositions = sortedByTag.map((tagObj, i) =>
+  ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
 
-    maxNode.cx = centerPosition.cx
-    maxNode.cy = centerPosition.cy
+  var nodeTagsArrayToLinksAndNodes = function(nodes) {
 
-    restNodes.forEach((node, i) => {
-      node.cx // do some trig
-    })
+    var maxNodes = getHighestRated(nodes);
 
-    links = restNodes.map(sourceNode => {
-      { source: sourceNode.id, target: maxNode.id }
-    })
+var restNodes = filterRestNodes(nodes, maxNodes);
+console.log(restNodes);
+    // var restNodes = nodes.filter(function(node, i){
+    //     for (var i = 0; i < node.nodes.length; i++){
+    //       console.log('node id', node.nodes[i].id);
+    //       console.log('maxnode', maxNodes[node.tag]);
+    //       return node.nodes[i].id !== maxNodes[node.tag];
+    //     }
+    //   })
+    //
+    //   console.log(restNodes);
 
-    return { nodes, links }
+    // }.filter(function(node, i){
+    //   console.log(node);
+    //
+    // })
+    //
+    // maxNode.cx = centerPosition.cx
+    // maxNode.cy = centerPosition.cy
+    //
+    // restNodes.forEach((node, i) => {
+    //   node.cx // do some trig
+    // })
+    //
+    // links = restNodes.map(sourceNode => {
+    //   { source: sourceNode.id, target: maxNode.id }
+    // })
+    //
+    // return { nodes, links }
     //{
     //  nodes {
     //    node_1: {}
@@ -30,10 +52,27 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     // }
   }
 
-  var sortedByTag = binByKey('tag', data);
-  //[{tag, cx, cy, nodes: [{}]}]
-  var tagPositions = sortedByTag.map((tagObj, i) =>
-    ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
+function filterRestNodes(nodes, maxNodes){
+  var filtered = [];
+  for (var key in nodes){
+    var filteredInGroup = nodes[key].nodes.filter(function(node){
+      return node.id !== maxNodes[node.tag];
+    })
+    filtered.push(filteredInGroup);
+  }
+  return filtered;
+}
+
+function getHighestRated(nodes){
+  var maxNodeByTag = {}
+  for (var keys in nodes){
+    var tag = nodes[keys].tag
+    maxNodeByTag[tag] = nodes[keys].nodes[0].id;
+  }
+  return maxNodeByTag;
+}
+
+nodeTagsArrayToLinksAndNodes(tagPositions);
 
   const sortedWithDistances = [];
 
