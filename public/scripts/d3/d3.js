@@ -67,6 +67,9 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     .attr('id', d => d.id)
     .attr('class', 'memoryG');
 
+var startingTime = 500;
+var smaller = 2500;
+
   circles
     .append('circle')
     .attr(
@@ -92,7 +95,22 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     .call(d3.drag()
       .on('start', echo.animation.dragstarted)
       .on('drag', echo.animation.dragged)
-      .on('end', echo.animation.dragended));
+      .on('end', echo.animation.dragended))
+    .call((d) => {
+      pulse(1000, 5);
+    })
+    .call((d) => {
+      pulse(2000, 0);
+    })
+
+
+
+  function pulse(time, size){
+      setInterval(function(){
+        memories
+          .attr('r', (d) => rScale(d.likes) + size)
+      }, time)
+    }
 
   const link = echo.setup.svg
     .selectAll('line')
@@ -156,4 +174,8 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
       .attr('cx', d => d.x)
       .attr('cy', d => d.y);
   }
+
+  var memories = echo.setup.svg
+    .selectAll('.memory');
+
 });
