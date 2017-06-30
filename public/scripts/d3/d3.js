@@ -11,35 +11,21 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
 
   var nodeTagsArrayToLinksAndNodes = function(nodes) {
 
-    var maxNodes = getHighestRated(nodes);
+  var maxNodes = getHighestRated(nodes);
 
-var restNodes = filterRestNodes(nodes, maxNodes);
-console.log(restNodes);
-    // var restNodes = nodes.filter(function(node, i){
-    //     for (var i = 0; i < node.nodes.length; i++){
-    //       console.log('node id', node.nodes[i].id);
-    //       console.log('maxnode', maxNodes[node.tag]);
-    //       return node.nodes[i].id !== maxNodes[node.tag];
-    //     }
-    //   })
-    //
-    //   console.log(restNodes);
+  var restNodes = filterRestNodes(nodes, maxNodes);
+  echo.helpers.calculateXY(restNodes)
 
-    // }.filter(function(node, i){
-    //   console.log(node);
-    //
-    // })
-    //
-    // maxNode.cx = centerPosition.cx
-    // maxNode.cy = centerPosition.cy
-    //
-    // restNodes.forEach((node, i) => {
-    //   node.cx // do some trig
-    // })
-    //
-    // links = restNodes.map(sourceNode => {
-    //   { source: sourceNode.id, target: maxNode.id }
-    // })
+    var links = [];
+
+    restNodes.map(sourceNode => {
+      var linkHolder = {};
+      for (var keys in sourceNode){
+        linkHolder = { source: sourceNode[keys].id, target: maxNodes[sourceNode[keys].tag].id }
+        links.push(linkHolder);
+      }
+    })
+    console.log(links);
     //
     // return { nodes, links }
     //{
@@ -56,7 +42,9 @@ function filterRestNodes(nodes, maxNodes){
   var filtered = [];
   for (var key in nodes){
     var filteredInGroup = nodes[key].nodes.filter(function(node){
-      return node.id !== maxNodes[node.tag];
+      node.cx = maxNodes[node.tag].cx;
+      node.cy = maxNodes[node.tag].cy;
+      return node.id !== maxNodes[node.tag].id;
     })
     filtered.push(filteredInGroup);
   }
@@ -67,7 +55,10 @@ function getHighestRated(nodes){
   var maxNodeByTag = {}
   for (var keys in nodes){
     var tag = nodes[keys].tag
-    maxNodeByTag[tag] = nodes[keys].nodes[0].id;
+    maxNodeByTag[tag] = {};
+    maxNodeByTag[tag].id = nodes[keys].nodes[0].id;
+    maxNodeByTag[tag].cx = nodes[keys].cx;
+    maxNodeByTag[tag].cy = nodes[keys].cy;
   }
   return maxNodeByTag;
 }

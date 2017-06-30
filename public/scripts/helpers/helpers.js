@@ -10,26 +10,22 @@
 
   // generic function to find radial x and y using distance and angle
   function calculateXY(nodeList) {
-    const objLength = Object.keys(nodeList).length;
+    const objLength = Object.keys(nodeList).length + 1;
     const angleIncrease = (2 * Math.PI) / objLength;
-    let angle = angleIncrease;
-    let i = 0;
     for (const keys in nodeList) {
-      const distance = nodeList[keys].distance;
-      if (i === 0) {
-        nodeList[keys].xDistance = 0;
-        nodeList[keys].yDistance = 0;
-      }
-      if (i === 1) {
-        nodeList[keys].xDistance = 0;
-        nodeList[keys].yDistance = distance;
-      } else if (i > 0) {
-        nodeList[keys].xDistance = Math.cos(angle) * distance;
-        nodeList[keys].yDistance = Math.sin(angle) * distance;
-      }
-      i += 1;
-      angle += angleIncrease;
+      nodeList[keys].forEach(function(n, i){
+        const angle = angleIncrease * i;
+
+        const distance = n.avgRating * 30;
+        if (i === 0) {
+          n.cy += distance;
+        } else if (i > 0) {
+          n.cx += Math.cos(angle) * distance;
+          n.cy += Math.sin(angle) * distance;
+        }
+      });
     }
+    return nodeList;
   }
 
   self.calculateXY = calculateXY;
