@@ -12,10 +12,8 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
   var nodeTagsArrayToLinksAndNodes = function(nodes) {
 
   var maxNodes = getHighestRated(nodes);
-
   var restNodes = filterRestNodes(nodes, maxNodes);
   echo.helpers.calculateXY(restNodes)
-
     var links = [];
 
     restNodes.map(sourceNode => {
@@ -25,26 +23,27 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
         links.push(linkHolder);
       }
     })
-    console.log(links);
-    //
-    // return { nodes, links }
-    //{
-    //  nodes {
-    //    node_1: {}
-    //    node_2: {}
-    // }, links: {
-        //  { source: node_1, target: node_2}
-    // }
-    // }
+    var nodes = [];
+
+  restNodes.forEach(function(r, i){
+    for (keys in r) {
+      nodes.push(r[keys]);
+    }
+  })
+  for (var keys in maxNodes){
+    nodes.push(maxNodes[keys].bigD);
+  }
+    return { nodes: nodes, links: links };
+
   }
 
 function filterRestNodes(nodes, maxNodes){
   var filtered = [];
   for (var key in nodes){
     var filteredInGroup = nodes[key].nodes.filter(function(node){
-      node.cx = maxNodes[node.tag].cx;
-      node.cy = maxNodes[node.tag].cy;
-      return node.id !== maxNodes[node.tag].id;
+      node.cx = maxNodes[node.tag].bigD.cx;
+      node.cy = maxNodes[node.tag].bigD.cy;
+      return node.id !== maxNodes[node.tag].bigD.id;
     })
     filtered.push(filteredInGroup);
   }
@@ -56,9 +55,11 @@ function getHighestRated(nodes){
   for (var keys in nodes){
     var tag = nodes[keys].tag
     maxNodeByTag[tag] = {};
+    maxNodeByTag[tag].bigD = nodes[keys].nodes[0];
     maxNodeByTag[tag].id = nodes[keys].nodes[0].id;
-    maxNodeByTag[tag].cx = nodes[keys].cx;
-    maxNodeByTag[tag].cy = nodes[keys].cy;
+    maxNodeByTag[tag].bigD.cx = nodes[keys].cx;
+    maxNodeByTag[tag].bigD.cy = nodes[keys].cy;
+    maxNodeByTag[tag].bigD.maxNode = true;
   }
   return maxNodeByTag;
 }
