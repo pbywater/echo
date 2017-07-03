@@ -1,38 +1,7 @@
 d3.json(echo.setup.jsonUrl, (err, data) => {
   const startingCx = 160;
   const startingCy = 120;
-
-  data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
-
-  const sortedByTag = echo.helpers.binByKey('tag', data);
-  const tagPositions = sortedByTag.map((tagObj, i) =>
-    ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
-
-  const nodeTagsArrayToLinksAndNodes = function (tagNodesWithChildren) {
-    const maxNodes = getHighestRated(tagNodesWithChildren);
-    const restNodes = filterRestNodes(tagNodesWithChildren, maxNodes);
-    echo.helpers.calculateXY(restNodes);
-    const links = [];
-
-    restNodes.map((sourceNode) => {
-      let linkHolder = {};
-      for (const keys in sourceNode) {
-        linkHolder = { source: sourceNode[keys].id, target: maxNodes[sourceNode[keys].tag].id };
-        links.push(linkHolder);
-      }
-    });
-    const nodes = [];
-
-    restNodes.forEach((r, i) => {
-      for (keys in r) {
-        nodes.push(r[keys]);
-      }
-    });
-    for (var keys in maxNodes) {
-      nodes.push(maxNodes[keys].bigD);
-    }
-    return { nodes, links };
-  };
+  const nodes = [];
 
   function filterRestNodes(nodes, maxNodes) {
     const filtered = [];
@@ -60,6 +29,38 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     }
     return maxNodeByTag;
   }
+
+  data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
+
+  const sortedByTag = echo.helpers.binByKey('tag', data);
+  const tagPositions = sortedByTag.map((tagObj, i) =>
+    ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
+
+  const nodeTagsArrayToLinksAndNodes = (tagNodesWithChildren) => {
+    const maxNodes = getHighestRated(tagNodesWithChildren);
+    const restNodes = filterRestNodes(tagNodesWithChildren, maxNodes);
+    echo.helpers.calculateXY(restNodes);
+    const links = [];
+
+    restNodes.map((sourceNode) => {
+      let linkHolder = {};
+      for (const keys in sourceNode) {
+        linkHolder = { source: sourceNode[keys].id, target: maxNodes[sourceNode[keys].tag].id };
+        links.push(linkHolder);
+      }
+    });
+
+    restNodes.forEach((r, i) => {
+      for (keys in r) {
+        nodes.push(r[keys]);
+      }
+    });
+    for (var keys in maxNodes) {
+      nodes.push(maxNodes[keys].bigD);
+    }
+    return { nodes, links };
+  };
+
 
   const processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
 
