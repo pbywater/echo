@@ -1,6 +1,10 @@
 const test = require('tape')
 
-const { binByTag, sortWithMax } = require('../../../src/client/node_transformations.js')
+const {
+  binByTag,
+  sortWithMax,
+  tagNodesByTag
+} = require('../../../src/client/node_transformations.js')
 
 test('binByTag', t => {
   const arrayToBin = [
@@ -42,6 +46,49 @@ test('sortWithMax', t => {
     sortWithMax(nodesToSort),
     expected,
     'returns correct { max, rest: [nodes]} '
+  )
+
+  t.end()
+})
+
+test('tagNodesByTag', t => {
+  const tagsArray = ['friends', 'family', 'pets'];
+  const startingCx = 160;
+  const startingCy = 120;
+
+  const generateId = (() => {
+    let numGenerated = 0
+    return () => {
+      numGenerated += 1
+      return numGenerated
+    }
+  })()
+
+  const expected = {
+    friends: {
+      id: 1,
+      cx: startingCx,
+      cy: startingCy,
+      tag: 'friends'
+    },
+    family: {
+      id: 2,
+      cx: startingCx,
+      cy: startingCy + 200,
+      tag: 'family'
+    },
+    pets: {
+      id: 3,
+      cx: startingCx,
+      cy: startingCy + 200 * 2,
+      tag: 'pets'
+    }
+  }
+
+  t.deepEqual(
+    tagNodesByTag(tagsArray, startingCx, startingCy, generateId),
+    expected,
+    'creates map of tag nodes, with ids and positions'
   )
 
   t.end()

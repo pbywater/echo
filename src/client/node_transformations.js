@@ -13,7 +13,24 @@ const sortWithMax = nodeArray => {
   }
 }
 
+const tagNodesByTag = (tagsArray, startingCx, startingCy, generateId) => {
+    const out = {};
+
+    tagsArray.forEach((tag, i) => {
+      out[tag] = {
+        id: generateId(),
+        cx: startingCx,
+        cy: startingCy + 200 * i,
+        tag: tag
+      }
+    })
+
+    return out;
+
+}
+
 module.exports = {
   binByTag,
-  sortWithMax
+  sortWithMax,
+  tagNodesByTag
 }
