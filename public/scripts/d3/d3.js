@@ -1,4 +1,9 @@
-d3.json(echo.setup.jsonUrl, (err, data) => {
+const { calculateXY } = require('../helpers/helpers.js')
+const { width, height, jsonUrl, svg } = require('./setup.js')
+const { dragstarted, dragged, dragended } = require('./animation.js')
+
+
+d3.json(jsonUrl, (err, data) => {
   const startingCx = 160;
   const startingCy = 120;
   const nodes = [];
@@ -32,7 +37,7 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
 
   data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
 
-  const sortedByTag = echo.helpers.binByKey('tag', data);
+  const sortedByTag = binByKey('tag', data);
   const tagPositions = sortedByTag.map((tagObj, i) =>
     ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
 
@@ -77,7 +82,7 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     .domain([0, d3.max(processedData.nodes, d => d.likes)])
     .range([0, 10]);
 
-  const circles = echo.setup.svg
+  const circles = svg
     .selectAll('.memory')
     .data(processedData.nodes)
     .enter()
@@ -94,11 +99,11 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
 
     .style('fill', 'white')
     .call(d3.drag()
-      .on('start', echo.animation.dragstarted)
-      .on('drag', echo.animation.dragged)
-      .on('end', echo.animation.dragended));
+      .on('start', dragstarted)
+      .on('drag', dragged)
+      .on('end', dragended));
 
-  const link = echo.setup.svg
+  const link = svg
     .selectAll('line')
     .data(processedData.links)
     .enter()
@@ -160,6 +165,6 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
   //     .attr('cy', d => d.y);
   // }
 
-  const memories = echo.setup.svg
+  const memories = svg
     .selectAll('.memory');
 });
