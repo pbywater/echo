@@ -35,7 +35,7 @@ d3.json(jsonUrl, (err, data) => {
     return maxNodeByTag;
   }
 
-  data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
+  
 
   const sortedByTag = binByKey('tag', data);
   const tagPositions = sortedByTag.map((tagObj, i) =>
