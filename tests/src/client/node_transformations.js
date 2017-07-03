@@ -93,3 +93,52 @@ test('tagNodesByTag', t => {
 
   t.end()
 })
+
+test('memoryNodesAndLinks', t => {
+  const memoriesByTag = {
+    'friends': [{ tag: 'friends', id: 1 }, { tag: 'friends', id: 2 }],
+    'family': [{ tag: 'family', id:3 }]
+  }
+
+  const tagNodes = {
+    friends: {
+      id: 4,
+      cx: startingCx,
+      cy: startingCy,
+      tag: 'friends'
+    },
+    family: {
+      id: 5,
+      cx: startingCx,
+      cy: startingCy + 200,
+      tag: 'family'
+    }
+  }
+
+  const expectedLinks = [
+    { source: 4, target: 1 },
+    { source: 4, target: 2 },
+    { source: 5, target: 3 }
+  ]
+
+  const { nodes, links } = memoryNodesAndLinks(memoriesByTag, tagNodes)
+
+  t.deepEqual(
+    links,
+    expectedLinks,
+    'correct links created'
+  )
+
+  const nodesArray = Object.keys(nodes).map(nodeId => nodes[nodeId])
+
+  t.okay(
+    nodesArray.every(node => node.cx !== undefined),
+    'all nodes have cx value'
+  )
+  t.okay(
+    nodesArray.every(node => node.cy !== undefined),
+    'all nodes have cy value'
+  )
+
+  t.end()
+})

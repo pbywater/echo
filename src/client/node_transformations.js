@@ -29,6 +29,41 @@ const tagNodesByTag = (tagsArray, startingCx, startingCy, generateId) => {
 
 }
 
+const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex) => {
+  // some trig
+
+  return {
+    cx,
+    xy
+  }
+}
+
+const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
+  const nodes = {}
+  const links = []
+
+  Object.keys(tagNodes).forEach(tag => {
+    const tagNode = tagNodes[tag]
+    const tagMemories = memoriesByTag[tag]
+
+    const memoryNodes = tagMemories.map(tagMemory => {
+      // [{ cx, cy, id, tag}]
+    }).forEach(memoryNode => {
+      nodes[memoryNode.id] = memoryNode
+    }).forEach(memoryNode => {
+      links.push({
+        source: memoryNode.id,
+        target: tagNode.id
+      })
+    })
+    nodes.push(tagNode)
+  })
+
+  return {
+    nodes, links
+  }
+}
+
 module.exports = {
   binByTag,
   sortWithMax,
