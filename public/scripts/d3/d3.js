@@ -3,13 +3,13 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
   const startingCy = 120;
   const nodes = [];
 
-  function filterRestNodes(nodes, maxNodes) {
+  function filterRestNodes(nodes, maxNodesByTag) {
     const filtered = [];
     for (const key in nodes) {
       const filteredInGroup = nodes[key].nodes.filter((node) => {
-        node.cx = maxNodes[node.tag].bigD.cx;
-        node.cy = maxNodes[node.tag].bigD.cy;
-        return node.id !== maxNodes[node.tag].bigD.id;
+        node.cx = maxNodesByTag[node.tag].bigD.cx;
+        node.cy = maxNodesByTag[node.tag].bigD.cy;
+        return node.id !== maxNodesByTag[node.tag].bigD.id;
       });
       filtered.push(filteredInGroup);
     }
@@ -37,15 +37,15 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
     ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
 
   const nodeTagsArrayToLinksAndNodes = (tagNodesWithChildren) => {
-    const maxNodes = getHighestRated(tagNodesWithChildren);
-    const restNodes = filterRestNodes(tagNodesWithChildren, maxNodes);
+    const maxNodesByTag = getHighestRated(tagNodesWithChildren);
+    const restNodes = filterRestNodes(tagNodesWithChildren, maxNodesByTag);
     echo.helpers.calculateXY(restNodes);
     const links = [];
 
     restNodes.map((sourceNode) => {
       let linkHolder = {};
       for (const keys in sourceNode) {
-        linkHolder = { source: sourceNode[keys].id, target: maxNodes[sourceNode[keys].tag].id };
+        linkHolder = { source: sourceNode[keys].id, target: maxNodesByTag[sourceNode[keys].tag].id };
         links.push(linkHolder);
       }
     });
@@ -55,8 +55,8 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
         nodes.push(r[keys]);
       }
     });
-    for (var keys in maxNodes) {
-      nodes.push(maxNodes[keys].bigD);
+    for (var keys in maxNodesByTag) {
+      nodes.push(maxNodesByTag[keys].bigD);
     }
     return { nodes, links };
   };
