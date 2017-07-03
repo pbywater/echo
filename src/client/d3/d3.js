@@ -6,15 +6,13 @@ const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } 
 
 d3.json(jsonUrl, (err, data) => {
   const binnedByTag = binByTag(data);
-  console.log(Object.keys(binnedByTag));
   const sortedWithMax = [];
   Object.keys(binnedByTag).forEach((tagKey) => {
     sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
   });
-  console.log(sortedWithMax);
   const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120, generateId);
-  console.log(taggedNodesByTag);
   const processedData = memoryNodesAndLinks(taggedNodesByTag, sortedWithMax);
+  console.log('processedData is ', processedData);
 
 
   // const startingCx = 160;

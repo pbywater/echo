@@ -25,6 +25,7 @@ const tagNodesByTag = (tagsArray, startingCx, startingCy, generateId) => {
       cy: startingCy + 200 * i,
       tag,
       avgRating: tag.max.avgRating,
+      likes: tag.max.likes,
     };
   });
 
@@ -47,7 +48,7 @@ const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentAvg
 };
 
 const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
-  const nodes = {};
+  const nodes = [];
   const links = [];
 
   Object.keys(tagNodes).forEach((tag, index) => {
@@ -66,7 +67,6 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
         source: memoryNode.id,
         target: tagNode.id,
       });
-      console.log('links is ', links);
     });
 
     // .forEach((memoryNode) => {
@@ -76,8 +76,6 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
     //     target: tagNode.id,
     //   });
     // });
-    console.log('nodes is ', nodes);
-    console.log('tagNode is ', tagNode);
     nodes.push(tagNode);
   });
 
