@@ -58,3 +58,6 @@ typings/
 .env
 
 config.env
+
+# build output
+**/bundle.js

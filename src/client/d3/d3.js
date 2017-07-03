@@ -1,4 +1,4 @@
-const { calculateXY } = require('../helpers/helpers.js')
+const { calculateXY, binByKey } = require('../helpers/helpers.js')
 const { width, height, jsonUrl, svg } = require('./setup.js')
 const { dragstarted, dragged, dragended } = require('./animation.js')
 
@@ -44,7 +44,7 @@ d3.json(jsonUrl, (err, data) => {
   const nodeTagsArrayToLinksAndNodes = (tagNodesWithChildren) => {
     const maxNodesByTag = getHighestRated(tagNodesWithChildren);
     const restNodes = filterRestNodes(tagNodesWithChildren, maxNodesByTag);
-    echo.helpers.calculateXY(restNodes);
+    calculateXY(restNodes);
     const links = [];
 
     restNodes.map((sourceNode) => {
@@ -72,7 +72,7 @@ d3.json(jsonUrl, (err, data) => {
   const simulation = d3.forceSimulation()
     .force('link', d3.forceLink().id(d => d.id))
     .force('charge', d3.forceManyBody())
-    .force('center', d3.forceCenter(echo.setup.width / 2, echo.setup.height / 2))
+    .force('center', d3.forceCenter(width / 2, height / 2))
     // Leave this in --> needs refactoring
     // .on('tick', ticked)
     .stop();

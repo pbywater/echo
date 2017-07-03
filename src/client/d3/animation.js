@@ -10,10 +10,6 @@ function dragended(d) {
   d3.select(this).classed('active', false);
 }
 
-const dragstarted = dragstarted;
-const dragged = dragged;
-const dragended = dragstarted;
-
 module.exports = {
   dragstarted,
   dragged,
