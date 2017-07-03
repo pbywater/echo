@@ -8,7 +8,7 @@ function calculateXY(nodeList) {
   const objLength = Object.keys(nodeList).length;
   const angleIncrease = (2 * Math.PI) / objLength;
   for (const keys in nodeList) {
-    nodeList[keys].forEach(function(n, i){
+    nodeList[keys].forEach((n, i) => {
       const angle = angleIncrease * i;
 
       const distance = n.avgRating * 15;
@@ -23,20 +23,19 @@ function calculateXY(nodeList) {
   return nodeList;
 }
 
-var binByKey = (key, xs) =>
-  xs.reduce(function(binnedArray, elem) {
-    var targetBin = binnedArray[elem[key]]
+const binByKey = (key, xs) =>
+  xs.reduce((binnedArray, elem) => {
+    const targetBin = binnedArray[elem[key]];
     if (targetBin === undefined) {
-      binnedArray[elem[key]] = []
+      binnedArray[elem[key]] = [];
     }
 
-    binnedArray[elem[key]].push(elem)
-
-    return binnedArray
-  }, {})
+    binnedArray[elem[key]].push(elem);
+    return binnedArray;
+  }, {});
 
 module.exports = {
   binByKey,
   calculateXY,
-  onlyUnique
-}
+  onlyUnique,
+};

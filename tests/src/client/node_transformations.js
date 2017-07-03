@@ -7,6 +7,7 @@ const {
   sortWithMax,
   tagNodesByTag,
   getXAndY,
+  getMemoryNodePositions
 } = require('../../../src/client/node_transformations.js');
 
 test('binByTag', (t) => {
@@ -154,29 +155,29 @@ test('get the x and y coordinates', (t) => {
   const expected = { cx: 160, cy: 94.5 };
 
   t.deepEqual(getXAndY(angle, distance, startingCx, startingCy), expected, 'found x and y axis');
+     t.end();
 });
 
-// test('getMemoryNodePositions', (t) => {
-//   const tagNode = {
-//     id: 4,
-//     cx: 160,
-//     cy: 120,
-//     avgRating: 8.7,
-//     tag: 'friends',
-//   };
-//
-//   const numTagMemories = 4;
-//
-//   const memoryIndex = 3;
-//
-//   const currentAvgRating = 7;
-//
-// const expected = {cx: , cy: }
-//
-// t.deepEqual(
-//   getMemoryNodePositions(tagNode, numTagMemories, memoryIndex, currentAvgRating),
-//   expected,
-//   'correct node position found'
-// );
-//
-// });
+test('getMemoryNodePositions', (t) => {
+  const tagNode = {
+    id: 4,
+    cx: 160,
+    cy: 120,
+    avgRating: 8.7,
+    tag: 'friends',
+  };
+
+  const numTagMemories = 4;
+  const memoryIndex = 3;
+  const currentAvgRating = 7;
+
+  const expected = { cx: 160, cy: 94.50000000000001 };
+
+t.deepEqual(
+  getMemoryNodePositions(tagNode, numTagMemories, memoryIndex, currentAvgRating),
+  expected,
+  'correct node position found'
+);
+   t.end();
+
+});

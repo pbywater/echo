@@ -1,73 +1,86 @@
-const { calculateXY, binByKey } = require('../helpers/helpers.js')
-const { width, height, jsonUrl, svg } = require('./setup.js')
-const { dragstarted, dragged, dragended } = require('./animation.js')
+// const { calculateXY, binByKey } = require('../helpers/helpers.js');
+const { width, height, jsonUrl, svg } = require('./setup.js');
+const { dragstarted, dragged, dragended } = require('./animation.js');
+const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
 
 
 d3.json(jsonUrl, (err, data) => {
-  const startingCx = 160;
-  const startingCy = 120;
-  const nodes = [];
-
-  const filterRestNodes = (nodes, maxNodesByTag) => {
-    const filtered = [];
-    for (const key in nodes) {
-      const filteredInGroup = nodes[key].nodes.filter((node) => {
-        node.cx = maxNodesByTag[node.tag].bigD.cx;
-        node.cy = maxNodesByTag[node.tag].bigD.cy;
-        return node.id !== maxNodesByTag[node.tag].bigD.id;
-      });
-      filtered.push(filteredInGroup);
-    }
-    return filtered;
-  };
-
-  function getHighestRated(nodes) {
-    const maxNodeByTag = {};
-    for (const key in nodes) {
-      const tag = nodes[key].tag;
-      maxNodeByTag[tag] = {};
-      maxNodeByTag[tag].bigD = nodes[key].nodes[0];
-      maxNodeByTag[tag].id = nodes[key].nodes[0].id;
-      maxNodeByTag[tag].bigD.cx = nodes[key].cx;
-      maxNodeByTag[tag].bigD.cy = nodes[key].cy;
-      maxNodeByTag[tag].bigD.maxNode = true;
-    }
-    return maxNodeByTag;
-  }
-
-  
-
-  const sortedByTag = binByKey('tag', data);
-  const tagPositions = sortedByTag.map((tagObj, i) =>
-    ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
-
-  const nodeTagsArrayToLinksAndNodes = (tagNodesWithChildren) => {
-    const maxNodesByTag = getHighestRated(tagNodesWithChildren);
-    const restNodes = filterRestNodes(tagNodesWithChildren, maxNodesByTag);
-    calculateXY(restNodes);
-    const links = [];
-
-    restNodes.map((sourceNode) => {
-      let linkHolder = {};
-      for (const key in sourceNode) {
-        linkHolder = { source: sourceNode[key].id, target: maxNodesByTag[sourceNode[key].tag].id };
-        links.push(linkHolder);
-      }
-    });
-
-    restNodes.forEach((r, i) => {
-      for (key in r) {
-        nodes.push(r[key]);
-      }
-    });
-    for (const key in maxNodesByTag) {
-      nodes.push(maxNodesByTag[key].bigD);
-    }
-    return { nodes, links };
-  };
+  const binnedByTag = binByTag(data);
+  console.log(Object.keys(binnedByTag));
+  const sortedWithMax = [];
+  Object.keys(binnedByTag).forEach((tagKey) => {
+    sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
+  });
+  console.log(sortedWithMax);
+  const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120, generateId);
+  console.log(taggedNodesByTag);
+  const processedData = memoryNodesAndLinks(taggedNodesByTag, sortedWithMax);
 
 
-  const processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
+  // const startingCx = 160;
+  // const startingCy = 120;
+  // const nodes = [];
+  //
+  // const filterRestNodes = (nodes, maxNodesByTag) => {
+  //   const filtered = [];
+  //   for (const key in nodes) {
+  //     const filteredInGroup = nodes[key].nodes.filter((node) => {
+  //       node.cx = maxNodesByTag[node.tag].bigD.cx;
+  //       node.cy = maxNodesByTag[node.tag].bigD.cy;
+  //       return node.id !== maxNodesByTag[node.tag].bigD.id;
+  //     });
+  //     filtered.push(filteredInGroup);
+  //   }
+  //   return filtered;
+  // };
+  //
+  // function getHighestRated(nodes) {
+  //   const maxNodeByTag = {};
+  //   for (const key in nodes) {
+  //     const tag = nodes[key].tag;
+  //     maxNodeByTag[tag] = {};
+  //     maxNodeByTag[tag].bigD = nodes[key].nodes[0];
+  //     maxNodeByTag[tag].id = nodes[key].nodes[0].id;
+  //     maxNodeByTag[tag].bigD.cx = nodes[key].cx;
+  //     maxNodeByTag[tag].bigD.cy = nodes[key].cy;
+  //     maxNodeByTag[tag].bigD.maxNode = true;
+  //   }
+  //   return maxNodeByTag;
+  // }
+  //
+  //
+  //
+  // const sortedByTag = binByKey('tag', data);
+  // const tagPositions = sortedByTag.map((tagObj, i) =>
+  //   ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
+  //
+  // const nodeTagsArrayToLinksAndNodes = (tagNodesWithChildren) => {
+  //   const maxNodesByTag = getHighestRated(tagNodesWithChildren);
+  //   const restNodes = filterRestNodes(tagNodesWithChildren, maxNodesByTag);
+  //   calculateXY(restNodes);
+  //   const links = [];
+  //
+  //   restNodes.map((sourceNode) => {
+  //     let linkHolder = {};
+  //     for (const key in sourceNode) {
+  //       linkHolder = { source: sourceNode[key].id, target: maxNodesByTag[sourceNode[key].tag].id };
+  //       links.push(linkHolder);
+  //     }
+  //   });
+  //
+  //   restNodes.forEach((r, i) => {
+  //     for (key in r) {
+  //       nodes.push(r[key]);
+  //     }
+  //   });
+  //   for (const key in maxNodesByTag) {
+  //     nodes.push(maxNodesByTag[key].bigD);
+  //   }
+  //   return { nodes, links };
+  // };
+  //
+  //
+  // const processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
 
   const simulation = d3.forceSimulation()
     .force('link', d3.forceLink().id(d => d.id))
