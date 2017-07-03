@@ -1,71 +1,82 @@
-const { binByKey } = require('./helpers/helpers.js')
+const { binByKey } = require('./helpers/helpers.js');
 
-const binByTag = arrayToBin => binByKey('tag', arrayToBin)
+const binByTag = arrayToBin => binByKey('tag', arrayToBin);
 
-const sortWithMax = nodeArray => {
-  const nodesArrayCopy = nodeArray.slice(0)
+const sortWithMax = (nodeArray) => {
+  const nodesArrayCopy = nodeArray.slice(0);
 
-  nodesArrayCopy.sort((a, b) =>  b.avgRating - a.avgRating);
+  nodesArrayCopy.sort((a, b) => b.avgRating - a.avgRating);
 
   return {
     max: nodesArrayCopy[0],
-    rest: nodesArrayCopy.slice(1)
-  }
-}
+    rest: nodesArrayCopy.slice(1),
+  };
+};
 
 const tagNodesByTag = (tagsArray, startingCx, startingCy, generateId) => {
-    const out = {};
+  const out = {};
 
-    tagsArray.forEach((tag, i) => {
-      out[tag] = {
-        id: generateId(),
-        cx: startingCx,
-        cy: startingCy + 200 * i,
-        tag: tag
-      }
-    })
+  tagsArray.forEach((tag, i) => {
+    out[tag] = {
+      id: generateId(),
+      cx: startingCx,
+      cy: startingCy + 200 * i,
+      tag,
+    };
+  });
 
-    return out;
+  return out;
+};
 
-}
+const getXAndY = (angle, distance, startingCx, startingCy) => {
+  const nx = startingCx + Math.cos(angle) * distance;
+  const ny = startingCy + Math.sin(angle) * distance;
 
-const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex) => {
-  // some trig
+  return {
+    cx: nx,
+    cy: ny,
+  };
+};
+
+const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentAvgRating) => {
+  const angleIncrease = (2 * Math.PI) / numTagMemories;
+  const angle = angleIncrease * memoryIndex;
 
   return {
     cx,
-    xy
-  }
-}
+    xy,
+  };
+};
 
 const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
-  const nodes = {}
-  const links = []
+  const nodes = {};
+  const links = [];
 
-  Object.keys(tagNodes).forEach(tag => {
-    const tagNode = tagNodes[tag]
-    const tagMemories = memoriesByTag[tag]
+  Object.keys(tagNodes).forEach((tag) => {
+    const tagNode = tagNodes[tag];
+    const tagMemories = memoriesByTag[tag];
 
-    const memoryNodes = tagMemories.map(tagMemory => {
+    const memoryNodes = tagMemories.map((tagMemory) => {
       // [{ cx, cy, id, tag}]
-    }).forEach(memoryNode => {
-      nodes[memoryNode.id] = memoryNode
-    }).forEach(memoryNode => {
+    }).forEach((memoryNode) => {
+      nodes[memoryNode.id] = memoryNode;
+    }).forEach((memoryNode) => {
       links.push({
         source: memoryNode.id,
-        target: tagNode.id
-      })
-    })
-    nodes.push(tagNode)
-  })
+        target: tagNode.id,
+      });
+    });
+    nodes.push(tagNode);
+  });
 
   return {
-    nodes, links
-  }
-}
+    nodes, links,
+  };
+};
 
 module.exports = {
   binByTag,
   sortWithMax,
-  tagNodesByTag
-}
+  tagNodesByTag,
+  getXAndY,
+};
