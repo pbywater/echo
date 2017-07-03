@@ -4,66 +4,64 @@ d3.json(echo.setup.jsonUrl, (err, data) => {
 
   data.sort((a, b) => d3.descending(a.avgRating, b.avgRating));
 
-  var sortedByTag = echo.helpers.binByKey('tag', data);
-  var tagPositions = sortedByTag.map((tagObj, i) =>
-  ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
+  const sortedByTag = echo.helpers.binByKey('tag', data);
+  const tagPositions = sortedByTag.map((tagObj, i) =>
+    ({ tag: tagObj.tag, cx: startingCx, cy: startingCy + 200 * i, nodes: tagObj.nodes }));
 
-  var nodeTagsArrayToLinksAndNodes = function(nodes) {
+  const nodeTagsArrayToLinksAndNodes = function (tagNodesWithChildren) {
+    const maxNodes = getHighestRated(tagNodesWithChildren);
+    const restNodes = filterRestNodes(tagNodesWithChildren, maxNodes);
+    echo.helpers.calculateXY(restNodes);
+    const links = [];
 
-  var maxNodes = getHighestRated(nodes);
-  var restNodes = filterRestNodes(nodes, maxNodes);
-  echo.helpers.calculateXY(restNodes)
-    var links = [];
-
-    restNodes.map(sourceNode => {
-      var linkHolder = {};
-      for (var keys in sourceNode){
-        linkHolder = { source: sourceNode[keys].id, target: maxNodes[sourceNode[keys].tag].id }
+    restNodes.map((sourceNode) => {
+      let linkHolder = {};
+      for (const keys in sourceNode) {
+        linkHolder = { source: sourceNode[keys].id, target: maxNodes[sourceNode[keys].tag].id };
         links.push(linkHolder);
       }
-    })
-    var nodes = [];
+    });
+    const nodes = [];
 
-  restNodes.forEach(function(r, i){
-    for (keys in r) {
-      nodes.push(r[keys]);
+    restNodes.forEach((r, i) => {
+      for (keys in r) {
+        nodes.push(r[keys]);
+      }
+    });
+    for (var keys in maxNodes) {
+      nodes.push(maxNodes[keys].bigD);
     }
-  })
-  for (var keys in maxNodes){
-    nodes.push(maxNodes[keys].bigD);
-  }
-    return { nodes: nodes, links: links };
+    return { nodes, links };
+  };
 
+  function filterRestNodes(nodes, maxNodes) {
+    const filtered = [];
+    for (const key in nodes) {
+      const filteredInGroup = nodes[key].nodes.filter((node) => {
+        node.cx = maxNodes[node.tag].bigD.cx;
+        node.cy = maxNodes[node.tag].bigD.cy;
+        return node.id !== maxNodes[node.tag].bigD.id;
+      });
+      filtered.push(filteredInGroup);
+    }
+    return filtered;
   }
 
-function filterRestNodes(nodes, maxNodes){
-  var filtered = [];
-  for (var key in nodes){
-    var filteredInGroup = nodes[key].nodes.filter(function(node){
-      node.cx = maxNodes[node.tag].bigD.cx;
-      node.cy = maxNodes[node.tag].bigD.cy;
-      return node.id !== maxNodes[node.tag].bigD.id;
-    })
-    filtered.push(filteredInGroup);
+  function getHighestRated(nodes) {
+    const maxNodeByTag = {};
+    for (const keys in nodes) {
+      const tag = nodes[keys].tag;
+      maxNodeByTag[tag] = {};
+      maxNodeByTag[tag].bigD = nodes[keys].nodes[0];
+      maxNodeByTag[tag].id = nodes[keys].nodes[0].id;
+      maxNodeByTag[tag].bigD.cx = nodes[keys].cx;
+      maxNodeByTag[tag].bigD.cy = nodes[keys].cy;
+      maxNodeByTag[tag].bigD.maxNode = true;
+    }
+    return maxNodeByTag;
   }
-  return filtered;
-}
 
-function getHighestRated(nodes){
-  var maxNodeByTag = {}
-  for (var keys in nodes){
-    var tag = nodes[keys].tag
-    maxNodeByTag[tag] = {};
-    maxNodeByTag[tag].bigD = nodes[keys].nodes[0];
-    maxNodeByTag[tag].id = nodes[keys].nodes[0].id;
-    maxNodeByTag[tag].bigD.cx = nodes[keys].cx;
-    maxNodeByTag[tag].bigD.cy = nodes[keys].cy;
-    maxNodeByTag[tag].bigD.maxNode = true;
-  }
-  return maxNodeByTag;
-}
-
-var processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
+  const processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
 
   const simulation = d3.forceSimulation()
     .force('link', d3.forceLink().id(d => d.id))
@@ -91,15 +89,13 @@ var processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
     .attr('cy', d => d.cy)
     .attr('cx', d => d.cx)
     .attr('class', 'memory')
-    .attr('r', (d) => {
-      return rScale(d.likes)
-    })
+    .attr('r', d => rScale(d.likes))
 
     .style('fill', 'white')
     .call(d3.drag()
       .on('start', echo.animation.dragstarted)
       .on('drag', echo.animation.dragged)
-      .on('end', echo.animation.dragended))
+      .on('end', echo.animation.dragended));
 
   const link = echo.setup.svg
     .selectAll('line')
@@ -109,8 +105,8 @@ var processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
 
   link
     .attr('x2', (d) => {
-      var x2;
-      for (var keys in processedData.nodes) {
+      let x2;
+      for (const keys in processedData.nodes) {
         if (processedData.nodes[keys].id === d.target) {
           x2 = processedData.nodes[keys].cx;
         }
@@ -118,8 +114,8 @@ var processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
       return x2;
     })
     .attr('y2', (d) => {
-      var y2;
-      for (var keys in processedData.nodes) {
+      let y2;
+      for (const keys in processedData.nodes) {
         if (processedData.nodes[keys].id === d.target) {
           y2 = processedData.nodes[keys].cy;
         }
@@ -127,8 +123,8 @@ var processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
       return y2;
     })
     .attr('x1', (d) => {
-      var x1;
-      for (var keys in processedData.nodes) {
+      let x1;
+      for (const keys in processedData.nodes) {
         if (processedData.nodes[keys].id === d.source) {
           x1 = processedData.nodes[keys].cx;
         }
@@ -136,8 +132,8 @@ var processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
       return x1;
     })
     .attr('y1', (d) => {
-      var y1;
-      for (var keys in processedData.nodes) {
+      let y1;
+      for (const keys in processedData.nodes) {
         if (processedData.nodes[keys].id === d.source) {
           y1 = processedData.nodes[keys].cy;
         }
@@ -151,7 +147,7 @@ var processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
   simulation.force('link').links(link);
   simulation.restart();
 
-// Leave this in --> needs refactoring
+  // Leave this in --> needs refactoring
   // function ticked() {
   //   link
   //     .attr('x1', d => d.source.x)
@@ -163,7 +159,6 @@ var processedData = nodeTagsArrayToLinksAndNodes(tagPositions);
   //     .attr('cy', d => d.y);
   // }
 
-  var memories = echo.setup.svg
+  const memories = echo.setup.svg
     .selectAll('.memory');
-
 });
