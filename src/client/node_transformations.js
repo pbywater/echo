@@ -48,7 +48,7 @@ const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentAvg
 };
 
 const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
-  const nodes = [];
+  const nodes = {};
   const links = [];
 
   Object.keys(tagNodes).forEach((tag, index) => {
@@ -67,6 +67,7 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
         source: memoryNode.id,
         target: tagNode.id,
       });
+      nodes[tagNode] = tagNode;
     });
 
     // .forEach((memoryNode) => {
@@ -76,7 +77,6 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
     //     target: tagNode.id,
     //   });
     // });
-    nodes.push(tagNode);
   });
 
   return {
