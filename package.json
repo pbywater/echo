@@ -8,8 +8,8 @@
   },
   "scripts": {
     "start": "nodemon src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify src/client/d3/d3.js -o public/bundle.js"
+    "test": "node tests/src/client",
+    "build": "browserify src/client/main.js -o public/bundle.js"
   },
   "repository": {
     "type": "git",
