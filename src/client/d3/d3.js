@@ -39,9 +39,7 @@ d3.json(jsonUrl, (err, data) => {
     .data(nodeDataArray)
     .enter()
     .append('g')
-    .attr('id', (d) => {
-      d.id;
-    })
+    .attr('id', d => d.id)
     .attr('class', 'memoryG');
 
   circles
@@ -88,6 +86,20 @@ d3.json(jsonUrl, (err, data) => {
     circles
       .attr('cx', d => d.x)
       .attr('cy', d => d.y);
+  }
+
+  function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d3.select(this).raise().classed('active', true);
+  }
+
+  function dragged(d) {
+    d3.select(this).attr('cx', d.x = d3.event.x).attr('cy', d.y = d3.event.y);
+  }
+
+  function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget();
+    d3.select(this).classed('active', false);
   }
 
   const memories = svg
