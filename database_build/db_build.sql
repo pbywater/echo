@@ -27,8 +27,8 @@ CREATE TABLE media (
   image       INTEGER[]
 );
 
-INSERT INTO media (text_only)
-VALUES ('{0, 1}');
+INSERT INTO media (text_only, audio, video, image)
+VALUES ('{}', '{}', '{}', '{}');
 
 INSERT INTO users (username, password, email)
 VALUES ('test', 'will be hashed', 'test@test.com');
