@@ -10,3 +10,5 @@ get.memories = (userId, callback) => {
     return callback(null, res) //will be refactored
   })
 }
+
+module.exports = get;
