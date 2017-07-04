@@ -21,11 +21,14 @@ CREATE TABLE users (
 );
 
 CREATE TABLE media (
-  text_only   TEXT[],
-  audio       TEXT[],
-  video       TEXT[],
-  image       TEXT[]
+  text_only   INTEGER[],
+  audio       INTEGER[],
+  video       INTEGER[],
+  image       INTEGER[]
 );
+
+INSERT INTO media (text_only)
+VALUES ('{0, 1}');
 
 INSERT INTO users (username, password, email)
 VALUES ('test', 'will be hashed', 'test@test.com');
