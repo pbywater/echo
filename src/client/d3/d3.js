@@ -10,7 +10,7 @@ d3.json(jsonUrl, (err, data) => {
   Object.keys(binnedByTag).forEach((tagKey) => {
     sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
   });
-  const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120, generateId);
+  const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120, generateId());
   const processedData = memoryNodesAndLinks(taggedNodesByTag, sortedWithMax);
   console.log('processedData is ', processedData);
 

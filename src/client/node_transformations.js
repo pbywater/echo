@@ -84,12 +84,13 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
   };
 };
 
-const generateId = () => {
-  let numGenerated = 0;
-  return () => {
-    numGenerated += 1;
-    return numGenerated;
-  };
+// To be removed when we use UUID
+
+let numGenerated = 0;
+
+const generateId = () => () => {
+  numGenerated += 1;
+  return numGenerated;
 };
 
 
