@@ -14,20 +14,22 @@ const appendPopUp = (data) => {
       .attr('display', 'block')
       .attr('width', 300) // change
       .attr('height', 500) // change
+      .attr('ry', 5); //change probably
 
   const textholder = holder
     .append('text')
       .attr('class', 'popupTextHolder')
-      .attr('transform', 'translate(10, 10)')
-      .text(data.tag) // change
+      .attr('transform', 'translate(10, 20)')
+      .text(data.tag); // Modal info will be heading, memory etc. It's not been passed through yet.
 
   const close = holder // all of this will change
     .append('rect')
       .attr('class', 'close')
       .style('fill', 'red')
+      .attr('transform', 'translate(10, 20)')
       .attr('width', 10)
       .attr('height', 10)
-      .on('click', closepopup)
+      .on('click', closepopup);
 }
 
 const closepopup = () => {
