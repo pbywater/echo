@@ -16,19 +16,18 @@ const sortWithMax = (nodeArray) => {
 
 const tagNodesByTag = (tagsArray, startingCx, startingCy, generateId) => {
   const out = {};
-
-  tagsArray.forEach((tag, i) => {
+  const arrayCopy = tagsArray.slice(0);
+  arrayCopy.forEach((tag, i) => {
     const newId = generateId();
-    out[tag] = {
+    out[tag.max.tag] = {
       id: newId,
       cx: startingCx,
       cy: startingCy + 200 * i,
-      tag,
+      tag: tag.max.tag,
       avgRating: tag.max.avgRating,
       likes: tag.max.likes,
     };
   });
-
   return out;
 };
 
@@ -53,14 +52,14 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
 
   Object.keys(tagNodes).forEach((tag, index) => {
     const tagNode = tagNodes[tag];
-    const tagMemories = memoriesByTag[index].rest;
-    const numMemories = memoriesByTag[index].rest.length;
-    const memoryNodes = tagMemories.map((tagMemory, memoryIndex) => {
-      const XAndY = getMemoryNodePositions(tagNode, numMemories, memoryIndex, tagMemory.avgRating);
+    const tagMemoriesRest = memoriesByTag[index].rest;
+    const numMemoriesRest = memoriesByTag[index].rest.length;
+    nodes[tagNodes[tag].id] = tagNodes[tag];
+    const memoryNodes = tagMemoriesRest.map((tagMemory, memoryIndex) => {
+      const XAndY = getMemoryNodePositions(tagNode, numMemoriesRest, memoryIndex, tagMemory.avgRating);
       tagMemory.cx = XAndY.cx;
       tagMemory.cy = XAndY.cy;
       return tagMemory;
-      // [{ cx, cy, id, tag}]
     }).forEach((memoryNode) => {
       nodes[memoryNode.id] = memoryNode;
       links.push({
@@ -69,14 +68,7 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
       });
       nodes[tagNode] = tagNode;
     });
-
-    // .forEach((memoryNode) => {
-    //   console.log('memoryNode is ', memoryNode);
-    //   links.push({
-    //     source: memoryNode.id,
-    //     target: tagNode.id,
-    //   });
-    // });
+    console.log('nodes is ', nodes);
   });
 
   return {
