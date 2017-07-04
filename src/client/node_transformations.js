@@ -21,8 +21,8 @@ const tagNodesByTag = (tagsArray, startingCx, startingCy, generateId) => {
     const newId = generateId();
     out[tag.max.tag] = {
       id: newId,
-      cx: startingCx,
-      cy: startingCy + 200 * i,
+      x: startingCx,
+      y: startingCy + 200 * i,
       tag: tag.max.tag,
       avgRating: tag.max.avgRating,
       likes: tag.max.likes,
@@ -35,15 +35,15 @@ const getXAndY = (angle, distance, startingCx, startingCy) => {
   const nx = startingCx + Math.cos(angle) * distance;
   const ny = startingCy + Math.sin(angle) * distance;
   return {
-    cx: nx,
-    cy: ny,
+    x: nx,
+    y: ny,
   };
 };
 
 const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentAvgRating) => {
   const angle = ((2 * Math.PI) / numTagMemories) * memoryIndex;
   const distance = (tagNode.avgRating - currentAvgRating) * 15;
-  return getXAndY(angle, distance, tagNode.cx, tagNode.cy);
+  return getXAndY(angle, distance, tagNode.x, tagNode.y);
 };
 
 const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
@@ -57,8 +57,8 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
     nodes[tagNodes[tag].id] = tagNodes[tag];
     const memoryNodes = tagMemoriesRest.map((tagMemory, memoryIndex) => {
       const XAndY = getMemoryNodePositions(tagNode, numMemoriesRest, memoryIndex, tagMemory.avgRating);
-      tagMemory.cx = XAndY.cx;
-      tagMemory.cy = XAndY.cy;
+      tagMemory.x = XAndY.x;
+      tagMemory.y = XAndY.y;
       return tagMemory;
     }).forEach((memoryNode) => {
       nodes[memoryNode.id] = memoryNode;

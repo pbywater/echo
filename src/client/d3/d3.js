@@ -122,8 +122,8 @@ d3.json(jsonUrl, (err, data) => {
 
   circles
     .append('circle')
-    .attr('cy', d => d.cy)
-    .attr('cx', d => d.cx)
+    .attr('cy', d => d.y)
+    .attr('cx', d => d.x)
     .attr('class', 'memory')
     .attr('r', d => rScale(d.likes))
 
@@ -140,7 +140,7 @@ d3.json(jsonUrl, (err, data) => {
     .append('line');
 
   link
-    .attr('x2', d => processedData.nodes[d.target].cx,
+    .attr('x2', d => processedData.nodes[d.target].x,
       // let x2;
       // for (const key in processedData.nodes) {
       //   if (processedData.nodes[key].id === d.target) {
@@ -158,7 +158,7 @@ d3.json(jsonUrl, (err, data) => {
       // }
       // return y2;
     )
-    .attr('x1', d => processedData.nodes[d.source].cx,
+    .attr('x1', d => processedData.nodes[d.source].x,
       // let x1;
       // for (const key in processedData.nodes) {
       //   if (processedData.nodes[key].id === d.source) {
@@ -183,15 +183,17 @@ d3.json(jsonUrl, (err, data) => {
   simulation.force('link').links(link);
   simulation.restart();
 
-  // Leave this in --> needs refactoring
   function ticked() {
     link
-      .attr('x1', d => processedData.nodes[d.source].cx)
-      .attr('y1', d => processedData.nodes[d.source].cy)
-      .attr('x2', d => processedData.nodes[d.target].cx)
-      .attr('y2', d => processedData.nodes[d.target].cy);
+      .attr('x1', d => processedData.nodes[d.source].x)
+      .attr('y1', d => processedData.nodes[d.source].y)
+      .attr('x2', d => processedData.nodes[d.target].x)
+      .attr('y2', d => processedData.nodes[d.target].y);
     circles
-      .attr('cx', d => d.x)
+      .attr('cx', (d) => {
+        console.log('big fucking d ', d);
+        d.x;
+      })
       .attr('cy', d => d.y);
   }
 

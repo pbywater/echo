@@ -13,10 +13,10 @@ function calculateXY(nodeList) {
 
       const distance = n.avgRating * 15;
       if (i === 0) {
-        n.cy += distance;
+        n.y += distance;
       } else if (i > 0) {
-        n.cx += Math.cos(angle) * distance;
-        n.cy += Math.sin(angle) * distance;
+        n.x += Math.cos(angle) * distance;
+        n.y += Math.sin(angle) * distance;
       }
     });
   }
