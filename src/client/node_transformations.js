@@ -76,7 +76,7 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
   };
 };
 
-// To be removed when we use UUID
+// To be removed when we use UUID?
 
 let numGenerated = 0;
 
