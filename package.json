@@ -3,13 +3,10 @@
   "version": "1.0.0",
   "description": "Anna Freud happy memory app",
   "main": "index.js",
-  "directories": {
-    "test": "node tests/public/frontEndTests.js | tap-spec"
-  },
   "scripts": {
     "start": "nodemon src/app.js",
     "test": "node tests/src/client",
-    "build": "watchify src/client/main.js -o public/bundle.js",
+    "build": "watchify src/client/main.js -o public/bundle.js"
   },
   "repository": {
     "type": "git",
