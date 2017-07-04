@@ -24,11 +24,9 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.6.0",
     "nodemon": "^1.11.0",
-    "tape": "^4.7.0",
-    "watchify": "^3.9.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.7.0",
-    "nodemon": "^1.11.0"
+    "watchify": "^3.9.0"
   },
   "dependencies": {
     "body-parser": "^1.17.2",

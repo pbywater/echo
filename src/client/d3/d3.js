@@ -1,7 +1,7 @@
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
-
+const appendPopUp = require('./modals');
 
 d3.json(jsonUrl, (err, data) => {
   // binByTag sorts data by tag
@@ -50,7 +50,9 @@ d3.json(jsonUrl, (err, data) => {
     .attr('cx', d => d.x)
     .attr('class', 'memory')
     .attr('r', d => rScale(d.likes))
-
+    .on('click', function(d){
+        appendPopUp(d)
+    })
     .style('fill', 'white')
     .call(d3.drag()
       .on('start', dragstarted)
@@ -66,11 +68,11 @@ d3.json(jsonUrl, (err, data) => {
   link
     .attr('x2', d => processedData.nodes[d.target].x,
     )
-    .attr('y2', d => processedData.nodes[d.target].cy,
+    .attr('y2', d => processedData.nodes[d.target].y,
     )
     .attr('x1', d => processedData.nodes[d.source].x,
     )
-    .attr('y1', d => processedData.nodes[d.source].cy,
+    .attr('y1', d => processedData.nodes[d.source].y,
     )
     .style('stroke', 'white')
     .style('stroke-width', '3px');
