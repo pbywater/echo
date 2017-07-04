@@ -66,7 +66,6 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
         source: memoryNode.id,
         target: tagNode.id,
       });
-      nodes[tagNode] = tagNode;
     });
   });
 

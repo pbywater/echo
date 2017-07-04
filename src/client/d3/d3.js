@@ -66,11 +66,11 @@ d3.json(jsonUrl, (err, data) => {
   link
     .attr('x2', d => processedData.nodes[d.target].x,
     )
-    .attr('y2', d => processedData.nodes[d.target].cy,
+    .attr('y2', d => processedData.nodes[d.target].y,
     )
     .attr('x1', d => processedData.nodes[d.source].x,
     )
-    .attr('y1', d => processedData.nodes[d.source].cy,
+    .attr('y1', d => processedData.nodes[d.source].y,
     )
     .style('stroke', 'white')
     .style('stroke-width', '3px');
