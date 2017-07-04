@@ -3,7 +3,7 @@ function calculateXY(nodeList) {
   const objLength = Object.keys(nodeList).length;
   const angleIncrease = (2 * Math.PI) / objLength;
   for (const keys in nodeList) {
-    nodeList[keys].forEach((n, i) => {
+    nodeList[keys].map((n, i) => {
       const angle = angleIncrease * i;
 
       const distance = n.avgRating * 15;
