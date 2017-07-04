@@ -68,7 +68,6 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
       });
       nodes[tagNode] = tagNode;
     });
-    console.log('nodes is ', nodes);
   });
 
   return {
