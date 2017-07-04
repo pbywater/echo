@@ -9,6 +9,7 @@ const {
   getXAndY,
   getMemoryNodePositions,
   generateId,
+  memoryNodesAndLinks,
 } = require('../../../src/client/node_transformations.js');
 
 test('binByTag', (t) => {
@@ -117,58 +118,94 @@ test('tagNodesByTag', (t) => {
     expected,
     'creates map of tag nodes, with ids and positions'
   );
-  
+
   t.end();
 });
 
-// test('memoryNodesAndLinks', (t) => {
-//   const memoriesByTag = {
-//     friends: [{ tag: 'friends', id: 1 }, { tag: 'friends', id: 2 }],
-//     family: [{ tag: 'family', id: 3 }],
-//   };
-//
-//   const tagNodes = {
-//     friends: {
-//       id: 4,
-//       cx: startingCx,
-//       cy: startingCy,
-//       tag: 'friends',
-//     },
-//     family: {
-//       id: 5,
-//       cx: startingCx,
-//       cy: startingCy + 200,
-//       tag: 'family',
-//     },
-//   };
-//
-//   const expectedLinks = [
-//     { source: 4, target: 1 },
-//     { source: 4, target: 2 },
-//     { source: 5, target: 3 },
-//   ];
-//
-//   const { nodes, links } = memoryNodesAndLinks(memoriesByTag, tagNodes);
-//
-//   t.deepEqual(
-//     links,
-//     expectedLinks,
-//     'correct links created'
-//   );
+test('memoryNodesAndLinks', (t) => {
+  const memoriesByTag = { family: { avgRating: 9.2, id: 0, likes: 19, tag: 'family', x: 160, y: 120 }, friends: { avgRating: 9.2, id: 1, likes: 19, tag: 'friends', x: 160, y: 320 }, pets: { avgRating: 9.2, id: 2, likes: 19, tag: 'pets', x: 160, y: 520 } };
 
-//   const nodesArray = Object.keys(nodes).map(nodeId => nodes[nodeId]);
-//
-//   t.okay(
-//     nodesArray.every(node => node.cx !== undefined),
-//     'all nodes have cx value'
-//   );
-//   t.okay(
-//     nodesArray.every(node => node.cy !== undefined),
-//     'all nodes have cy value'
-//   );
-//
-//   t.end();
-// });
+  const startingCx = 160;
+  const startingCy = 120;
+
+  const tagNodes = [
+    {
+      max: {
+        avgRating: 9.2,
+        id: 65465432,
+        likes: 19,
+        tag: "family",
+      },
+      rest: [
+        {
+          avgRating: 8.2,
+          id: 456535,
+          likes: 18,
+          tag: "family",
+        },
+      ]
+    },
+    {
+      max: {
+        avgRating: 9.2,
+        id: 65465432,
+        likes: 19,
+        tag: "friends",
+      },
+      rest: [
+        {
+          avgRating: 8.2,
+          id: 67456535,
+          likes: 18,
+          tag: "friends",
+        },
+      ]
+    },
+    {
+      max: {
+        avgRating: 9.2,
+        id: 65465432,
+        likes: 19,
+        tag: "pets",
+      },
+      rest: [
+        {
+          avgRating: 8.2,
+          id: 65,
+          likes: 18,
+          tag: "pets",
+        },
+      ]
+    }
+  ];
+
+  const expectedLinks = [
+    { source: 456535, target: 0 },
+    { source: 67456535, target: 1 },
+    { source: 65, target: 2 },
+  ];
+
+  const { nodes, links } = memoryNodesAndLinks(memoriesByTag, tagNodes);
+
+  t.deepEqual(
+    links,
+    expectedLinks,
+    'correct links created'
+  );
+
+  const nodesArray = Object.keys(nodes).map(nodeId => nodes[nodeId]);
+
+  t.ok(
+    nodesArray.every(node => node.x !== undefined),
+    'all nodes have cx value'
+  );
+  t.ok(
+    nodesArray.every(node => node.y !== undefined),
+    'all nodes have cy value'
+  );
+
+  t.end();
+});
 
 test('get the x and y coordinates', (t) => {
   const angle = ((2 * Math.PI) / 4) * 3;
