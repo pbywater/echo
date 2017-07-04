@@ -20,7 +20,7 @@ const tagNodesByTag = (tagsArray, startingCx, startingCy, generateId) => {
   arrayCopy.forEach((tag, i) => {
     const newId = generateId();
     out[tag.max.tag] = {
-      id: newId,
+      id: i,
       x: startingCx,
       y: startingCy + 200 * i,
       tag: tag.max.tag,

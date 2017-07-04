@@ -7,7 +7,8 @@ const {
   sortWithMax,
   tagNodesByTag,
   getXAndY,
-  getMemoryNodePositions
+  getMemoryNodePositions,
+  generateId,
 } = require('../../../src/client/node_transformations.js');
 
 test('binByTag', (t) => {
@@ -56,45 +57,67 @@ test('sortWithMax', (t) => {
 });
 
 test('tagNodesByTag', (t) => {
-  const tagsArray = ['friends', 'family', 'pets'];
+  const arrayCopy = [
+    {
+      max: {
+        avgRating: 9.2,
+        id: 65465432,
+        likes: 19,
+        tag: "family",
+      },
+      rest: [
+        {
+          avgRating: 8.2,
+          id: 67456535,
+          likes: 18,
+          tag: "family",
+        },
+      ]
+    },
+    {
+      max: {
+        avgRating: 9.2,
+        id: 65465432,
+        likes: 19,
+        tag: "friends",
+      },
+      rest: [
+        {
+          avgRating: 8.2,
+          id: 67456535,
+          likes: 18,
+          tag: "friends",
+        },
+      ]
+    },
+    {
+      max: {
+        avgRating: 9.2,
+        id: 65465432,
+        likes: 19,
+        tag: "pets",
+      },
+      rest: [
+        {
+          avgRating: 8.2,
+          id: 67456535,
+          likes: 18,
+          tag: "pets",
+        },
+      ]
+    }
+  ];
   const startingCx = 160;
   const startingCy = 120;
 
-  const generateId = (() => {
-    let numGenerated = 0;
-    return () => {
-      numGenerated += 1;
-      return numGenerated;
-    };
-  })();
-
-  const expected = {
-    friends: {
-      id: 1,
-      cx: startingCx,
-      cy: startingCy,
-      tag: 'friends',
-    },
-    family: {
-      id: 2,
-      cx: startingCx,
-      cy: startingCy + 200,
-      tag: 'family',
-    },
-    pets: {
-      id: 3,
-      cx: startingCx,
-      cy: startingCy + 200 * 2,
-      tag: 'pets',
-    },
-  };
+  const expected = { family: { avgRating: 9.2, id: 0, likes: 19, tag: 'family', x: 160, y: 120 }, friends: { avgRating: 9.2, id: 1, likes: 19, tag: 'friends', x: 160, y: 320 }, pets: { avgRating: 9.2, id: 2, likes: 19, tag: 'pets', x: 160, y: 520 } };
 
   t.deepEqual(
-    tagNodesByTag(tagsArray, startingCx, startingCy, generateId),
+    tagNodesByTag(arrayCopy, startingCx, startingCy, generateId),
     expected,
     'creates map of tag nodes, with ids and positions'
   );
-
+  
   t.end();
 });
 
@@ -152,7 +175,7 @@ test('get the x and y coordinates', (t) => {
   const distance = 25.5;
   const startingCx = 160;
   const startingCy = 120;
-  const expected = { cx: 160, cy: 94.5 };
+  const expected = { x: 160, y: 94.5 };
 
   t.deepEqual(getXAndY(angle, distance, startingCx, startingCy), expected, 'found x and y axis');
      t.end();
@@ -161,8 +184,8 @@ test('get the x and y coordinates', (t) => {
 test('getMemoryNodePositions', (t) => {
   const tagNode = {
     id: 4,
-    cx: 160,
-    cy: 120,
+    x: 160,
+    y: 120,
     avgRating: 8.7,
     tag: 'friends',
   };
@@ -171,7 +194,7 @@ test('getMemoryNodePositions', (t) => {
   const memoryIndex = 3;
   const currentAvgRating = 7;
 
-  const expected = { cx: 160, cy: 94.50000000000001 };
+  const expected = { x: 160, y: 94.50000000000001 };
 
 t.deepEqual(
   getMemoryNodePositions(tagNode, numTagMemories, memoryIndex, currentAvgRating),
