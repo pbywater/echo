@@ -55,7 +55,7 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
     const tagMemoriesRest = memoriesByTag[index].rest;
     const numMemoriesRest = memoriesByTag[index].rest.length;
     nodes[tagNodes[tag].id] = tagNodes[tag];
-    const memoryNodes = tagMemoriesRest.map((tagMemory, memoryIndex) => {
+    tagMemoriesRest.map((tagMemory, memoryIndex) => {
       const XAndY = getMemoryNodePositions(tagNode, numMemoriesRest, memoryIndex, tagMemory.avgRating);
       tagMemory.x = XAndY.x;
       tagMemory.y = XAndY.y;
