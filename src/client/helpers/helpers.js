@@ -32,5 +32,4 @@ const binByKey = (key, xs) =>
 module.exports = {
   binByKey,
   calculateXY,
-  onlyUnique,
 };
