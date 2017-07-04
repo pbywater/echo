@@ -1,8 +1,3 @@
-// filters array for unique values
-function onlyUnique(value, index, self) {
-  return self.indexOf(value) === index;
-}
-
 // generic function to find radial x and y using distance and angle
 function calculateXY(nodeList) {
   const objLength = Object.keys(nodeList).length;
