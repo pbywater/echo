@@ -4,12 +4,12 @@
   "description": "Anna Freud happy memory app",
   "main": "index.js",
   "directories": {
-    "test": "tests"
+    "test": "node tests/public/frontEndTests.js | tap-spec"
   },
   "scripts": {
     "start": "nodemon src/app.js",
     "test": "node tests/src/client",
-    "build": "watchify src/client/main.js -o public/bundle.js"
+    "build": "watchify src/client/main.js -o public/bundle.js",
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,10 @@
     "eslint-plugin-import": "^2.6.0",
     "nodemon": "^1.11.0",
     "tape": "^4.7.0",
-    "watchify": "^3.9.0"
+    "watchify": "^3.9.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.7.0",
+    "nodemon": "^1.11.0"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
