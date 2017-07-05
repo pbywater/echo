@@ -60,3 +60,5 @@ typings/
 config.env
 
 echo-af
+
+bundle.js
