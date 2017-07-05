@@ -6,7 +6,7 @@ const createMemory = (newMemory, callback) => {
   connect.query(
     `WITH new_memory AS (
       INSERT INTO memories
-        (user_id, heading, tag, memory)
+        (user_id, heading, tag, memory_asset_url, memory_text, media_type)
       VALUES
       ((SELECT users.id FROM users WHERE users.username = $1), $2, $3, $4)
       RETURNING id

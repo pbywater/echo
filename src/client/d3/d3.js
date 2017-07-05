@@ -5,7 +5,6 @@ const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } 
 let url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
-  // console.log(data);
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
   const binnedByTag = binByTag(data);
@@ -23,10 +22,6 @@ d3.json(url, (err, data) => {
   Object.keys(processedData.nodes).forEach((key) => {
     nodeDataArray.push(processedData.nodes[key]);
   });
-
-  // console.log('processedData ', processedData);
-  // console.log('processedData.nodes ', processedData.nodes);
-  // console.log('nodeDataArray ', nodeDataArray);
 
   const simulation = d3.forceSimulation()
     .force('link', d3.forceLink().id(d => d.id))
