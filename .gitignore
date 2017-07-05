@@ -64,4 +64,5 @@ config.env
 
 _assets_exports/
 
-public/bundle.js
+# build output
+**/bundle.js
