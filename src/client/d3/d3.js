@@ -4,7 +4,7 @@ const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } 
 
 
 d3.json('/memories', (err, data) => {
-  data = [data];
+  // data = [data];
   console.log(data);
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}

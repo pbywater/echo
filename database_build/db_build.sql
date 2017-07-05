@@ -7,7 +7,7 @@ CREATE TABLE memories (
   user_id     SERIAL          NOT NULL,
   heading     VARCHAR(50)     NOT NULL,
   likes       INTEGER,
-  avgRating   DECIMAL,
+  avgRating   INTEGER,
   visits      INTEGER,
   tag         VARCHAR(50)     NOT NULL,
   memory      VARCHAR(500)    NOT NULL
