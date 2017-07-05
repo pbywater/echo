@@ -1,3 +1,4 @@
-d3.json('/getd3data', (error, data) => {
-  console.log('data is ', data);
+d3.json('/memories', (error, data) => {
+console.log(data);
+
 });

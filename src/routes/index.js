@@ -1,4 +1,4 @@
 module.exports = [
   ('./home'),
-  ('./getD3Data'),
+  ('./getMemories'),
 ].map(require);

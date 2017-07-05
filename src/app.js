@@ -8,7 +8,7 @@ const routes = require('./routes');
 app.use(express.static('public'));
 app.use('/', routes);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log(`Echo listening on port ${port}!`);
