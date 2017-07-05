@@ -308,14 +308,13 @@
 }
 
 .tags {
-  display: none;
-   position: absolute;
-     top: 7%;
-     left: 35%;
-     width: 30%;
-     display: flex;
-     justify-content: space-between;
-     cursor: pointer;
+  position: absolute;
+    top: 38%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
  }
 
  .tags li {
@@ -340,4 +339,38 @@
 .search-tags {
   padding-right: 3%;
   padding-top: 2%;
+  transition: width 1s ease;
+}
+
+#to-extend {
+  transform-origin: bottom;
+  transition: transform 0.6s ease;
+}
+
+
+.underline {
+  width:90%;
+  height: 90%;
+    display: inline-block;
+    position: absolute;
+    z-index: -1;
+  right: 5%;
+
+}
+
+.underline:after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: transparent;
+    transition: width .5s ease 1s, background-color .5s ease;
+}
+
+.underline.active:after {
+    width: 100%;
+    background: white;
 }

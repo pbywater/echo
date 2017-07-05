@@ -46,10 +46,18 @@ function tagSorting() {
 
 function searchButton() {
   $('.search-tags').on('click', () => {
-    // $(this).css('width', '100%');
-    $('#to-extend').css('transform', 'rotate(-45deg)');
+    $('.underline').addClass('active');
+    $('#to-extend').css('transform', 'rotate(-45deg)').addClass('active');
     $('.to-hide').hide();
-    $('.shuffle-memories').fadeOut();
+    $('.shuffle-memories').fadeOut(1000);
+    setTimeout(() => {
+      $('#to-extend').hide();
+    }, 900);
+
+    setTimeout(() => {
+      $('.tags, .tags li').fadeIn(1000);
+    }, 1000);
+    // $('.search-tags').css('width', '100%');
   });
 }
 
