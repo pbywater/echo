@@ -53,11 +53,22 @@ function searchButton() {
     setTimeout(() => {
       $('#to-extend').hide();
     }, 900);
-
     setTimeout(() => {
       $('.tags, .tags li').fadeIn(1000);
     }, 1000);
-    // $('.search-tags').css('width', '100%');
+  });
+
+  $('.close-tags').on('click', () => {
+    $('.underline').removeClass('active');
+    setTimeout(() => {
+      $('.shuffle-memories').fadeIn(1000);
+      $('.to-hide').fadeIn(500);
+    }, 1000);
+    setTimeout(() => {
+      $('#to-extend').show();
+      $('#to-extend').css('transform', 'rotate(0deg)').removeClass('active');
+    }, 1100);
+    $('.tags, .tags li').fadeOut(1000);
   });
 }
 
