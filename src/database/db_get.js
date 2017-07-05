@@ -1,8 +1,6 @@
 const connect = require('./db_connect');
 
-const get = {};
-
-get.memories = (userId, callback) => {
+const getMemories = (userId, callback) => {
   connect.query(
     `SELECT memories.id, memories.heading, memories.likes, memories.avgRating, memories.visits, memories.tag, memories.memory
     FROM memories
@@ -16,4 +14,6 @@ get.memories = (userId, callback) => {
   });
 };
 
-module.exports = get;
+module.exports = {
+  getMemories
+}

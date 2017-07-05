@@ -2,9 +2,7 @@ const connect = require('./db_connect');
 
 const hashPassword = request('./../helpers/hashPassword');
 
-const post = {};
-
-post.memory = (newMemory, callback) => {
+const createMemory = (newMemory, callback) => {
   connect.query(
     `WITH new_memory AS (
       INSERT INTO memories
@@ -21,7 +19,7 @@ post.memory = (newMemory, callback) => {
     });
 };
 
-post.registerUser (userDetails, callback) => {
+const createUser (userDetails, callback) => {
   connect.query(
     'SELECT username FROM users WHERE username = $1;', [userDetails.username], (err, res) => {
       if (err) { return callback(err); }
@@ -41,4 +39,7 @@ post.registerUser (userDetails, callback) => {
     });
 };
 
-module.exports = post;
+module.exports = {
+  createMemory,
+  createRegisterUser
+}

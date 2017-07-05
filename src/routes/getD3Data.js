@@ -1,6 +1,6 @@
 const express = require('express');
 require('env2')('./config.env');
-const get = require('./../database/db_get');
+const getMemories = require('./../database/db_get');
 
 const app = express.Router();
 
