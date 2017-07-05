@@ -103,6 +103,4 @@ d3.json(url, (err, data) => {
     d3.select(this).classed('active', false);
   }
 
-  const memories = svg
-    .selectAll('.memory');
 });
