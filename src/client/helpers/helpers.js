@@ -13,8 +13,8 @@ const binByKey = (key, xs) =>
 function tagSorting() {
   $('.tags li').on('click', function () {
     $('.memory').show();
-    const clickedTag = $(this).text();
-    console.log($(this).hasClass('close-tags'));
+    let clickedTag = $(this).text();
+    clickedTag = clickedTag.replace(/\s+/g, '');
     if (!$(this).hasClass('close-tags')) {
       $('.memory').each(function () {
         if (!$(this).hasClass(clickedTag)) {

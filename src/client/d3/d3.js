@@ -17,7 +17,7 @@ d3.json(jsonUrl, (err, data) => {
   const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120, generateId());
   // Add unique tags to tag list for user to select from
   Object.keys(taggedNodesByTag).forEach((tag) => {
-    $('.tags').append(`<li>${tag}</li>`);
+    $('.tags').append(`<li>${tag} <img class='filter-tags' src="./assets/icons/navigate/close_icon.svg"/></li>`);
   });
   $('.tags').append(`<li class='clear-tags'>clear</li> <li class='close-tags'> <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
 </img></li>`);

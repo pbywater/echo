@@ -311,18 +311,22 @@
 
 .tags {
   position: absolute;
-    top: 38%;
     left: 0;
     width: 100%;
     display: flex;
     justify-content: space-around;
     cursor: pointer;
+    top: 30%;
  }
 
  .tags li {
+   text-align: center;
+   height: 50%;
      display: none;
    /*display: inline-block;*/
    list-style-type: none;
+   background: rgb(142,165,206);
+   border-radius: 30%;
  }
 
 .top-bar {
@@ -379,8 +383,17 @@
 
 .close-tags {
   text-align: right;
+    background: transparent !important;
 }
 
 .close-icon {
-  height: 35%;
+  width: 40%;
+}
+
+.filter-tags {
+width: 10%;
+}
+
+.clear-tags {
+  background: transparent !important;
 }
