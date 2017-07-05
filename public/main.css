@@ -33,3 +33,7 @@
       background-color: rgb(142,165,206);
     }
 }
+
+.memory {
+  transition: r 2s ease-in-out;
+}

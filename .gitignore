@@ -59,6 +59,7 @@ typings/
 
 config.env
 
-echo-af
+# build output
+**/bundle.js
 
-bundle.js
+echo-af
