@@ -1,3 +1,4 @@
+const { tagSorting } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
@@ -111,16 +112,5 @@ d3.json(jsonUrl, (err, data) => {
   const memories = svg
     .selectAll('.memory');
 
-  $('.tags li').on('click', function () {
-    $('.memory').show();
-    const clickedTag = $(this).text();
-    $('.memory').each(function () {
-      if (!$(this).hasClass(clickedTag)) {
-        $(this).hide();
-      }
-    });
-  });
-  $('.remove').on('click', () => {
-    $('.memory').show();
-  });
+  tagSorting();
 });
