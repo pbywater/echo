@@ -44,8 +44,18 @@ function tagSorting() {
   });
 }
 
+function searchButton() {
+  $('.search-tags').on('click', () => {
+    // $(this).css('width', '100%');
+    $('#to-extend').css('transform', 'rotate(-45deg)');
+    $('.to-hide').hide();
+    $('.shuffle-memories').fadeOut();
+  });
+}
+
 module.exports = {
   binByKey,
   calculateXY,
   tagSorting,
+  searchButton,
 };

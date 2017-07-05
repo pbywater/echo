@@ -1,4 +1,4 @@
-const { tagSorting } = require('../helpers/helpers.js');
+const { tagSorting, searchButton } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
@@ -113,4 +113,5 @@ d3.json(jsonUrl, (err, data) => {
     .selectAll('.memory');
 
   tagSorting();
+  searchButton();
 });
