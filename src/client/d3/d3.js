@@ -3,7 +3,9 @@ const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
 
 
-d3.json(jsonUrl, (err, data) => {
+d3.json('/memories', (err, data) => {
+  data = [data];
+  console.log(data);
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
   const binnedByTag = binByTag(data);
@@ -22,6 +24,8 @@ d3.json(jsonUrl, (err, data) => {
     nodeDataArray.push(processedData.nodes[key]);
   });
 
+  console.log(nodeDataArray);
+  
   const simulation = d3.forceSimulation()
     .force('link', d3.forceLink().id(d => d.id))
     .force('charge', d3.forceManyBody())
