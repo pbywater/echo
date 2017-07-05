@@ -14,13 +14,16 @@ function tagSorting() {
   $('.tags li').on('click', function () {
     $('.memory').show();
     const clickedTag = $(this).text();
-    $('.memory').each(function () {
-      if (!$(this).hasClass(clickedTag)) {
-        $(this).hide();
-      }
-    });
+    console.log($(this).hasClass('close-tags'));
+    if (!$(this).hasClass('close-tags')) {
+      $('.memory').each(function () {
+        if (!$(this).hasClass(clickedTag)) {
+          $(this).hide();
+        }
+      });
+    }
   });
-  $('.remove').on('click', () => {
+  $('.clear-tags').on('click', () => {
     $('.memory').show();
   });
 }
