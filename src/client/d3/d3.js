@@ -24,8 +24,10 @@ d3.json('/memories', (err, data) => {
     nodeDataArray.push(processedData.nodes[key]);
   });
 
-  console.log(nodeDataArray);
-  
+  console.log('processedData ', processedData);
+  console.log('processedData.nodes ', processedData.nodes);
+  console.log('nodeDataArray ', nodeDataArray);
+
   const simulation = d3.forceSimulation()
     .force('link', d3.forceLink().id(d => d.id))
     .force('charge', d3.forceManyBody())
