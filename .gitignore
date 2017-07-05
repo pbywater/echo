@@ -58,3 +58,10 @@ typings/
 .env
 
 config.env
+
+# DS store
+.DS_Store
+
+_assets_exports/
+
+public/bundle.js
