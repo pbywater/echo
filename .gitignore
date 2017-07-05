@@ -61,3 +61,6 @@ config.env
 
 # build output
 **/bundle.js
+
+_DS_Store
+._DS_Store

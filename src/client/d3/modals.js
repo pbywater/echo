@@ -1,4 +1,5 @@
-const { width, svg } = require('./setup.js');
+const { svg } = require('./setup');
+const { getRandomInt } = require('./../helpers/helpers');
 
 const appendPopUp = (data) => {
 
@@ -29,13 +30,21 @@ const appendPopUp = (data) => {
       .attr('transform', 'translate(10, 20)')
       .attr('width', 10)
       .attr('height', 10)
-      .on('click', closepopup);
+      .on('click', closePopUp);
 }
 
-const closepopup = () => {
+const closePopUp = () => {
   svg
     .selectAll('.popupBoxHolder')
       .remove();
 }
 
-module.exports = appendPopUp;
+const randomPopUp = (data) => {
+  const index = getRandomInt(0, data.length - 1);
+  appendPopUp(data[index]);
+}
+
+module.exports = {
+  appendPopUp,
+  randomPopUp,
+}

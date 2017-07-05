@@ -1,7 +1,7 @@
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
-const appendPopUp = require('./modals');
+const { appendPopUp, randomPopUp } = require('./modals');
 
 d3.json(jsonUrl, (err, data) => {
   // binByTag sorts data by tag
@@ -91,7 +91,17 @@ d3.json(jsonUrl, (err, data) => {
       .attr('cx', d => d.x)
       .attr('cy', d => d.y);
   }
+  var shuffle = svg
+    .append('g')
+      .attr('class', 'shuffleMems')
+      .attr('transform', 'translate(0, 0)')
 
-  const memories = svg
-    .selectAll('.memory');
+  shuffle
+    .append('rect')
+      .attr('width', 50)
+      .attr('height', 50)
+      .style('fill', 'black')
+      .on('click', () => {
+        randomPopUp(nodeDataArray)
+      })
 });
