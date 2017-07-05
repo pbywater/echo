@@ -14,6 +14,11 @@ d3.json(jsonUrl, (err, data) => {
   });
   // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
   const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120, generateId());
+  // Add unique tags to tag list for user to select from
+  Object.keys(taggedNodesByTag).forEach((tag) => {
+    $('.tags').append(`<li>${tag}</li>`);
+  });
+  $('.tags').append('<li class=\'remove\'> Remove filter</li>');
   // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(taggedNodesByTag, sortedWithMax);
 
@@ -46,7 +51,7 @@ d3.json(jsonUrl, (err, data) => {
     .append('circle')
     .attr('cy', d => d.y)
     .attr('cx', d => d.x)
-    .attr('class', 'memory')
+    .attr('class', d => `memory ${d.tag}`)
     .attr('r', d => rScale(d.likes))
 
     .style('fill', 'white')
@@ -71,6 +76,7 @@ d3.json(jsonUrl, (err, data) => {
     .attr('y1', d => processedData.nodes[d.source].y,
     )
     .style('stroke', 'white')
+    .attr('class', d => `memory ${processedData.nodes[d.source].tag}`)
     .style('stroke-width', '3px');
 
   simulation.nodes(circles);
@@ -104,4 +110,17 @@ d3.json(jsonUrl, (err, data) => {
 
   const memories = svg
     .selectAll('.memory');
+
+  $('.tags li').on('click', function () {
+    $('.memory').show();
+    const clickedTag = $(this).text();
+    $('.memory').each(function () {
+      if (!$(this).hasClass(clickedTag)) {
+        $(this).hide();
+      }
+    });
+  });
+  $('.remove').on('click', () => {
+    $('.memory').show();
+  });
 });
