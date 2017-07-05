@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="191px" height="172px" viewBox="0 0 191 172" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>audio_folder_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square" opacity="0.5">
+        <g id="icon" transform="translate(-822.000000, -174.000000)" stroke="#8EA5CE" stroke-width="2">
+            <g id="audio_folder_icon" transform="translate(823.000000, 175.000000)">
+                <path d="M176.4,170 L12.6,170 C5.64165,170 0,164.361667 0,157.407407 L0,0 L69.3,0 L88.2,25.1851852 L189,25.1851852 L189,157.407407 C189,164.361667 183.35835,170 176.4,170 Z" id="Shape"></path>
+                <polygon id="Shape" points="63 85 44.1 85 44.1 110.185185 63 110.185185 94.5 129.074074 94.5 66.1111111"></polygon>
+                <path d="M113.40315,86.6874074 C117.1674,88.8659259 119.7,92.9333333 119.7,97.5925926 C119.7,102.251852 117.1674,106.322407 113.40315,108.500926" id="Shape"></path>
+                <path d="M119.71575,61.9712963 C134.38845,67.1594444 144.9,81.1498148 144.9,97.5925926 C144.9,114.041667 134.38215,128.032037 119.70315,133.220185" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

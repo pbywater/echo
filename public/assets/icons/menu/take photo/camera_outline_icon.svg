@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="46px" height="40px" viewBox="0 0 46 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>camera_outline_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="icon" transform="translate(-26.000000, -109.000000)" stroke-width="2" stroke="#FFFFFF">
+            <g id="menu" transform="translate(21.000000, 107.000000)">
+                <g id="camera">
+                    <g transform="translate(6.000000, 3.000000)">
+                        <g id="media-48px-outline-1_camera-19">
+                            <path d="M8,6 L8,38" id="Shape"></path>
+                            <path d="M3,38 L41,38 C42.657,38 44,36.657 44,35 L44,9 C44,7.343 42.657,6 41,6 L33,6 L29.001,0 L19,0 L15,6 L3,6 C1.343,6 0,7.343 0,9 L0,35 C0,36.657 1.343,38 3,38 Z" id="Shape"></path>
+                            <circle id="Oval" cx="24" cy="22" r="10"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>settings_glyph_icon_1</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-82.000000, -406.000000)">
+            <g id="menu" transform="translate(21.000000, 107.000000)">
+                <g></g>
+            </g>
+            <g id="settings_glyph_icon_1" transform="translate(82.000000, 406.000000)" fill-rule="nonzero" fill="#FFFFFF">
+                <path d="M40,18 L37.5,18 C37.1,16.5 36.5,15.2 35.8,13.9 L37.6,12.1 C39.2,10.5 39.2,8 37.6,6.4 C36,4.8 33.5,4.8 31.9,6.4 L30.1,8.2 C28.8,7.4 27.4,6.9 26,6.5 L26,4 C26,1.8 24.2,0 22,0 C19.8,0 18,1.8 18,4 L18,6.5 C16.5,6.9 15.2,7.5 13.9,8.2 L12.1,6.4 C10.5,4.8 8,4.8 6.4,6.4 C4.8,8 4.8,10.5 6.4,12.1 L8.2,13.9 C7.4,15.2 6.9,16.6 6.5,18 L4,18 C1.8,18 0,19.8 0,22 C0,24.2 1.8,26 4,26 L6.5,26 C6.9,27.5 7.5,28.8 8.2,30.1 L6.4,31.9 C4.8,33.5 4.8,36 6.4,37.6 C8,39.2 10.5,39.2 12.1,37.6 L13.9,35.8 C15.2,36.6 16.6,37.1 18,37.5 L18,40 C18,42.2 19.8,44 22,44 C24.2,44 26,42.2 26,40 L26,37.5 C27.5,37.1 28.8,36.5 30.1,35.8 L31.9,37.6 C33.5,39.2 36,39.2 37.6,37.6 C39.2,36 39.2,33.5 37.6,31.9 L35.8,30.1 C36.6,28.8 37.1,27.4 37.5,26 L40,26 C42.2,26 44,24.2 44,22 C44,19.8 42.2,18 40,18 Z M22,29 C18.1,29 15,25.9 15,22 C15,18.1 18.1,15 22,15 C25.9,15 29,18.1 29,22 C29,25.9 25.9,29 22,29 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="189px" height="170px" viewBox="0 0 189 170" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>photo_folder_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square" opacity="0.5">
+        <g id="icon" transform="translate(-588.000000, -171.000000)" stroke="#8EA5CE" stroke-width="2">
+            <g id="photo_folder_icon" transform="translate(589.000000, 172.000000)">
+                <path d="M174.533333,168 L12.4666667,168 C5.58195,168 0,162.428 0,155.555556 L0,0 L68.5666667,0 L87.2666667,24.8888889 L187,24.8888889 L187,155.555556 C187,162.428 181.41805,168 174.533333,168 Z" id="Shape"></path>
+                <polygon id="Shape" points="37.4 133.777778 59.2166667 99.5555556 81.0333333 115.111111 112.2 77.7777778 149.6 133.777778"></polygon>
+                <ellipse id="Oval" cx="74.8" cy="65.3333333" rx="12.4666667" ry="12.4444444"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>
