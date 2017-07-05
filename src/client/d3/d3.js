@@ -2,8 +2,9 @@ const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
 
+let url = location.hostname ? '/memories' : jsonUrl;
 
-d3.json('/memories', (err, data) => {
+d3.json(url, (err, data) => {
   // data = [data];
   console.log(data);
   // binByTag sorts data by tag
