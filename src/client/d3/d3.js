@@ -19,7 +19,8 @@ d3.json(jsonUrl, (err, data) => {
   Object.keys(taggedNodesByTag).forEach((tag) => {
     $('.tags').append(`<li>${tag}</li>`);
   });
-  $('.tags').append('<li class=\'remove\'> Remove filter</li>');
+  $('.tags').append(`<li class='close-tags'> <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
+</img></li>`);
   // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(taggedNodesByTag, sortedWithMax);
 

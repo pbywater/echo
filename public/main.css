@@ -3,6 +3,8 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: 'quicksand';
+  color: white;
 }
 
 #desktop-background {
@@ -373,4 +375,12 @@
 .underline.active:after {
     width: 100%;
     background: white;
+}
+
+.close-tags {
+  text-align: right;
+}
+
+.close-icon {
+  height: 35%;
 }
