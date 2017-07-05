@@ -306,6 +306,7 @@
 }
 
 .tags {
+  display: none;
    position: absolute;
      top: 7%;
      left: 35%;
@@ -316,6 +317,12 @@
  }
 
  .tags li {
-   display: inline-block;
+     display: none;
+   /*display: inline-block;*/
    list-style-type: none;
  }
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+}
