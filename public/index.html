@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <title>Echo</title>
@@ -10,7 +11,26 @@
   <body>
     <div id="desktop-background" >
       <div id="d3-container">
+        <nav class = 'top-bar'>
+          <img src='./assets/icons/top_bar/shuffle_icon.svg' class = 'shuffle-memories'/>
+          <svg class='search-tags' width="45px" height="45px" viewBox="0 0 45 45">
+              <title>search_icon</title>
+              <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+                  <g id="icon" transform="translate(-107.000000, -26.000000)" stroke="#FFFFFF" stroke-width="2">
+                      <g id="search_icon" transform="translate(108.000000, 27.000000)">
+                          <path id='to-extend' d="M42,42 L36,36"></path>
+                          <circle class='to-hide' id="Oval" cx="18" cy="18" r="18"></circle>
+                          <path class='to-hide' d="M8,16 C8.82051282,12 12,8.82051282 16,8" id="Shape"></path>
+                      </g>
+                  </g>
+              </g>
+          </svg>
+          <div class = 'underline'></div>
 <ul class='tags'></ul>
+
+</nav>
+      </div>
+    </div>
 
         <nav class="menu">
           <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
