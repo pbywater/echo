@@ -20,7 +20,7 @@ const tagNodesByTag = (tagsArray, startingCx, startingCy, generateId) => {
   arrayCopy.forEach((tag, i) => {
     const newId = generateId();
     out[tag.max.tag] = {
-      id: i,
+      id: newId,
       x: startingCx,
       y: startingCy + 200 * i,
       tag: tag.max.tag,
@@ -69,6 +69,10 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
     });
   });
 
+  Object.keys(tagNodes).forEach((tag) => {
+    console.log(tagNodes[tag].id);
+  });
+
   return {
     nodes, links,
   };
@@ -76,7 +80,7 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
 
 // To be removed when we use UUID?
 
-let numGenerated = 0;
+let numGenerated = 1000;
 
 const generateId = () => () => {
   numGenerated += 1;
