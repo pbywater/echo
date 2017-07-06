@@ -1,4 +1,4 @@
-const { tagSorting, searchButton, removingTags } = require('../helpers/helpers.js');
+const { tagSorting, openTagMenu } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
@@ -17,10 +17,18 @@ d3.json(jsonUrl, (err, data) => {
   const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120, generateId());
   // Add unique tags to tag list for user to select from
   Object.keys(taggedNodesByTag).forEach((tag) => {
-    $('.tags').append(`<li class='tag-container ${tag}'><p class='tagLabel'>${tag}</p> <img class='filter-tags ${tag}' src="./assets/icons/navigate/close_icon.svg"/></li>`);
+    $('.tags').append(
+      `<li class='tag-container ${tag}'>
+        <p class='tagLabel'>${tag}</p>
+        <img class='filter-tags ${tag}' src="./assets/icons/navigate/close_icon.svg"/>
+      </li>`);
   });
-  $('.tags').append(`<li class='clear-tags'>clear</li> <li class='close-tags'> <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
-</img></li>`);
+  $('.tags').append(
+    `<li class='clear-tags'>clear</li>
+    <li class='close-tags'>
+      <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
+      </img>
+    </li>`);
   // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(taggedNodesByTag, sortedWithMax);
 
@@ -113,7 +121,5 @@ d3.json(jsonUrl, (err, data) => {
   const memories = svg
     .selectAll('.memory');
 
-  tagSorting();
-  searchButton();
-  removingTags();
+  openTagMenu();
 });
