@@ -61,3 +61,5 @@ config.env
 
 # build output
 **/bundle.js
+
+echo-af
