@@ -65,6 +65,7 @@ d3.json(jsonUrl, (err, data) => {
     .attr('r', d => rScale(d.likes))
 
     .style('fill', 'white')
+    .style('opacity', '0.8')
     .call(d3.drag()
       .on('start', dragstarted)
       .on('drag', dragged)
@@ -87,7 +88,8 @@ d3.json(jsonUrl, (err, data) => {
     )
     .style('stroke', 'white')
     .attr('class', d => `memory ${processedData.nodes[d.source].tag}`)
-    .style('stroke-width', '3px');
+    .style('stroke-width', '2px')
+    .style('opacity', '0.8');
 
   simulation.nodes(circles);
   simulation.force('link').links(link);
