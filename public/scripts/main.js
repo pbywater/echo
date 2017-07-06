@@ -1,5 +1,3 @@
-// Add js here
-//
 document.addEventListener('DOMContentLoaded', (event) => {
   $('#pencil').on('click', () => {
     console.log('clicked');
