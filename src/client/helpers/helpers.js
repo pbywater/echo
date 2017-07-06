@@ -15,6 +15,12 @@ function tagSorting() {
     $('.memory').show();
     let clickedTag = $(this).text();
     clickedTag = clickedTag.replace(/\s+/g, '');
+    $('.tagLabel').each(function () {
+      const tagLabel = $(this).text().replace(/\s+/g, '');
+      if (tagLabel !== clickedTag) {
+        $(this).hide();
+      }
+    });
     if (!$(this).hasClass('close-tags')) {
       $('.memory').each(function () {
         if (!$(this).hasClass(clickedTag)) {
@@ -25,6 +31,13 @@ function tagSorting() {
   });
   $('.clear-tags').on('click', () => {
     $('.memory').show();
+    $('.tagLabel').show();
+  });
+}
+
+function removingTags() {
+  $('.filter-tags').on('click', () => {
+    console.log('clicked');
   });
 }
 
