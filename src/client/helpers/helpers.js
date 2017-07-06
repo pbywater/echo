@@ -1,4 +1,6 @@
 
+const normalTime = 1000;
+
 const binByKey = (key, xs) =>
   xs.reduce((binnedArray, elem) => {
     const targetBin = binnedArray[elem[key]];
@@ -72,14 +74,14 @@ function closeTagMenu() {
   $('.close-tags').on('click', () => {
     $('.underline').removeClass('active');
     setTimeout(() => {
-      $('.shuffle-memories').fadeIn(1000);
+      $('.shuffle-memories').fadeIn(normalTime);
       $('.to-hide').fadeIn(500);
-    }, 1000);
+    }, normalTime);
     setTimeout(() => {
       $('#to-extend').show();
       $('#to-extend').css('transform', 'rotate(0deg)').removeClass('active');
     }, 1100);
-    $('.tags, .tags li').fadeOut(1000);
+    $('.tags, .tags li').fadeOut(normalTime);
   });
 }
 
@@ -88,14 +90,14 @@ function openTagMenu() {
     $('.underline').addClass('active');
     $('#to-extend').css('transform', 'rotate(-45deg)').addClass('active');
     $('.to-hide').hide();
-    $('.shuffle-memories').fadeOut(1000);
+    $('.shuffle-memories').fadeOut(normalTime);
     setTimeout(() => {
       $('#to-extend').hide();
     }, 900);
     setTimeout(() => {
-      $('.tags, .tags li').fadeIn(1000);
+      $('.tags, .tags li').fadeIn(normalTime);
       $('.tag-container').css('display', 'flex');
-    }, 1000);
+    }, normalTime);
   });
   tagSorting();
   clearButton();
