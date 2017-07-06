@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>close_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-101.000000, -491.000000)">
+            <g id="menu" transform="translate(20.000000, 107.000000)">
+                <g></g>
+            </g>
+            <g id="close_icon" transform="translate(101.000000, 491.000000)" fill-rule="nonzero" fill="#FFFFFF">
+                <g id="menu">
+                    <g id="close">
+                        <g id="ui-48px-glyph-1_simple-remove">
+                            <path d="M30.293,0.595 L16.858,14.03 L3.423,0.595 C3.032,0.205 2.399,0.204 2.009,0.595 L0.594,2.009 C0.203,2.4 0.203,3.033 0.594,3.423 L14.03,16.858 L0.594,30.293 C0.203,30.684 0.203,31.317 0.594,31.707 L2.008,33.121 C2.399,33.511 3.032,33.511 3.422,33.121 L16.857,19.686 L30.292,33.121 C30.683,33.511 31.316,33.512 31.706,33.121 L33.12,31.707 C33.511,31.316 33.511,30.683 33.12,30.293 L19.686,16.858 L33.121,3.423 C33.512,3.032 33.512,2.399 33.121,2.009 L31.707,0.595 C31.317,0.204 30.683,0.204 30.293,0.595 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

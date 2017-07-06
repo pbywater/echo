@@ -59,5 +59,10 @@ typings/
 
 config.env
 
+# DS store
+.DS_Store
+
+_assets_exports/
+
 # build output
 **/bundle.js
