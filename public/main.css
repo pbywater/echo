@@ -84,7 +84,7 @@
   text-align: center;
   width: 100%;
   bottom: 0;
-  z-index: 999999;
+  z-index: 2;
 }
 
 .menu-item svg {
@@ -362,7 +362,7 @@
 
 .top-bar {
   position: absolute;
-  z-index: 99999;
+  z-index: 2;
   width: 100%;
   display: flex;
   justify-content: space-between;
