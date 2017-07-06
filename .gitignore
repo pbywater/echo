@@ -60,7 +60,7 @@ typings/
 config.env
 
 # DS store
-.DS_Store
+**/*DS_Store
 
 _assets_exports/
 
