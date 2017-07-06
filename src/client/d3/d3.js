@@ -3,7 +3,7 @@ const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
 
-let url = location.hostname ? '/memories' : jsonUrl;
+const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
   // binByTag sorts data by tag
@@ -18,6 +18,7 @@ d3.json(url, (err, data) => {
   const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120, generateId());
   // Add unique tags to tag list for user to select from
   Object.keys(taggedNodesByTag).forEach((tag) => {
+    tag = tag.replace(/\W/g, '');
     $('.tags').append(
       `<li class='tag-container ${tag}'>
         <p class='tagLabel'>${tag}</p>
