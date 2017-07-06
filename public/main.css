@@ -529,3 +529,16 @@
 .clear-tags {
     background: transparent !important;
 }
+
+.test-submit {
+  left: 20%;
+    position: absolute;
+}
+
+.menu-open:checked~#pencil.wipe.finished.new-node, .menu-open:checked~#microphone.wipe.finished.new-node, .menu-open:checked~#camera.wipe.finished.new-node {
+         transition: transform 3s ease 2s, border-radius 3s ease, width 3s ease, height 3s ease;
+  transform: translate(181.5%, -1500%);
+ border-radius: 100%;
+ width: 4%;
+ height: 2vh;
+}

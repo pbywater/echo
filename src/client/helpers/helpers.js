@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 const normalTime = 1000;
 
 const binByKey = (key, xs) =>
@@ -105,7 +105,15 @@ function openTagMenu() {
   removingTags();
 }
 
+function submitNewMemory() {
+  $('.test-submit').on('click', function() {
+    $('.finished').addClass('new-node');
+    $('.finished svg').hide();
+  });
+}
+
 module.exports = {
   binByKey,
   openTagMenu,
+  submitNewMemory,
 };
