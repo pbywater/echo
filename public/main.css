@@ -319,14 +319,24 @@
     top: 30%;
  }
 
- .tags li {
+ .tag-container {
    text-align: center;
    height: 50%;
      display: none;
+     justify-content: space-around;
    /*display: inline-block;*/
    list-style-type: none;
    background: rgb(142,165,206);
    border-radius: 30%;
+   align-items: center;
+ }
+
+
+ .tags li {
+      list-style-type: none;
+      display: none;
+      text-align: center;
+      height: 50%;
  }
 
 .top-bar {

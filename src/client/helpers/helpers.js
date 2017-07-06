@@ -11,14 +11,14 @@ const binByKey = (key, xs) =>
   }, {});
 
 function tagSorting() {
-  $('.tags li').on('click', function () {
+  $('.tagLabel').on('click', function () {
     $('.memory').show();
     let clickedTag = $(this).text();
     clickedTag = clickedTag.replace(/\s+/g, '');
     $('.tagLabel').each(function () {
       const tagLabel = $(this).text().replace(/\s+/g, '');
       if (tagLabel !== clickedTag) {
-        $(this).hide();
+        $(this).parent().hide();
       }
     });
     if (!$(this).hasClass('close-tags')) {
@@ -31,13 +31,13 @@ function tagSorting() {
   });
   $('.clear-tags').on('click', () => {
     $('.memory').show();
-    $('.tagLabel').show();
+    $('.tag-container').show();
   });
 }
 
 function removingTags() {
-  $('.filter-tags').on('click', () => {
-    console.log('clicked');
+  $('.filter-tags').on('click', function () {
+    $(this).parent().hide();
   });
 }
 
@@ -52,6 +52,7 @@ function searchButton() {
     }, 900);
     setTimeout(() => {
       $('.tags, .tags li').fadeIn(1000);
+      $('.tag-container').css('display', 'flex');
     }, 1000);
   });
 
@@ -73,4 +74,5 @@ module.exports = {
   binByKey,
   tagSorting,
   searchButton,
+  removingTags,
 };
