@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="43px" height="44px" viewBox="0 0 43 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>pencil_salmon_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-590.000000, -28.000000)" fill-rule="nonzero" fill="#FDACAB">
+            <g id="pencil_salmon_icon" transform="translate(589.200000, 28.000000)">
+                <path d="M41.7,6.6 L37.4,2.3 C36.5,1.4 35.2,0.8 33.9,0.8 C32.6,0.8 31.3,1.3 30.4,2.3 L3.1,29.5 C3,29.6 3,29.7 2.9,29.8 C2.9,29.8 2.9,29.9 2.9,29.9 C2.9,29.9 2.9,30 2.9,30 L0.9,42 C0.8,42.3 1,42.6 1.2,42.9 C1.4,43.1 1.6,43.2 1.9,43.2 C2,43.2 2,43.2 2.1,43.2 L14.1,41.2 C14.1,41.2 14.2,41.2 14.2,41.2 C14.2,41.2 14.3,41.2 14.3,41.2 C14.4,41.2 14.5,41.1 14.6,41 L41.8,13.8 C43.7,11.8 43.7,8.6 41.7,6.6 Z M7.3,40.2 L3.7,36.6 L4.4,32.2 L11.7,39.5 L7.3,40.2 Z M28.7,16.7 L12.4,33 C12.2,33.2 11.9,33.3 11.7,33.3 C11.4,33.3 11.2,33.2 11,33 C10.6,32.6 10.6,32 11,31.6 L27.3,15.3 C27.7,14.9 28.3,14.9 28.7,15.3 C29.1,15.7 29.1,16.3 28.7,16.7 Z M35.8,16.8 L27.2,8.2 L29.8,5.6 L38.4,14.2 L35.8,16.8 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

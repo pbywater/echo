@@ -10,12 +10,126 @@
   <body>
     <div id="desktop-background" >
       <div id="d3-container">
+<ul class='tags'></ul>
+
+        <nav class="menu">
+          <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
+          <label class="menu-open-button" for="menu-open">
+            <img class="menu_icon" src="./assets/icons/navigate/menu_icon.svg" alt="Menu icon">
+            <img class="close_icon hide" src="./assets/icons/navigate/close_icon.svg" alt="Close icon">
+          </label>
+
+          <a href="#" class="menu-item normal" id='pencil'>
+            <svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+              <title>pencil_glyph_icon_2</title>
+              <desc>Created with Sketch.</desc>
+              <defs></defs>
+              <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="icon" transform="translate(-93.000000, -345.000000)">
+                      <g id="menu" transform="translate(21.000000, 107.000000)">
+                          <g></g>
+                      </g>
+                      <g id="pencil_glyph_icon_2" transform="translate(93.000000, 345.000000)" fill-rule="nonzero" fill="#FFFFFF">
+                          <rect id="Rectangle-path" transform="translate(22.706993, 26.707354) rotate(-45.000000) translate(-22.706993, -26.707354) " x="5.32215967" y="23.8788807" width="34.7696666" height="5.65694575"></rect>
+                          <rect id="Rectangle-path" transform="translate(17.292407, 21.292646) rotate(-45.000000) translate(-17.292407, -21.292646) " x="-0.0924262271" y="18.4641736" width="34.7696666" height="5.65694575"></rect>
+                          <path d="M43.707,8.293 L35.707,0.293 C35.317,-0.097 34.683,-0.097 34.293,0.293 L29,5.586 L38.414,15 L43.707,9.707 C44.098,9.316 44.098,8.683 43.707,8.293 Z" id="Shape"></path>
+                          <path d="M1.915,33.329 L0.02,42.804 C-0.046,43.132 0.057,43.471 0.293,43.707 C0.482,43.896 0.737,44 1,44 C1.065,44 1.131,43.994 1.196,43.98 L10.671,42.085 L1.915,33.329 Z" id="Shape"></path>
+                      </g>
+                  </g>
+              </g>
+            </svg>
+          </a>
+          <a href="#" class="menu-item normal" id ='camera'>
+            <svg width="46px" height="40px" viewBox="0 0 46 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+                <title>camera_glyph_icon_1</title>
+                <desc>Created with Sketch.</desc>
+                <defs></defs>
+                <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="icon" transform="translate(-100.000000, -107.000000)" fill-rule="nonzero" fill="#FFFFFF">
+                        <g id="menu" transform="translate(21.000000, 107.000000)">
+                            <g id="camera_glyph_icon_1">
+                                <g transform="translate(79.000000, 0.000000)">
+                                    <path d="M6,6 L4,6 C1.794,6 0,7.794 0,10 L0,36 C0,38.206 1.794,40 4,40 L6,40 L6,6 Z" id="Shape"></path>
+                                    <path d="M42,6 L34.535,6 L30.833,0.445 C30.647,0.167 30.335,0 30.001,0 L20,0 C19.666,0 19.354,0.167 19.168,0.445 L15.465,6 L8,6 L8,40 L42,40 C44.206,40 46,38.206 46,36 L46,10 C46,7.794 44.206,6 42,6 Z M25,34 C18.935,34 14,29.065 14,23 C14,16.935 18.935,12 25,12 C31.065,12 36,16.935 36,23 C36,29.065 31.065,34 25,34 Z" id="Shape"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+          </a>
+          <a href="#" class="menu-item normal" id='microphone'>
+            <svg width="34px" height="46px" viewBox="0 0 34 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+                <title>audio_outline_icon_2</title>
+                <desc>Created with Sketch.</desc>
+                <defs></defs>
+                <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="icon" transform="translate(-82.000000, -183.000000)">
+                        <g id="menu" transform="translate(21.000000, 107.000000)">
+                            <g></g>
+                        </g>
+                        <g id="audio_outline_icon_2" transform="translate(82.000000, 183.000000)" fill-rule="nonzero" fill="#FFFFFF">
+                            <path d="M34,21 C34,20.447 33.552,20 33,20 C32.448,20 32,20.447 32,21 C32,29.271 25.271,36 17,36 C8.729,36 2,29.271 2,21 C2,20.447 1.552,20 1,20 C0.448,20 0,20.447 0,21 C0,30.036 7.092,37.427 16,37.949 L16,44 L7,44 C6.448,44 6,44.447 6,45 C6,45.553 6.448,46 7,46 L27,46 C27.552,46 28,45.553 28,45 C28,44.447 27.552,44 27,44 L18,44 L18,37.949 C26.908,37.427 34,30.036 34,21 Z" id="Shape"></path>
+                            <path d="M22,20 C22,19.447 22.448,19 23,19 L28,19 L28,14 L23,14 C22.448,14 22,13.553 22,13 C22,12.447 22.448,12 23,12 L28,12 L28,11 C28,4.935 23.065,0 17,0 C10.935,0 6,4.935 6,11 L6,12 L11,12 C11.552,12 12,12.447 12,13 C12,13.553 11.552,14 11,14 L6,14 L6,19 L11,19 C11.552,19 12,19.447 12,20 C12,20.553 11.552,21 11,21 L6,21 C6,27.065 10.935,32 17,32 C23.065,32 28,27.065 28,21 L23,21 C22.448,21 22,20.553 22,20 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+          </a>
+          <a href="#" class="menu-item normal" id='clock'>
+            <svg width="46px" height="43px" viewBox="0 0 46 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+                <title>notification_glyph_icon_1</title>
+                <desc>Created with Sketch.</desc>
+                <defs></defs>
+                <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="icon" transform="translate(-171.000000, -267.000000)">
+                        <g id="menu" transform="translate(21.000000, 107.000000)">
+                            <g></g>
+                        </g>
+                        <g id="notification_glyph_icon_1" transform="translate(171.000000, 267.000000)" fill-rule="nonzero" fill="#FFFFFF">
+                            <path d="M31.484,0.125 C31.168,-0.05 30.779,-0.042 30.469,0.152 L14.713,10 L7,10 C3.141,10 0,13.141 0,17 C0,20.859 3.141,24 7,24 L14.713,24 L30.47,33.848 C30.632,33.949 30.815,34 31,34 C31.167,34 31.334,33.958 31.484,33.875 C31.803,33.698 32,33.363 32,33 L32,1 C32,0.637 31.803,0.302 31.484,0.125 Z" id="Shape"></path>
+                            <path d="M45,18 L41,18 C40.447,18 40,17.553 40,17 C40,16.447 40.447,16 41,16 L45,16 C45.553,16 46,16.447 46,17 C46,17.553 45.553,18 45,18 Z" id="Shape"></path>
+                            <path d="M38.59,9 C38.244,9 37.908,8.821 37.723,8.5 C37.447,8.021 37.611,7.41 38.089,7.134 L41.553,5.134 C42.029,4.858 42.642,5.021 42.919,5.5 C43.195,5.979 43.031,6.59 42.553,6.866 L39.089,8.866 C38.932,8.957 38.76,9 38.59,9 Z" id="Shape"></path>
+                            <path d="M42.052,29 C41.882,29 41.71,28.957 41.553,28.866 L38.089,26.866 C37.61,26.59 37.446,25.978 37.723,25.5 C37.999,25.021 38.612,24.857 39.089,25.134 L42.553,27.134 C43.032,27.41 43.196,28.022 42.919,28.5 C42.733,28.821 42.397,29 42.052,29 Z" id="Shape"></path>
+                            <path d="M19.634,37.068 L14.705,26 L5.495,26 L11.938,40.503 C12.637,42.069 14.179,43 15.792,43 C16.365,43 16.947,42.882 17.503,42.634 C19.625,41.687 20.581,39.189 19.634,37.068 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+          </a>
+          <a href="#" class="menu-item normal" id='cog'>
+            <svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+                <title>settings_glyph_icon_1</title>
+                <desc>Created with Sketch.</desc>
+                <defs></defs>
+                <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="icon" transform="translate(-82.000000, -406.000000)">
+                        <g id="menu" transform="translate(21.000000, 107.000000)">
+                            <g></g>
+                        </g>
+                        <g id="settings_glyph_icon_1" transform="translate(82.000000, 406.000000)" fill-rule="nonzero" fill="#FFFFFF">
+                            <path d="M40,18 L37.5,18 C37.1,16.5 36.5,15.2 35.8,13.9 L37.6,12.1 C39.2,10.5 39.2,8 37.6,6.4 C36,4.8 33.5,4.8 31.9,6.4 L30.1,8.2 C28.8,7.4 27.4,6.9 26,6.5 L26,4 C26,1.8 24.2,0 22,0 C19.8,0 18,1.8 18,4 L18,6.5 C16.5,6.9 15.2,7.5 13.9,8.2 L12.1,6.4 C10.5,4.8 8,4.8 6.4,6.4 C4.8,8 4.8,10.5 6.4,12.1 L8.2,13.9 C7.4,15.2 6.9,16.6 6.5,18 L4,18 C1.8,18 0,19.8 0,22 C0,24.2 1.8,26 4,26 L6.5,26 C6.9,27.5 7.5,28.8 8.2,30.1 L6.4,31.9 C4.8,33.5 4.8,36 6.4,37.6 C8,39.2 10.5,39.2 12.1,37.6 L13.9,35.8 C15.2,36.6 16.6,37.1 18,37.5 L18,40 C18,42.2 19.8,44 22,44 C24.2,44 26,42.2 26,40 L26,37.5 C27.5,37.1 28.8,36.5 30.1,35.8 L31.9,37.6 C33.5,39.2 36,39.2 37.6,37.6 C39.2,36 39.2,33.5 37.6,31.9 L35.8,30.1 C36.6,28.8 37.1,27.4 37.5,26 L40,26 C42.2,26 44,24.2 44,22 C44,19.8 42.2,18 40,18 Z M22,29 C18.1,29 15,25.9 15,22 C15,18.1 18.1,15 22,15 C25.9,15 29,18.1 29,22 C29,25.9 25.9,29 22,29 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+          </a>
+
+        </nav>
 
       </div>
     </div>
 
 
   </body>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+  <script src="scripts/main.js"></script>
   <script src="bundle.js"></script>
 </html>

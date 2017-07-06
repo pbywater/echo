@@ -15,11 +15,13 @@
 }
 
 #d3-container {
+  position: absolute;
   width: 360px;
   height: 640px;
 }
 
 .d3-background {
+  position: absolute;
   background-color: rgb(142,165,206);
   background-image: linear-gradient(to bottom, rgba(0,0,0,0),  rgb(145,207,207) 100%);
   -webkit-animation: gradientChange 10s ease-in infinite;
@@ -34,6 +36,310 @@
     }
 }
 
+/* Navigation */
+
+.menu {
+  -webkit-filter: url("#shadowed-goo");
+          filter: url("#shadowed-goo");
+}
+
+.menu-item, .menu-open-button {
+  background-color: #8ea5ce;
+  border-radius: 100%;
+  width: 73px;
+  height: 73px;
+  margin-left: -36px;
+  position: absolute;
+  text-align: center;
+  line-height: 95px;
+}
+
+.menu-open {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+.menu-open:checked + .menu-open-button {
+  -webkit-transform: translate3d(0, 0, 0) rotate(45deg);
+          transform: translate3d(0, 0, 0) rotate(45deg);
+}
+.menu-open:checked + .menu-open-button {
+  -webkit-transform: translate3d(0, 0, 0) scale(0.1, 1);
+          transform: translate3d(0, 0, 0) scale(0.1, 1);
+}
+.menu-open:checked + .menu-open-button {
+  -webkit-transform: translate3d(0, 0, 0) rotate(-45deg);
+          transform: translate3d(0, 0, 0) rotate(-45deg);
+}
+
+.menu {
+  position: absolute;
+  height: 15%;
+  box-sizing: border-box;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  z-index: 999999;
+}
+
+.menu-item svg {
+  margin-top: 14px;
+}
+#pencil {
+  /*-webkit-transition-duration: 70ms;
+          transition-duration: 70ms;*/
+}
+.menu-item:nth-child(4) {
+  /*-webkit-transition-duration: 130ms;
+          transition-duration: 130ms;*/
+}
+.menu-item:nth-child(5) {
+  /*-webkit-transition-duration: 190ms;
+          transition-duration: 190ms;*/
+}
+.menu-item:nth-child(6) {
+  /*-webkit-transition-duration: 250ms;
+          transition-duration: 250ms;*/
+}
+.menu-item:nth-child(7) {
+  /*-webkit-transition-duration: 310ms;
+          transition-duration: 310ms;*/
+}
+
+.menu-open-button {
+  background-color: #8ea5ce;
+  z-index: 2;
+  -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -webkit-transition-duration: 400ms;
+          transition-duration: 400ms;
+  -webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+          transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+  cursor: pointer;
+}
+.menu-open-button.active {
+    background-color: #8ea5ce;
+}
+
+.menu-open-button:hover {
+  -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+          transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+}
+
+.menu-open:checked + .menu-open-button {
+  -webkit-transition-timing-function: linear;
+          transition-timing-function: linear;
+  -webkit-transition-duration: 200ms;
+          transition-duration: 200ms;
+  -webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+          transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+}
+
+.menu-open:checked ~ .menu-item.normal {
+  -webkit-transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+          transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+}
+.menu-open:checked ~ #pencil.normal {
+  -webkit-transition-duration: 260ms;
+          transition-duration: 260ms;
+  -webkit-transform: translate3d(-140.42548px, -12.48084px, 0);
+          transform: translate3d(-140.42548px, -12.48084px, 0);
+}
+
+.menu-open:checked ~ #camera.normal {
+  -webkit-transition-duration: 440ms;
+          transition-duration: 440ms;
+  -webkit-transform: translate3d(-97.18543px, -95.2491px, 0);
+          transform: translate3d(-97.18543px, -95.2491px, 0);
+}
+.menu-open:checked ~ #microphone.normal {
+  -webkit-transition-duration: 620ms;
+          transition-duration: 620ms;
+  -webkit-transform: translate3d(-0.09158px, -135.99996px, 0);
+          transform: translate3d(-0.09158px, -135.99996px, 0);
+}
+.menu-open:checked ~ #clock.normal {
+  -webkit-transition-duration: 800ms;
+          transition-duration: 800ms;
+  -webkit-transform: translate3d(97.04956px, -95.37192px, 0);
+          transform: translate3d(97.04956px, -95.37192px, 0);
+}
+.menu-open:checked ~ #cog.normal {
+  -webkit-transition-duration: 1080ms;
+          transition-duration: 1080ms;
+  -webkit-transform: translate3d(140.40705px, -12.66307px, 0);
+          transform: translate3d(140.40705px, -12.66307px, 0);
+}
+
+@keyframes pencil {
+  0% {transform: translate(-140.42548px, -12.48084px); -webkit-transform: translate(-140.42548px, -12.48084px); background-color: #8ea5ce;}
+    50% {transform: translate(-3.42548px, -274.48084px); -webkit-transform:translate(-3.42548px, -274.48084px); width: 73px; height: 73px; background-color: white;}
+    100% {transform:translate(-38.5%, -85.5%); -webkit-transform:translate(-38.5%, -85.5%); width: 87%; height: 72vh; border-radius: 3px; background-color: white;}
+}
+
+@keyframes camera {
+  0% {transform: translate(-97.18543px, -95.2491px); -webkit-transform:translate(-97.18543px, -95.2491px); background-color: #8ea5ce;}
+    50% {transform:translate(0, -275.2491px); -webkit-transform:translate(0.81457px, -275.2491px); width: 73px; height: 73px;background-color: white;}
+    100% {transform: translate(-38.5%, -85.5%); width: 87%; height: 72vh; -webkit-transform:translate(-38.5%, -85.5%); border-radius: 3px; background-color: white;}
+}
+
+@keyframes microphone {
+  0% {transform: translate(-0.09158px, -135.99996px); -webkit-transform:translate(-0.09158px, -135.99996px); background-color: #8ea5ce;}
+    50% {transform:translate(-0.09158px, -255.99996px); -webkit-transform:translate(-0.09158px, -255.99996px); width: 73px; height: 73px; background-color: white;}
+    100% {transform: translate(-38.5%, -85.5%); -webkit-transform:translate(-38.5%, -85.5%); width: 87%; height: 72vh; border-radius: 3px; background-color: white;}
+}
+
+@keyframes clock {
+  0% {transform: translate(97.04956px, -95.37192px); -webkit-transform:translate(97.04956px, -95.37192px); background-color: #8ea5ce;}
+    50% {transform:translate(1.04956px, -271.37192px); -webkit-transform:translate(1.04956px, -271.37192px); width: 73px; height: 73px; background-color: white;}
+    100% {transform: translate(-38.5%, -85.5%); -webkit-transform:translate(-38.5%, -85.5%); width: 87%; height: 72vh; border-radius: 3px; background-color: white;}
+}
+
+@keyframes cog {
+  0% {transform: translate(140.40705px, -12.66307px); -webkit-transform:translate(140.40705px, -12.66307px); background-color: #8ea5ce;}
+    50% {transform:translate(1.04956px, -271.37192px); -webkit-transform:translate(1.04956px, -271.37192px); width: 73px; height: 73px; background-color: white;}
+    100% {transform: translate(-38.5%, -85.5%); -webkit-transform:translate(-38.5%, -85.5%); width: 87%; height: 72vh; border-radius: 3px; background-color: white;}
+}
+
+@keyframes color-svg {
+  0% {fill: #FFFFFF;}
+  50% {fill: #FDACAB;}
+  100% {fill: #FDACAB;}
+}
+
+.menu-open:checked ~ #pencil.wipe {
+  animation: pencil 1s ease-in-out;
+  -webkit-animation: pencil 1s ease-in-out;
+}
+
+#pencil.wipe #pencil_glyph_icon_2 {
+  animation: color-svg 1s ease-in-out;
+  -webkit-animation: color-svg 1s ease-in-out;
+}
+
+.menu-open:checked ~ #pencil.wipe.finished {
+  -webkit-transform: translate(-38.5%, -85.5%);
+  transform: translate(-38.5%, -85.5%);
+  border-radius: 3px;
+  width: 87%;
+  height: 72vh;
+  background-color: white;
+}
+
+#pencil.wipe.finished #pencil_glyph_icon_2 {
+  fill: #FDACAB;
+}
+
+.menu-open:checked ~ #camera.wipe {
+  animation: camera 1s ease-in-out;
+  -webkit-animation: camera 1s ease-in-out;
+}
+
+#camera.wipe #camera_glyph_icon_1 {
+  animation: color-svg 1s ease-in-out;
+  -webkit-animation: color-svg 1s ease-in-out;
+}
+
+.menu-open:checked ~ #camera.wipe.finished {
+  -webkit-transform: translate(-38.5%, -85.5%);
+  transform: translate(-38.5%, -85.5%);
+  border-radius: 3px;
+  width: 87%;
+  height: 72vh;
+  background-color: white;
+}
+
+#camera.wipe.finished #camera_glyph_icon_1 {
+  fill: #FDACAB;
+}
+
+.menu-open:checked ~ #microphone.wipe {
+  animation: microphone 1s ease-in-out;
+  -webkit-animation: microphone 1s ease-in-out;
+}
+
+#microphone.wipe #audio_outline_icon_2 {
+  animation: color-svg 1s ease-in-out;
+  -webkit-animation: color-svg 1s ease-in-out;
+}
+
+.menu-open:checked ~ #microphone.wipe.finished {
+  -webkit-transform: translate(-38.5%, -85.5%);
+  transform: translate(-38.5%, -85.5%);
+  border-radius: 3px;
+  width: 87%;
+  height: 72vh;
+  background-color: white;
+}
+
+#microphone.wipe.finished #audio_outline_icon_2 {
+  fill: #FDACAB;
+}
+
+.menu-open:checked ~ #clock.wipe {
+  animation: clock 1s ease-in-out;
+    -webkit-animation: clock 1s ease-in-out;
+}
+
+#clock.wipe #notification_glyph_icon_1 {
+  animation: color-svg 1s ease-in-out;
+  -webkit-animation: color-svg 1s ease-in-out;
+}
+
+.menu-open:checked ~ #clock.wipe.finished {
+  -webkit-transform: translate(-38.5%, -85.5%);
+  transform: translate(-38.5%, -85.5%);
+  border-radius: 3px;
+  width: 87%;
+  height: 72vh;
+  background-color: white;
+}
+
+#clock.wipe.finished #notification_glyph_icon_1 {
+  fill: #FDACAB;
+}
+
+.menu-open:checked ~ #cog.wipe {
+  animation: cog 1s ease-in-out;
+  -webkit-animation: cog 1s ease-in-out;
+}
+
+#cog.wipe #settings_glyph_icon_1 {
+  animation: color-svg 1s ease-in-out;
+  -webkit-animation: color-svg 1s ease-in-out;
+}
+
+.menu-open:checked ~ #cog.wipe.finished {
+  -webkit-transform: translate(-38.5%, -85.5%);
+  transform: translate(-38.5%, -85.5%);
+  border-radius: 3px;
+  width: 87%;
+  height: 72vh;
+  background-color: white;
+}
+
+#cog.wipe.finished #settings_glyph_icon_1 {
+  fill: #FDACAB;
+}
+
 .memory {
   transition: r 2s ease-in-out;
 }
+
+.tags {
+   position: absolute;
+     top: 7%;
+     left: 35%;
+     width: 30%;
+     display: flex;
+     justify-content: space-between;
+     cursor: pointer;
+ }
+
+ .tags li {
+   display: inline-block;
+   list-style-type: none;
+ }

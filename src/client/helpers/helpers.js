@@ -10,6 +10,23 @@ const binByKey = (key, xs) =>
     return binnedArray;
   }, {});
 
+function tagSorting() {
+  $('.tags li').on('click', function () {
+    $('.memory').show();
+    const clickedTag = $(this).text();
+    $('.memory').each(function () {
+      if (!$(this).hasClass(clickedTag)) {
+        $(this).hide();
+      }
+    });
+  });
+  $('.remove').on('click', () => {
+    $('.memory').show();
+  });
+}
+
 module.exports = {
   binByKey,
+  calculateXY,
+  tagSorting,
 };
