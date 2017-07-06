@@ -109,6 +109,10 @@ function submitNewMemory() {
   $('.test-submit').on('click', function() {
     $('.finished').addClass('new-node');
     $('.finished svg').hide();
+    setTimeout(function () {
+            $('.finished svg').show();
+      $('.finished').removeClass('new-node finished wipe');
+    }, 4500);
   });
 }
 
