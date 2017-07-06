@@ -18,29 +18,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const restSelector = getRestSelector(menuItemId);
 
     setTimeout(() => {
-      $(`.menu-open:checked ~ #${menuItemId}`)
+      $(`#${menuItemId}`)
         .addClass('finished');
       $('.menu-open-button')
         .fadeIn()
         .addClass('active');
     }, 1000);
 
-    $(`.menu-open:checked ~ #${menuItemId}`)
+    $(`#${menuItemId}`)
       .removeClass('normal')
       .addClass('wipe');
-    $(`.menu-open:checked ~ ${restSelector}`)
+    $(`${restSelector}`)
       .fadeOut();
-    $('.menu-open-button')
+    if (!$(`#${menuItemId}`).hasClass('finished')) {
+      $('.menu-open-button')
       .fadeOut();
+    }
 
     $('.menu-open-button').on('click', () => {
-      $(`.menu-open:checked ~ #${menuItemId}`)
+      $(`#${menuItemId}`)
         .removeClass('wipe')
         .removeClass('finished')
         .addClass('normal');
       $('.menu-open-button')
         .removeClass('active');
-      $(`.menu-open:checked ~ ${restSelector}`)
+      $(`${restSelector}`)
         .fadeIn();
     });
   }
