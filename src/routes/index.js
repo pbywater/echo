@@ -1,1 +1,4 @@
-// Add routes here
+module.exports = [
+  ('./home'),
+  ('./getMemories'),
+].map(require);
