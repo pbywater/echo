@@ -50,7 +50,6 @@
   height: 73px;
   margin-left: -36px;
   position: absolute;
-  color: white;
   text-align: center;
   line-height: 95px;
 }
@@ -63,15 +62,15 @@
   display: none;
 }
 
-.menu-open:checked + .menu-open-button .hamburger-1 {
+.menu-open:checked + .menu-open-button {
   -webkit-transform: translate3d(0, 0, 0) rotate(45deg);
           transform: translate3d(0, 0, 0) rotate(45deg);
 }
-.menu-open:checked + .menu-open-button .hamburger-2 {
+.menu-open:checked + .menu-open-button {
   -webkit-transform: translate3d(0, 0, 0) scale(0.1, 1);
           transform: translate3d(0, 0, 0) scale(0.1, 1);
 }
-.menu-open:checked + .menu-open-button .hamburger-3 {
+.menu-open:checked + .menu-open-button {
   -webkit-transform: translate3d(0, 0, 0) rotate(-45deg);
           transform: translate3d(0, 0, 0) rotate(-45deg);
 }
@@ -86,11 +85,6 @@
   bottom: 0;
   z-index: 999999;
 }
-
-/*.menu-item:hover {
-  background-color: white;
-  color: #ff4081;
-}*/
 
 .menu-item svg {
   margin-top: 14px;
@@ -182,60 +176,42 @@
 }
 
 @keyframes pencil {
-  0% {transform: translate3d(-140.42548px, -12.48084px, 0); -webkit-transform: translate3d(-140.42548px, -12.48084px, 0); background-color: #8ea5ce;}
-    50% {transform: translate3d(-3.42548px, -274.48084px, 0); -webkit-transform:translate3d(-3.42548px, -274.48084px, 0); width: 73px; height: 73px; background-color: white;}
-    100% {transform:translate3d(-142px, -492px, 0); -webkit-transform:translate3d(-142px, -492px, 0); width: 87%; height: 72vh;}
-}
-
-@keyframes pencil-svg {
-  0% {fill: #FFFFFF;}
-  50% {fill: #FDACAB;}
-  100% {fill: #FDACAB;}
+  0% {transform: translate(-140.42548px, -12.48084px); -webkit-transform: translate(-140.42548px, -12.48084px); background-color: #8ea5ce;}
+    50% {transform: translate(-3.42548px, -274.48084px); -webkit-transform:translate(-3.42548px, -274.48084px); width: 73px; height: 73px; background-color: white;}
+    100% {transform:translate(-142px, -492px); -webkit-transform:translate(-142px, -492px); width: 87%; height: 72vh; border-radius: 3px; background-color: white;}
 }
 
 @keyframes camera {
-  0% {transform: translate3d(-97.18543px, -95.2491px, 0); -webkit-transform:translate3d(-97.18543px, -95.2491px, 0); background-color: #8ea5ce; color: white;}
-    50% {transform:translate3d(0.81457px, -275.2491px, 0); -webkit-transform:translate3d(0.81457px, -275.2491px, 0); width: 73px; height: 73px; background-color: white;}
-    100% {transform: translate3d(-142px, -492px, 0); width: 87%; height: 72vh; -webkit-transform:translate3d(-142px, -492px, 0);}
-}
-
-@keyframes camera-svg {
-  0% {fill: #FFFFFF;}
-  50% {fill: #FDACAB;}
-  100% {fill: #FDACAB;}
+  0% {transform: translate(-97.18543px, -95.2491px); -webkit-transform:translate(-97.18543px, -95.2491px); background-color: #8ea5ce;}
+    50% {transform:translate(0, -275.2491px); -webkit-transform:translate(0.81457px, -275.2491px); width: 73px; height: 73px;background-color: white;}
+    100% {transform: translate(-142px, -492px); width: 87%; height: 72vh; -webkit-transform:translate(-142px, -492px); border-radius: 3px; background-color: white;}
 }
 
 @keyframes microphone {
-  0% {transform: translate3d(-0.09158px, -135.99996px, 0); -webkit-transform:translate3d(-0.09158px, -135.99996px, 0); background-color: #8ea5ce; color: white;}
-    50% {transform:translate3d(-0.09158px, -255.99996px, 0); -webkit-transform:translate3d(-0.09158px, -255.99996px, 0); width: 73px; height: 73px; background-color: white;}
-    100% {transform: translate3d(-142px, -492px, 0); -webkit-transform:translate3d(-142px, -492px, 0); width: 87%; height: 72vh;}
-}
-
-@keyframes microphone-svg {
-  0% {fill: #FFFFFF;}
-  50% {fill: #FDACAB;}
-  100% {fill: #FDACAB;}
+  0% {transform: translate(-0.09158px, -135.99996px); -webkit-transform:translate(-0.09158px, -135.99996px); background-color: #8ea5ce;}
+    50% {transform:translate(-0.09158px, -255.99996px); -webkit-transform:translate(-0.09158px, -255.99996px); width: 73px; height: 73px; background-color: white;}
+    100% {transform: translate(-142px, -492px); -webkit-transform:translate(-142px, -492px); width: 87%; height: 72vh; border-radius: 3px; background-color: white;}
 }
 
 @keyframes clock {
-  0% {transform: translate3d(97.04956px, -95.37192px, 0); -webkit-transform:translate3d(97.04956px, -95.37192px, 0); background-color: white; color: white;}
-    50% {transform:translate3d(1.04956px, -271.37192px, 0); -webkit-transform:translate3d(1.04956px, -271.37192px, 0); width: 73px; height: 73px; background-color: white;}
-    100% {transform: translate3d(-142px, -492px, 0); -webkit-transform:translate3d(-142px, -492px, 0); width: 87%; height: 72vh;}
-}
-
-@keyframes clock-svg {
-  0% {fill: #FFFFFF;}
-  50% {fill: #FDACAB;}
-  100% {fill: #FDACAB;}
+  0% {transform: translate(97.04956px, -95.37192px); -webkit-transform:translate(97.04956px, -95.37192px); background-color: #8ea5ce;}
+    50% {transform:translate(1.04956px, -271.37192px); -webkit-transform:translate(1.04956px, -271.37192px); width: 73px; height: 73px; background-color: white;}
+    100% {transform: translate(-142px, -492px); -webkit-transform:translate(-142px, -492px); width: 87%; height: 72vh; border-radius: 3px; background-color: white;}
 }
 
 @keyframes cog {
-  0% {transform: translate3d(140.40705px, -12.66307px, 0); -webkit-transform:translate3d(140.40705px, -12.66307px, 0); background-color: #8ea5ce; color: white;}
-    50% {transform:translate3d(1.04956px, -271.37192px, 0); -webkit-transform:translate3d(1.04956px, -271.37192px, 0); width: 73px; height: 73px; background-color: white;}
-    100% {transform: translate3d(-142px, -492px, 0); -webkit-transform:translate3d(-142px, -492px, 0); width: 87%; height: 72vh;}
+  0% {transform: translate(140.40705px, -12.66307px); -webkit-transform:translate(140.40705px, -12.66307px); background-color: #8ea5ce;}
+    50% {transform:translate(1.04956px, -271.37192px); -webkit-transform:translate(1.04956px, -271.37192px); width: 73px; height: 73px; background-color: white;}
+    100% {transform: translate(-142px, -492px); -webkit-transform:translate(-142px, -492px); width: 87%; height: 72vh; border-radius: 3px; background-color: white;}
 }
 
-@keyframes cog-svg {
+/*@keyframes cog {
+  0% {transform: translate(140.40705px, -12.66307px, 0); -webkit-transform:translate(140.40705px, -12.66307px, 0); background-color: #8ea5ce; color: white;}
+    50% {transform:translate(1.04956px, -271.37192px, 0); -webkit-transform:translate(1.04956px, -271.37192px, 0); width: 73px; height: 73px; background-color: white;}
+    100% {transform: translate(-142px, -492px, 0); -webkit-transform:translate(-142px, -492px, 0); width: 87%; height: 72vh; background-color: white;}
+}*/
+
+@keyframes color-svg {
   0% {fill: #FFFFFF;}
   50% {fill: #FDACAB;}
   100% {fill: #FDACAB;}
@@ -247,13 +223,13 @@
 }
 
 #pencil.wipe #pencil_glyph_icon_2 {
-  animation: pencil-svg 1s ease-in-out;
-  -webkit-animation: pencil-svg 1s ease-in-out;
+  animation: color-svg 1s ease-in-out;
+  -webkit-animation: color-svg 1s ease-in-out;
 }
 
 .menu-open:checked ~ #pencil.wipe.finished {
-  -webkit-transform: translate3d(-38.5%, -85.5%, 0);
-  transform: translate3d(-38.5%, -85.5%, 0);
+  -webkit-transform: translate(-38.5%, -85.5%);
+  transform: translate(-38.5%, -85.5%);
   border-radius: 3px;
   width: 87%;
   height: 72vh;
@@ -270,13 +246,13 @@
 }
 
 #camera.wipe #camera_glyph_icon_1 {
-  animation: camera-svg 1s ease-in-out;
-  -webkit-animation: pencil-svg 1s ease-in-out;
+  animation: color-svg 1s ease-in-out;
+  -webkit-animation: color-svg 1s ease-in-out;
 }
 
 .menu-open:checked ~ #camera.wipe.finished {
-  -webkit-transform: translate3d(-38.5%, -85.5%, 0);
-  transform: translate3d(-38.5%, -85.5%, 0);
+  -webkit-transform: translate(-38.5%, -85.5%);
+  transform: translate(-38.5%, -85.5%);
   border-radius: 3px;
   width: 87%;
   height: 72vh;
@@ -293,13 +269,13 @@
 }
 
 #microphone.wipe #audio_outline_icon_2 {
-  animation: camera-svg 1s ease-in-out;
-  -webkit-animation: pencil-svg 1s ease-in-out;
+  animation: color-svg 1s ease-in-out;
+  -webkit-animation: color-svg 1s ease-in-out;
 }
 
 .menu-open:checked ~ #microphone.wipe.finished {
-  -webkit-transform: translate3d(-38.5%, -85.5%, 0);
-  transform: translate3d(-38.5%, -85.5%, 0);
+  -webkit-transform: translate(-38.5%, -85.5%);
+  transform: translate(-38.5%, -85.5%);
   border-radius: 3px;
   width: 87%;
   height: 72vh;
@@ -316,13 +292,13 @@
 }
 
 #clock.wipe #notification_glyph_icon_1 {
-  animation: camera-svg 1s ease-in-out;
-  -webkit-animation: pencil-svg 1s ease-in-out;
+  animation: color-svg 1s ease-in-out;
+  -webkit-animation: color-svg 1s ease-in-out;
 }
 
 .menu-open:checked ~ #clock.wipe.finished {
-  -webkit-transform: translate3d(-38.5%, -85.5%, 0);
-  transform: translate3d(-38.5%, -85.5%, 0);
+  -webkit-transform: translate(-38.5%, -85.5%);
+  transform: translate(-38.5%, -85.5%);
   border-radius: 3px;
   width: 87%;
   height: 72vh;
@@ -339,13 +315,13 @@
 }
 
 #cog.wipe #settings_glyph_icon_1 {
-  animation: camera-svg 1s ease-in-out;
-  -webkit-animation: pencil-svg 1s ease-in-out;
+  animation: color-svg 1s ease-in-out;
+  -webkit-animation: color-svg 1s ease-in-out;
 }
 
 .menu-open:checked ~ #cog.wipe.finished {
-  -webkit-transform: translate3d(-38.5%, -85.5%, 0);
-  transform: translate3d(-38.5%, -85.5%, 0);
+  -webkit-transform: translate(-38.5%, -85.5%);
+  transform: translate(-38.5%, -85.5%);
   border-radius: 3px;
   width: 87%;
   height: 72vh;
