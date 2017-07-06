@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon src/app.js",
     "test": "node tests/src/client",
-    "build": "watchify src/client/main.js -o public/bundle.js"
+    "build": "browserify src/client/main.js -o public/bundle.js",
+    "watch": "watchify src/client/main.js -o public/bundle.js"
   },
   "repository": {
     "type": "git",
