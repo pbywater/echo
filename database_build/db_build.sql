@@ -6,7 +6,7 @@ CREATE TYPE media_type AS ENUM ( 'text_only', 'audio', 'video', 'image' );
 
 CREATE TABLE memories (
   id                SERIAL          PRIMARY KEY,
-  user_id           SERIAL          NOT NULL,
+  user_id                           NOT NULL,
   heading           VARCHAR(50)     NOT NULL,
   likes             INTEGER,
   avgRating         INTEGER,
