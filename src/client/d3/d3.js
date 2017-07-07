@@ -128,6 +128,10 @@ d3.json(url, (err, data) => {
       const id = d3.select(this).attr('id');
       d3.select(this).style('display', 'none');
       $('.delete-button').removeClass('deleting');
+      // fetch('/delete', {
+      //   method: 'POST',
+      //   body: id,
+      // });
     }
     hideDeleteButton();
   }
