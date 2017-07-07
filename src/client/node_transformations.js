@@ -49,8 +49,10 @@ const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentavg
 const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
   const nodes = {};
   const links = [];
+  const sourceNodeIds = [];
 
   Object.keys(tagNodes).forEach((tag, index) => {
+    sourceNodeIds.push(tagNodes[tag].id);
     const tagNode = tagNodes[tag];
     const tagMemoriesRest = memoriesByTag[index].rest;
     const numMemoriesRest = memoriesByTag[index].rest.length;
@@ -68,6 +70,14 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
       });
     });
   });
+  sourceNodeIds.forEach((id, i) => {
+    if (i < sourceNodeIds.length - 1) {
+      links.push({
+        source: id,
+        target: sourceNodeIds[i + 1],
+      });
+    }
+  });
 
   return {
     nodes, links,
@@ -76,7 +86,7 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
 
 // To be removed when we use UUID?
 
-let numGenerated = 100000;
+let numGenerated = 1000;
 
 const generateId = () => () => {
   numGenerated += 1;

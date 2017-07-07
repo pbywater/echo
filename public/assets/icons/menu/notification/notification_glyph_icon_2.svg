@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="46px" height="45px" viewBox="0 0 46 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>notification_glyph_icon_2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-250.000000, -267.000000)">
+            <g id="menu" transform="translate(21.000000, 107.000000)">
+                <g></g>
+            </g>
+            <g id="notification_glyph_icon_2" transform="translate(250.000000, 267.000000)" fill-rule="nonzero" fill="#FFFFFF">
+                <path d="M19.443,26 L22.594,26 C24.758,29.456 28.078,31.982 31.872,33.194 C28.905,29.911 27,24.024 27,17 C27,9.976 28.905,4.089 31.872,0.806 C28.078,2.018 24.758,4.544 22.594,8 L13,8 L5,8 C2.149,8 0,11.869 0,17 C0,22.131 2.149,26 5,26 L7.852,26 L17.266,42.056 C18.196,43.641 19.87,44.525 21.588,44.525 C22.446,44.525 23.316,44.304 24.109,43.839 C26.487,42.444 27.287,39.375 25.892,36.997 L19.443,26 Z" id="Shape"></path>
+                <path d="M37.5,0 C34.203,0 31.351,3.761 29.941,9.247 C33.42,10.116 36,13.253 36,17 C36,20.747 33.42,23.884 29.941,24.753 C31.351,30.239 34.203,34 37.5,34 C42.194,34 46,26.389 46,17 C46,7.611 42.194,0 37.5,0 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

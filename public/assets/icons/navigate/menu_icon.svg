@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="41px" height="30px" viewBox="0 0 41 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>menu_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-29.000000, -496.000000)" fill-rule="nonzero" fill="#FFFFFF">
+            <g id="menu" transform="translate(20.000000, 107.000000)">
+                <g id="menu_icon">
+                    <g transform="translate(9.000000, 389.000000)">
+                        <g id="ui-48px-glyph-3_menu">
+                            <path d="M40.0681818,13.125 L0.931818182,13.125 C0.417454545,13.125 0,13.545 0,14.0625 L0,15.9375 C0,16.455 0.417454545,16.875 0.931818182,16.875 L40.0681818,16.875 C40.5825455,16.875 41,16.455 41,15.9375 L41,14.0625 C41,13.545 40.5825455,13.125 40.0681818,13.125 Z" id="Shape"></path>
+                            <path d="M19.5681818,26.25 L0.931818182,26.25 C0.417454545,26.25 0,26.67 0,27.1875 L0,29.0625 C0,29.58 0.417454545,30 0.931818182,30 L19.5681818,30 C20.0825455,30 20.5,29.58 20.5,29.0625 L20.5,27.1875 C20.5,26.67 20.0825455,26.25 19.5681818,26.25 Z" id="Shape"></path>
+                            <path d="M40.0681818,0 L21.4318182,0 C20.9174545,0 20.5,0.42 20.5,0.9375 L20.5,2.8125 C20.5,3.33 20.9174545,3.75 21.4318182,3.75 L40.0681818,3.75 C40.5825455,3.75 41,3.33 41,2.8125 L41,0.9375 C41,0.42 40.5825455,0 40.0681818,0 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

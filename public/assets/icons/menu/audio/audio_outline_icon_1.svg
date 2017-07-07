@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="46px" viewBox="0 0 34 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>audio_outline_icon_1</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="icon" transform="translate(-26.000000, -183.000000)" stroke-width="2" stroke="#FFFFFF">
+            <g id="menu" transform="translate(21.000000, 107.000000)">
+                <g id="audio_outline_icon_1">
+                    <g transform="translate(6.000000, 77.000000)">
+                        <g id="media-48px-outline-1_audio-92">
+                            <path d="M16,30 L16,30 C10.477,30 6,25.523 6,20 L6,10 C6,4.477 10.477,0 16,0 L16,0 C21.523,0 26,4.477 26,10 L26,20 C26,25.523 21.523,30 16,30 Z" id="Shape"></path>
+                            <path d="M6,44 L26,44" id="Shape"></path>
+                            <path d="M16,36 L16,44" id="Shape"></path>
+                            <path d="M32,20 C32,28.837 24.837,36 16,36 L16,36 C7.163,36 0,28.837 0,20" id="Shape"></path>
+                            <path d="M6,12 L11,12" id="Shape"></path>
+                            <path d="M6,19 L11,19" id="Shape"></path>
+                            <path d="M21,12 L26,12" id="Shape"></path>
+                            <path d="M21,19 L26,19" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
