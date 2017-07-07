@@ -110,16 +110,23 @@ d3.json(url, (err, data) => {
 
   function dragstarted(d) {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-    d3.select(this).raise().classed('active', true);
+    $(this).addClass('active');
+    setTimeout(() => {
+      if ($('.memory active')) {
+        $('.menu').fadeOut();
+      }
+    }, 2000);
   }
 
   function dragged(d) {
     d3.select(this).attr('cx', d.x = d3.event.x).attr('cy', d.y = d3.event.y);
+    d3.select(this).style('fill', '#FDACAB');
   }
 
   function dragended(d) {
     if (!d3.event.active) simulation.alphaTarget();
-    d3.select(this).classed('active', false);
+    $(this).removeClass('active');
+    d3.select(this).style('fill', 'white');
   }
 
   openTagMenu();

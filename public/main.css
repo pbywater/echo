@@ -432,7 +432,12 @@
 }
 
 .memory {
-    transition: r 2s ease-in-out;
+    transition: r 2s ease-in-out, fill 2s ease-in-out;
+}
+
+.memory.active {
+  r: 20;
+  fill: #FDACAB;
 }
 
 .tags {

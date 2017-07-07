@@ -105,6 +105,7 @@ function openTagMenu() {
   removingTags();
 }
 
+
 module.exports = {
   binByKey,
   openTagMenu,
