@@ -113,9 +113,10 @@ d3.json(url, (err, data) => {
     $(this).addClass('active');
     setTimeout(() => {
       if ($('.memory active')) {
-        $('.menu').fadeOut();
+        $('.menu > *').fadeOut();
+        $('.delete-button').fadeIn();
       }
-    }, 2000);
+    }, 1500);
   }
 
   function dragged(d) {
