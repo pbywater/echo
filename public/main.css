@@ -5,6 +5,8 @@
     padding: 0;
     font-family: 'quicksand';
     color: white;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 #desktop-background {
@@ -58,10 +60,6 @@
 }
 
 .menu-open {
-    display: none;
-}
-
-.hide {
     display: none;
 }
 
@@ -541,4 +539,42 @@
     border-radius: 100%;
     width: 4%;
     height: 2vh;
+}
+
+/* Media inputs */
+
+.memory-input__text {
+  font-size: 0.8em;
+  padding: 0.8em;
+  /*margin-top: 1em;*/
+  height: 252px;
+  width: 280px;
+}
+
+label.memory-input__label {
+  font-size: 0.7em;
+  /*margin: 1em 0;*/
+  position: absolute;
+  top: -395%;
+  right: 7%;
+  background-color: pink;
+  color: #fff;
+  width: 86%;
+  line-height: 1.2em;
+}
+
+.memory-input__submit {
+  font-size: 16px;
+  width: 114px;
+  height: 40px;
+  margin-top: 20px;
+  font-size: 0.9em;
+  padding: 0.3em 0.9em;
+  border-radius: 3px;
+  border: none;
+  background-color: #91CFCF;
+}
+
+.hide {
+    display: none;
 }
