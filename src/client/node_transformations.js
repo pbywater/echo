@@ -14,13 +14,16 @@ const sortWithMax = (nodeArray) => {
   };
 };
 
-const tagNodesByTag = (tagsArray, startingCx, startingCy, generateId) => {
+const tagNodesByTag = (tagsArray, startingCx, startingCy) => {
   const out = {};
   const arrayCopy = tagsArray.slice(0);
   arrayCopy.forEach((tag, i) => {
-    const newId = generateId();
+    console.log(tag);
     out[tag.max.tag] = {
-      id: newId,
+      id: tag.max.id,
+      media_type: tag.max.media_type,
+      memory_asset_url: tag.max.memory_asset_url || '',
+      memory_text: tag.max.memory_text || '',
       x: startingCx,
       y: startingCy + 200 * i,
       tag: tag.max.tag,
@@ -84,16 +87,6 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
   };
 };
 
-// To be removed when we use UUID?
-
-let numGenerated = 1000;
-
-const generateId = () => () => {
-  numGenerated += 1;
-  return numGenerated;
-};
-
-
 module.exports = {
   binByTag,
   sortWithMax,
@@ -101,5 +94,4 @@ module.exports = {
   getXAndY,
   getMemoryNodePositions,
   memoryNodesAndLinks,
-  generateId,
 };

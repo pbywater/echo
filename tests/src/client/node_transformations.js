@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 const test = require('tape');
 
 const {
@@ -12,7 +11,7 @@ const {
   memoryNodesAndLinks,
 } = require('../../../src/client/node_transformations.js');
 
-test('binByTag', (t) => {
+test('binByTag', (t) => { // WORKING
   const arrayToBin = [
     { tag: 't1', value: 1 },
     { tag: 't1', value: 2 },
@@ -33,7 +32,7 @@ test('binByTag', (t) => {
   t.end();
 });
 
-test('sortWithMax', (t) => {
+test('sortWithMax', (t) => { // WORKING
   const nodesToSort = [
     { avgRating: 3 },
     { avgRating: 1 },
@@ -43,8 +42,8 @@ test('sortWithMax', (t) => {
   const expected = {
     max: { avgRating: 3 },
     rest: [
-      { avgRating: 2 },
       { avgRating: 1 },
+      { avgRating: 2 },
     ],
   };
 
@@ -57,7 +56,7 @@ test('sortWithMax', (t) => {
   t.end();
 });
 
-test('tagNodesByTag', (t) => {
+test('tagNodesByTag', (t) => { // NOT WORKING
   const arrayCopy = [
     {
       max: {
