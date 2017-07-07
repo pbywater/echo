@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       $('.menu-open-button')
         .fadeIn()
         .addClass('active');
+      $('.memory-input')
+        .removeClass('hide');
     }, 1000);
 
     $(`#${menuItemId}`)
@@ -44,6 +46,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         .removeClass('active');
       $(`${restSelector}`)
         .fadeIn();
+      $('.memory-input')
+        .addClass('hide');
     });
   }
 
