@@ -122,12 +122,21 @@ d3.json(url, (err, data) => {
   function dragged(d) {
     d3.select(this).attr('cx', d.x = d3.event.x).attr('cy', d.y = d3.event.y);
     d3.select(this).style('fill', '#FDACAB');
+    $('.delete-button').on('mouseover', () => {
+      $('.delete-button path').css('fill', '#FF3F56');
+    });
+    $('.delete-button').on('mouseleave', () => {
+      $('.delete-button path').css('fill', 'white');
+    });
   }
 
   function dragended(d) {
     if (!d3.event.active) simulation.alphaTarget();
     $(this).removeClass('active');
     d3.select(this).style('fill', 'white');
+    $('.delete-button').fadeOut();
+    $('.menu > *').fadeIn();
+    $('.delete-button').css('display', 'none');
   }
 
   openTagMenu();
