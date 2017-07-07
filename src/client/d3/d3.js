@@ -110,24 +110,13 @@ d3.json(url, (err, data) => {
       .attr('cx', d => d.x)
       .attr('cy', d => d.y);
   }
-  var shuffle = svg
-    .append('g')
-      .attr('class', 'shuffleMems')
-      .attr('transform', 'translate(0, 0)')
 
-<<<<<<< HEAD
-  shuffle
-    .append('rect')
-      .attr('width', 50)
-      .attr('height', 50)
-      .style('fill', 'black')
-      .on('click', () => {
+  d3
+    .selectAll('.shuffle-memories')
+      .on('click', function(){
         randomPopUp(nodeDataArray)
       })
-||||||| merged common ancestors
-  const memories = svg
-    .selectAll('.memory');
-=======
+
   function dragstarted(d) {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
     d3.select(this).raise().classed('active', true);
@@ -143,5 +132,4 @@ d3.json(url, (err, data) => {
   }
 
   openTagMenu();
->>>>>>> master
 });
