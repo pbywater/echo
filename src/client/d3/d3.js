@@ -125,6 +125,7 @@ d3.json(url, (err, data) => {
     $(this).removeClass('active');
     d3.select(this).style('fill', 'white');
     if ($('.delete-button').hasClass('deleting')) {
+      const id = d3.select(this).attr('id');
       d3.select(this).style('display', 'none');
       $('.delete-button').removeClass('deleting');
     }
