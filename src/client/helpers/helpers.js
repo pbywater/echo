@@ -107,7 +107,7 @@ function openTagMenu() {
 
 function showDeleteButton() {
   setTimeout(() => {
-    if ($('.memory active')) {
+    if ($('.memory').hasClass('active')) {
       $('.menu > *').fadeOut();
       $('.delete-button').fadeIn();
     }
