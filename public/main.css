@@ -544,31 +544,37 @@
 /* Media inputs */
 
 .memory-input__text {
-  font-size: 0.8em;
+  font-size: 1em;
   padding: 0.8em;
-  /*margin-top: 1em;*/
+  margin-top: 1em;
   height: 252px;
   width: 280px;
+  color: #526173;
+}
+
+.memory-input__placeholder {
+  color: #526173;
+  padding: 0.8em;
+  position: relative;
+  left: -19%;
 }
 
 label.memory-input__label {
-  font-size: 0.7em;
-  /*margin: 1em 0;*/
+  font-size: 1em;
+  margin: 1em 0;
   position: absolute;
   top: -395%;
   right: 7%;
-  background-color: pink;
-  color: #fff;
+  color: #526173;
   width: 86%;
   line-height: 1.2em;
 }
 
 .memory-input__submit {
-  font-size: 16px;
   width: 114px;
   height: 40px;
   margin-top: 20px;
-  font-size: 0.9em;
+  font-size: 1em;
   padding: 0.3em 0.9em;
   border-radius: 3px;
   border: none;
