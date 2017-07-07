@@ -124,9 +124,11 @@ d3.json(url, (err, data) => {
     d3.select(this).style('fill', '#FDACAB');
     $('.delete-button').on('mouseover', () => {
       $('.delete-button path').css('fill', '#FF3F56');
+      $('.delete-button').addClass('deleting');
     });
     $('.delete-button').on('mouseleave', () => {
       $('.delete-button path').css('fill', 'white');
+      $('.delete-button').removeClass('deleting');
     });
   }
 
@@ -134,9 +136,11 @@ d3.json(url, (err, data) => {
     if (!d3.event.active) simulation.alphaTarget();
     $(this).removeClass('active');
     d3.select(this).style('fill', 'white');
+    if ($('.delete-button').hasClass('deleting')) {
+      d3.select(this).style('display', 'none');
+    }
     $('.delete-button').fadeOut();
-    $('.menu > *').fadeIn();
-    $('.delete-button').css('display', 'none');
+    $('.menu > *:not(.delete-button)').fadeIn();
   }
 
   openTagMenu();

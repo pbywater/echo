@@ -449,6 +449,10 @@
   bottom: 20%;
 }
 
+.delete-button path {
+    transition: fill 1s ease-in-out;
+}
+
 .tags {
     position: absolute;
     left: 0;
