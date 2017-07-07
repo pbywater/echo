@@ -135,6 +135,5 @@ d3.json(url, (err, data) => {
     }
     hideDeleteButton();
   }
-  showDeleteButton();
   openTagMenu();
 });
