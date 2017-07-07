@@ -12,7 +12,7 @@
     .append("g")
       .attr("transform", "translate(0,0)");
 
-  const jsonUrl = 'https://gist.githubusercontent.com/ConchobarMacNessa/8d852e941cf9c86c98b4b22a269f462e/raw/7b36c7bec844ab5e1644fef2c85fddcaff6dd279/EchoTestData.json'
+  const jsonUrl = 'https://gist.githubusercontent.com/ConchobarMacNessa/aa31a6d4baa3c9e4d4cb746cd24c5053/raw/b31d88e18cd784b4a25a17642f621a1ce9ad8ca7/testEcho.json'
 
 module.exports = {
   width,

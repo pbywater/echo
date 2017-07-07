@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="46px" height="41px" viewBox="0 0 46 41" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>camera_glyph_icon_2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-166.000000, -107.000000)" fill-rule="nonzero" fill="#FFFFFF">
+            <g id="menu" transform="translate(21.000000, 107.000000)">
+                <g id="camera_glyph_icon_2">
+                    <g transform="translate(145.000000, 0.000000)">
+                        <path d="M16,3 L6,3 L6,1 C6,0.448 6.448,0 7,0 L15,0 C15.552,0 16,0.448 16,1 L16,3 Z" id="Shape"></path>
+                        <path d="M45,5 L1,5 C0.447,5 0,5.448 0,6 L0,40 C0,40.552 0.447,41 1,41 L45,41 C45.553,41 46,40.552 46,40 L46,6 C46,5.448 45.553,5 45,5 Z M10,17 C8.897,17 8,16.103 8,15 C8,13.897 8.897,13 10,13 C11.103,13 12,13.897 12,15 C12,16.103 11.103,17 10,17 Z M27,34 C21.486,34 17,29.514 17,24 C17,18.486 21.486,14 27,14 C32.514,14 37,18.486 37,24 C37,29.514 32.514,34 27,34 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

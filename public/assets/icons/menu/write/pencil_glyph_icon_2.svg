@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>pencil_glyph_icon_2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-93.000000, -345.000000)">
+            <g id="menu" transform="translate(21.000000, 107.000000)">
+                <g></g>
+            </g>
+            <g id="pencil_glyph_icon_2" transform="translate(93.000000, 345.000000)" fill-rule="nonzero" fill="#FFFFFF">
+                <rect id="Rectangle-path" transform="translate(22.706993, 26.707354) rotate(-45.000000) translate(-22.706993, -26.707354) " x="5.32215967" y="23.8788807" width="34.7696666" height="5.65694575"></rect>
+                <rect id="Rectangle-path" transform="translate(17.292407, 21.292646) rotate(-45.000000) translate(-17.292407, -21.292646) " x="-0.0924262271" y="18.4641736" width="34.7696666" height="5.65694575"></rect>
+                <path d="M43.707,8.293 L35.707,0.293 C35.317,-0.097 34.683,-0.097 34.293,0.293 L29,5.586 L38.414,15 L43.707,9.707 C44.098,9.316 44.098,8.683 43.707,8.293 Z" id="Shape"></path>
+                <path d="M1.915,33.329 L0.02,42.804 C-0.046,43.132 0.057,43.471 0.293,43.707 C0.482,43.896 0.737,44 1,44 C1.065,44 1.131,43.994 1.196,43.98 L10.671,42.085 L1.915,33.329 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

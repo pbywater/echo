@@ -1,9 +1,12 @@
+const { tagSorting, openTagMenu } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals');
 
-d3.json(jsonUrl, (err, data) => {
+const url = location.hostname ? '/memories' : jsonUrl;
+
+d3.json(url, (err, data) => {
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
   const binnedByTag = binByTag(data);
@@ -14,6 +17,21 @@ d3.json(jsonUrl, (err, data) => {
   });
   // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
   const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120, generateId());
+  // Add unique tags to tag list for user to select from
+  Object.keys(taggedNodesByTag).forEach((tag) => {
+    tag = tag.replace(/\W/g, '');
+    $('.tags').append(
+      `<li class='tag-container ${tag}'>
+        <p class='tagLabel'>${tag}</p>
+        <img class='filter-tags ${tag}' src="./assets/icons/navigate/close_icon.svg"/>
+      </li>`);
+  });
+  $('.tags').append(
+    `<li class='clear-tags'>clear</li>
+    <li class='close-tags'>
+      <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
+      </img>
+    </li>`);
   // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(taggedNodesByTag, sortedWithMax);
 
@@ -39,21 +57,20 @@ d3.json(jsonUrl, (err, data) => {
     .data(nodeDataArray)
     .enter()
     .append('g')
-    .attr('id', (d) => {
-      d.id;
-    })
+    .attr('id', d => d.id)
     .attr('class', 'memoryG');
 
   circles
     .append('circle')
     .attr('cy', d => d.y)
     .attr('cx', d => d.x)
-    .attr('class', 'memory')
+    .attr('class', d => `memory ${d.tag}`)
     .attr('r', d => rScale(d.likes))
     .on('click', function(d){
         appendPopUp(d)
     })
     .style('fill', 'white')
+    .style('opacity', '0.8')
     .call(d3.drag()
       .on('start', dragstarted)
       .on('drag', dragged)
@@ -75,7 +92,9 @@ d3.json(jsonUrl, (err, data) => {
     .attr('y1', d => processedData.nodes[d.source].y,
     )
     .style('stroke', 'white')
-    .style('stroke-width', '3px');
+    .attr('class', d => `memory ${processedData.nodes[d.source].tag}`)
+    .style('stroke-width', '2px')
+    .style('opacity', '0.8');
 
   simulation.nodes(circles);
   simulation.force('link').links(link);
@@ -96,6 +115,7 @@ d3.json(jsonUrl, (err, data) => {
       .attr('class', 'shuffleMems')
       .attr('transform', 'translate(0, 0)')
 
+<<<<<<< HEAD
   shuffle
     .append('rect')
       .attr('width', 50)
@@ -104,4 +124,24 @@ d3.json(jsonUrl, (err, data) => {
       .on('click', () => {
         randomPopUp(nodeDataArray)
       })
+||||||| merged common ancestors
+  const memories = svg
+    .selectAll('.memory');
+=======
+  function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d3.select(this).raise().classed('active', true);
+  }
+
+  function dragged(d) {
+    d3.select(this).attr('cx', d.x = d3.event.x).attr('cy', d.y = d3.event.y);
+  }
+
+  function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget();
+    d3.select(this).classed('active', false);
+  }
+
+  openTagMenu();
+>>>>>>> master
 });

@@ -111,7 +111,29 @@ test('tagNodesByTag', (t) => {
   const startingCx = 160;
   const startingCy = 120;
 
-  const expected = { family: { avgRating: 9.2, id: 0, likes: 19, tag: 'family', x: 160, y: 120 }, friends: { avgRating: 9.2, id: 1, likes: 19, tag: 'friends', x: 160, y: 320 }, pets: { avgRating: 9.2, id: 2, likes: 19, tag: 'pets', x: 160, y: 520 } };
+  const expected = {
+    family:
+        { avgRating: 9.2,
+          id: 0,
+          likes: 19,
+          tag: 'family',
+          x: 160,
+          y: 120 },
+    friends:
+        { avgRating: 9.2,
+          id: 1,
+          likes: 19,
+          tag: 'friends',
+          x: 160,
+          y: 320 },
+    pets:
+        { avgRating: 9.2,
+          id: 2,
+          likes: 19,
+          tag: 'pets',
+          x: 160,
+          y: 520 }
+        };
 
   t.deepEqual(
     tagNodesByTag(arrayCopy, startingCx, startingCy, generateId),
@@ -123,7 +145,29 @@ test('tagNodesByTag', (t) => {
 });
 
 test('memoryNodesAndLinks', (t) => {
-  const memoriesByTag = { family: { avgRating: 9.2, id: 0, likes: 19, tag: 'family', x: 160, y: 120 }, friends: { avgRating: 9.2, id: 1, likes: 19, tag: 'friends', x: 160, y: 320 }, pets: { avgRating: 9.2, id: 2, likes: 19, tag: 'pets', x: 160, y: 520 } };
+  const memoriesByTag = {
+    family:
+        { avgRating: 9.2,
+          id: 0,
+          likes: 19,
+          tag: 'family',
+          x: 160,
+          y: 120 },
+    friends:
+        { avgRating: 9.2,
+          id: 1,
+          likes: 19,
+          tag: 'friends',
+          x: 160,
+          y: 320 },
+    pets:
+        { avgRating: 9.2,
+          id: 2,
+          likes: 19,
+          tag: 'pets',
+          x: 160,
+          y: 520 }
+        };
 
   const startingCx = 160;
   const startingCy = 120;
