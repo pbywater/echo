@@ -304,18 +304,23 @@ test('get the x and y coordinates', (t) => {
 
 test('getMemoryNodePositions', (t) => {
   const tagNode = {
+    avgrating: 6,
     id: 4,
+    index: 3,
+    likes: 35,
+    media_type: 'video',
+    memory_asset_url: 'test',
+    memory_text: 'testmem',
+    tag: 'friends',
     x: 160,
     y: 120,
-    avgRating: 8.7,
-    tag: 'friends',
   };
 
   const numTagMemories = 4;
   const memoryIndex = 3;
   const currentAvgRating = 7;
 
-  const expected = { x: 160, y: 94.50000000000001 };
+  const expected = { x: 160, y: 135 };
 
 t.deepEqual(
   getMemoryNodePositions(tagNode, numTagMemories, memoryIndex, currentAvgRating),
