@@ -18,7 +18,6 @@ const tagNodesByTag = (tagsArray, startingCx, startingCy) => {
   const out = {};
   const arrayCopy = tagsArray.slice(0);
   arrayCopy.forEach((tag, i) => {
-    console.log(tag);
     out[tag.max.tag] = {
       id: tag.max.id,
       media_type: tag.max.media_type,

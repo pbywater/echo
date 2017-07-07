@@ -57,78 +57,117 @@ test('sortWithMax', (t) => { // WORKING
 });
 
 test('tagNodesByTag', (t) => { // NOT WORKING
-  const arrayCopy = [
-    {
-      max: {
-        avgRating: 9.2,
-        id: 65465432,
-        likes: 19,
-        tag: "family",
-      },
-      rest: [
-        {
-          avgRating: 8.2,
-          id: 67456535,
-          likes: 18,
+    const arrayCopy = [
+      {
+        max: {
+          avgrating: 9.2,
+          heading: 'hello',
+          id: 1,
+          likes: 19,
+          media_type: "audio",
+          memory_asset_url: "www.google.com",
+          memory_text: 'memory',
           tag: "family",
+          visits: 1,
         },
-      ]
-    },
-    {
-      max: {
-        avgRating: 9.2,
-        id: 65465432,
-        likes: 19,
-        tag: "friends",
+        rest: [
+          {
+            avgrating: 8.2,
+            heading: 'hello',
+            id: 2,
+            likes: 18,
+            tag: "family",
+            media_type: "image",
+            memory_asset_url: "www.google.com",
+            memory_text: 'memory',
+            tag: "family",
+            visits: 1,
+          },
+        ]
       },
-      rest: [
-        {
-          avgRating: 8.2,
-          id: 67456535,
-          likes: 18,
+      {
+        max: {
+          avgrating: 9.2,
+          heading: 'help',
+          id: 3,
+          likes: 19,
+          media_type: "image",
+          memory_asset_url: "www.google.com",
+          memory_text: 'memory',
           tag: "friends",
+          visits: 2,
         },
-      ]
-    },
-    {
-      max: {
-        avgRating: 9.2,
-        id: 65465432,
-        likes: 19,
-        tag: "pets",
+        rest: [
+          {
+            avgrating: 8.2,
+            heading: 'memory',
+            id: 4,
+            likes: 18,
+            media_type: "image",
+            memory_asset_url: "www.google.com",
+            memory_text: 'memory',
+            tag: "friends",
+            visits: 2,
+          },
+        ]
       },
-      rest: [
-        {
-          avgRating: 8.2,
-          id: 67456535,
-          likes: 18,
+      {
+        max: {
+          avgrating: 9.2,
+          id: 5,
+          likes: 19,
+          media_type: "image",
+          memory_asset_url: "www.google.com",
+          memory_text: 'memory',
           tag: "pets",
+          visits: 1,
         },
-      ]
-    }
-  ];
+        rest: [
+          {
+            avgrating: 8.2,
+            id: 6,
+            likes: 18,
+            media_type: "image",
+            memory_asset_url: "www.google.com",
+            memory_text: 'memory',
+            tag: "pets",
+            visits: 3,
+          },
+        ]
+      }
+    ];
+
   const startingCx = 160;
   const startingCy = 120;
 
   const expected = {
     family:
-        { avgRating: 9.2,
-          id: 0,
+        { avgrating: 9.2,
+          id: 1,
           likes: 19,
+          media_type: "audio",
+          memory_asset_url: 'www.google.com',
+          memory_text: 'memory',
           tag: 'family',
           x: 160,
           y: 120 },
     friends:
-        { avgRating: 9.2,
-          id: 1,
+        { avgrating: 9.2,
+          id: 3,
           likes: 19,
+          media_type: "image",
+          memory_asset_url: 'www.google.com',
+          memory_text: 'memory',
           tag: 'friends',
           x: 160,
           y: 320 },
     pets:
-        { avgRating: 9.2,
-          id: 2,
+        { avgrating: 9.2,
+          id: 5,
           likes: 19,
+          media_type: "image",
+          memory_asset_url: 'www.google.com',
+          memory_text: 'memory',
           tag: 'pets',
           x: 160,
           y: 520 }

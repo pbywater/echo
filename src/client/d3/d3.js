@@ -3,6 +3,86 @@ const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 
+const arrayCopy = [
+  {
+    max: {
+      avgrating: 9.2,
+      heading: 'hello',
+      id: 1,
+      likes: 19,
+      media_type: "audio",
+      memory_asset_url: "www.google.com",
+      memory_text: 'memory',
+      tag: "family",
+      visits: 1,
+    },
+    rest: [
+      {
+        avgrating: 8.2,
+        heading: 'hello',
+        id: 2,
+        likes: 18,
+        tag: "family",
+        media_type: "image",
+        memory_asset_url: "www.google.com",
+        memory_text: 'memory',
+        tag: "family",
+        visits: 1,
+      },
+    ]
+  },
+  {
+    max: {
+      avgrating: 9.2,
+      heading: 'help',
+      id: 3,
+      likes: 19,
+      media_type: "image",
+      memory_asset_url: "www.google.com",
+      memory_text: 'memory',
+      tag: "friends",
+      visits: 2,
+    },
+    rest: [
+      {
+        avgrating: 8.2,
+        heading: 'memory',
+        id: 4,
+        likes: 18,
+        media_type: "image",
+        memory_asset_url: "www.google.com",
+        memory_text: 'memory',
+        tag: "friends",
+        visits: 2,
+      },
+    ]
+  },
+  {
+    max: {
+      avgrating: 9.2,
+      id: 5,
+      likes: 19,
+      media_type: "image",
+      memory_asset_url: "www.google.com",
+      memory_text: 'memory',
+      tag: "pets",
+      visits: 1,
+    },
+    rest: [
+      {
+        avgrating: 8.2,
+        id: 6,
+        likes: 18,
+        media_type: "image",
+        memory_asset_url: "www.google.com",
+        memory_text: 'memory',
+        tag: "pets",
+        visits: 3,
+      },
+    ]
+  }
+];
+
 const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
@@ -16,6 +96,9 @@ d3.json(url, (err, data) => {
   });
   // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
   const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120);
+
+  const test = tagNodesByTag(arrayCopy, 160, 120);
+  console.log(test);
   // Add unique tags to tag list for user to select from
   Object.keys(taggedNodesByTag).forEach((tag) => {
     tag = tag.replace(/\W/g, '');
@@ -38,7 +121,6 @@ d3.json(url, (err, data) => {
   Object.keys(processedData.nodes).forEach((key) => {
     nodeDataArray.push(processedData.nodes[key]);
   });
-console.log(nodeDataArray);
   const rScale = d3
   .scaleSqrt()
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
