@@ -93,7 +93,6 @@ d3.json(url, (err, data) => {
     .force('link', d3.forceLink(processedData).id(d => d.id))
     .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
     .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
-    // .force('charge', d3.forceManyBody())
     .force('center', d3.forceCenter(180, 320))
     .stop();
 
@@ -113,7 +112,7 @@ d3.json(url, (err, data) => {
 
   sim.force('link')
     .links(processedData.links)
-    .distance(d => 40); // change
+    .distance(d => 40);
 
   function dragstart(d) {
     if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
