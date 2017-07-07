@@ -56,7 +56,7 @@ test('sortWithMax', (t) => { // WORKING
   t.end();
 });
 
-test('tagNodesByTag', (t) => { // NOT WORKING
+test('tagNodesByTag', (t) => { // WORKING
     const arrayCopy = [
       {
         max: {
@@ -265,6 +265,8 @@ test('memoryNodesAndLinks', (t) => {
     { source: 456535, target: 0 },
     { source: 67456535, target: 1 },
     { source: 65, target: 2 },
+    { source: 0, target: 1 },
+    { source: 1, target: 2 }
   ];
 
   const { nodes, links } = memoryNodesAndLinks(memoriesByTag, tagNodes);
