@@ -105,8 +105,36 @@ function openTagMenu() {
   removingTags();
 }
 
+function showDeleteButton() {
+  setTimeout(() => {
+    if ($('.memory active')) {
+      $('.menu > *').fadeOut();
+      $('.delete-button').fadeIn();
+    }
+  }, 1200);
+}
+
+function hoveringOnDelete() {
+  $('.delete-button').on('mouseover', () => {
+    $('.delete-button path').css('fill', '#FF3F56');
+    $('.delete-button').addClass('deleting');
+  });
+  $('.delete-button').on('mouseleave', () => {
+    $('.delete-button path').css('fill', 'white');
+    $('.delete-button').removeClass('deleting');
+  });
+}
+
+function hideDeleteButton() {
+  $('.delete-button').fadeOut();
+  $('.menu > *:not(.delete-button)').fadeIn();
+}
+
 
 module.exports = {
   binByKey,
   openTagMenu,
+  showDeleteButton,
+  hoveringOnDelete,
+  hideDeleteButton,
 };

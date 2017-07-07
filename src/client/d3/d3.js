@@ -1,4 +1,4 @@
-const { tagSorting, openTagMenu } = require('../helpers/helpers.js');
+const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
@@ -111,25 +111,13 @@ d3.json(url, (err, data) => {
   function dragstarted(d) {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
     $(this).addClass('active');
-    setTimeout(() => {
-      if ($('.memory active')) {
-        $('.menu > *').fadeOut();
-        $('.delete-button').fadeIn();
-      }
-    }, 1500);
+    showDeleteButton();
   }
 
   function dragged(d) {
     d3.select(this).attr('cx', d.x = d3.event.x).attr('cy', d.y = d3.event.y);
     d3.select(this).style('fill', '#FDACAB');
-    $('.delete-button').on('mouseover', () => {
-      $('.delete-button path').css('fill', '#FF3F56');
-      $('.delete-button').addClass('deleting');
-    });
-    $('.delete-button').on('mouseleave', () => {
-      $('.delete-button path').css('fill', 'white');
-      $('.delete-button').removeClass('deleting');
-    });
+    hoveringOnDelete();
   }
 
   function dragended(d) {
@@ -138,9 +126,9 @@ d3.json(url, (err, data) => {
     d3.select(this).style('fill', 'white');
     if ($('.delete-button').hasClass('deleting')) {
       d3.select(this).style('display', 'none');
+      $('.delete-button').removeClass('deleting');
     }
-    $('.delete-button').fadeOut();
-    $('.menu > *:not(.delete-button)').fadeIn();
+    hideDeleteButton();
   }
 
   openTagMenu();
