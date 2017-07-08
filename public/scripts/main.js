@@ -23,9 +23,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
       $('.menu-open-button')
         .fadeIn()
         .addClass('active');
-      $('.memory-input')
+      $('.menu_icon')
+        .addClass('hide');
+      $('.close_icon')
         .removeClass('hide');
     }, 1000);
+
+    setTimeout(() => {
+      $('.memory-input')
+        .removeClass('hide');
+    }, 1100);
 
     $(`#${menuItemId}`)
       .removeClass('normal')
@@ -46,6 +53,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         .removeClass('active');
       $(`${restSelector}`)
         .fadeIn();
+      $('.menu_icon')
+        .removeClass('hide');
+      $('.close_icon')
+        .addClass('hide');
       $('.memory-input')
         .addClass('hide');
     });
