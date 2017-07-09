@@ -18,8 +18,8 @@ const createMemory = (newMemory, mediaType, callback) => {
     (err, res) => {
       if (err) { callback(err); }
       callback(null, res);
-    };
     });
+};
 
 const createUser = (userDetails, callback) => {
   connect.query(
