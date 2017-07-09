@@ -1,25 +1,27 @@
 const connect = require('./db_connect');
 
-const hashPassword = request('./../helpers/hashPassword');
+const hashPassword = require('./../helpers/hashPassword');
 
-const createMemory = (newMemory, callback) => {
+const createMemory = (newMemory, mediaType, callback) => {
   connect.query(
-    `WITH new_memory AS (
-      INSERT INTO memories
-        (user_id, heading, tag, memory_asset_url, memory_text, media_type)
-      VALUES
-      ((SELECT users.id FROM users WHERE users.username = $1), $2, $3, $4)
-      RETURNING id
-    )
-    UPDATE media SET
-      $5 = $5 || (SELECT id FROM new_memory)`,
-    [newMemory.username, newMemory.heading, newMemory.tag, newMemory.memory, newMemory.mediaType], (err, res) => {
+    `INSERT INTO memories
+        (user_id, memory_text, media_type, memory_asset_url, heading, tag)
+     VALUES
+        ($1, $2, $3, $4, $5, $6)
+    `,
+    // Current query will be replaced with query below when signup route is created
+    // VALUES
+    //  ((SELECT users.id FROM users WHERE users.username = $1), $2, $3, $4, $5, $6)`,
+    //  [newMemory.username, newMemory.memoryText, mediaType, newMemory.memory_asset_url, newMemory.heading, newMemory.tag]
+    // $1, $4, $5, $6 are hardcoded below for testing purposes
+    [1, newMemory.memory_text, mediaType, 'dummyURL', 'dummyHeading', 'dummyTag'],
+    (err, res) => {
       if (err) { callback(err); }
       callback(null, res);
+    };
     });
-};
 
-const createUser (userDetails, callback) => {
+const createUser = (userDetails, callback) => {
   connect.query(
     `SELECT username
     FROM users
@@ -34,10 +36,10 @@ const createUser (userDetails, callback) => {
             `INSERT INTO users
             (username, password, email)
             VALUES($1, $2, $3);`, [userDetails.username, hash, userDetails.email], (err) => {
-            if (err) { return callback(err); }
-            callback(null, 'new user added');
-          });
-        })
+              if (err) { return callback(err); }
+              callback(null, 'new user added');
+            });
+        });
       } else {
         callback(new Error('Sorry, that username is taken.'));
       }
@@ -46,5 +48,5 @@ const createUser (userDetails, callback) => {
 
 module.exports = {
   createMemory,
-  createRegisterUser
-}
+  createUser,
+};
