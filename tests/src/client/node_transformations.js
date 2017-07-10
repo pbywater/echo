@@ -1,11 +1,10 @@
 /* eslint-disable */
-
 const test = require('tape');
 
 const {
   binByTag,
   sortWithMax,
-  tagNodesByTag,
+  centralMaxNodesByTag,
   getXAndY,
   getMemoryNodePositions,
   generateId,
@@ -43,8 +42,8 @@ test('sortWithMax', (t) => {
   const expected = {
     max: { avgRating: 3 },
     rest: [
-      { avgRating: 2 },
       { avgRating: 1 },
+      { avgRating: 2 },
     ],
   };
 
@@ -57,86 +56,125 @@ test('sortWithMax', (t) => {
   t.end();
 });
 
-test('tagNodesByTag', (t) => {
-  const arrayCopy = [
-    {
-      max: {
-        avgRating: 9.2,
-        id: 65465432,
-        likes: 19,
-        tag: "family",
-      },
-      rest: [
-        {
-          avgRating: 8.2,
-          id: 67456535,
-          likes: 18,
+test('centralMaxNodesByTag', (t) => {
+    const arrayCopy = [
+      {
+        max: {
+          avgrating: 9.2,
+          heading: 'hello',
+          id: 1,
+          likes: 19,
+          media_type: "audio",
+          memory_asset_url: "www.google.com",
+          memory_text: 'memory',
           tag: "family",
+          visits: 1,
         },
-      ]
-    },
-    {
-      max: {
-        avgRating: 9.2,
-        id: 65465432,
-        likes: 19,
-        tag: "friends",
+        rest: [
+          {
+            avgrating: 8.2,
+            heading: 'hello',
+            id: 2,
+            likes: 18,
+            tag: "family",
+            media_type: "image",
+            memory_asset_url: "www.google.com",
+            memory_text: 'memory',
+            tag: "family",
+            visits: 1,
+          },
+        ]
       },
-      rest: [
-        {
-          avgRating: 8.2,
-          id: 67456535,
-          likes: 18,
+      {
+        max: {
+          avgrating: 9.2,
+          heading: 'help',
+          id: 3,
+          likes: 19,
+          media_type: "image",
+          memory_asset_url: "www.google.com",
+          memory_text: 'memory',
           tag: "friends",
+          visits: 2,
         },
-      ]
-    },
-    {
-      max: {
-        avgRating: 9.2,
-        id: 65465432,
-        likes: 19,
-        tag: "pets",
+        rest: [
+          {
+            avgrating: 8.2,
+            heading: 'memory',
+            id: 4,
+            likes: 18,
+            media_type: "image",
+            memory_asset_url: "www.google.com",
+            memory_text: 'memory',
+            tag: "friends",
+            visits: 2,
+          },
+        ]
       },
-      rest: [
-        {
-          avgRating: 8.2,
-          id: 67456535,
-          likes: 18,
+      {
+        max: {
+          avgrating: 9.2,
+          id: 5,
+          likes: 19,
+          media_type: "image",
+          memory_asset_url: "www.google.com",
+          memory_text: 'memory',
           tag: "pets",
+          visits: 1,
         },
-      ]
-    }
-  ];
+        rest: [
+          {
+            avgrating: 8.2,
+            id: 6,
+            likes: 18,
+            media_type: "image",
+            memory_asset_url: "www.google.com",
+            memory_text: 'memory',
+            tag: "pets",
+            visits: 3,
+          },
+        ]
+      }
+    ];
+
   const startingCx = 160;
   const startingCy = 120;
 
   const expected = {
     family:
-        { avgRating: 9.2,
-          id: 0,
+        { avgrating: 9.2,
+          id: 1,
           likes: 19,
+          media_type: "audio",
+          memory_asset_url: 'www.google.com',
+          memory_text: 'memory',
           tag: 'family',
           x: 160,
           y: 120 },
     friends:
-        { avgRating: 9.2,
-          id: 1,
+        { avgrating: 9.2,
+          id: 3,
           likes: 19,
+          media_type: "image",
+          memory_asset_url: 'www.google.com',
+          memory_text: 'memory',
           tag: 'friends',
           x: 160,
           y: 320 },
     pets:
-        { avgRating: 9.2,
-          id: 2,
+        { avgrating: 9.2,
+          id: 5,
           likes: 19,
+          media_type: "image",
+          memory_asset_url: 'www.google.com',
+          memory_text: 'memory',
           tag: 'pets',
           x: 160,
           y: 520 }
         };
 
   t.deepEqual(
-    tagNodesByTag(arrayCopy, startingCx, startingCy, generateId),
+    centralMaxNodesByTag(arrayCopy, startingCx, startingCy),
     expected,
     'creates map of tag nodes, with ids and positions'
   );
@@ -227,6 +265,8 @@ test('memoryNodesAndLinks', (t) => {
     { source: 456535, target: 0 },
     { source: 67456535, target: 1 },
     { source: 65, target: 2 },
+    { source: 0, target: 1 },
+    { source: 1, target: 2 }
   ];
 
   const { nodes, links } = memoryNodesAndLinks(memoriesByTag, tagNodes);
@@ -264,18 +304,23 @@ test('get the x and y coordinates', (t) => {
 
 test('getMemoryNodePositions', (t) => {
   const tagNode = {
+    avgrating: 6,
     id: 4,
+    index: 3,
+    likes: 35,
+    media_type: 'video',
+    memory_asset_url: 'test',
+    memory_text: 'testmem',
+    tag: 'friends',
     x: 160,
     y: 120,
-    avgRating: 8.7,
-    tag: 'friends',
   };
 
   const numTagMemories = 4;
   const memoryIndex = 3;
   const currentAvgRating = 7;
 
-  const expected = { x: 160, y: 94.50000000000001 };
+  const expected = { x: 160, y: 135 };
 
 t.deepEqual(
   getMemoryNodePositions(tagNode, numTagMemories, memoryIndex, currentAvgRating),
