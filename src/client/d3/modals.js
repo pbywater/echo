@@ -15,7 +15,15 @@ const appendPopUp = (data) => {
       .attr('display', 'block')
       .attr('width', 300)
       .attr('height', 450)
-      .attr('ry', 5); 
+      .attr('ry', 5);
+
+  const mediaHolder = holder
+    .append('rect')
+      .attr('class', 'mediaHolder')
+      .attr('transform', 'translate(0, 0)')
+      .attr('width', 300)
+      .attr('height', 350)
+      .style('fill', 'pink')
 
   const textholder = holder
     .append('text')
