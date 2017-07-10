@@ -40,77 +40,82 @@ d3.json(url, (err, data) => {
     nodeDataArray.push(processedData.nodes[key]);
   });
 
-  const simulation = d3.forceSimulation()
-    .force('link', d3.forceLink().id(d => d.id))
-    .force('charge', d3.forceManyBody())
-    .force('center', d3.forceCenter(width / 2, height / 2))
-    .on('tick', ticked)
-    .stop();
-
   const rScale = d3
-    .scaleSqrt()
-    .domain([0, d3.max(nodeDataArray, d => d.likes)])
-    .range([0, 10]);
+  .scaleSqrt()
+  .domain([0, d3.max(nodeDataArray, d => d.likes)])
+  .range([0, 10]);
 
-  const circles = svg
-    .selectAll('.memory')
-    .data(nodeDataArray)
-    .enter()
+  const fdGrp = svg
+    .append('g');
+
+  const linkGrp = fdGrp
     .append('g')
-    .attr('id', d => d.id)
-    .attr('class', 'memoryG');
+    .attr('class', 'links');
 
-  circles
-    .append('circle')
-    .attr('cy', d => d.y)
-    .attr('cx', d => d.x)
-    .attr('class', d => `memory ${d.tag}`)
-    .attr('r', d => rScale(d.likes))
-    .on('click', function(d){
-        appendPopUp(d)
-    })
-    .style('fill', 'white')
-    .style('opacity', '0.8')
-    .call(d3.drag()
-      .on('start', dragstarted)
-      .on('drag', dragged)
-      .on('end', dragended));
-
-  const link = svg
-    .selectAll('line')
+  const links = linkGrp
+    .selectAll('line.link')
     .data(processedData.links)
     .enter()
-    .append('line');
+    .append('line')
+      .attr('x2', d => processedData.nodes[d.target].x,
+      )
+      .attr('y2', d => processedData.nodes[d.target].y,
+      )
+      .attr('x1', d => processedData.nodes[d.source].x,
+      )
+      .attr('y1', d => processedData.nodes[d.source].y,
+      )
+      .style('stroke', 'white')
+      .style('stroke-width', '2px')
+      .style('opacity', '0.8')
+      .attr('class', d => `memory ${processedData.nodes[d.source].tag}`);
 
-  link
-    .attr('x2', d => processedData.nodes[d.target].x,
-    )
-    .attr('y2', d => processedData.nodes[d.target].y,
-    )
-    .attr('x1', d => processedData.nodes[d.source].x,
-    )
-    .attr('y1', d => processedData.nodes[d.source].y,
-    )
-    .style('stroke', 'white')
-    .attr('class', d => `memory ${processedData.nodes[d.source].tag}`)
-    .style('stroke-width', '2px')
-    .style('opacity', '0.8');
+  const nodeGrp = fdGrp
+    .append('g')
+      .attr('class', 'nodes');
 
-  simulation.nodes(circles);
-  simulation.force('link').links(link);
-  simulation.restart();
+  const nodes = nodeGrp
+    .selectAll('circle.node')
+    .data(nodeDataArray)
+    .enter()
+    .append('circle')
+      .attr('class', d => `memory ${d.tag}`)
+      .attr('cy', d => d.y)
+      .attr('cx', d => d.x)
+      .attr('r', d => rScale(d.likes))
+      .style('fill', 'white')
+      .style('opacity', '0.8')
+      .call(d3.drag()
+        .on('start', dragstart)
+        .on('drag', dragging)
+        .on('end', dragend));
 
-  function ticked() {
-    link
-      .attr('x1', d => processedData.nodes[d.source].x)
-      .attr('y1', d => processedData.nodes[d.source].y)
-      .attr('x2', d => processedData.nodes[d.target].x)
-      .attr('y2', d => processedData.nodes[d.target].y);
-    circles
+  const sim = d3.forceSimulation()
+    .force('link', d3.forceLink(processedData).id(d => d.id))
+    .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
+    .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
+    .force('center', d3.forceCenter(180, 320))
+    .stop();
+
+  sim
+  .nodes(nodeDataArray)
+  .on('tick', () => {
+    nodes
       .attr('cx', d => d.x)
       .attr('cy', d => d.y);
-  }
+    links
+      .attr('x1', d =>
+      processedData.nodes[d.source.id].x)
+      .attr('y1', d => processedData.nodes[d.source.id].y)
+      .attr('x2', d => processedData.nodes[d.target.id].x)
+      .attr('y2', d => processedData.nodes[d.target.id].y);
+  });
 
+  sim.force('link')
+    .links(processedData.links)
+    .distance(d => 40);
+
+<<<<<<< HEAD
   d3
     .selectAll('.shuffle-memories')
       .on('click', function(){
@@ -120,15 +125,29 @@ d3.json(url, (err, data) => {
   function dragstarted(d) {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
     d3.select(this).raise().classed('active', true);
+||||||| merged common ancestors
+  function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d3.select(this).raise().classed('active', true);
+=======
+  function dragstart(d) {
+    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+    d.fx = d.x;
+    d.fy = d.y;
+>>>>>>> master
   }
 
-  function dragged(d) {
-    d3.select(this).attr('cx', d.x = d3.event.x).attr('cy', d.y = d3.event.y);
+  function dragging(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
   }
 
-  function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget();
-    d3.select(this).classed('active', false);
+  function dragend(d) {
+    if (!d3.event.active) sim.alphaTarget(0);
+    if (!d.outer) {
+      d.fx = null;
+      d.fy = null;
+    }
   }
 
   openTagMenu();
