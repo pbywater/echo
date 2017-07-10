@@ -1,6 +1,6 @@
-const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton } = require('../helpers/helpers.js');
+const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submitNewMemory } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
-const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
+const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId, centralMaxNodesByTag } = require('../node_transformations');
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
@@ -67,6 +67,38 @@ d3.json(url, (err, data) => {
       .style('stroke-width', '2px')
       .style('opacity', '0.8')
       .attr('class', d => `memory ${processedData.nodes[d.source].tag}`);
+
+  function updateLinks(newData) {
+    console.log('updating');
+    const links = linkGrp
+      .selectAll('line.link').data(newData.links)
+        .append('line')
+          .attr('x2', d => newData.nodes[d.target].x,
+          )
+          .attr('y2', d => newData.nodes[d.target].y,
+          )
+          .attr('x1', d => newData.nodes[d.source].x,
+          )
+          .attr('y1', d => newData.nodes[d.source].y,
+          )
+          .attr('class', d => `memory ${newData.nodes[d.source].tag}`)
+        .enter()
+        .append('line')
+          .attr('x2', d => newData.nodes[d.target].x,
+          )
+          .attr('y2', d => newData.nodes[d.target].y,
+          )
+          .attr('x1', d => newData.nodes[d.source].x,
+          )
+          .attr('y1', d => newData.nodes[d.source].y,
+          )
+          .style('stroke', 'white')
+          .style('stroke-width', '2px')
+          .style('opacity', '0.8')
+          .attr('class', d => `memory ${newData.nodes[d.source].tag}`)
+        .exit()
+          .remove();
+  }
 
   const nodeGrp = fdGrp
     .append('g')
@@ -147,6 +179,7 @@ d3.json(url, (err, data) => {
         url: 'memories',
         data: { id },
       });
+      updateLinks(processedData);
     }
     hideDeleteButton();
   }
