@@ -11,7 +11,7 @@ const {
   memoryNodesAndLinks,
 } = require('../../../src/client/node_transformations.js');
 
-test('binByTag', (t) => { // WORKING
+test('binByTag', (t) => {
   const arrayToBin = [
     { tag: 't1', value: 1 },
     { tag: 't1', value: 2 },
@@ -32,7 +32,7 @@ test('binByTag', (t) => { // WORKING
   t.end();
 });
 
-test('sortWithMax', (t) => { // WORKING
+test('sortWithMax', (t) => {
   const nodesToSort = [
     { avgRating: 3 },
     { avgRating: 1 },
@@ -56,7 +56,7 @@ test('sortWithMax', (t) => { // WORKING
   t.end();
 });
 
-test('tagNodesByTag', (t) => { // WORKING
+test('tagNodesByTag', (t) => { 
     const arrayCopy = [
       {
         max: {
