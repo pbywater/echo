@@ -3,6 +3,8 @@ const { getRandomInt } = require('./../helpers/helpers');
 
 const appendPopUp = (data) => {
 
+console.log(data);
+
   const holder = svg
     .append('g')
       .attr('class', 'popupBoxHolder')
@@ -24,6 +26,7 @@ const appendPopUp = (data) => {
       .attr('width', 300)
       .attr('height', 350)
       .style('fill', 'pink')
+      .attr('ry', 5);
 
   const textholder = holder
     .append('text')
