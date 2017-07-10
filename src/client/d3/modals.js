@@ -6,16 +6,16 @@ const appendPopUp = (data) => {
   const holder = svg
     .append('g')
       .attr('class', 'popupBoxHolder')
-      .attr('transform', 'translate(30, 50)') //change
+      .attr('transform', 'translate(30, 80)')
 
   holder
     .append('rect')
       .attr('class', 'popupBox')
-      .attr('fill', 'white') // change
+      .attr('fill', 'white')
       .attr('display', 'block')
-      .attr('width', 300) // change
-      .attr('height', 500) // change
-      .attr('ry', 5); //change probably
+      .attr('width', 300)
+      .attr('height', 450)
+      .attr('ry', 5); 
 
   const textholder = holder
     .append('text')

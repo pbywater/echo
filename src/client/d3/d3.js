@@ -85,6 +85,9 @@ d3.json(url, (err, data) => {
       .attr('r', d => rScale(d.likes))
       .style('fill', 'white')
       .style('opacity', '0.8')
+      .on('click', function(){
+        randomPopUp(nodeDataArray)
+      })
       .call(d3.drag()
         .on('start', dragstart)
         .on('drag', dragging)
@@ -115,26 +118,17 @@ d3.json(url, (err, data) => {
     .links(processedData.links)
     .distance(d => 40);
 
-<<<<<<< HEAD
   d3
     .selectAll('.shuffle-memories')
       .on('click', function(){
-        randomPopUp(nodeDataArray)
+        appendPopUp(d)
       })
 
-  function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-    d3.select(this).raise().classed('active', true);
-||||||| merged common ancestors
-  function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-    d3.select(this).raise().classed('active', true);
-=======
   function dragstart(d) {
     if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
     d.fx = d.x;
     d.fy = d.y;
->>>>>>> master
+
   }
 
   function dragging(d) {
