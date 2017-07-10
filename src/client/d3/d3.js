@@ -142,14 +142,18 @@ d3.json(url, (err, data) => {
       $('.delete-button').removeClass('deleting');
       const deleteUrl = `${window.location}delete`;
       // Haven't got this working yet
-  //     $.ajax({
-  //       url: '/delete',
-  //       method: 'get',
-  //       data: id,
-  //     })
-  // .done((data) => {
-  //   console.log(data);
-  // });
+      $.ajax({
+        type: 'DELETE',
+        url: 'memories',
+        data: `{"id":"${id}"}`,
+        success(data) {
+          alert(data.d);
+        },
+        error(data) {
+          console.log(data);
+          alert('fail');
+        },
+      });
     }
     hideDeleteButton();
   }
