@@ -42,7 +42,7 @@ d3.json(url, (err, data) => {
   const rScale = d3
   .scaleSqrt()
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
-  .range([0, 10]);
+  .range([3, 8]);
 
   const fdGrp = svg
     .append('g');
