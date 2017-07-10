@@ -2,7 +2,6 @@ const { svg } = require('./setup');
 const { getRandomInt } = require('./../helpers/helpers');
 
 const appendPopUp = (data) => {
-  console.log(data);
   const holder = svg
     .append('g')
       .attr('class', 'popupBoxHolder')
