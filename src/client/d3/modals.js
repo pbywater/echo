@@ -66,24 +66,24 @@ const appendMedia = (data) => {
         .text(data.memory_text);
   } else if (data.media_type === 'audio') {
     popup
-      .append('svg') //append svg image that on click plays audio
-  } else if (data.media_type === 'audio') {
+      .append('svg'); // append svg image that on click plays audio
+  } else if (data.media_type === 'video') {
     popup
-      .append('svg') // how do you append a video to an svg. How do we store it in S3? All these questions. 
+      .append('svg'); // how do you append a video to an svg. How do we store it in S3? All these questions.
   }
 };
 
 function wrap(text, width) {
   text.each(function () {
-    let text = d3.select(this);
+    const text = d3.select(this);
     const words = 'Foo is not a long const word'.split(/\s+/).reverse();
-    const word;
+    const word = '';
     const line = [];
     const lineNumber = 0;
     const lineHeight = 1.1; // ems
     const x = text.attr('x');
     const y = text.attr('y');
-    const dy = 0, // parseFloat(text.attr("dy")),
+    const dy = 0; // parseFloat(text.attr("dy")),
     const tspan = text.text(null)
                         .append('tspan')
                         .attr('x', x)

@@ -42,7 +42,7 @@ VALUES
 (1, 'testHeading', 19, 2.8, 1, 'pets', 'testurl', 'testMemoryText', 'audio'),
 (1, 'testHeading', 10, 7.6, 1, 'friends', 'https://levoyageverslest.files.wordpress.com/2010/01/zaoouunautre.jpg', 'testMemoryText', 'image'),
 (1, 'testHeading', 7, 2.6, 1, 'friends', 'testurl', 'testMemoryText', 'video'),
-(1, 'testHeading', 35, 8.9, 1, 'friends', 'testurl', 'testMemoryText', 'text_only'),
+(1, 'testHeading', 35, 8.9, 1, 'friends', '', 'Donec et orci eu felis malesuada venenatis. Aliquam erat volutpat. Morbi eget felis ut metus malesuada ullamcorper. Maecenas sem nulla, tincidunt ut aliquam vestibulum, iaculis vel diam. Morbi mattis leo.', 'text_only'),
 (1, 'testHeading', 6, 3.6, 1, 'friends', 'testurl', 'testMemoryText', 'audio'),
 (1, 'testHeading', 19, 6.5, 1, 'friends', 'https://levoyageverslest.files.wordpress.com/2010/01/zaoouunautre.jpg', 'testMemoryText', 'image');
 
