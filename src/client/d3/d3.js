@@ -1,7 +1,7 @@
-const { tagSorting, openTagMenu } = require('../helpers/helpers.js');
+const { tagSorting, openTagMenu, submitNewMemory } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
-const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
+const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals');
 
 const url = location.hostname ? '/memories' : jsonUrl;
@@ -16,9 +16,10 @@ d3.json(url, (err, data) => {
     sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
   });
   // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
-  const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120, generateId());
+  const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
+
   // Add unique tags to tag list for user to select from
-  Object.keys(taggedNodesByTag).forEach((tag) => {
+  Object.keys(centralNodesByTag).forEach((tag) => {
     tag = tag.replace(/\W/g, '');
     $('.tags').append(
       `<li class='tag-container ${tag}'>
@@ -33,17 +34,16 @@ d3.json(url, (err, data) => {
       </img>
     </li>`);
   // processedData returns a list of nodes and links
-  const processedData = memoryNodesAndLinks(taggedNodesByTag, sortedWithMax);
+  const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
 
   const nodeDataArray = [];
   Object.keys(processedData.nodes).forEach((key) => {
     nodeDataArray.push(processedData.nodes[key]);
   });
-
   const rScale = d3
   .scaleSqrt()
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
-  .range([0, 10]);
+  .range([3, 8]);
 
   const fdGrp = svg
     .append('g');
@@ -85,8 +85,8 @@ d3.json(url, (err, data) => {
       .attr('r', d => rScale(d.likes))
       .style('fill', 'white')
       .style('opacity', '0.8')
-      .on('click', function(d){
-        appendPopUp(d)
+      .on('click', (d) => {
+        appendPopUp(d);
       })
       .call(d3.drag()
         .on('start', dragstart)
@@ -120,15 +120,14 @@ d3.json(url, (err, data) => {
 
   d3
     .selectAll('.shuffle-memories')
-      .on('click', function(){
-        randomPopUp(nodeDataArray)
-      })
+      .on('click', () => {
+        randomPopUp(nodeDataArray);
+      });
 
   function dragstart(d) {
     if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
     d.fx = d.x;
     d.fy = d.y;
-
   }
 
   function dragging(d) {
@@ -145,4 +144,5 @@ d3.json(url, (err, data) => {
   }
 
   openTagMenu();
+  submitNewMemory();
 });
