@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 const normalTime = 1000;
 
 const binByKey = (key, xs) =>
@@ -105,7 +105,25 @@ function openTagMenu() {
   removingTags();
 }
 
+function submitNewMemory() {
+  $('.memory-input__submit').on('click', function() {
+    $('.finished')
+      .addClass('new-node');
+    $('.finished svg')
+      .hide();
+    $('.memory-input')
+      .addClass('hide');
+    setTimeout(function () {
+      $('.finished svg')
+        .show();
+      $('.finished')
+        .removeClass('new-node finished wipe');
+    }, 4500);
+  });
+}
+
 module.exports = {
   binByKey,
   openTagMenu,
+  submitNewMemory,
 };

@@ -1,4 +1,4 @@
-const { tagSorting, openTagMenu } = require('../helpers/helpers.js');
+const { tagSorting, openTagMenu, submitNewMemory } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
@@ -134,4 +134,5 @@ d3.json(url, (err, data) => {
   }
 
   openTagMenu();
+  submitNewMemory();
 });
