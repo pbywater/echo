@@ -2,6 +2,7 @@ const { svg } = require('./setup');
 const { getRandomInt } = require('./../helpers/helpers');
 
 const appendPopUp = (data) => {
+  console.log(data);
   const holder = svg
     .append('g')
       .attr('class', 'popupBoxHolder')
@@ -17,13 +18,29 @@ const appendPopUp = (data) => {
       .attr('ry', 5);
 
   const close = holder
-    .append('rect')
+    .append('image')
+      .attr('xlink:href', './assets/icons/card_icons/close.svg')
       .attr('class', 'close')
-      .style('fill', 'red')
+      .style('fill', '#526173')
       .attr('transform', 'translate(10, 425)')
       .attr('width', 10)
       .attr('height', 10)
       .on('click', closePopUp);
+
+  const likeButton = holder
+    .append('image')
+      .attr('xlink:href', './assets/icons/card_icons/heart_icon_checked.svg')
+      .attr('width', 40)
+      .attr('height', 40)
+      .attr('transform', 'translate(250, 400)');
+
+  holder
+    .append('text')
+      .attr('class', 'likeCounter')
+      .style('fill', 'white')
+      .attr('transform', 'translate(250, 400)')
+      .attr('font-family', 'Quicksand')
+      .text(data.likes);
 
   appendMedia(data);
 };
@@ -72,11 +89,15 @@ const appendMedia = (data) => {
         .call(wrap, data.memory_text, 285);
   } else if (data.media_type === 'audio') {
     popup
-      .append('svg'); // append svg image that on click plays audio
+      .append('text')
+        .attr('transform', 'translate(10, 25)')
+        .text('audio to be added here'); // append svg image that on click plays audio
       // this will be added once we have set up s3.
   } else if (data.media_type === 'video') {
     popup
-      .append('svg'); // append video to svg
+      .append('svg')
+        .attr('transform', 'translate(10, 25)')
+        .text('video to be added here'); // append video to svg
       // this will be added once we have set up s3.
   }
 };
