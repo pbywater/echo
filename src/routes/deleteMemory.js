@@ -11,7 +11,6 @@ module.exports = [
   app.delete('/memories', (req, result) => {
     deleteMemory(req.body.id, (err, res) => {
       if (err) {
-        console.log('error is ', err);
         return err;
       }
     });

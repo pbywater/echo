@@ -139,9 +139,9 @@ d3.json(url, (err, data) => {
     d3.select(this).style('fill', 'white');
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
+      // Line below to be removed when loop is implemented
       d3.select(this).style('display', 'none');
       $('.delete-button').removeClass('deleting');
-      const deleteUrl = `${window.location}delete`;
       $.ajax({
         type: 'DELETE',
         url: 'memories',
