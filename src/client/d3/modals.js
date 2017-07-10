@@ -26,7 +26,7 @@ const appendPopUp = (data) => {
     .append('rect')
       .attr('class', 'close')
       .style('fill', 'red')
-      .attr('transform', 'translate(10, 20)')
+      .attr('transform', 'translate(10, 425)')
       .attr('width', 10)
       .attr('height', 10)
       .on('click', closePopUp);
@@ -62,8 +62,11 @@ const appendMedia = (data) => {
     popup
       .append('text')
         .attr('class', 'textHolder')
-        .attr('transform', 'translate(10, 50)')
-        .text(data.memory_text);
+        .attr('transform', 'translate(10, 25)')
+        .attr('x', 0)
+        .attr('y', 0)
+        .text(data.memory_text)
+        .call(wrap, data.memory_text, 290);
   } else if (data.media_type === 'audio') {
     popup
       .append('svg'); // append svg image that on click plays audio
@@ -73,18 +76,18 @@ const appendMedia = (data) => {
   }
 };
 
-function wrap(text, width) {
-  text.each(function () {
-    const text = d3.select(this);
-    const words = 'Foo is not a long const word'.split(/\s+/).reverse();
-    const word = '';
-    const line = [];
-    const lineNumber = 0;
-    const lineHeight = 1.1; // ems
-    const x = text.attr('x');
-    const y = text.attr('y');
-    const dy = 0; // parseFloat(text.attr("dy")),
-    const tspan = text.text(null)
+function wrap(element, textToAdd, width) {
+  element.each(function () {
+    let text = d3.select(this),
+      words = textToAdd.split(/\s+/).reverse(),
+      word,
+      line = [],
+      lineNumber = 0,
+      lineHeight = 1.1, // ems
+      x = element.attr('x'),
+      y = element.attr('y'),
+      dy = 0, // parseFloat(text.attr("dy")),
+      tspan = element.text(null)
                         .append('tspan')
                         .attr('x', x)
                         .attr('y', y)
@@ -96,7 +99,7 @@ function wrap(text, width) {
         line.pop();
         tspan.text(line.join(' '));
         line = [word];
-        tspan = text.append('tspan')
+        tspan = element.append('tspan')
                             .attr('x', x)
                             .attr('y', y)
                             .attr('dy', `${++lineNumber * lineHeight + dy}em`)
