@@ -1,6 +1,5 @@
 const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
-const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
 
 const url = location.hostname ? '/memories' : jsonUrl;
