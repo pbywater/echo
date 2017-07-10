@@ -78,6 +78,7 @@ d3.json(url, (err, data) => {
     .enter()
     .append('circle')
       .attr('class', d => `memory ${d.tag}`)
+      .attr('id', d => d.id)
       .attr('cy', d => d.y)
       .attr('cx', d => d.x)
       .attr('r', d => rScale(d.likes))
@@ -138,21 +139,14 @@ d3.json(url, (err, data) => {
     d3.select(this).style('fill', 'white');
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
+      console.log(id);
       d3.select(this).style('display', 'none');
       $('.delete-button').removeClass('deleting');
       const deleteUrl = `${window.location}delete`;
-      // Haven't got this working yet
       $.ajax({
         type: 'DELETE',
         url: 'memories',
-        data: `{"id":"${id}"}`,
-        success(data) {
-          alert(data.d);
-        },
-        error(data) {
-          console.log(data);
-          alert('fail');
-        },
+        data: { id },
       });
     }
     hideDeleteButton();
