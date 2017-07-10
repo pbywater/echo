@@ -5,39 +5,50 @@ const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId, c
 const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
+  function processData(rawData) {
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
-  const binnedByTag = binByTag(data);
+    const binnedByTag = binByTag(data);
   // sortedWithMax sorts each tag group to separate max memory (by avgRating) from others in its group
-  const sortedWithMax = [];
-  Object.keys(binnedByTag).forEach((tagKey) => {
-    sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
-  });
+    const sortedWithMax = [];
+    Object.keys(binnedByTag).forEach((tagKey) => {
+      sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
+    });
   // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
-  const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
+    const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
 
   // Add unique tags to tag list for user to select from
-  Object.keys(centralNodesByTag).forEach((tag) => {
-    tag = tag.replace(/\W/g, '');
-    $('.tags').append(
+    Object.keys(centralNodesByTag).forEach((tag) => {
+      tag = tag.replace(/\W/g, '');
+      $('.tags').append(
       `<li class='tag-container ${tag}'>
         <p class='tagLabel'>${tag}</p>
         <img class='filter-tags ${tag}' src="./assets/icons/navigate/close_icon.svg"/>
       </li>`);
-  });
-  $('.tags').append(
+    });
+    $('.tags').append(
     `<li class='clear-tags'>clear</li>
     <li class='close-tags'>
       <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
       </img>
     </li>`);
   // processedData returns a list of nodes and links
-  const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
+    return memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
+  }
 
-  const nodeDataArray = [];
-  Object.keys(processedData.nodes).forEach((key) => {
-    nodeDataArray.push(processedData.nodes[key]);
-  });
+  const processedData = processData(data);
+
+  function makeNodeDataArray(processedDataObj) {
+    const array = [];
+    Object.keys(processedDataObj.nodes).forEach((key) => {
+      array.push(processedDataObj.nodes[key]);
+    });
+    return array;
+  }
+
+  const nodeDataArray = makeNodeDataArray(processedData);
+
+
   const rScale = d3
   .scaleSqrt()
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
@@ -104,9 +115,9 @@ d3.json(url, (err, data) => {
     .append('g')
       .attr('class', 'nodes');
 
-  function updateNodes() {
+  function updateNodes(newDataArray) {
     nodes
-          .selectAll('circle.node').data(nodeDataArray)
+          .selectAll('circle.node').data(newDataArray)
           .enter()
           .append('circle')
             .attr('class', d => `memory ${d.tag}`)
@@ -199,8 +210,10 @@ d3.json(url, (err, data) => {
         url: 'memories',
         data: { id },
       });
-      updateLinks(processedData);
-      updateNodes();
+      const newDataLinks = processData(data);
+      const newDataNodes = makeNodeDataArray(newDataLinks);
+      updateLinks(newDataLinks);
+      updateNodes(newDataNodes);
     }
     hideDeleteButton();
   }
