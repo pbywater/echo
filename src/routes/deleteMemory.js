@@ -5,18 +5,15 @@ const bodyParser = require('body-parser');
 
 const app = express.Router();
 
+app.use(bodyParser());
 
 module.exports = [
   app.delete('/memories', (req, result) => {
-    console.log('hello', result.data);
-    // const test = JSON.stringify(result);
-    deleteMemory(result, (err, res) => {
+    deleteMemory(req.body.id, (err, res) => {
       if (err) {
         console.log('error is ', err);
         return err;
       }
-      // result.send(res.rows);
-      res.send('DELETE request to homepage');
     });
   }),
 ];
