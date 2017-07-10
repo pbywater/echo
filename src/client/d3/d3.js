@@ -74,6 +74,7 @@ d3.json(url, (err, data) => {
       )
       .attr('y1', d => processedData.nodes[d.source].y,
       )
+      .attr('id', d => `link${d.source}`)
       .style('stroke', 'white')
       .style('stroke-width', '2px')
       .style('opacity', '0.8')
@@ -83,7 +84,6 @@ d3.json(url, (err, data) => {
     console.log('updating');
     links
       .selectAll('line.link').data(newData.links)
-        .append('line')
           .attr('x2', d => newData.nodes[d.target].x,
           )
           .attr('y2', d => newData.nodes[d.target].y,
@@ -210,10 +210,23 @@ d3.json(url, (err, data) => {
         url: 'memories',
         data: { id },
       });
-      const newDataLinks = processData(data);
-      const newDataNodes = makeNodeDataArray(newDataLinks);
-      updateLinks(newDataLinks);
-      updateNodes(newDataNodes);
+      d3.select(this).remove();
+      processedData.links.forEach((link) => {
+        if (link.source.id == d3.select(this)._groups[0][0].id) {
+          const linkId = link.source.id;
+          const lineToDelete = $(`#link${linkId}`);
+          lineToDelete.remove();
+        }
+      });
+      // const url2 = location.hostname ? '/memories' : jsonUrl;
+
+      // d3.json(url2, (err, data2) => {
+      //   console.log(data2);
+      //   const newDataLinks = processData(data2);
+      //   const newDataNodes = makeNodeDataArray(newDataLinks);
+      //   updateLinks(newDataLinks);
+      //   updateNodes(newDataNodes);
+      // });
     }
     hideDeleteButton();
   }
