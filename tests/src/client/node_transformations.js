@@ -4,7 +4,7 @@ const test = require('tape');
 const {
   binByTag,
   sortWithMax,
-  tagNodesByTag,
+  centralMaxNodesByTag,
   getXAndY,
   getMemoryNodePositions,
   generateId,
@@ -56,7 +56,7 @@ test('sortWithMax', (t) => {
   t.end();
 });
 
-test('tagNodesByTag', (t) => { 
+test('centralMaxNodesByTag', (t) => {
     const arrayCopy = [
       {
         max: {
@@ -174,7 +174,7 @@ test('tagNodesByTag', (t) => {
         };
 
   t.deepEqual(
-    tagNodesByTag(arrayCopy, startingCx, startingCy, generateId),
+    centralMaxNodesByTag(arrayCopy, startingCx, startingCy),
     expected,
     'creates map of tag nodes, with ids and positions'
   );

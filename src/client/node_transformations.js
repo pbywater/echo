@@ -14,7 +14,7 @@ const sortWithMax = (nodeArray) => {
   };
 };
 
-const tagNodesByTag = (tagsArray, startingCx, startingCy) => {
+const centralMaxNodesByTag = (tagsArray, startingCx, startingCy) => {
   const out = {};
   const arrayCopy = tagsArray.slice(0);
   arrayCopy.forEach((tag, i) => {
@@ -89,7 +89,7 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
 module.exports = {
   binByTag,
   sortWithMax,
-  tagNodesByTag,
+  centralMaxNodesByTag,
   getXAndY,
   getMemoryNodePositions,
   memoryNodesAndLinks,

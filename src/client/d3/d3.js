@@ -1,7 +1,7 @@
 const { tagSorting, openTagMenu } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { dragstarted, dragged, dragended } = require('./animation.js');
-const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
+const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
@@ -15,10 +15,10 @@ d3.json(url, (err, data) => {
     sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
   });
   // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
-  const taggedNodesByTag = tagNodesByTag(sortedWithMax, 160, 120);
+  const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
 
   // Add unique tags to tag list for user to select from
-  Object.keys(taggedNodesByTag).forEach((tag) => {
+  Object.keys(centralNodesByTag).forEach((tag) => {
     tag = tag.replace(/\W/g, '');
     $('.tags').append(
       `<li class='tag-container ${tag}'>
@@ -33,7 +33,7 @@ d3.json(url, (err, data) => {
       </img>
     </li>`);
   // processedData returns a list of nodes and links
-  const processedData = memoryNodesAndLinks(taggedNodesByTag, sortedWithMax);
+  const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
 
   const nodeDataArray = [];
   Object.keys(processedData.nodes).forEach((key) => {
