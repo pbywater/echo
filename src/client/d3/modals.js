@@ -15,14 +15,8 @@ const appendPopUp = (data) => {
       .attr('width', 300)
       .attr('height', 450)
       .attr('ry', 5);
-  //
-  // const textholder = holder
-  //   .append('text')
-  //     .attr('class', 'popupTextHolder')
-  //     .attr('transform', 'translate(10, 20)')
-  //     .text(data.tag); // Modal info will be heading, memory etc. It's not been passed through yet.
 
-  const close = holder // all of this will change
+  const close = holder
     .append('rect')
       .attr('class', 'close')
       .style('fill', 'red')
@@ -58,6 +52,13 @@ const appendMedia = (data) => {
         .attr('height', 350)
         .attr('xlink:href', data.memory_asset_url)
         .attr('ry', 5);
+    popup
+      .append('text')
+        .attr('class', 'mediaHeading')
+        .attr('transform', 'translate(20, 350)')
+        .style('fill', '#526173')
+        .attr('font-family', 'Quicksand')
+        .text(data.heading);
   } else if (data.media_type === 'text_only') {
     popup
       .append('text')
@@ -65,14 +66,18 @@ const appendMedia = (data) => {
         .attr('transform', 'translate(10, 25)')
         .attr('x', 0)
         .attr('y', 0)
+        .style('fill', '#526173')
+        .attr('font-family', 'Quicksand')
         .text(data.memory_text)
-        .call(wrap, data.memory_text, 290);
+        .call(wrap, data.memory_text, 285);
   } else if (data.media_type === 'audio') {
     popup
       .append('svg'); // append svg image that on click plays audio
+      // this will be added once we have set up s3.
   } else if (data.media_type === 'video') {
     popup
-      .append('svg'); // how do you append a video to an svg. How do we store it in S3? All these questions.
+      .append('svg'); // append video to svg
+      // this will be added once we have set up s3.
   }
 };
 
