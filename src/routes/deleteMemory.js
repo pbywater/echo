@@ -6,6 +6,7 @@ const app = express.Router();
 
 module.exports = [
   app.get('/delete', (req, result) => {
+    console.log(result);
     deleteMemory(id, (err, res) => {
       if (err) {
         return err;
