@@ -70,7 +70,7 @@ d3.json(url, (err, data) => {
 
   function updateLinks(newData) {
     console.log('updating');
-    const links = linkGrp
+    links
       .selectAll('line.link').data(newData.links)
         .append('line')
           .attr('x2', d => newData.nodes[d.target].x,
@@ -103,6 +103,26 @@ d3.json(url, (err, data) => {
   const nodeGrp = fdGrp
     .append('g')
       .attr('class', 'nodes');
+
+  function updateNodes() {
+    nodes
+          .selectAll('circle.node').data(nodeDataArray)
+          .enter()
+          .append('circle')
+            .attr('class', d => `memory ${d.tag}`)
+            .attr('id', d => d.id)
+            .attr('cy', d => d.y)
+            .attr('cx', d => d.x)
+            .attr('r', d => rScale(d.likes))
+            .style('fill', 'white')
+            .style('opacity', '0.8')
+            .call(d3.drag()
+              .on('start', dragstart)
+              .on('drag', dragging)
+              .on('end', dragend))
+              .exit()
+              .remove();
+  }
 
   const nodes = nodeGrp
     .selectAll('circle.node')
@@ -172,7 +192,7 @@ d3.json(url, (err, data) => {
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
       // Line below to be removed when loop is implemented
-      d3.select(this).style('display', 'none');
+      // d3.select(this).style('display', 'none');
       $('.delete-button').removeClass('deleting');
       $.ajax({
         type: 'DELETE',
@@ -180,6 +200,7 @@ d3.json(url, (err, data) => {
         data: { id },
       });
       updateLinks(processedData);
+      updateNodes();
     }
     hideDeleteButton();
   }
