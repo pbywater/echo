@@ -85,8 +85,8 @@ d3.json(url, (err, data) => {
       .attr('r', d => rScale(d.likes))
       .style('fill', 'white')
       .style('opacity', '0.8')
-      .on('click', function(){
-        randomPopUp(nodeDataArray)
+      .on('click', function(d){
+        appendPopUp(d)
       })
       .call(d3.drag()
         .on('start', dragstart)
@@ -121,7 +121,7 @@ d3.json(url, (err, data) => {
   d3
     .selectAll('.shuffle-memories')
       .on('click', function(){
-        appendPopUp(d)
+        randomPopUp(nodeDataArray)
       })
 
   function dragstart(d) {
