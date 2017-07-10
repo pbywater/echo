@@ -33,14 +33,6 @@ const appendPopUp = (data) => {
       .attr('height', 40)
       .attr('transform', 'translate(250, 400)');
 
-  holder
-    .append('text')
-      .attr('class', 'likeCounter')
-      .style('fill', 'white')
-      .attr('transform', 'translate(250, 400)')
-      .attr('font-family', 'Quicksand')
-      .text(data.likes);
-
   appendMedia(data);
 };
 
