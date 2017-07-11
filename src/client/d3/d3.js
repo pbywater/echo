@@ -143,6 +143,7 @@ d3.json(url, (err, data) => {
     }
   }
 
+
   openTagMenu();
   submitNewMemory();
 });

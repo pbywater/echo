@@ -29,19 +29,26 @@ const appendPopUp = (data) => {
 
   const likeButtonGroup = holder
     .append('g')
+      .attr('class', 'likeButtonGroup')
       .attr('transform', 'translate(250, 400)')
       .attr('width', 40)
-      .attr('height', 40);
+      .attr('height', 40)
+      .on('click', () => {
+        const newLikeNum = parseInt(d3.select('.likeNumber').text()) + 1;
+        d3.select('.likeNumber').text(newLikeNum);
+      });
 
   const likeButton = likeButtonGroup
     .append('image')
       .attr('xlink:href', './assets/icons/card_icons/heart_icon_checked.svg')
+      .attr('class', 'likeButton')
       .attr('width', 40)
       .attr('height', 40);
 
   const likeNumber = likeButtonGroup
     .append('text')
       .text('0')
+      .attr('class', 'likeNumber')
       .attr('width', 40)
       .attr('height', 40)
       .attr('transform', 'translate(15, 24)');
