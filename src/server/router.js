@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', require('./controllers/home.js'));
-router.get('/memories', require('./controllers/getMemories.js'));
-router.delete('/memories', require('./controllers/deleteMemory.js'));
+router.route('/memories')
+  .get(require('./controllers/getMemories.js'))
+  .delete(require('./controllers/deleteMemory.js'));
 
 module.exports = router;
