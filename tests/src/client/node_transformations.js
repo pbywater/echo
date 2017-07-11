@@ -137,47 +137,13 @@ test('centralMaxNodesByTag', (t) => {
       }
     ];
 
-  const startingCx = 160;
-  const startingCy = 120;
+  const centralTags = centralMaxNodesByTag(arrayCopy, 160, 120)
 
-  const expected = {
-    family:
-        { avgrating: 9.2,
-          id: 1,
-          likes: 19,
-          media_type: "audio",
-          memory_asset_url: 'www.google.com',
-          memory_text: 'memory',
-          tag: 'family',
-          x: 160,
-          y: 120 },
-    friends:
-        { avgrating: 9.2,
-          id: 3,
-          likes: 19,
-          media_type: "image",
-          memory_asset_url: 'www.google.com',
-          memory_text: 'memory',
-          tag: 'friends',
-          x: 160,
-          y: 320 },
-    pets:
-        { avgrating: 9.2,
-          id: 5,
-          likes: 19,
-          media_type: "image",
-          memory_asset_url: 'www.google.com',
-          memory_text: 'memory',
-          tag: 'pets',
-          x: 160,
-          y: 520 }
-        };
+  for (var key in centralTags){
+    t.ok(centralTags[key].x !== undefined, 'all central tags have x coordinate');
 
-  t.deepEqual(
-    centralMaxNodesByTag(arrayCopy, startingCx, startingCy),
-    expected,
-    'creates map of tag nodes, with ids and positions'
-  );
+    t.ok(centralTags[key].x !== undefined, 'all central tags have y coordinate');
+  }
 
   t.end();
 });
