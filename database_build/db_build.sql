@@ -1,27 +1,28 @@
 BEGIN;
 
 DROP TABLE IF EXISTS memories, users CASCADE;
+DROP TYPE IF EXISTS media_type CASCADE;
 
 CREATE TYPE media_type AS ENUM ( 'text_only', 'audio', 'video', 'image' );
-
-CREATE TABLE memories (
-  id                SERIAL          PRIMARY KEY,
-  user_id                           NOT NULL,
-  heading           VARCHAR(50)     NOT NULL,
-  likes             INTEGER,
-  avgRating         INTEGER,
-  visits            INTEGER,
-  tag               VARCHAR(50)     NOT NULL,
-  memory_asset_url  VARCHAR(500),
-  memory_text       VARCHAR(2000),
-  media_type        media_type
-);
 
 CREATE TABLE users (
   id          SERIAL          PRIMARY KEY,
   username    VARCHAR(64)     UNIQUE NOT NULL,
   password    VARCHAR(64)     NOT NULL,
   email       VARCHAR(64)     NOT NULL
+);
+
+CREATE TABLE memories (
+  id                SERIAL                         PRIMARY KEY,
+  user_id           INTEGER REFERENCES users(id)   NOT NULL,
+  heading           VARCHAR(50)                    NOT NULL,
+  likes             INTEGER,
+  avgRating         INTEGER,
+  visits            INTEGER,
+  tag               VARCHAR(50)                    NOT NULL,
+  memory_asset_url  VARCHAR(500),
+  memory_text       VARCHAR(2000),
+  media_type        media_type
 );
 
 INSERT INTO users (username, password, email)

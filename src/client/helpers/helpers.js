@@ -106,7 +106,8 @@ function openTagMenu() {
 }
 
 function submitNewMemory() {
-  $('.memory-input__submit').on('click', function() {
+  $('.memory-input__submit')
+  .on('click', function() {
     $('.finished')
       .addClass('new-node');
     $('.finished svg')
@@ -119,7 +120,10 @@ function submitNewMemory() {
       $('.finished')
         .removeClass('new-node finished wipe');
     }, 4500);
-  });
+  })
+  .submit((e) => {
+    e.preventDefault();
+  })
 }
 
 module.exports = {

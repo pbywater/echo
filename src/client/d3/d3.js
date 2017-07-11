@@ -1,6 +1,5 @@
 const { tagSorting, openTagMenu, submitNewMemory } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
-const { dragstarted, dragged, dragended } = require('./animation.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 
 const url = location.hostname ? '/memories' : jsonUrl;
@@ -10,15 +9,10 @@ d3.json(url, (err, data) => {
   openTagMenu();
   submitNewMemory();
 
-  $('.memory-input__submit').submit((e) => {
-    e.preventDefault();
-  });
-
   d3
     .selectAll('.memory-input__submit')
     .on('click', () => {
-      // get from db
-      // update
+      console.log('animation stuff here');
     });
 });
 
