@@ -3,10 +3,11 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const routes = require('./routes');
+const router = require('./router');
 
 app.use(express.static('public'));
-app.use('/', routes);
+app.use('/', router);
+app.use(bodyParser());
 
 const port = process.env.PORT || 3000;
 

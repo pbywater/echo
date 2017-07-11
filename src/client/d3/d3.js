@@ -1,6 +1,6 @@
 const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submitNewMemory } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
-const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
+const { sortWithMax, binByTag, memoryNodesAndLinks, centralMaxNodesByTag } = require('../node_transformations');
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
