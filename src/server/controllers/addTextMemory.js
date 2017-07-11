@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 require('env2')('./config.env');
-const { createMemory } = require('./../database/db_create');
+const { createMemory } = require('./../../database/db_create');
 
 module.exports = (req, res) => {
   createMemory(req.body, 'text_only', (error, response) => {
