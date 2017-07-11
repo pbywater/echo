@@ -7,7 +7,7 @@ module.exports = (req, result) => {
       // 1 hard coded in at the moment.
       // We will later add the userId here to get the relevant memories.
     if (err) {
-      return err;
+      console.error(err);
     }
     result.send(res.rows);
   });
