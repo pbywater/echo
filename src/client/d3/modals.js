@@ -36,6 +36,11 @@ const appendPopUp = (data) => {
       .on('click', () => {
         const newLikeNum = parseInt(d3.select('.likeNumber').text()) + 1;
         d3.select('.likeNumber').text(newLikeNum);
+        $.ajax({
+          type: 'POST',
+          url: 'likes',
+          data: { newLikeNum },
+        });
       });
 
   const likeButton = likeButtonGroup
