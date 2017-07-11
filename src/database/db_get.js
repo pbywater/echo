@@ -7,13 +7,25 @@ const getMemories = (userId, callback) => {
     INNER JOIN users
     ON users.id = memories.user_id
     WHERE users.id = $1;`, [userId], (err, res) => {
-    if (err) {
-      return callback(err);
-    }
-    return callback(null, res); // will be refactored
-  });
+      if (err) {
+        return callback(err);
+      }
+      return callback(null, res); // will be refactored
+    });
+};
+
+
+const getLikes = (memoryId, callback) => {
+  connect.query(
+    'SELECT memories.likes WHERE memories.id = $1', [memoryId], (err, res) => {
+      if (err) {
+        return callback(err);
+      }
+      return callback(null, res);
+    });
 };
 
 module.exports = {
-  getMemories
-}
+  getMemories,
+  getLikes,
+};
