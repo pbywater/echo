@@ -2,13 +2,9 @@ const express = require('express');
 require('env2')('./config.env');
 const { getMemories } = require('./../../database/db_get');
 
-module.exports = (req, result) => {
-  getMemories(1, (err, res) => {
-      // 1 hard coded in at the moment.
-      // We will later add the userId here to get the relevant memories.
-    if (err) {
-      console.error(err);
-    }
-    result.send(res.rows);
+module.exports = (req, res) => {
+  getMemories(1, (error, memories) => {
+    if (error) return res(error);
+    res.send(memories.rows);
   });
 };
