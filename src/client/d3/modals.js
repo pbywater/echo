@@ -38,8 +38,8 @@ const appendPopUp = (data) => {
         d3.select('.likeNumber').text(newLikeNum);
         $.ajax({
           type: 'POST',
-          url: 'likes',
-          data: { newLikeNum },
+          url: '/likes',
+          data: { numLikes: newLikeNum },
         });
       });
 

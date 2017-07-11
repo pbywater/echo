@@ -1,5 +1,5 @@
 module.exports = [
   ('./home'),
   ('./getMemories'),
-  ('./addTextMemory'),
+  ('./updateLikes'),
 ].map(require);
