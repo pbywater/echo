@@ -594,6 +594,6 @@ label.memory-input__label {
   background-color: #91CFCF;
 }
 
-.memory-input.hide {
+.memory-input.hide, .close_icon.hide, .menu_icon.hide {
     display: none !important;
 }
