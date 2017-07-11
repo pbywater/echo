@@ -16,7 +16,9 @@ module.exports = [
         if (error) console.log('getLikes error is', error);
       }
       console.log('res is ', response);
-      res.send(response);
+      const num = response.toString();
+      // res.sendStatus(200);
+      res.send(num);
     });
   }),
 ];

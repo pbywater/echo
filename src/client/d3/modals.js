@@ -56,9 +56,7 @@ const appendPopUp = (data) => {
         $.ajax({
           type: 'GET',
           url: `/likes/memoryId/${data.id}`,
-        }).done((result) => {
-          console.log(result);
-        });
+        }).done(result => result);
       })
       .attr('class', 'likeNumber')
       .attr('width', 40)
