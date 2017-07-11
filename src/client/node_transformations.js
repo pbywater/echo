@@ -24,7 +24,7 @@ const centralMaxNodesByTag = (tagsArray, startingCx, startingCy) => {
       memory_asset_url: tag.max.memory_asset_url || '',
       memory_text: tag.max.memory_text || '',
       x: startingCx + getRandomInt(-100, 100),
-      y: startingCy + getRandomInt(100, 200) * i,
+      y: startingCy + getRandomInt(150, 250) * i,
       tag: tag.max.tag,
       avgrating: tag.max.avgrating,
       likes: tag.max.likes,
