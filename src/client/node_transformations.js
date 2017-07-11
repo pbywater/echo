@@ -29,6 +29,9 @@ const centralMaxNodesByTag = (tagsArray, startingCx, startingCy) => {
       avgrating: tag.max.avgrating,
       likes: tag.max.likes,
     };
+    if (tag.max.new) {
+      out[tag.max.tag].new = true;
+    }
   });
   return out;
 };
@@ -66,10 +69,12 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
       return tagMemory;
     }).forEach((memoryNode) => {
       nodes[memoryNode.id] = memoryNode;
-      links.push({
+      const obj = {
         source: memoryNode.id,
         target: tagNode.id,
-      });
+      };
+      console.log(obj);
+      links.push(obj);
     });
   });
   sourceNodeIds.forEach((id, i) => {

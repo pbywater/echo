@@ -5,16 +5,46 @@ const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = req
 const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
+  console.log(typeof data);
+  console.log('first time', data);
   formatData(data, render);
   openTagMenu();
   submitNewMemory();
 
   d3
-    .selectAll('.memory-input__submit')
+    .selectAll('#testy')
     .on('click', () => {
-      console.log('animation stuff here');
+      for (const key in data) {
+        delete data[key].index;
+        delete data[key].vx;
+        delete data[key].vy;
+      }
+      console.log(typeof data);
+      console.log('second time', data);
+      data[data.length] = fakeMemory;
+      formatData(data, updateD3);
     });
+
+  const fakeMemory = {
+    avgrating: 7.3,
+    heading: 'testytesttest',
+    id: generatenum(),
+    likes: 3,
+    visits: 1,
+    tag: 'family',
+    memory_asset_url: 'www.fake.com',
+    memory_text: 'fake',
+    media_type: 'image',
+    new: true,
+  };
 });
+
+// DELETE THIS
+let id = 100;
+const generatenum = function () {
+  id += 1;
+  return id;
+};
 
 const formatData = (data, callback) => {
 // binByTag sorts data by tag
@@ -51,6 +81,7 @@ const formatData = (data, callback) => {
 
 
 function render(updatedData) {
+  // console.log(updatedData);
   const nodeDataArray = [];
   Object.keys(updatedData.nodes).forEach((key) => {
     nodeDataArray.push(updatedData.nodes[key]);
@@ -142,3 +173,7 @@ function render(updatedData) {
     }
   }
 }
+
+const updateD3 = function (data) {
+  console.log(data);
+};
