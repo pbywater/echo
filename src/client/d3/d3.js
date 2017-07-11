@@ -35,45 +35,48 @@ d3.json(url, (err, data) => {
   // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
 
-  const nodeDataArray = [];
-  Object.keys(processedData.nodes).forEach((key) => {
-    nodeDataArray.push(processedData.nodes[key]);
-  });
-  const rScale = d3
-  .scaleSqrt()
-  .domain([0, d3.max(nodeDataArray, d => d.likes)])
-  .range([3, 8]);
-
   const fdGrp = svg
     .append('g');
 
   const linkGrp = fdGrp
     .append('g')
-    .attr('class', 'links');
-
-  const links = linkGrp
-    .selectAll('line.link')
-    .data(processedData.links)
-    .enter()
-    .append('line')
-      .attr('x2', d => processedData.nodes[d.target].x,
-      )
-      .attr('y2', d => processedData.nodes[d.target].y,
-      )
-      .attr('x1', d => processedData.nodes[d.source].x,
-      )
-      .attr('y1', d => processedData.nodes[d.source].y,
-      )
-      .style('stroke', 'white')
-      .style('stroke-width', '2px')
-      .style('opacity', '0.8')
-      .attr('class', d => `memory ${processedData.nodes[d.source].tag}`);
+      .attr('class', 'links');
 
   const nodeGrp = fdGrp
     .append('g')
       .attr('class', 'nodes');
 
-  const nodes = nodeGrp
+  function render(updatedData) {
+    const nodeDataArray = [];
+    Object.keys(updatedData.nodes).forEach((key) => {
+      nodeDataArray.push(updatedData.nodes[key]);
+    });
+
+    const rScale = d3
+    .scaleSqrt()
+    .domain([0, d3.max(nodeDataArray, d => d.likes)])
+    .range([3, 8]);
+
+    const links = linkGrp
+    .selectAll('line.link')
+    .data(updatedData.links)
+    .enter()
+    .append('line')
+      .attr('x2', d => updatedData.nodes[d.target].x,
+      )
+      .attr('y2', d => updatedData.nodes[d.target].y,
+      )
+      .attr('x1', d => updatedData.nodes[d.source].x,
+      )
+      .attr('y1', d => updatedData.nodes[d.source].y,
+      )
+      .style('stroke', 'white')
+      .style('stroke-width', '2px')
+      .style('opacity', '0.8')
+      .attr('class', d => `memory ${updatedData.nodes[d.source].tag}`);
+
+
+    const nodes = nodeGrp
     .selectAll('circle.node')
     .data(nodeDataArray)
     .enter()
@@ -89,14 +92,14 @@ d3.json(url, (err, data) => {
         .on('drag', dragging)
         .on('end', dragend));
 
-  const sim = d3.forceSimulation()
-    .force('link', d3.forceLink(processedData).id(d => d.id))
+    const sim = d3.forceSimulation()
+    .force('link', d3.forceLink(updatedData).id(d => d.id))
     .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
     .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
     .force('center', d3.forceCenter(180, 320))
     .stop();
 
-  sim
+    sim
   .nodes(nodeDataArray)
   .on('tick', () => {
     nodes
@@ -104,35 +107,36 @@ d3.json(url, (err, data) => {
       .attr('cy', d => d.y);
     links
       .attr('x1', d =>
-      processedData.nodes[d.source.id].x)
-      .attr('y1', d => processedData.nodes[d.source.id].y)
-      .attr('x2', d => processedData.nodes[d.target.id].x)
-      .attr('y2', d => processedData.nodes[d.target.id].y);
+      updatedData.nodes[d.source.id].x)
+      .attr('y1', d => updatedData.nodes[d.source.id].y)
+      .attr('x2', d => updatedData.nodes[d.target.id].x)
+      .attr('y2', d => updatedData.nodes[d.target.id].y);
   });
 
-  sim.force('link')
-    .links(processedData.links)
+    sim.force('link')
+    .links(updatedData.links)
     .distance(d => 40);
 
-  function dragstart(d) {
-    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
-    d.fx = d.x;
-    d.fy = d.y;
-  }
+    function dragstart(d) {
+      if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+      d.fx = d.x;
+      d.fy = d.y;
+    }
 
-  function dragging(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-  }
+    function dragging(d) {
+      d.fx = d3.event.x;
+      d.fy = d3.event.y;
+    }
 
-  function dragend(d) {
-    if (!d3.event.active) sim.alphaTarget(0);
-    if (!d.outer) {
-      d.fx = null;
-      d.fy = null;
+    function dragend(d) {
+      if (!d3.event.active) sim.alphaTarget(0);
+      if (!d.outer) {
+        d.fx = null;
+        d.fy = null;
+      }
     }
   }
-
+  render(processedData);
   openTagMenu();
   submitNewMemory();
 });
