@@ -17,11 +17,11 @@ const getMemories = (userId, callback) => {
 
 const getLikes = (memoryId, callback) => {
   connect.query(
-    'SELECT memories.likes WHERE memories.id = $1', [memoryId], (err, res) => {
+    'SELECT memories.likes FROM memories WHERE memories.id = $1', [memoryId], (err, res) => {
       if (err) {
         return callback(err);
       }
-      return callback(null, res);
+      return callback(null, res.rows[0].likes);
     });
 };
 

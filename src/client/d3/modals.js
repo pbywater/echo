@@ -52,7 +52,14 @@ const appendPopUp = (data) => {
 
   const likeNumber = likeButtonGroup
     .append('text')
-      .text('0')
+      .text(() => {
+        $.ajax({
+          type: 'GET',
+          url: `/likes/memoryId/${data.id}`,
+        }).done((result) => {
+          console.log(result);
+        });
+      })
       .attr('class', 'likeNumber')
       .attr('width', 40)
       .attr('height', 40)

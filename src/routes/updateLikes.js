@@ -11,7 +11,7 @@ module.exports = [
   app.post('/likes', (req, res) => {
     updateLikes(req.body.numLikes, (error, response) => {
       if (error) {
-        if (error) return res(error);
+        if (error) console.log('update error is', error);
       }
       res.send(res.rows);
     });
