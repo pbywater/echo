@@ -579,3 +579,13 @@ label.memory-input__label {
 .hide {
     display: none;
 }
+
+.popupBoxHolder {
+  transition: width 3s ease-in-out, height 3s ease-in-out, ry 3s ease-in-out;
+
+}
+
+.popupBox {
+  transition: width 3s ease-in-out, height 3s ease-in-out, ry 3s ease-in-out;
+
+}

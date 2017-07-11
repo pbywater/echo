@@ -16,6 +16,7 @@ const appendPopUp = (data) => {
       .attr('height', 450)
       .attr('ry', 5);
 
+
   const close = holder
     .append('image')
       .attr('xlink:href', './assets/icons/card_icons/close.svg')
@@ -26,12 +27,24 @@ const appendPopUp = (data) => {
       .attr('height', 10)
       .on('click', closePopUp);
 
-  const likeButton = holder
+  const likeButtonGroup = holder
+    .append('g')
+      .attr('transform', 'translate(250, 400)')
+      .attr('width', 40)
+      .attr('height', 40);
+
+  const likeButton = likeButtonGroup
     .append('image')
       .attr('xlink:href', './assets/icons/card_icons/heart_icon_checked.svg')
       .attr('width', 40)
+      .attr('height', 40);
+
+  const likeNumber = likeButtonGroup
+    .append('text')
+      .text('0')
+      .attr('width', 40)
       .attr('height', 40)
-      .attr('transform', 'translate(250, 400)');
+      .attr('transform', 'translate(15, 24)');
 
   appendMedia(data);
 };
