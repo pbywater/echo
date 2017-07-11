@@ -1,4 +1,4 @@
-const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton } = require('../helpers/helpers.js');
+const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submitNewMemory } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { sortWithMax, binByTag, tagNodesByTag, memoryNodesAndLinks, generateId } = require('../node_transformations');
 
