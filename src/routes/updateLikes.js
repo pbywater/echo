@@ -9,7 +9,7 @@ app.use(bodyParser());
 
 module.exports = [
   app.post('/likes', (req, res) => {
-    updateLikes(req.body.numLikes, (error, response) => {
+    updateLikes(req.body.numLikes, req.body.memoryId, (error, response) => {
       if (error) {
         if (error) console.log('update error is', error);
       }

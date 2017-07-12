@@ -35,11 +35,12 @@ const appendPopUp = (data) => {
       .attr('height', 40)
       .on('click', () => {
         const newLikeNum = parseInt(d3.select('.likeNumber').text()) + 1;
+        const memoryId = data.id;
         d3.select('.likeNumber').text(newLikeNum);
         $.ajax({
           type: 'POST',
           url: '/likes',
-          data: { numLikes: newLikeNum },
+          data: { numLikes: newLikeNum, memoryId },
         });
       });
 
