@@ -1,7 +1,6 @@
-const { tagSorting, openTagMenu, submitNewMemory } = require('../helpers/helpers.js');
+const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submitNewMemory } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
-const { dragstarted, dragged, dragended } = require('./animation.js');
-const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
+const { sortWithMax, binByTag, memoryNodesAndLinks, centralMaxNodesByTag } = require('../node_transformations');
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
@@ -9,7 +8,7 @@ d3.json(url, (err, data) => {
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
   const binnedByTag = binByTag(data);
-  // sortedWithMax sorts each tag group to separate max memory (by avgRating) from others in its group
+  // sortedWithMax sorts each tag group to separate max memory (by likes) from others in its group
   const sortedWithMax = [];
   Object.keys(binnedByTag).forEach((tagKey) => {
     sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
@@ -79,6 +78,7 @@ d3.json(url, (err, data) => {
     .enter()
     .append('circle')
       .attr('class', d => `memory ${d.tag}`)
+      .attr('id', d => d.id)
       .attr('cy', d => d.y)
       .attr('cx', d => d.x)
       .attr('r', d => rScale(d.likes))
@@ -117,11 +117,15 @@ d3.json(url, (err, data) => {
     if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
     d.fx = d.x;
     d.fy = d.y;
+    $(this).addClass('active');
+    showDeleteButton();
   }
 
   function dragging(d) {
     d.fx = d3.event.x;
     d.fy = d3.event.y;
+    d3.select(this).style('fill', '#FDACAB');
+    hoveringOnDelete();
   }
 
   function dragend(d) {
@@ -130,8 +134,21 @@ d3.json(url, (err, data) => {
       d.fx = null;
       d.fy = null;
     }
+    $(this).removeClass('active');
+    d3.select(this).style('fill', 'white');
+    if ($('.delete-button').hasClass('deleting')) {
+      const id = d3.select(this).attr('id');
+      // Line below to be removed when loop is implemented
+      d3.select(this).style('display', 'none');
+      $('.delete-button').removeClass('deleting');
+      $.ajax({
+        type: 'DELETE',
+        url: 'memories',
+        data: { id },
+      });
+    }
+    hideDeleteButton();
   }
-
   openTagMenu();
   submitNewMemory();
 });

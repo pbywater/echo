@@ -2,11 +2,10 @@ const { binByKey, getRandomInt } = require('./helpers/helpers.js');
 
 const binByTag = arrayToBin => binByKey('tag', arrayToBin);
 
-
 const sortWithMax = (nodeArray) => {
   const nodesArrayCopy = nodeArray.slice(0);
 
-  nodesArrayCopy.sort((a, b) => b.avgrating - a.avgrating);
+  nodesArrayCopy.sort((a, b) => b.likes - a.likes);
 
   return {
     max: nodesArrayCopy[0],
@@ -26,7 +25,6 @@ const centralMaxNodesByTag = (tagsArray, startingCx, startingCy) => {
       x: startingCx + getRandomInt(-100, 100),
       y: startingCy + getRandomInt(150, 250) * i,
       tag: tag.max.tag,
-      avgrating: tag.max.avgrating,
       likes: tag.max.likes,
     };
   });
@@ -42,9 +40,9 @@ const getXAndY = (angle, distance, startingCx, startingCy) => {
   };
 };
 
-const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentavgrating) => {
+const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentLikes) => {
   const angle = ((2 * Math.PI) / numTagMemories) * memoryIndex;
-  const distance = (tagNode.avgrating - currentavgrating) * 15;
+  const distance = (tagNode.likes - currentLikes) * 2;
   return getXAndY(angle, distance, tagNode.x, tagNode.y);
 };
 
@@ -60,7 +58,7 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
     const numMemoriesRest = memoriesByTag[index].rest.length;
     nodes[tagNodes[tag].id] = tagNodes[tag];
     tagMemoriesRest.map((tagMemory, memoryIndex) => {
-      const XAndY = getMemoryNodePositions(tagNode, numMemoriesRest, memoryIndex, tagMemory.avgrating);
+      const XAndY = getMemoryNodePositions(tagNode, numMemoriesRest, memoryIndex, tagMemory.likes);
       tagMemory.x = XAndY.x;
       tagMemory.y = XAndY.y;
       return tagMemory;

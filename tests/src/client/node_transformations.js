@@ -60,7 +60,6 @@ test('centralMaxNodesByTag', (t) => {
     const arrayCopy = [
       {
         max: {
-          avgrating: 9.2,
           heading: 'hello',
           id: 1,
           likes: 19,
@@ -72,7 +71,6 @@ test('centralMaxNodesByTag', (t) => {
         },
         rest: [
           {
-            avgrating: 8.2,
             heading: 'hello',
             id: 2,
             likes: 18,
@@ -87,7 +85,6 @@ test('centralMaxNodesByTag', (t) => {
       },
       {
         max: {
-          avgrating: 9.2,
           heading: 'help',
           id: 3,
           likes: 19,
@@ -99,7 +96,6 @@ test('centralMaxNodesByTag', (t) => {
         },
         rest: [
           {
-            avgrating: 8.2,
             heading: 'memory',
             id: 4,
             likes: 18,
@@ -113,7 +109,6 @@ test('centralMaxNodesByTag', (t) => {
       },
       {
         max: {
-          avgrating: 9.2,
           id: 5,
           likes: 19,
           media_type: "image",
@@ -124,7 +119,6 @@ test('centralMaxNodesByTag', (t) => {
         },
         rest: [
           {
-            avgrating: 8.2,
             id: 6,
             likes: 18,
             media_type: "image",
@@ -142,7 +136,7 @@ test('centralMaxNodesByTag', (t) => {
   for (var key in centralTags){
     t.ok(centralTags[key].x !== undefined, 'all central tags have x coordinate');
 
-    t.ok(centralTags[key].x !== undefined, 'all central tags have y coordinate');
+    t.ok(centralTags[key].y !== undefined, 'all central tags have y coordinate');
   }
 
   t.end();
@@ -151,22 +145,19 @@ test('centralMaxNodesByTag', (t) => {
 test('memoryNodesAndLinks', (t) => {
   const memoriesByTag = {
     family:
-        { avgRating: 9.2,
-          id: 0,
+        { id: 0,
           likes: 19,
           tag: 'family',
           x: 160,
           y: 120 },
     friends:
-        { avgRating: 9.2,
-          id: 1,
+        { id: 1,
           likes: 19,
           tag: 'friends',
           x: 160,
           y: 320 },
     pets:
-        { avgRating: 9.2,
-          id: 2,
+        { id: 2,
           likes: 19,
           tag: 'pets',
           x: 160,
@@ -179,14 +170,12 @@ test('memoryNodesAndLinks', (t) => {
   const tagNodes = [
     {
       max: {
-        avgRating: 9.2,
         id: 65465432,
         likes: 19,
         tag: "family",
       },
       rest: [
         {
-          avgRating: 8.2,
           id: 456535,
           likes: 18,
           tag: "family",
@@ -195,14 +184,12 @@ test('memoryNodesAndLinks', (t) => {
     },
     {
       max: {
-        avgRating: 9.2,
         id: 65465432,
         likes: 19,
         tag: "friends",
       },
       rest: [
         {
-          avgRating: 8.2,
           id: 67456535,
           likes: 18,
           tag: "friends",
@@ -211,14 +198,12 @@ test('memoryNodesAndLinks', (t) => {
     },
     {
       max: {
-        avgRating: 9.2,
         id: 65465432,
         likes: 19,
         tag: "pets",
       },
       rest: [
         {
-          avgRating: 8.2,
           id: 65,
           likes: 18,
           tag: "pets",
@@ -286,7 +271,7 @@ test('getMemoryNodePositions', (t) => {
   const memoryIndex = 3;
   const currentAvgRating = 7;
 
-  const expected = { x: 160, y: 135 };
+  const expected = { x: 160, y: 64 };
 
 t.deepEqual(
   getMemoryNodePositions(tagNode, numTagMemories, memoryIndex, currentAvgRating),
