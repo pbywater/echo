@@ -4,6 +4,12 @@ const { sortWithMax, binByTag, memoryNodesAndLinks, centralMaxNodesByTag } = req
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+           .register('service-worker.js')
+           .then(() => { console.log('Service Worker Registered'); });
+}
+
 d3.json(url, (err, data) => {
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
