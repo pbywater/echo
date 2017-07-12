@@ -1,8 +1,9 @@
 /* eslint-disable */
 const normalTime = 1000;
 
-const binByKey = (key, xs) =>
-  xs.reduce((binnedArray, elem) => {
+const binByKey = (key, xs) => {
+  console.log(xs);
+  return xs.reduce((binnedArray, elem) => {
     const targetBin = binnedArray[elem[key]];
     if (targetBin === undefined) {
       binnedArray[elem[key]] = [];
@@ -11,6 +12,7 @@ const binByKey = (key, xs) =>
     binnedArray[elem[key]].push(elem);
     return binnedArray;
   }, {});
+}
 
 
 function showTaggedMemory(memoryToShow) {

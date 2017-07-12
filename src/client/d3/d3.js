@@ -5,38 +5,9 @@ const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = req
 const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
-  console.log(typeof data);
-  console.log('first time', data);
   formatData(data, render);
   openTagMenu();
   submitNewMemory();
-
-  d3
-    .selectAll('#testy')
-    .on('click', () => {
-      for (const key in data) {
-        delete data[key].index;
-        delete data[key].vx;
-        delete data[key].vy;
-      }
-      console.log(typeof data);
-      console.log('second time', data);
-      data[data.length] = fakeMemory;
-      formatData(data, updateD3);
-    });
-
-  const fakeMemory = {
-    avgrating: 7.3,
-    heading: 'testytesttest',
-    id: generatenum(),
-    likes: 3,
-    visits: 1,
-    tag: 'family',
-    memory_asset_url: 'www.fake.com',
-    memory_text: 'fake',
-    media_type: 'image',
-    new: true,
-  };
 });
 
 // DELETE THIS
@@ -77,11 +48,90 @@ const formatData = (data, callback) => {
   const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
 
   callback(processedData);
+
+  d3
+    .selectAll('#testy')
+    .on('click', () => {
+      // formatUpdateData(fakeMemory, updateD3);
+      processedData.links.push(fakeLink);
+      processedData.nodes[fakeMemory.id] = fakeMemory;
+
+      formatData(processedData, render);
+      // data[data.length] =
+      // const update = svg
+      //   .selectAll('circle')
+      //   .data(fakeMemory);
+      //
+      // update
+      //       .enter()
+      //       .append('circle')
+      //       .attr('cx', 0)
+      //       .attr('cy', 0)
+      //       .attr('r', 10)
+      //       .merge(update);
+    });
+
+  const id = generatenum();
+
+  const fakeMemory =
+    {
+      avgrating: 7.3,
+      heading: 'testytesttest',
+      id,
+      index: 5,
+      likes: 3,
+      media_type: 'image',
+      memory_asset_url: 'www.fake.com',
+      memory_text: 'fake',
+      tag: 'family',
+      visits: 1,
+      new: true,
+      vx: 0,
+      vy: 0,
+      x: 110,
+      y: 100,
+    };
+  const fakeLink = [{ 100: {
+    index: 100,
+    source: {
+      avgrating: 7.3,
+      heading: 'testytesttest',
+      id,
+      index: 5,
+      likes: 3,
+      media_type: 'image',
+      memory_asset_url: 'www.fake.com',
+      memory_text: 'fake',
+      tag: 'family',
+      visits: 1,
+      new: true,
+      vx: -0.019367745561754825,
+      vy: 0.04779610760031408,
+      x: 110,
+      y: 100,
+    },
+    target: {
+      avgrating: 9,
+      fx: null,
+      fy: null,
+      id: 2,
+      index: 1,
+      likes: 7,
+      media_type: 'audio',
+      memory_asset_url: 'testurl',
+      memory_text: 'testMemoryText',
+      tag: 'family',
+      vx: -0.019332515501937816,
+      vy: 0.047792649472173536,
+      x: 181.29137564655827,
+      y: 79.2135951126546,
+    },
+  },
+  }];
 };
 
 
 function render(updatedData) {
-  // console.log(updatedData);
   const nodeDataArray = [];
   Object.keys(updatedData.nodes).forEach((key) => {
     nodeDataArray.push(updatedData.nodes[key]);
@@ -174,6 +224,15 @@ function render(updatedData) {
   }
 }
 
-const updateD3 = function (data) {
-  console.log(data);
-};
+// const formatUpdateData = function (data) {
+//   console.log(data);
+//   const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentavgrating) => {
+//   // 1. pull out tag
+//   // 2. find max tag
+//   // 3. Get x and y coordinates
+//   // 4. generate link
+// };
+//
+// const updateD3 = function (data) {
+//   console.log(data);
+// };

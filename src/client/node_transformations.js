@@ -2,7 +2,6 @@ const { binByKey } = require('./helpers/helpers.js');
 
 const binByTag = arrayToBin => binByKey('tag', arrayToBin);
 
-
 const sortWithMax = (nodeArray) => {
   const nodesArrayCopy = nodeArray.slice(0);
 
@@ -69,12 +68,10 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
       return tagMemory;
     }).forEach((memoryNode) => {
       nodes[memoryNode.id] = memoryNode;
-      const obj = {
+      links.push({
         source: memoryNode.id,
         target: tagNode.id,
-      };
-      console.log(obj);
-      links.push(obj);
+      });
     });
   });
   sourceNodeIds.forEach((id, i) => {
