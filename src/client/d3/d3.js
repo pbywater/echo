@@ -93,8 +93,7 @@ d3.json(url, (err, data) => {
     .force('link', d3.forceLink(processedData).id(d => d.id))
     .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
     .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
-    .force('center', d3.forceCenter(180, 320))
-    .stop();
+    .force('center', d3.forceCenter(180, 320));
 
   sim
   .nodes(nodeDataArray)

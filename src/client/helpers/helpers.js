@@ -12,6 +12,9 @@ const binByKey = (key, xs) =>
     return binnedArray;
   }, {});
 
+  const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
 function showTaggedMemory(memoryToShow) {
   $('.memory').each(function () {
@@ -150,6 +153,7 @@ function submitNewMemory() {
 
 module.exports = {
   binByKey,
+  getRandomInt,
   openTagMenu,
   submitNewMemory,
   showDeleteButton,
