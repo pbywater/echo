@@ -25,19 +25,7 @@ d3.json(url, (err, data) => {
         <img class='filter-tags ${tag}' src="./assets/icons/navigate/close_icon.svg"/>
       </li>`);
   });
-  $('.tags').append(
-    `<li class='tag-container dummy'>
-      <p class='tagLabel'>dummy</p>
-      <img class='filter-tags dummy' src="./assets/icons/navigate/close_icon.svg"/>
-    </li>
-    <li class='tag-container dummy'>
-      <p class='tagLabel'>dummy</p>
-      <img class='filter-tags dummy' src="./assets/icons/navigate/close_icon.svg"/>
-    </li>
-    <li class='tag-container dummy'>
-      <p class='tagLabel'>dummy</p>
-      <img class='filter-tags dummy' src="./assets/icons/navigate/close_icon.svg"/>
-    </li>
+  $('.tags').append(`
     <li class='clear-tags'>clear</li>
     <li class='close-tags'>
       <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">

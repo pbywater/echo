@@ -478,6 +478,8 @@
     display: none;
     text-align: center;
     height: 50%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .top-bar {
