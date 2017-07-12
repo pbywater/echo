@@ -55,10 +55,16 @@ d3.json(url, (err, data) => {
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
   .range([3, 8]);
 
+  function zoomed() {
+    d3.select('.memory-group').attr('transform', d3.event.transform);
+  }
+
   const fdGrp = svg
     .append('g')
     .attr('class', 'memory-group')
-
+    .call(d3.zoom()
+      .scaleExtent([1 / 3, 3])
+      .on('zoom', zoomed));
 
   const linkGrp = fdGrp
     .append('g')
@@ -149,6 +155,7 @@ d3.json(url, (err, data) => {
       d.fx = null;
       d.fy = null;
     }
+
     $(this).removeClass('active');
     d3.select(this).style('fill', 'white');
     if ($('.delete-button').hasClass('deleting')) {
@@ -167,11 +174,3 @@ d3.json(url, (err, data) => {
   openTagMenu();
   submitNewMemory();
 });
-
-function zoomed() {
-  d3.select('.memory-group').attr('transform', d3.event.transform);
-}
-
-.call(d3.zoom()
-  .scaleExtent([1 / 3, 3])
-  .on('zoom', zoomed));
