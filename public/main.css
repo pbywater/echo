@@ -431,7 +431,25 @@
 }
 
 .memory {
-    transition: r 2s ease-in-out;
+    transition: r 2s ease-in-out, fill 2s ease-in-out;
+}
+
+.memory.active {
+  r: 20;
+  fill: #FDACAB;
+}
+
+.delete-button {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  left: 0;
+  bottom: 20%;
+}
+
+.delete-button path {
+    transition: fill 1s ease-in-out;
 }
 
 .tags {
@@ -578,6 +596,6 @@ label.memory-input__label {
   background-color: #91CFCF;
 }
 
-.hide {
-    display: none;
+.memory-input.hide, .close_icon.hide, .menu_icon.hide {
+    display: none !important;
 }
