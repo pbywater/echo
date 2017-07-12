@@ -28,7 +28,7 @@ const formatData = (data, callback) => {
   });
 // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
   const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
-  console.log(centralNodesByTag);
+
 // Add unique tags to tag list for user to select from
   Object.keys(centralNodesByTag).forEach((tag) => {
     tag = tag.replace(/\W/g, '');
@@ -56,7 +56,6 @@ const formatData = (data, callback) => {
   d3
     .selectAll('#testy')
     .on('click', () => {
-      // formatUpdateData(fakeMemory, updateD3);
       processedData.links.push(fakeLink);
       processedData.nodes[fakeMemory.id] = fakeMemory;
 
@@ -66,18 +65,6 @@ const formatData = (data, callback) => {
       });
 
       render(processedData, nodeDataArray2);
-      // data[data.length] =
-      // const update = svg
-      //   .selectAll('circle')
-      //   .data(fakeMemory);
-      //
-      // update
-      //       .enter()
-      //       .append('circle')
-      //       .attr('cx', 0)
-      //       .attr('cy', 0)
-      //       .attr('r', 10)
-      //       .merge(update);
     });
 
   const id = generatenum();
@@ -100,42 +87,6 @@ const formatData = (data, callback) => {
       x: 110,
       y: 100,
     };
-  // const fakeLink = {
-  //   index: 100,
-  //   source: {
-  //     avgrating: 7.3,
-  //     heading: 'testytesttest',
-  //     id,
-  //     index: 5,
-  //     likes: 3,
-  //     media_type: 'image',
-  //     memory_asset_url: 'www.fake.com',
-  //     memory_text: 'fake',
-  //     tag: 'family',
-  //     visits: 1,
-  //     new: true,
-  //     vx: -0.019367745561754825,
-  //     vy: 0.04779610760031408,
-  //     x: 110,
-  //     y: 100,
-  //   },
-  //   target: {
-  //     avgrating: 9,
-  //     fx: null,
-  //     fy: null,
-  //     id: 2,
-  //     index: 1,
-  //     likes: 7,
-  //     media_type: 'audio',
-  //     memory_asset_url: 'testurl',
-  //     memory_text: 'testMemoryText',
-  //     tag: 'family',
-  //     vx: -0.019332515501937816,
-  //     vy: 0.047792649472173536,
-  //     x: 181.29137564655827,
-  //     y: 79.2135951126546,
-  //   },
-  // };
   const fakeLink = {
     index: 100,
     source: id,
@@ -197,21 +148,10 @@ function render(updatedData, nodeDataArray) {
     .enter()
     .append('line')
       .attr('x2', (d) => {
-        // console.log('d', d);
-        // console.log('updatedData.nodes', updatedData.nodes);
-        // console.log('d', d);
-        // console.log('maybe now', d.target);
-        // if (updatedData.nodes[d.target.id]) {
-        //   console.dir(updatedData.nodes[d.target.id]);
-        //   console.dir(updatedData.nodes[d.target.id].x);
-        // }
-        // console.log('updatedData.nodes[d.target]', updatedData.nodes[d.target]);
         if (!updatedData.nodes[d.target]) {
           return updatedData.nodes[d.target.id].x;
         }
         return updatedData.nodes[d.target].x;
-
-        // return updatedData.nodes[d.target].x || updatedData.nodes[d.target.id].x;
       })
       .attr('y2', (d) => {
         if (!updatedData.nodes[d.target]) {
@@ -253,28 +193,30 @@ function render(updatedData, nodeDataArray) {
       .call(d3.drag()
         .on('start', dragstart)
         .on('drag', dragging)
-      .on('end', dragend));
+        .on('end', dragend));
 
   const sim = d3.forceSimulation()
-  .force('link', d3.forceLink(updatedData).id(d => d.id))
+  .force('link', d3.forceLink(updatedData).id((d) => {
+    console.log(d);
+    return d.id;
+  }))
   .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
   .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
   .force('center', d3.forceCenter(180, 320))
   .stop();
 
   sim
-.nodes(nodeDataArray)
-.on('tick', () => {
-  nodes
+  .nodes(nodeDataArray)
+  .on('tick', () => {
+    nodes
     .attr('cx', d => d.x)
     .attr('cy', d => d.y);
-  links
-    .attr('x1', d =>
-    updatedData.nodes[d.source.id].x)
+    links
+    .attr('x1', d => updatedData.nodes[d.source.id].x)
     .attr('y1', d => updatedData.nodes[d.source.id].y)
     .attr('x2', d => updatedData.nodes[d.target.id].x)
     .attr('y2', d => updatedData.nodes[d.target.id].y);
-});
+  });
 
   sim.force('link')
   .links(updatedData.links)
@@ -317,16 +259,3 @@ function render(updatedData, nodeDataArray) {
     hideDeleteButton();
   }
 }
-
-// const formatUpdateData = function (data) {
-//   console.log(data);
-//   const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentavgrating) => {
-//   // 1. pull out tag
-//   // 2. find max tag
-//   // 3. Get x and y coordinates
-//   // 4. generate link
-// };
-//
-// const updateD3 = function (data) {
-//   console.log(data);
-// };

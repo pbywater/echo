@@ -2,7 +2,6 @@
 const normalTime = 1000;
 
 const binByKey = (key, xs) => {
-  console.log(xs);
   return xs.reduce((binnedArray, elem) => {
     const targetBin = binnedArray[elem[key]];
     if (targetBin === undefined) {
