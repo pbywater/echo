@@ -1,4 +1,4 @@
-const { tagSorting, openTagMenu, submitNewMemory } = require('../helpers/helpers.js');
+const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submitNewMemory, tagSorting } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 
@@ -106,7 +106,13 @@ const formatData = (data, callback) => {
 // binByTag sorts data by tag
 // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
   const binnedByTag = binByTag(data);
+<<<<<<< HEAD
 // sortedWithMax sorts each tag group to separate max memory (by avgRating) from others in its group
+||||||| merged common ancestors
+  // sortedWithMax sorts each tag group to separate max memory (by avgRating) from others in its group
+=======
+  // sortedWithMax sorts each tag group to separate max memory (by likes) from others in its group
+>>>>>>> master
   const sortedWithMax = [];
   Object.keys(binnedByTag).forEach((tagKey) => {
     sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
@@ -171,6 +177,7 @@ function render(updatedData, nodeDataArray) {
 
 
   const nodes = nodeGrp
+<<<<<<< HEAD
   .selectAll('circle.node')
   .data(nodeDataArray)
   .enter()
@@ -185,6 +192,38 @@ function render(updatedData, nodeDataArray) {
       .on('start', dragstart)
       .on('drag', dragging)
       .on('end', dragend));
+||||||| merged common ancestors
+    .selectAll('circle.node')
+    .data(nodeDataArray)
+    .enter()
+    .append('circle')
+      .attr('class', d => `memory ${d.tag}`)
+      .attr('cy', d => d.y)
+      .attr('cx', d => d.x)
+      .attr('r', d => rScale(d.likes))
+      .style('fill', 'white')
+      .style('opacity', '0.8')
+      .call(d3.drag()
+        .on('start', dragstart)
+        .on('drag', dragging)
+        .on('end', dragend));
+=======
+    .selectAll('circle.node')
+    .data(nodeDataArray)
+    .enter()
+    .append('circle')
+      .attr('class', d => `memory ${d.tag}`)
+      .attr('id', d => d.id)
+      .attr('cy', d => d.y)
+      .attr('cx', d => d.x)
+      .attr('r', d => rScale(d.likes))
+      .style('fill', 'white')
+      .style('opacity', '0.8')
+      .call(d3.drag()
+        .on('start', dragstart)
+        .on('drag', dragging)
+        .on('end', dragend));
+>>>>>>> master
 
   const sim = d3.forceSimulation()
   .force('link', d3.forceLink(updatedData).id(d => d.id))
@@ -215,11 +254,15 @@ function render(updatedData, nodeDataArray) {
     if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
     d.fx = d.x;
     d.fy = d.y;
+    $(this).addClass('active');
+    showDeleteButton();
   }
 
   function dragging(d) {
     d.fx = d3.event.x;
     d.fy = d3.event.y;
+    d3.select(this).style('fill', '#FDACAB');
+    hoveringOnDelete();
   }
 
   function dragend(d) {
@@ -228,7 +271,22 @@ function render(updatedData, nodeDataArray) {
       d.fx = null;
       d.fy = null;
     }
+    $(this).removeClass('active');
+    d3.select(this).style('fill', 'white');
+    if ($('.delete-button').hasClass('deleting')) {
+      const id = d3.select(this).attr('id');
+      // Line below to be removed when loop is implemented
+      d3.select(this).style('display', 'none');
+      $('.delete-button').removeClass('deleting');
+      $.ajax({
+        type: 'DELETE',
+        url: 'memories',
+        data: { id },
+      });
+    }
+    hideDeleteButton();
   }
+<<<<<<< HEAD
 }
 
 // const formatUpdateData = function (data) {
@@ -243,3 +301,13 @@ function render(updatedData, nodeDataArray) {
 // const updateD3 = function (data) {
 //   console.log(data);
 // };
+||||||| merged common ancestors
+
+  openTagMenu();
+  submitNewMemory();
+});
+=======
+  openTagMenu();
+  submitNewMemory();
+});
+>>>>>>> master
