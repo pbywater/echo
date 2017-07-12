@@ -5,6 +5,7 @@ const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = req
 const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
+  console.log('hiii');
   formatData(data, render);
   openTagMenu();
   submitNewMemory();
@@ -47,7 +48,12 @@ const formatData = (data, callback) => {
 // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
 
-  callback(processedData);
+  const nodeDataArray = [];
+  Object.keys(processedData.nodes).forEach((key) => {
+    nodeDataArray.push(processedData.nodes[key]);
+  });
+  console.log('qwe');
+  callback(processedData, nodeDataArray);
 
   d3
     .selectAll('#testy')
@@ -131,12 +137,9 @@ const formatData = (data, callback) => {
 };
 
 
-function render(updatedData) {
-  const nodeDataArray = [];
-  Object.keys(updatedData.nodes).forEach((key) => {
-    nodeDataArray.push(updatedData.nodes[key]);
-  });
-
+function render(updatedData, nodeDataArray) {
+  console.log('kdfgnldfk');
+  console.log(nodeDataArray);
   const t = d3.transition().duration(2000);
 
   const rScale = d3
