@@ -45,7 +45,11 @@ d3.json(url, (err, data) => {
   .range([3, 8]);
 
   const fdGrp = svg
-    .append('g');
+    .append('g')
+    .attr('class', 'memory-group')
+    .call(d3.zoom()
+      .scaleExtent([1 / 3, 3])
+      .on('zoom', zoomed));
 
   const linkGrp = fdGrp
     .append('g')
@@ -131,6 +135,10 @@ d3.json(url, (err, data) => {
       d.fx = null;
       d.fy = null;
     }
+  }
+
+  function zoomed() {
+    d3.select('.memory-group').attr('transform', d3.event.transform);
   }
 
   openTagMenu();
