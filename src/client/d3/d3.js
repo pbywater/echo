@@ -9,7 +9,7 @@ d3.json(url, (err, data) => {
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
   const binnedByTag = binByTag(data);
-  // sortedWithMax sorts each tag group to separate max memory (by avgRating) from others in its group
+  // sortedWithMax sorts each tag group to separate max memory (by likes) from others in its group
   const sortedWithMax = [];
   Object.keys(binnedByTag).forEach((tagKey) => {
     sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
