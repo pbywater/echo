@@ -28,7 +28,7 @@ const formatData = (data, callback) => {
   });
 // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
   const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
-
+  console.log(centralNodesByTag);
 // Add unique tags to tag list for user to select from
   Object.keys(centralNodesByTag).forEach((tag) => {
     tag = tag.replace(/\W/g, '');
@@ -51,7 +51,6 @@ const formatData = (data, callback) => {
   Object.keys(processedData.nodes).forEach((key) => {
     nodeDataArray.push(processedData.nodes[key]);
   });
-  console.log('HERE', processedData.links);
   callback(processedData, nodeDataArray);
 
   d3
@@ -140,13 +139,12 @@ const formatData = (data, callback) => {
   const fakeLink = {
     index: 100,
     source: id,
-    target: 2,
+    target: 3,
   };
 };
 
 
 function render(updatedData, nodeDataArray) {
-  console.log('FIRST', updatedData.links);
   const t = d3.transition().duration(750);
 
   const rScale = d3
@@ -179,13 +177,13 @@ function render(updatedData, nodeDataArray) {
 
 // UPDATE old elements still in the data
   links
-    .attr('x2', d => updatedData.nodes[d.target].x || updatedData.nodes[d.target.id].x,
+    .attr('x2', d => updatedData.nodes[d.target].x,
     )
-    .attr('y2', d => updatedData.nodes[d.target].y || updatedData.nodes[d.target.id].y,
+    .attr('y2', d => updatedData.nodes[d.target].y,
     )
-    .attr('x1', d => updatedData.nodes[d.source].x || updatedData.nodes[d.source.id].x,
+    .attr('x1', d => updatedData.nodes[d.source].x,
     )
-    .attr('y1', d => updatedData.nodes[d.source].y || updatedData.nodes[d.source.id].y,
+    .attr('y1', d => updatedData.nodes[d.source].y,
   );
 
   nodes
@@ -229,14 +227,19 @@ function render(updatedData, nodeDataArray) {
       })
       .attr('y1', (d) => {
         if (!updatedData.nodes[d.source]) {
-          return updatedData.nodes[d.source].y;
+          return updatedData.nodes[d.source.id].y;
         }
         return updatedData.nodes[d.source].y;
       })
       .style('stroke', 'white')
       .style('stroke-width', '2px')
       .style('opacity', '0.8')
-      .attr('class', d => `memory ${updatedData.nodes[d.source].tag}`);
+      .attr('class', (d) => {
+        if (!updatedData.nodes[d.source]) {
+          return `memory ${updatedData.nodes[d.source.id].tag}`;
+        }
+        return `memory ${updatedData.nodes[d.source].tag}`;
+      });
 
   nodes
     .enter()
@@ -313,7 +316,6 @@ function render(updatedData, nodeDataArray) {
     }
     hideDeleteButton();
   }
-  console.log('SECOND', updatedData);
 }
 
 // const formatUpdateData = function (data) {
