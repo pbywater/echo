@@ -10,6 +10,7 @@ router.use(bodyParser.urlencoded({
 
 router.get('/', require('./controllers/home.js'));
 router.post('/memory-input-text', require('./controllers/addTextMemory.js'));
+router.post('/logged-in', require('./controllers/getUser.js'));
 router.route('/memories')
   .get(require('./controllers/getMemories.js'))
   .delete(require('./controllers/deleteMemory.js'));
