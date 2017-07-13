@@ -3,17 +3,11 @@
 const cacheName = 'echo-app-test-1';
 
 const filesToCache = [
-  'https://code.jquery.com/jquery-3.2.1.min.js',
-  'https://d3js.org/d3.v4.min.js',
-  '/',
-  '/main.css',
-  '/index.html',
-  '/bundle.js',
   '/assets/icons/card_icons/audio_folder_icon.svg',
   '/assets/icons/navigate/close_icon.svg',
   '/assets/icons/navigate/menu_icon.svg',
-  // '/assets/icons/top-bar/search_icon.svg',
-  // '/assets/icons/top-bar/shuffle_icon.svg',
+  '/assets/icons/top_bar/search_icon.svg',
+  '/assets/icons/top_bar/shuffle_icon.svg',
   '/assets/icons/card_icons/audio_salmon_icon.svg',
   '/assets/icons/card_icons/camera_salmon_icon.svg',
   '/assets/icons/card_icons/heart_icon_checked.svg',
@@ -21,6 +15,13 @@ const filesToCache = [
   '/assets/icons/card_icons/pencil_salmon_icon.svg',
   '/assets/icons/card_icons/photo_folder_icon.svg',
   '/assets/icons/card_icons/photo_folder_icon.svg',
+  'https://code.jquery.com/jquery-3.2.1.min.js',
+  'https://d3js.org/d3.v4.min.js',
+  'https://fonts.googleapis.com/css?family=Quicksand:300,400,500',
+  '/',
+  '/index.html',
+  '/main.css',
+  '/bundle.js',
   '/scripts/main.js'];
 
   self.addEventListener('install', function(e) {
