@@ -569,7 +569,7 @@
   color: #526173;
 }
 
-.memory-input.camera {
+.memory-input.camera, .memory-input.microphone {
     bottom: 179%;
     position: absolute;
     left: 24%;
@@ -579,7 +579,7 @@
     border-radius: 4%;
 }
 
-.memory-input.camera.image {
+.memory-input.camera.image, .memory-input.microphone.image {
   bottom: 300%;
 border: none;
 width: 100%;
@@ -595,7 +595,7 @@ left: 0;
   left: -19%;
 }
 
-label.memory-input__label.camera {
+label.memory-input__label.camera, label.memory-input__label.microphone {
     margin: 0;
     top: 27%;
     color: #526173;
@@ -606,7 +606,7 @@ label.memory-input__label.camera {
     color: #8EA5CE;
 }
 
-.memory-input__submit.camera {
+.memory-input__submit.camera, .memory-input__submit.microphone {
     width: 100%;
     height: 50px;
     margin-top: 0;
