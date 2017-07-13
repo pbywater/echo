@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const cacheName = 'echo-app-test';
+const cacheName = 'echo-app-test-1';
 
 const filesToCache = [
   'https://code.jquery.com/jquery-3.2.1.min.js',
