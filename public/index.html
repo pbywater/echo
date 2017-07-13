@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <title>Echo</title>
-  </head>
-  <body>
-    <div id="desktop-background" >
-      <div id="d3-container">
-        <nav class = 'top-bar'>
-          <img src='./assets/icons/top_bar/shuffle_icon.svg' class = 'shuffle-memories'/>
-          <svg class='search-tags' width="45px" height="45px" viewBox="0 0 45 45">
+</head>
+
+<body>
+    <div id="desktop-background">
+        <div id="d3-container">
+            <nav class='top-bar'>
+                <img src='./assets/icons/top_bar/shuffle_icon.svg' class='shuffle-memories' />
+                <svg class='search-tags' width="45px" height="45px" viewBox="0 0 45 45">
               <title>search_icon</title>
               <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
                   <g id="icon" transform="translate(-107.000000, -26.000000)" stroke="#FFFFFF" stroke-width="2">
@@ -25,21 +27,21 @@
                   </g>
               </g>
           </svg>
-          <div class = 'underline'></div>
-<ul class='tags'></ul>
+                <div class='underline'></div>
+                <ul class='tags'></ul>
 
-</nav>
+            </nav>
 
 
-        <nav class="menu">
-          <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
-          <label class="menu-open-button" for="menu-open">
+            <nav class="menu">
+                <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+                <label class="menu-open-button" for="menu-open">
             <img class="menu_icon" src="./assets/icons/navigate/menu_icon.svg" alt="Menu icon">
             <img class="close_icon hide" src="./assets/icons/navigate/close_icon.svg" alt="Close icon">
           </label>
 
-          <a href="#" class="menu-item normal" id='pencil'>
-            <svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <a href="#" class="menu-item normal" id='pencil'>
+                    <svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <title>pencil_glyph_icon_2</title>
               <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                   <g id="icon" transform="translate(-93.000000, -345.000000)">
@@ -55,9 +57,9 @@
                   </g>
               </g>
             </svg>
-          </a>
-          <a href="#" class="menu-item normal" id ='camera'>
-            <svg width="46px" height="40px" viewBox="0 0 46 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                </a>
+                <a href="#" class="menu-item normal" id='camera'>
+                    <svg width="46px" height="40px" viewBox="0 0 46 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>camera_glyph_icon_1</title>
                 <defs></defs>
                 <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -73,9 +75,9 @@
                     </g>
                 </g>
             </svg>
-          </a>
-          <a href="#" class="menu-item normal" id='microphone'>
-            <svg width="34px" height="46px" viewBox="0 0 34 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                </a>
+                <a href="#" class="menu-item normal" id='microphone'>
+                    <svg width="34px" height="46px" viewBox="0 0 34 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
                 <title>audio_outline_icon_2</title>
                 <desc>Created with Sketch.</desc>
@@ -92,9 +94,9 @@
                     </g>
                 </g>
             </svg>
-          </a>
-          <a href="#" class="menu-item normal" id='clock'>
-            <svg width="46px" height="43px" viewBox="0 0 46 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                </a>
+                <a href="#" class="menu-item normal" id='clock'>
+                    <svg width="46px" height="43px" viewBox="0 0 46 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>notification_glyph_icon_1</title>
                 <desc>Created with Sketch.</desc>
                 <defs></defs>
@@ -113,9 +115,9 @@
                     </g>
                 </g>
             </svg>
-          </a>
-          <a href="#" class="menu-item normal" id='cog'>
-            <svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                </a>
+                <a href="#" class="menu-item normal" id='cog'>
+                    <svg width="44px" height="44px" viewBox="0 0 44 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>settings_glyph_icon_1</title>
                 <desc>Created with Sketch.</desc>
                 <defs></defs>
@@ -130,9 +132,10 @@
                     </g>
                 </g>
             </svg>
-          </a>
+                </a>
 
-          <svg class = 'delete-button' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 220.889 220.889" style="enable-background:new 0 0 220.889 220.889;" xml:space="preserve" width="512px" height="512px">
+                <svg class='delete-button' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 220.889 220.889" style="enable-background:new 0 0 220.889 220.889;" xml:space="preserve" width="512px"
+                    height="512px">
   <g>
     <path d="M206.43,22.883h-19.196h-30.893V7.5c0-4.143-3.357-7.5-7.5-7.5H72.053c-4.143,0-7.5,3.357-7.5,7.5v15.383H33.66H14.459   c-4.143,0-7.5,3.357-7.5,7.5s3.357,7.5,7.5,7.5h12.219l12.578,176.04c0.28,3.925,3.546,6.966,7.481,6.966h127.42   c3.935,0,7.2-3.041,7.48-6.966l12.579-176.04h12.214c4.143,0,7.5-3.357,7.5-7.5S210.572,22.883,206.43,22.883z M79.553,15h61.788   v7.883H79.553V15z M167.173,205.889H53.72L41.715,37.883h30.338h76.788h30.338L167.173,205.889z" fill="#FFFFFF"/>
     <path d="M110.445,62.907c-4.143,0-7.5,3.357-7.5,7.5v102.945c0,4.143,3.357,7.5,7.5,7.5s7.5-3.357,7.5-7.5V70.407   C117.945,66.265,114.588,62.907,110.445,62.907z" fill="#FFFFFF"/>
@@ -141,27 +144,28 @@
   </g>
   </svg>
 
-          <form class="memory-input hide" action="memory-input-text" method="post">
-            <label class="memory-input__label"><span class="memory-input__placeholder">Write your memory</span>
+                <form class="memory-input pencil hide" action="memory-input-text" method="post">
+                    <label class="memory-input__label pencil"><span class="memory-input__placeholder">Write your memory</span>
               <textarea class="memory-input__text" name="memory_text" type="text" placeholder="My memory..."></textarea>
               <br>
-              <input class="memory-input__submit" type="submit" value="Save">
+              <input class="memory-input__submit pencil" type="submit" value="Save">
             </label>
-          </form>
+                </form>
 
-        </nav>
+            </nav>
 
 
 
-      </div>
+        </div>
     </div>
-  </div>
-</div>
+    </div>
+    </div>
 
-  </body>
+</body>
 
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-  <script src="scripts/main.js"></script>
-  <script src="bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script src="scripts/main.js"></script>
+<script src="bundle.js"></script>
+
 </html>
