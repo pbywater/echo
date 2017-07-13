@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <title>Echo</title>
+  </head>
+  <body>
+    <div id="desktop-background" >
+      <div id="d3-container">
+        <div class="form-wrap">
+          <div class="tabs">
+            <h3 class="signup-tab"><a class="active" href="#signup-tab-content">Sign Up</a></h3>
+            <h3 class="login-tab"><a href="#login-tab-content">Login</a></h3>
+          </div><!--.tabs-->
+
+          <div class="tabs-content">
+            <div id="signup-tab-content" class="active">
+              <form class="signup-form" action="add-new-user" method="post">
+                <input type="email" class="input" id="user_email" autocomplete="off" placeholder="Email" name="email">
+                <input type="text" class="input" id="user_name" autocomplete="off" placeholder="Username" name="username">
+                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password" name="password">
+                <input class="button" type="submit" value="Sign Up">
+              </form><!--.login-form-->
+              <div class="help-text">
+                <p>By signing up, you agree to our</p>
+                <p><a href="#">Terms of service</a></p>
+              </div><!--.help-text-->
+            </div><!--.signup-tab-content-->
+
+            <div id="login-tab-content" action="logged-in" method="post">
+              <form class="login-form">
+                <input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email or Username" name="login">
+                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password" name="password">
+                <input type="checkbox" class="checkbox" id="remember_me">
+                <label for="remember_me">Remember me</label>
+
+                <input class="button" type="submit" value="Login">
+              </form><!--.login-form-->
+              <div class="help-text">
+                <p><a href="#">Forget your password?</a></p>
+              </div><!--.help-text-->
+            </div><!--.login-tab-content-->
+          </div><!--.tabs-content-->
+        </div><!--.form-wrap-->
+
+
+      </div>
+    </div>
+  </body>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+  <script src="scripts/sign-up.js"></script>
+  <script src="bundle.js"></script>
+</html>
