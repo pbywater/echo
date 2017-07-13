@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   const toggleTabs = (tab) => {
     const otherTab = getOtherTab(tab);
+    console.log(otherTab[0]);
 
     $(`.${tab}-tab`)
       .addClass('active');
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       .addClass('active');
     $(`.${otherTab[0]}-tab`)
       .removeClass('active');
-    $(`#${otherTab}-tab-content`)
+    $(`#${otherTab[0]}-tab-content`)
       .removeClass('active');
   };
 
