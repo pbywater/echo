@@ -569,11 +569,37 @@
   color: #526173;
 }
 
+.memory-input.camera {
+    bottom: 179%;
+    position: absolute;
+    left: 31%;
+    width: 36%;
+}
+
 .memory-input__placeholder {
   color: #526173;
   padding: 0.8em;
   position: relative;
   left: -19%;
+}
+
+label.memory-input__label.camera {
+    margin: 0;
+    top: 15px;
+    color: #526173;
+    line-height: 1.2em;
+    position: absolute;
+    width: 100%;
+    right: 0%;
+}
+
+.memory-input__submit.camera {
+    width: 100%;
+    height: 50px;
+    margin-top: 0;
+    font-size: 0;
+    padding: 0;
+    border-radius: 0;
 }
 
 label.memory-input__label {
