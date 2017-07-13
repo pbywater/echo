@@ -1,4 +1,4 @@
-const { binByKey } = require('./helpers/helpers.js');
+const { binByKey, getRandomInt } = require('./helpers/helpers.js');
 
 const binByTag = arrayToBin => binByKey('tag', arrayToBin);
 
@@ -22,8 +22,8 @@ const centralMaxNodesByTag = (tagsArray, startingCx, startingCy) => {
       media_type: tag.max.media_type,
       memory_asset_url: tag.max.memory_asset_url || '',
       memory_text: tag.max.memory_text || '',
-      x: startingCx,
-      y: startingCy + 200 * i,
+      x: startingCx + getRandomInt(-100, 100),
+      y: startingCy + getRandomInt(150, 250) * i,
       tag: tag.max.tag,
       likes: tag.max.likes,
     };

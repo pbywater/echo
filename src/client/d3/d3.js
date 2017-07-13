@@ -25,8 +25,8 @@ d3.json(url, (err, data) => {
         <img class='filter-tags ${tag}' src="./assets/icons/navigate/close_icon.svg"/>
       </li>`);
   });
-  $('.tags').append(
-    `<li class='clear-tags'>clear</li>
+  $('.tags').append(`
+    <li class='clear-tags'>clear</li>
     <li class='close-tags'>
       <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
       </img>
@@ -43,8 +43,16 @@ d3.json(url, (err, data) => {
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
   .range([3, 8]);
 
+  function zoomed() {
+    d3.select('.memory-group').attr('transform', d3.event.transform);
+  }
+
   const fdGrp = svg
-    .append('g');
+    .append('g')
+    .attr('class', 'memory-group')
+    .call(d3.zoom()
+      .scaleExtent([1 / 3, 3])
+      .on('zoom', zoomed));
 
   const linkGrp = fdGrp
     .append('g')
@@ -93,8 +101,7 @@ d3.json(url, (err, data) => {
     .force('link', d3.forceLink(processedData).id(d => d.id))
     .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
     .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
-    .force('center', d3.forceCenter(180, 320))
-    .stop();
+    .force('center', d3.forceCenter(180, 320));
 
   sim
   .nodes(nodeDataArray)
@@ -135,6 +142,7 @@ d3.json(url, (err, data) => {
       d.fx = null;
       d.fy = null;
     }
+
     $(this).removeClass('active');
     d3.select(this).style('fill', 'white');
     if ($('.delete-button').hasClass('deleting')) {
