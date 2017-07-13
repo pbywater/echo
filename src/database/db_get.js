@@ -14,6 +14,8 @@ const getMemories = (userId, callback) => {
     });
 };
 
+const userSQL = 'SELECT * FROM users WHERE username = $1 OR email = $1';
+
 const getUser = (input, callback) => {
   const unacceptableInput = /[ !#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/;
 
@@ -22,13 +24,11 @@ const getUser = (input, callback) => {
     return callback(new Error('Enter a valid email address / username and password'));
   }
 
-  const userCredentials = 'SELECT * FROM users WHERE username = $1 OR email = $1';
-
-  connect.query(userCredentials, [input.login], (err, user) => {
+  connect.query(userSQL, [input.login], (err, user) => {
     if (err) {
       return callback(err);
     } else if (user.rows.length === 0) {
-      return callback(new Error('This username and password do not exist'));
+      return callback(new Error('This username does not exist'));
     }
     callback(null, user.rows[0]);
   });
