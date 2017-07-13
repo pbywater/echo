@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   const toggleTabs = (tab) => {
     const otherTab = getOtherTab(tab);
-    console.log(otherTab[0]);
 
     $(`.${tab}-tab`)
       .addClass('active');
