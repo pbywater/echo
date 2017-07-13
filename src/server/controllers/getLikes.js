@@ -11,7 +11,7 @@ module.exports = (req, res) => {
       res.status(500).send(error);
       return;
     }
-    const num = response.toString();
-    res.send(num);
+    const numLikes = response.toString();
+    res.send(numLikes);
   });
 };
