@@ -564,7 +564,7 @@
   font-size: 1em;
   padding: 0.8em;
   margin-top: 1em;
-  height: 252px;
+  height: 200px;
   width: 280px;
   color: #526173;
 }
@@ -600,6 +600,16 @@ label.memory-input__label {
 
 .memory-input.hide, .close_icon.hide, .menu_icon.hide {
     display: none !important;
+}
+
+.tag-input {
+  font-size: 0.7em;
+  padding: 0.8em;
+  margin-top: 1em;
+  height: 20px;
+  width: 280px;
+  color: #526173;
+  margin-left: 0.5em;
 }
 
 /* Sign up / log in styling */
