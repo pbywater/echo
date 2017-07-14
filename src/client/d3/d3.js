@@ -105,11 +105,11 @@ function render(updatedData, nodeDataArray) {
 
   const links = linkGrp
   .selectAll('line.link')
-  .data(updatedData.links);
+  .data(updatedData.links, d => d.id);
 
   const nodes = nodeGrp
   .selectAll('circle.node')
-  .data(nodeDataArray);
+  .data(nodeDataArray, d => d.id);
 
 // EXIT old elements to be removed
   links
@@ -147,6 +147,7 @@ function render(updatedData, nodeDataArray) {
   links
     .enter()
     .append('line')
+      .attr('id', d => d.id)
       .attr('x2', (d) => {
         if (!updatedData.nodes[d.target]) {
           return updatedData.nodes[d.target.id].x;
@@ -188,6 +189,7 @@ function render(updatedData, nodeDataArray) {
       .attr('cy', d => d.y)
       .attr('cx', d => d.x)
       .attr('r', d => rScale(d.likes))
+      .attr('id', d => d.id)
       .style('fill', 'white')
       .style('opacity', '0.8')
       .call(d3.drag()
@@ -247,8 +249,9 @@ function render(updatedData, nodeDataArray) {
     d3.select(this).style('fill', 'white');
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
+      console.log('id is ', id);
       // Line below to be removed when loop is implemented
-      d3.select(this).style('display', 'none');
+      // d3.select(this).style('display', 'none');
       $('.delete-button').removeClass('deleting');
       $.ajax({
         type: 'DELETE',
@@ -256,6 +259,10 @@ function render(updatedData, nodeDataArray) {
         data: { id },
       });
     }
+    d3.json(url, (err, data) => {
+      console.log('data is ', data);
+      formatData(data, render);
+    });
     hideDeleteButton();
   }
 }
