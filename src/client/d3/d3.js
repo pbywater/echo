@@ -54,19 +54,19 @@ const formatData = (data, callback) => {
   });
   callback(processedData, nodeDataArray);
 
-  // d3
-  //   .selectAll('#testy')
-    // .on('click', () => {
-    //   processedData.links.push(fakeLink);
-    //   processedData.nodes[fakeMemory.id] = fakeMemory;
-    //
-    //   const nodeDataArray2 = [];
-    //   Object.keys(processedData.nodes).forEach((key) => {
-    //     nodeDataArray2.push(processedData.nodes[key]);
-    //   });
-    //
-    //   callback(processedData, nodeDataArray2);
-    // });
+  d3
+    .selectAll('#testy')
+    .on('click', () => {
+      processedData.links.push(fakeLink);
+      processedData.nodes[fakeMemory.id] = fakeMemory;
+
+      const nodeDataArray2 = [];
+      Object.keys(processedData.nodes).forEach((key) => {
+        nodeDataArray2.push(processedData.nodes[key]);
+      });
+
+      callback(processedData, nodeDataArray2);
+    });
 
   const id = generatenum();
 
@@ -106,7 +106,7 @@ function render(updatedData, nodeDataArray) {
 
   let links = linkGrp
   .selectAll('line.memory')
-  .data(updatedData.links, d => d.id);
+  .data(updatedData.links, d => d.target.id);
 
   let nodes = nodeGrp
   .selectAll('circle.memory')
@@ -115,7 +115,6 @@ function render(updatedData, nodeDataArray) {
 // EXIT old elements to be removed
   links
     .exit()
-      .attr('class', 'exit')
       .transition()
         .duration(750)
         .ease(d3.easeLinear)
@@ -124,7 +123,6 @@ function render(updatedData, nodeDataArray) {
 
   nodes
     .exit()
-      .attr('class', 'exit')
       .transition()
         .duration(750)
         .ease(d3.easeLinear)
@@ -206,32 +204,34 @@ function render(updatedData, nodeDataArray) {
 
   nodes = enterNodes.merge(nodes);
 
-  // const sim = d3.forceSimulation()
-  // .force('link', d3.forceLink(updatedData).id(d => d.id))
-  // .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
-  // .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
-  // .force('center', d3.forceCenter(180, 320))
-  // .stop();
+  const sim = d3.forceSimulation()
+  .force('link', d3.forceLink().id(d => d.id))
+  .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
+  .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
+  .force('center', d3.forceCenter(180, 320))
+  .stop();
 
-  // sim
-  // .nodes(nodeDataArray)
-  // .on('tick', () => {
-  //   nodes
-  //   .attr('cx', d => d.x)
-  //   .attr('cy', d => d.y);
-  //   links
-  //   .attr('x1', d => updatedData.nodes[d.source.id].x)
-  //   .attr('y1', d => updatedData.nodes[d.source.id].y)
-  //   .attr('x2', d => updatedData.nodes[d.target.id].x)
-  //   .attr('y2', d => updatedData.nodes[d.target.id].y);
-  // });
-  //
-  // sim.force('link')
-  // .links(updatedData.links)
-  // .distance(d => 40);
+  sim
+  .nodes(nodeDataArray)
+  .on('tick', () => {
+    nodes
+    .attr('cx', d => d.x)
+    .attr('cy', d => d.y);
+    links
+    .attr('x1', d => updatedData.nodes[d.source.id].x)
+    .attr('y1', d => updatedData.nodes[d.source.id].y)
+    .attr('x2', d => updatedData.nodes[d.target.id].x)
+    .attr('y2', d => updatedData.nodes[d.target.id].y);
+  });
+
+  sim.force('link')
+  .links(updatedData.links)
+  .distance(d => 40);
+
+  sim.restart();
 
   function dragstart(d) {
-    // if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
     d.fx = d.x;
     d.fy = d.y;
     $(this).addClass('active');
@@ -246,7 +246,7 @@ function render(updatedData, nodeDataArray) {
   }
 
   function dragend(d) {
-    // if (!d3.event.active) sim.alphaTarget(0);
+    if (!d3.event.active) sim.alphaTarget(0);
     if (!d.outer) {
       d.fx = null;
       d.fy = null;
@@ -259,16 +259,23 @@ function render(updatedData, nodeDataArray) {
       // Line below to be removed when loop is implemented
       // d3.select(this).style('display', 'none');
       $('.delete-button').removeClass('deleting');
+      function update(url) {
+        setTimeout(() => {
+          d3.json(url, (err, data) => {
+            console.log('data is ', data);
+            formatData(data, render);
+            // sim.restart();
+          });
+        }, 50);
+      }
       $.ajax({
         type: 'DELETE',
         url: 'memories',
         data: { id },
-      });
-      d3.json(url, (err, data) => {
-        console.log('data is ', data);
-        formatData(data, render);
+        success: update(url),
       });
     }
     hideDeleteButton();
+    // sim.restart();
   }
 }
