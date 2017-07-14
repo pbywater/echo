@@ -788,3 +788,12 @@ a:hover {
   font-size: 14px;
   color: #526173;
 }
+
+/* logout button */
+
+.logout-button {
+  color: black;
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+}
