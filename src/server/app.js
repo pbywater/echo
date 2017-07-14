@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const router = require('./router');
 
 app.use(express.static('public'));
@@ -11,6 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
+app.use(cookieParser());
 
 const port = process.env.PORT || 3000;
 
