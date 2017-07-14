@@ -97,7 +97,7 @@ const formatData = (data, callback) => {
 
 
 function render(updatedData, nodeDataArray) {
-  const t = d3.transition().duration(750);
+  // const t = d3.transition().duration(750);
 
   const rScale = d3
   .scaleSqrt()
@@ -115,17 +115,17 @@ function render(updatedData, nodeDataArray) {
 // EXIT old elements to be removed
   links
     .exit()
-      .transition()
-        .duration(750)
-        .ease(d3.easeLinear)
+      // .transition()
+      //   .duration(750)
+      //   .ease(d3.easeLinear)
       .style('fill-opacity', 0)
       .remove();
 
   nodes
     .exit()
-      .transition()
-        .duration(750)
-        .ease(d3.easeLinear)
+      // .transition()
+      //   .duration(750)
+      //   .ease(d3.easeLinear)
       .style('fill-opacity', 0)
       .remove();
 
@@ -264,7 +264,7 @@ function render(updatedData, nodeDataArray) {
           d3.json(url, (err, data) => {
             console.log('data is ', data);
             formatData(data, render);
-            // sim.restart();
+            sim.restart();
           });
         }, 50);
       }
@@ -276,6 +276,6 @@ function render(updatedData, nodeDataArray) {
       });
     }
     hideDeleteButton();
-    // sim.restart();
+    sim.restart();
   }
 }
