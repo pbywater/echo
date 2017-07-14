@@ -579,6 +579,16 @@
     border-radius: 4%;
 }
 
+.memory-input.camera.img-background, .memory-input.microphone.img-background {
+  height: 220px;
+width: 260px;
+background: #F7F7F7;
+border: none;
+border-radius: 2%;
+left: 14%;
+bottom: 243%;
+}
+
 .memory-input.camera.image, .memory-input.microphone.image {
   bottom: 300%;
 border: none;
