@@ -5,7 +5,7 @@ const hashPassword = require('./../helpers/hashPassword');
 const createMemory = (newMemory, mediaType, callback) => {
   connect.query(
     `INSERT INTO memories
-        (user_id, memory_text, media_type, memory_asset_url, heading, tag)
+        (user_id, memory_text, media_type, memory_asset_url, heading, tag, likes, visits)
      VALUES
         ($1, $2, $3, $4, $5, $6)
     `,
@@ -14,7 +14,7 @@ const createMemory = (newMemory, mediaType, callback) => {
     //  ((SELECT users.id FROM users WHERE users.username = $1), $2, $3, $4, $5, $6)`,
     //  [newMemory.username, newMemory.memoryText, mediaType, newMemory.memory_asset_url, newMemory.heading, newMemory.tag]
     // $1, $4, $5, $6 are hardcoded below for testing purposes
-    [1, newMemory.memory_text, mediaType, 'dummyURL', 'dummyHeading', newMemory.tag],
+    [1, newMemory.memory_text, mediaType, 'dummyURL', 'dummyHeading', newMemory.tag, 1, 1],
     (err, res) => {
       if (err) { callback(err); }
       callback(null, res);
