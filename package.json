@@ -4,7 +4,8 @@
   "description": "Anna Freud happy memory app",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/server/app.js",
+    "devStart": "nodemon src/server/app.js",
+    "start": "node src/server/app.js",
     "test": "node tests/src/client",
     "build": "browserify src/client/main.js -o public/bundle.js",
     "watch": "watchify src/client/main.js -o public/bundle.js"
