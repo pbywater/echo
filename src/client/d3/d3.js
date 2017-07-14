@@ -53,19 +53,19 @@ const formatData = (data, callback) => {
   });
   callback(processedData, nodeDataArray);
 
-  d3
-    .selectAll('#testy')
-    .on('click', () => {
-      processedData.links.push(fakeLink);
-      processedData.nodes[fakeMemory.id] = fakeMemory;
-
-      const nodeDataArray2 = [];
-      Object.keys(processedData.nodes).forEach((key) => {
-        nodeDataArray2.push(processedData.nodes[key]);
-      });
-
-      render(processedData, nodeDataArray2);
-    });
+  // d3
+  //   .selectAll('#testy')
+    // .on('click', () => {
+    //   processedData.links.push(fakeLink);
+    //   processedData.nodes[fakeMemory.id] = fakeMemory;
+    //
+    //   const nodeDataArray2 = [];
+    //   Object.keys(processedData.nodes).forEach((key) => {
+    //     nodeDataArray2.push(processedData.nodes[key]);
+    //   });
+    //
+    //   callback(processedData, nodeDataArray2);
+    // });
 
   const id = generatenum();
 
@@ -103,11 +103,11 @@ function render(updatedData, nodeDataArray) {
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
   .range([3, 8]);
 
-  const links = linkGrp
+  let links = linkGrp
   .selectAll('line.link')
   .data(updatedData.links, d => d.id);
 
-  const nodes = nodeGrp
+  let nodes = nodeGrp
   .selectAll('circle.node')
   .data(nodeDataArray, d => d.id);
 
@@ -144,7 +144,7 @@ function render(updatedData, nodeDataArray) {
     .attr('r', d => rScale(d.likes));
 
 // ENTER new elements
-  links
+  const enterLinks = links
     .enter()
     .append('line')
       .attr('id', d => d.id)
@@ -182,7 +182,9 @@ function render(updatedData, nodeDataArray) {
         return `memory ${updatedData.nodes[d.source].tag}`;
       });
 
-  nodes
+  links = enterLinks.merge(links);
+
+  const enterNodes = nodes
     .enter()
     .append('circle')
       .attr('class', d => `memory ${d.tag}`)
@@ -197,35 +199,34 @@ function render(updatedData, nodeDataArray) {
         .on('drag', dragging)
         .on('end', dragend));
 
-  const sim = d3.forceSimulation()
-  .force('link', d3.forceLink(updatedData).id((d) => {
-    console.log(d);
-    return d.id;
-  }))
-  .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
-  .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
-  .force('center', d3.forceCenter(180, 320))
-  .stop();
+  nodes = enterNodes.merge(nodes);
 
-  sim
-  .nodes(nodeDataArray)
-  .on('tick', () => {
-    nodes
-    .attr('cx', d => d.x)
-    .attr('cy', d => d.y);
-    links
-    .attr('x1', d => updatedData.nodes[d.source.id].x)
-    .attr('y1', d => updatedData.nodes[d.source.id].y)
-    .attr('x2', d => updatedData.nodes[d.target.id].x)
-    .attr('y2', d => updatedData.nodes[d.target.id].y);
-  });
+  // const sim = d3.forceSimulation()
+  // .force('link', d3.forceLink(updatedData).id(d => d.id))
+  // .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
+  // .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
+  // .force('center', d3.forceCenter(180, 320))
+  // .stop();
 
-  sim.force('link')
-  .links(updatedData.links)
-  .distance(d => 40);
+  // sim
+  // .nodes(nodeDataArray)
+  // .on('tick', () => {
+  //   nodes
+  //   .attr('cx', d => d.x)
+  //   .attr('cy', d => d.y);
+  //   links
+  //   .attr('x1', d => updatedData.nodes[d.source.id].x)
+  //   .attr('y1', d => updatedData.nodes[d.source.id].y)
+  //   .attr('x2', d => updatedData.nodes[d.target.id].x)
+  //   .attr('y2', d => updatedData.nodes[d.target.id].y);
+  // });
+  //
+  // sim.force('link')
+  // .links(updatedData.links)
+  // .distance(d => 40);
 
   function dragstart(d) {
-    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+    // if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
     d.fx = d.x;
     d.fy = d.y;
     $(this).addClass('active');
@@ -240,7 +241,7 @@ function render(updatedData, nodeDataArray) {
   }
 
   function dragend(d) {
-    if (!d3.event.active) sim.alphaTarget(0);
+    // if (!d3.event.active) sim.alphaTarget(0);
     if (!d.outer) {
       d.fx = null;
       d.fy = null;
@@ -258,11 +259,11 @@ function render(updatedData, nodeDataArray) {
         url: 'memories',
         data: { id },
       });
+      d3.json(url, (err, data) => {
+        console.log('data is ', data);
+        formatData(data, render);
+      });
     }
-    d3.json(url, (err, data) => {
-      console.log('data is ', data);
-      formatData(data, render);
-    });
     hideDeleteButton();
   }
 }
