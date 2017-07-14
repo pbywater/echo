@@ -631,8 +631,8 @@ label.memory-input__label {
 }
 
 .like-button.liked {
-    transition: 1s grow forwards;
-
+transition: 1s grow forwards;
+}
 /* Sign up / log in styling */
 /* Needs refactoring!! */
 
