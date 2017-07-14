@@ -19,8 +19,7 @@ module.exports = (req, res) => {
         res.send({ err: err.message });
       }
       if (isAuthenticated) {
-        // need to set cookie
-        res.redirect('/');
+        res.cookie('name', login, { maxAge: 3600000 }).redirect('/');
       } else if (!isAuthenticated) {
         // will be refactored, so that err.message is displayed on screen
         res.send('Incorrect password');
