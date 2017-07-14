@@ -6,6 +6,7 @@ const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
   formatData(data, render);
+  console.log('running this');
   openTagMenu();
   submitNewMemory();
 });
@@ -104,25 +105,29 @@ function render(updatedData, nodeDataArray) {
   .range([3, 8]);
 
   let links = linkGrp
-  .selectAll('line.link')
+  .selectAll('line.memory')
   .data(updatedData.links, d => d.id);
 
   let nodes = nodeGrp
-  .selectAll('circle.node')
+  .selectAll('circle.memory')
   .data(nodeDataArray, d => d.id);
 
 // EXIT old elements to be removed
   links
     .exit()
       .attr('class', 'exit')
-    .transition(t)
+      .transition()
+        .duration(750)
+        .ease(d3.easeLinear)
       .style('fill-opacity', 0)
       .remove();
 
   nodes
     .exit()
       .attr('class', 'exit')
-    .transition(t)
+      .transition()
+        .duration(750)
+        .ease(d3.easeLinear)
       .style('fill-opacity', 0)
       .remove();
 
