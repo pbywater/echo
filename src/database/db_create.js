@@ -7,7 +7,7 @@ const createMemory = (newMemory, mediaType, callback) => {
     `INSERT INTO memories
         (user_id, memory_text, media_type, memory_asset_url, heading, tag, likes, visits)
      VALUES
-        ($1, $2, $3, $4, $5, $6)
+        ($1, $2, $3, $4, $5, $6, $7, $8)
     `,
     // Current query will be replaced with query below when signup route is created
     // VALUES
