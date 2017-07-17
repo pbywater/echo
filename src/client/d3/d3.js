@@ -43,11 +43,11 @@ const nodeDataArray = [];
 const processedData = {};
 
 if (nodeDataArray.length < 1) {
+  const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
 
-} else {
   const rScale = d3
   .scaleSqrt()
-  .domain([0, d3.max(nodeDataArray, d => d.likes)])
+  .domain([0, d3.max(falseDataArray, d => d.likes)])
   .range([3, 8]);
 
   function zoomed() {
@@ -60,87 +60,82 @@ if (nodeDataArray.length < 1) {
     .call(d3.zoom()
       .scaleExtent([1 / 3, 3])
       .on('zoom', zoomed));
-
-  const linkGrp = fdGrp
-    .append('g')
-    .attr('class', 'links');
-
-  const links = linkGrp
-    .selectAll('line.link')
-    .data(processedData.links)
-    .enter()
-    .append('line')
-      .attr('x2', d => processedData.nodes[d.target].x,
-      )
-      .attr('y2', d => processedData.nodes[d.target].y,
-      )
-      .attr('x1', d => processedData.nodes[d.source].x,
-      )
-      .attr('y1', d => processedData.nodes[d.source].y,
-      )
-      .style('stroke', 'white')
-      .style('stroke-width', '2px')
-      .style('opacity', '0.8')
-      .attr('class', d => `memory ${processedData.nodes[d.source].tag}`);
-
   const nodeGrp = fdGrp
-    .append('g')
-      .attr('class', 'nodes');
+        .append('g')
+          .attr('class', 'nodes');
 
   const nodes = nodeGrp
-    .selectAll('circle.node')
-    .data(nodeDataArray)
-    .enter()
-    .append('circle')
-      .attr('class', d => `memory ${d.tag}`)
-      .attr('id', d => d.id)
-      .attr('cy', d => d.y)
-      .attr('cx', d => d.x)
-      .attr('r', d => rScale(d.likes))
-      .style('fill', 'white')
-      .style('opacity', '0.8')
-      .call(d3.drag()
-        .on('start', dragstart)
-        .on('drag', dragging)
-        .on('end', dragend));
+        .selectAll('circle.node')
+        .data(falseDataArray)
+        .enter()
+        .append('circle')
+          .attr('class', d => `memory ${d.tag}`)
+          .attr('id', d => d.id)
+          .attr('cy', d => d.y)
+          .attr('cx', d => d.x)
+          .attr('r', d => rScale(d.likes))
+          .style('fill', 'white')
+          .style('opacity', '0.8')
+          .call(d3.drag()
+            .on('start', dragstart)
+            .on('drag', dragging)
+            .on('end', dragend));
+
+  const textGroup = nodeGrp
+    .append('g')
+    .attr('transform', 'translate(110,100)')
+    .attr('class', 'text-group');
+
+
+  const welcome = textGroup
+            .append('text')
+            .text('Welcome to Echo')
+            .attr('fill', 'white')
+            .style('opacity', 0)
+                        .transition()
+                        .duration(1000)
+                        .style('opacity', 1);
+
+  const tap = textGroup
+            .append('text')
+            .text('(tap here to continue)')
+            .attr('fill', 'white')
+            .attr('transform', 'translate(-15,30)')
+            .style('opacity', 0)
+                          .transition()
+                          .delay(1000)
+                          .duration(1000)
+                          .style('opacity', 1);
+
 
   const sim = d3.forceSimulation()
-    .force('link', d3.forceLink(processedData).id(d => d.id))
-    .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
-    .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
-    .force('center', d3.forceCenter(180, 320));
+        // .force('link', d3.forceLink(processedData).id(d => d.id))
+        .force('forceX', d3.forceX(falseDataArray).strength(0.5).x(d => d.x))
+        .force('forceY', d3.forceY(falseDataArray).strength(0.5).y(d => d.y))
+        .force('center', d3.forceCenter(180, 320));
 
   sim
-  .nodes(nodeDataArray)
-  .on('tick', () => {
-    nodes
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y);
-    links
-      .attr('x1', d =>
-      processedData.nodes[d.source.id].x)
-      .attr('y1', d => processedData.nodes[d.source.id].y)
-      .attr('x2', d => processedData.nodes[d.target.id].x)
-      .attr('y2', d => processedData.nodes[d.target.id].y);
-  });
+      .nodes(falseDataArray)
+      .on('tick', () => {
+        nodes
+          .attr('cx', d => d.x)
+          .attr('cy', d => d.y);
+      });
 
-  sim.force('link')
-    .links(processedData.links)
-    .distance(d => 40);
 
   function dragstart(d) {
     if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
     d.fx = d.x;
     d.fy = d.y;
     $(this).addClass('active');
-    showDeleteButton();
+          // showDeleteButton();
   }
 
   function dragging(d) {
     d.fx = d3.event.x;
     d.fy = d3.event.y;
     d3.select(this).style('fill', '#FDACAB');
-    hoveringOnDelete();
+          // hoveringOnDelete();
   }
 
   function dragend(d) {
@@ -149,23 +144,132 @@ if (nodeDataArray.length < 1) {
       d.fx = null;
       d.fy = null;
     }
-
-    $(this).removeClass('active');
     d3.select(this).style('fill', 'white');
-    if ($('.delete-button').hasClass('deleting')) {
-      const id = d3.select(this).attr('id');
-      // Line below to be removed when loop is implemented
-      d3.select(this).style('display', 'none');
-      $('.delete-button').removeClass('deleting');
-      $.ajax({
-        type: 'DELETE',
-        url: 'memories',
-        data: { id },
-      });
-    }
-    hideDeleteButton();
+    $(this).removeClass('active');
   }
-  openTagMenu();
-  submitNewMemory();
 }
+// } else {
+//   const rScale = d3
+//   .scaleSqrt()
+//   .domain([0, d3.max(nodeDataArray, d => d.likes)])
+//   .range([3, 8]);
+//
+//   function zoomed() {
+//     d3.select('.memory-group').attr('transform', d3.event.transform);
+//   }
+//
+//   const fdGrp = svg
+//     .append('g')
+//     .attr('class', 'memory-group')
+//     .call(d3.zoom()
+//       .scaleExtent([1 / 3, 3])
+//       .on('zoom', zoomed));
+//
+//   const linkGrp = fdGrp
+//     .append('g')
+//     .attr('class', 'links');
+//
+//   const links = linkGrp
+//     .selectAll('line.link')
+//     .data(processedData.links)
+//     .enter()
+//     .append('line')
+//       .attr('x2', d => processedData.nodes[d.target].x,
+//       )
+//       .attr('y2', d => processedData.nodes[d.target].y,
+//       )
+//       .attr('x1', d => processedData.nodes[d.source].x,
+//       )
+//       .attr('y1', d => processedData.nodes[d.source].y,
+//       )
+//       .style('stroke', 'white')
+//       .style('stroke-width', '2px')
+//       .style('opacity', '0.8')
+//       .attr('class', d => `memory ${processedData.nodes[d.source].tag}`);
+//
+//   const nodeGrp = fdGrp
+//     .append('g')
+//       .attr('class', 'nodes');
+//
+//   const nodes = nodeGrp
+//     .selectAll('circle.node')
+//     .data(nodeDataArray)
+//     .enter()
+//     .append('circle')
+//       .attr('class', d => `memory ${d.tag}`)
+//       .attr('id', d => d.id)
+//       .attr('cy', d => d.y)
+//       .attr('cx', d => d.x)
+//       .attr('r', d => rScale(d.likes))
+//       .style('fill', 'white')
+//       .style('opacity', '0.8')
+//       .call(d3.drag()
+//         .on('start', dragstart)
+//         .on('drag', dragging)
+//         .on('end', dragend));
+//
+//   const sim = d3.forceSimulation()
+//     .force('link', d3.forceLink(processedData).id(d => d.id))
+//     .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
+//     .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
+//     .force('center', d3.forceCenter(180, 320));
+//
+//   sim
+//   .nodes(nodeDataArray)
+//   .on('tick', () => {
+//     nodes
+//       .attr('cx', d => d.x)
+//       .attr('cy', d => d.y);
+//     links
+//       .attr('x1', d =>
+//       processedData.nodes[d.source.id].x)
+//       .attr('y1', d => processedData.nodes[d.source.id].y)
+//       .attr('x2', d => processedData.nodes[d.target.id].x)
+//       .attr('y2', d => processedData.nodes[d.target.id].y);
+//   });
+//
+//   sim.force('link')
+//     .links(processedData.links)
+//     .distance(d => 40);
+//
+//   function dragstart(d) {
+//     if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+//     d.fx = d.x;
+//     d.fy = d.y;
+//     $(this).addClass('active');
+//     showDeleteButton();
+//   }
+//
+//   function dragging(d) {
+//     d.fx = d3.event.x;
+//     d.fy = d3.event.y;
+//     d3.select(this).style('fill', '#FDACAB');
+//     hoveringOnDelete();
+//   }
+//
+//   function dragend(d) {
+//     if (!d3.event.active) sim.alphaTarget(0);
+//     if (!d.outer) {
+//       d.fx = null;
+//       d.fy = null;
+//     }
+//
+//     $(this).removeClass('active');
+//     d3.select(this).style('fill', 'white');
+//     if ($('.delete-button').hasClass('deleting')) {
+//       const id = d3.select(this).attr('id');
+//       // Line below to be removed when loop is implemented
+//       d3.select(this).style('display', 'none');
+//       $('.delete-button').removeClass('deleting');
+//       $.ajax({
+//         type: 'DELETE',
+//         url: 'memories',
+//         data: { id },
+//       });
+//     }
+//     hideDeleteButton();
+//   }
+//   openTagMenu();
+//   submitNewMemory();
+// }
 // });
