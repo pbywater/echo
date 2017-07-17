@@ -602,7 +602,7 @@ label.memory-input__label {
   display: none !important;
 }
 
-.tag-input {
+.tag-input, .heading-input {
   font-size: 0.7em;
   padding: 0.8em;
   margin-top: 1em;
