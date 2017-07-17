@@ -109,51 +109,51 @@ function openTagMenu() {
 }
 
 function showHeading(d){
-setTimeout(() => {
-  const sim = d3.forceSimulation()
-    .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
-    .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
-    .force('center', d3.forceCenter(180, 320));
+  setTimeout(() => {
+    const sim = d3.forceSimulation()
+      .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
+      .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
+      .force('center', d3.forceCenter(180, 320));
 
     const text = d3.selectAll(`#nodeGrp${d.id}`)
-    .append('text')
-      .text(d => d.heading)
-      .attr('transform', `translate(-40, -25)`)
-      .attr('fill', '#526173')
-      .attr('class', 'memory-heading')
-      .attr('font-family', 'quicksand')
-      .attr('font-size', '0.9em')
-      .call(d3.drag()
-        .on('start', dragstart)
-        .on('drag', dragging)
-        .on('end', dragend));
+      .append('text')
+        .text(d => d.heading)
+        .attr('transform', `translate(-40, -25)`)
+        .attr('fill', '#526173')
+        .attr('class', 'memory-heading')
+        .attr('font-family', 'quicksand')
+        .attr('font-size', '0.9em')
+        .call(d3.drag()
+          .on('start', dragstart)
+          .on('drag', dragging)
+          .on('end', dragend));
 
-  sim
-  .nodes(d)
-  .on('tick', () => {
-    text
-      .attr('x', d => d.x)
-      .attr('y', d => d.y);
-  });
+    sim
+    .nodes(d)
+    .on('tick', () => {
+      text
+        .attr('x', d => d.x)
+        .attr('y', d => d.y);
+    });
 
-  function dragstart(d) {
-    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
-    d.fx = d.x;
-    d.fy = d.y;
-  }
-
-  function dragging(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-  }
-
-  function dragend(d) {
-    if (!d3.event.active) sim.alphaTarget(0);
-    if (!d.outer) {
-      d.fx = null;
-      d.fy = null;
-      }
+    function dragstart(d) {
+      if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+      d.fx = d.x;
+      d.fy = d.y;
     }
+
+    function dragging(d) {
+      d.fx = d3.event.x;
+      d.fy = d3.event.y;
+    }
+
+    function dragend(d) {
+      if (!d3.event.active) sim.alphaTarget(0);
+      if (!d.outer) {
+        d.fx = null;
+        d.fy = null;
+        }
+      }
   }, 1200);
 
 }
