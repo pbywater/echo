@@ -13,6 +13,16 @@ const getMemories = (userLogin, callback) => {
   connect.query(userSQLMemories, [userLogin], callback);
 };
 
+const getLikes = (memoryId, callback) => {
+  connect.query(
+    'SELECT memories.likes FROM memories WHERE memories.id = $1', [memoryId], (err, res) => {
+      if (err) {
+        return callback(err);
+      }
+      return callback(null, res.rows[0].likes);
+    });
+};
+
 const userSQL = 'SELECT * FROM users WHERE username = $1 OR email = $1';
 
 const getUser = (input, callback) => {
@@ -35,5 +45,6 @@ const getUser = (input, callback) => {
 
 module.exports = {
   getMemories,
+  getLikes,
   getUser,
 };
