@@ -435,17 +435,17 @@
 }
 
 .memory.active {
-  r: 20;
-  fill: #FDACAB;
+    r: 20;
+    fill: #FDACAB;
 }
 
 .delete-button {
-  display: none;
-  position: absolute;
-  width: 100%;
-  height: 50%;
-  left: 0;
-  bottom: 20%;
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    left: 0;
+    bottom: 20%;
 }
 
 .delete-button path {
@@ -558,6 +558,7 @@
     height: 2vh;
 }
 
+
 /* Media inputs */
 
 .memory-input__text {
@@ -570,32 +571,32 @@
 }
 
 .memory-input__placeholder {
-  color: #526173;
-  padding: 0.8em;
-  position: relative;
-  left: -19%;
+    color: #526173;
+    padding: 0.8em;
+    position: relative;
+    left: -19%;
 }
 
 label.memory-input__label {
-  font-size: 1em;
-  margin: 1em 0;
-  position: absolute;
-  top: -395%;
-  right: 7%;
-  color: #526173;
-  width: 86%;
-  line-height: 1.2em;
+    font-size: 1em;
+    margin: 1em 0;
+    position: absolute;
+    top: -395%;
+    right: 7%;
+    color: #526173;
+    width: 86%;
+    line-height: 1.2em;
 }
 
 .memory-input__submit {
-  width: 114px;
-  height: 40px;
-  margin-top: 20px;
-  font-size: 1em;
-  padding: 0.3em 0.9em;
-  border-radius: 3px;
-  border: none;
-  background-color: #91CFCF;
+    width: 114px;
+    height: 40px;
+    margin-top: 20px;
+    font-size: 1em;
+    padding: 0.3em 0.9em;
+    border-radius: 3px;
+    border: none;
+    background-color: #91CFCF;
 }
 
 .memory-input.hide, .close_icon.hide, .menu_icon.hide {
@@ -612,6 +613,36 @@ label.memory-input__label {
   margin-left: 0.5em;
 }
 
+.popupBoxHolder {
+    transition: width 3s ease-in-out, height 3s ease-in-out, ry 3s ease-in-out;
+}
+
+.popupBox {
+    transition: width 3s ease-in-out, height 3s ease-in-out, ry 3s ease-in-out;
+}
+
+.like-button {
+    transition: width 3s ease-in-out, height 3s ease-in-out;
+}
+
+@keyframes grow {
+    0%: {
+        width: 40px;
+        height: 40px;
+    }
+    50%: {
+        width: 40px;
+        height: 40px;
+    }
+    100%: {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.like-button.liked {
+transition: 1s grow forwards;
+}
 /* Sign up / log in styling */
 /* Needs refactoring!! */
 

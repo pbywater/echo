@@ -31,5 +31,8 @@ router.post('/login', require('./controllers/login.js'));
 router.route('/memories')
   .get(require('./controllers/getMemories.js'))
   .delete(require('./controllers/deleteMemory.js'));
+router.route('/likes')
+  .get(require('./controllers/getLikes.js'))
+  .post(require('./controllers/updateLikes.js'));
 
 module.exports = router;
