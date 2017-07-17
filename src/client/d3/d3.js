@@ -58,10 +58,13 @@ d3.json(url, (err, data) => {
     .append('g')
     .attr('class', 'links');
 
-  const links = linkGrp
+  const linksG = linkGrp
     .selectAll('line.link')
     .data(processedData.links)
     .enter()
+    .append('g');
+
+  const links = linksG
     .append('line')
       .attr('x2', d => processedData.nodes[d.target].x,
       )
@@ -80,10 +83,14 @@ d3.json(url, (err, data) => {
     .append('g')
       .attr('class', 'nodes');
 
-  const nodes = nodeGrp
+  const nodesG = nodeGrp
     .selectAll('circle.node')
     .data(nodeDataArray)
     .enter()
+    .append('g')
+    .attr('id', d => `nodeGrp${d.id}`);
+
+  const nodes = nodesG
     .append('circle')
       .attr('class', d => `memory ${d.tag}`)
       .attr('id', d => d.id)
@@ -126,7 +133,7 @@ d3.json(url, (err, data) => {
     d.fx = d.x;
     d.fy = d.y;
     $(this).addClass('active');
-    showDeleteButton();
+    showDeleteButton(d);
   }
 
   function dragging(d) {
@@ -141,6 +148,9 @@ d3.json(url, (err, data) => {
     if (!d.outer) {
       d.fx = null;
       d.fy = null;
+
+      d3.selectAll('.memory-heading')
+        .remove();
     }
 
     $(this).removeClass('active');

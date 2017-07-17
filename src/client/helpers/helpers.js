@@ -108,12 +108,20 @@ function openTagMenu() {
   removingTags();
 }
 
-function showDeleteButton() {
+function showDeleteButton(d) {
+  console.log(d);
   setTimeout(() => {
     if ($('.memory').hasClass('active')) {
       $('.menu > *').fadeOut();
       $('.delete-button').fadeIn();
     }
+    d3.selectAll(`#nodeGrp${d.id}`)
+      .append('text')
+      .text(d => d.heading)
+      .attr('transform', `translate(${d.x}, ${d.y})`)
+      .attr('fill', 'black')
+      .attr('class', 'memory-heading');
+
   }, 1200);
 }
 
