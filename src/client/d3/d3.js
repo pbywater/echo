@@ -270,6 +270,6 @@ function render(updatedData, nodeDataArray) {
       });
     }
     hideDeleteButton();
-    // sim.restart();
+    sim.restart();
   }
 }
