@@ -4,8 +4,9 @@
   "description": "Anna Freud happy memory app",
   "main": "index.js",
   "scripts": {
-    "start": "browserify src/client/main.js -o public/bundle.js && node src/server/app.js",
+    "start": "node src/server/app.js",
     "devStart": "nodemon src/server/app.js",
+    "postinstall": "browserify src/client/main.js -o public/bundle.js",
     "test": "node tests/src/client",
     "build": "browserify src/client/main.js -o public/bundle.js",
     "watch": "watchify src/client/main.js -o public/bundle.js"
@@ -26,13 +27,15 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.6.0",
-    "nodemon": "^1.11.0",
-    "tape": "^4.7.0",
-    "tap-spec": "^4.1.1",
-    "watchify": "^3.9.0",
     "body-parser": "^1.17.2",
     "env2": "^2.2.0",
     "express": "^4.15.3",
     "pg": "^6.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "tape": "^4.7.0",
+    "tap-spec": "^4.1.1",
+    "watchify": "^3.9.0",
   }
 }
