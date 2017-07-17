@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "devStart": "nodemon src/server/app.js",
-    "start": "node src/server/app.js",
+    "start": "browserify src/client/main.js -o public/bundle.js && node src/server/app.js",
     "test": "node tests/src/client",
     "build": "browserify src/client/main.js -o public/bundle.js",
     "watch": "watchify src/client/main.js -o public/bundle.js"
@@ -20,7 +20,7 @@
     "url": "https://github.com/pbywater/echo/issues"
   },
   "homepage": "https://github.com/pbywater/echo#readme",
-  "dpendencies": {
+  "dependencies": {
     "bcrypt": "^1.0.2",
     "browserify": "^14.4.0",
     "eslint": "^3.19.0",
