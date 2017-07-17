@@ -1,4 +1,4 @@
-const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submitNewMemory } = require('../helpers/helpers.js');
+const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submitNewMemory, showHeading } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { sortWithMax, binByTag, memoryNodesAndLinks, centralMaxNodesByTag } = require('../node_transformations');
 
@@ -133,7 +133,8 @@ d3.json(url, (err, data) => {
     d.fx = d.x;
     d.fy = d.y;
     $(this).addClass('active');
-    showDeleteButton(d);
+    showDeleteButton();
+    showHeading(d);
   }
 
   function dragging(d) {
