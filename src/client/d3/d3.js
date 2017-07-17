@@ -6,7 +6,6 @@ const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
   formatData(data, render);
-  console.log('running this');
   openTagMenu();
   submitNewMemory();
 });
