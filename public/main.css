@@ -562,12 +562,12 @@
 /* Media inputs */
 
 .memory-input__text {
-    font-size: 1em;
-    padding: 0.8em;
-    margin-top: 1em;
-    height: 252px;
-    width: 280px;
-    color: #526173;
+  font-size: 1em;
+  padding: 0.8em;
+  margin-top: 1em;
+  height: 200px;
+  width: 280px;
+  color: #526173;
 }
 
 .memory-input__placeholder {
@@ -600,7 +600,17 @@ label.memory-input__label {
 }
 
 .memory-input.hide, .close_icon.hide, .menu_icon.hide {
-    display: none !important;
+  display: none !important;
+}
+
+.tag-input {
+  font-size: 0.7em;
+  padding: 0.8em;
+  margin-top: 1em;
+  height: 20px;
+  width: 280px;
+  color: #526173;
+  margin-left: 0.5em;
 }
 
 .popupBoxHolder {
@@ -644,12 +654,12 @@ form.signup-form {
 
 input.input {
   display: block;
+  -webkit-appearance: none;
   appearance: none;
   outline: 0;
   border: 1px solid fade(white, 40%);
   background-color: fade(white, 20%);
   width: 250px;
--webkit-appearance: none;
   border-radius: 3px;
   padding: 10px 15px;
   margin: 0 auto 10px auto;
