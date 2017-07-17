@@ -662,6 +662,36 @@ label.memory-input__label {
     margin-left: 0.5em;
 }
 
+.popupBoxHolder {
+    transition: width 3s ease-in-out, height 3s ease-in-out, ry 3s ease-in-out;
+}
+
+.popupBox {
+    transition: width 3s ease-in-out, height 3s ease-in-out, ry 3s ease-in-out;
+}
+
+.like-button {
+    transition: width 3s ease-in-out, height 3s ease-in-out;
+}
+
+@keyframes grow {
+    0%: {
+        width: 40px;
+        height: 40px;
+    }
+    50%: {
+        width: 40px;
+        height: 40px;
+    }
+    100%: {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.like-button.liked {
+transition: 1s grow forwards;
+}
 
 /* Sign up / log in styling */
 

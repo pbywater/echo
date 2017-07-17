@@ -67,4 +67,7 @@ _assets_exports/
 # build output
 **/bundle.js
 
+_DS_Store
+._DS_Store
+
 echo-af
