@@ -29,20 +29,20 @@ VALUES ('test', 'will be hashed', 'test@test.com');
 
 INSERT INTO memories (user_id, heading, likes, visits, tag, memory_asset_url, memory_text, media_type)
 VALUES
-(1, 'testHeading', 10, 1, 'family', 'testurl', 'testMemoryText', 'text_only'),
+(1, 'testHeading', 10, 1, 'family', '', 'Donec et orci eu felis malesuada venenatis. Aliquam erat volutpat. Morbi eget felis ut metus malesuada ullamcorper. Maecenas sem nulla, tincidunt ut aliquam vestibulum, iaculis vel diam. Morbi mattis leo.', 'text_only'),
 (1, 'testHeading', 7, 1, 'family', 'testurl', 'testMemoryText', 'audio'),
-(1, 'testHeading', 35, 1, 'family', 'testurl', 'testMemoryText', 'image'),
+(1, 'testHeading', 35, 1, 'family', 'https://levoyageverslest.files.wordpress.com/2010/01/zaoouunautre.jpg', 'testMemoryText', 'image'),
 (1, 'testHeading', 7, 1, 'family', 'testurl', 'testMemoryText', 'video'),
-(1, 'testHeading', 19, 1, 'family', 'testurl', 'testMemoryText', 'text_only'),
+(1, 'testHeading', 19, 1, 'family', '', 'Donec et orci eu felis malesuada venenatis. Aliquam erat volutpat. Morbi eget felis ut metus malesuada ullamcorper. Maecenas sem nulla, tincidunt ut aliquam vestibulum, iaculis vel diam. Morbi mattis leo.', 'text_only'),
 (1, 'testHeading', 10, 1, 'pets', 'testurl', 'testMemoryText', 'audio'),
-(1, 'testHeading', 7, 1, 'pets', 'testurl', 'testMemoryText', 'image'),
+(1, 'testHeading', 7, 1, 'pets', 'https://levoyageverslest.files.wordpress.com/2010/01/zaoouunautre.jpg', 'testMemoryText', 'image'),
 (1, 'testHeading', 35, 1, 'pets', 'testurl', 'testMemoryText', 'video'),
-(1, 'testHeading', 7, 1, 'pets', 'testurl', 'testMemoryText', 'text_only'),
+(1, 'testHeading', 7, 1, 'pets', '', 'Donec et orci eu felis malesuada venenatis. Aliquam erat volutpat. Morbi eget felis ut metus malesuada ullamcorper. Maecenas sem nulla, tincidunt ut aliquam vestibulum, iaculis vel diam. Morbi mattis leo.', 'text_only'),
 (1, 'testHeading', 19, 1, 'pets', 'testurl', 'testMemoryText', 'audio'),
-(1, 'testHeading', 10, 1, 'friends', 'testurl', 'testMemoryText', 'image'),
+(1, 'testHeading', 10, 1, 'friends', 'https://levoyageverslest.files.wordpress.com/2010/01/zaoouunautre.jpg', 'testMemoryText', 'image'),
 (1, 'testHeading', 7, 1, 'friends', 'testurl', 'testMemoryText', 'video'),
-(1, 'testHeading', 35, 1, 'friends', 'testurl', 'testMemoryText', 'text_only'),
+(1, 'testHeading', 35, 1, 'friends', '', 'Donec et orci eu felis malesuada venenatis. Aliquam erat volutpat. Morbi eget felis ut metus malesuada ullamcorper. Maecenas sem nulla, tincidunt ut aliquam vestibulum, iaculis vel diam. Morbi mattis leo.', 'text_only'),
 (1, 'testHeading', 6, 1, 'friends', 'testurl', 'testMemoryText', 'audio'),
-(1, 'testHeading', 19, 1, 'friends', 'testurl', 'testMemoryText', 'image');
+(1, 'testHeading', 19, 1, 'friends', 'https://levoyageverslest.files.wordpress.com/2010/01/zaoouunautre.jpg', 'testMemoryText', 'image');
 
 COMMIT;

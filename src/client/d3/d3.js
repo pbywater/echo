@@ -2,6 +2,7 @@ const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submi
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { sortWithMax, binByTag, memoryNodesAndLinks, centralMaxNodesByTag } = require('../node_transformations');
 const { newUserIntro } = require('./newUserIntro.js');
+const { appendPopUp, randomPopUp } = require('./modals.js');
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
@@ -100,7 +101,10 @@ d3.json(url, (err, data) => {
       .call(d3.drag()
         .on('start', dragstart)
         .on('drag', dragging)
-        .on('end', dragend));
+        .on('end', dragend))
+      .on('click', (d) => {
+        appendPopUp(d);
+      });
 
     const sim = d3.forceSimulation()
     .force('link', d3.forceLink(processedData).id(d => d.id))
@@ -126,6 +130,7 @@ d3.json(url, (err, data) => {
     .links(processedData.links)
     .distance(d => 40);
 
+
     function dragstart(d) {
       if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
       d.fx = d.x;
@@ -134,12 +139,25 @@ d3.json(url, (err, data) => {
       showDeleteButton();
     }
 
-    function dragging(d) {
-      d.fx = d3.event.x;
-      d.fy = d3.event.y;
-      d3.select(this).style('fill', '#FDACAB');
-      hoveringOnDelete();
-    }
+  d3.select('.shuffle-memories').on('click', () => {
+    randomPopUp(nodeDataArray);
+  });
+
+  function dragstart(d) {
+    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+    d.fx = d.x;
+    d.fy = d.y;
+    $(this).addClass('active');
+    showDeleteButton();
+  }
+
+  function dragging(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+    d3.select(this).style('fill', '#FDACAB');
+    hoveringOnDelete();
+  }
+
 
     function dragend(d) {
       if (!d3.event.active) sim.alphaTarget(0);
