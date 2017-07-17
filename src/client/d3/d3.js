@@ -255,27 +255,21 @@ function render(updatedData, nodeDataArray) {
     d3.select(this).style('fill', 'white');
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
-      console.log('id is ', id);
-      // Line below to be removed when loop is implemented
-      // d3.select(this).style('display', 'none');
       $('.delete-button').removeClass('deleting');
       function update(url) {
-        setTimeout(() => {
-          d3.json(url, (err, data) => {
-            console.log('data is ', data);
-            formatData(data, render);
-            sim.restart();
-          });
-        }, 50);
+        d3.json(url, (err, data) => {
+          formatData(data, render);
+          sim.restart();
+        });
       }
       $.ajax({
-        type: 'DELETE',
+        method: 'DELETE',
         url: 'memories',
         data: { id },
-        success: update(url),
+        success: () => update(url),
       });
     }
     hideDeleteButton();
-    sim.restart();
+    // sim.restart();
   }
 }
