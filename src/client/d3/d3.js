@@ -38,6 +38,7 @@ d3.json(url, (err, data) => {
   Object.keys(processedData.nodes).forEach((key) => {
     nodeDataArray.push(processedData.nodes[key]);
   });
+
   const rScale = d3
   .scaleSqrt()
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
