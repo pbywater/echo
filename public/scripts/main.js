@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }, 1000);
 
     setTimeout(() => {
-      $('.memory-input')
+      $(`.memory-input.${menuItemId}`)
         .removeClass('hide');
     }, 1100);
 
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         .removeClass('hide');
       $('.close_icon')
         .addClass('hide');
-      $('.memory-input')
+      $(`.memory-input.${menuItemId}`)
         .addClass('hide');
     });
   }
