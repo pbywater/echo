@@ -43,7 +43,6 @@ const getXAndY = (angle, distance, startingCx, startingCy) => {
 
 const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentLikes) => {
   const angle = ((2 * Math.PI) / numTagMemories) * memoryIndex;
-  // const distance = (tagNode.likes - currentLikes) * 2 || 50;
   const distance = tagNode.likes - currentLikes !== 0 ? (tagNode.likes - currentLikes) * 2 : 50;
   return getXAndY(angle, distance, tagNode.x, tagNode.y);
 };
