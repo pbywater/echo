@@ -652,14 +652,14 @@ label.memory-input__label {
     display: none !important;
 }
 
-.tag-input {
-    font-size: 0.7em;
-    padding: 0.8em;
-    margin-top: 1em;
-    height: 20px;
-    width: 280px;
-    color: #526173;
-    margin-left: 0.5em;
+.tag-input, .heading-input {
+  font-size: 0.7em;
+  padding: 0.8em;
+  margin-top: 1em;
+  height: 20px;
+  width: 280px;
+  color: #526173;
+  margin-left: 0.5em;
 }
 
 .popupBoxHolder {
@@ -880,4 +880,13 @@ a:hover {
     text-align: center;
     font-size: 14px;
     color: #526173;
+}
+
+/* logout button */
+
+.logout-button {
+  color: black;
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
 }
