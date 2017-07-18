@@ -881,3 +881,10 @@ a:hover {
     font-size: 14px;
     color: #526173;
 }
+
+@media screen and (max-width: 768px) {
+  #d3-container {
+      width: 100vw;
+      height: 100vh;
+  }
+}
