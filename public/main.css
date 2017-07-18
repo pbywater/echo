@@ -26,18 +26,18 @@
 
 .d3-background {
     position: absolute;
-    background-color: rgb(142, 165, 206);
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(145, 207, 207) 100%);
+    background-color: #8EA5CE;
+    background-image: linear-gradient(to bottom, rgba(142, 165, 206, 0), #91CFCF 100%);
     -webkit-animation: gradientChange 10s ease-in infinite;
     overflow: hidden;
 }
 
 @keyframes gradientChange {
     50% {
-        background-color: rgb(145, 207, 207);
+        background-color: #91CFCF;
     }
     75% {
-        background-color: rgb(142, 165, 206);
+        background-color: #8EA5CE;
     }
 }
 
@@ -468,7 +468,7 @@
     display: none;
     justify-content: space-around;
     list-style-type: none;
-    background: rgb(142, 165, 206);
+    background: #8EA5CE;
     border-radius: 30%;
     align-items: center;
 }
@@ -653,13 +653,13 @@ label.memory-input__label {
 }
 
 .tag-input, .heading-input {
-  font-size: 0.7em;
-  padding: 0.8em;
-  margin-top: 1em;
-  height: 20px;
-  width: 280px;
-  color: #526173;
-  margin-left: 0.5em;
+    font-size: 0.7em;
+    padding: 0.8em;
+    margin-top: 1em;
+    height: 20px;
+    width: 280px;
+    color: #526173;
+    margin-left: 0.5em;
 }
 
 .popupBoxHolder {
@@ -690,8 +690,9 @@ label.memory-input__label {
 }
 
 .like-button.liked {
-transition: 1s grow forwards;
+    transition: 1s grow forwards;
 }
+
 
 /* Sign up / log in styling */
 
@@ -882,11 +883,22 @@ a:hover {
     color: #526173;
 }
 
+
 /* logout button */
 
 .logout-button {
-  color: black;
-  position: absolute;
-  bottom: 10%;
-  right: 10%;
+    color: black;
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+}
+
+@media screen and (max-width: 768px) {
+    #d3-container {
+        width: 100vw;
+        height: 100vh;
+    }
+    #desktop-background {
+        display: block;
+    }
 }
