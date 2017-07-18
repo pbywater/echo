@@ -156,6 +156,24 @@ function initSubmitMemory() {
   })
 }
 
+function constructTagList(uniqueTagList) {
+  Object.keys(uniqueTagList).forEach((tag) => {
+    tag = tag.replace(/\W/g, '');
+    $('.tags').append(
+    `<li class='tag-container ${tag}'>
+      <p class='tagLabel'>${tag}</p>
+      <img class='filter-tags ${tag}' src="./assets/icons/navigate/close_icon.svg"/>
+    </li>`);
+  });
+
+  $('.tags').append(
+  `<li class='clear-tags'>clear</li>
+  <li class='close-tags'>
+    <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
+    </img>
+  </li>`);
+}
+
 module.exports = {
   binByKey,
   getRandomInt,
@@ -164,4 +182,5 @@ module.exports = {
   showDeleteButton,
   hoveringOnDelete,
   hideDeleteButton,
+  constructTagList,
 };

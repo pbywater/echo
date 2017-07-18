@@ -1,4 +1,4 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
@@ -24,21 +24,7 @@ const formatData = (data, callback) => {
   const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
 
 // Add unique tags to tag list for user to select from
-  Object.keys(centralNodesByTag).forEach((tag) => {
-    tag = tag.replace(/\W/g, '');
-    $('.tags').append(
-    `<li class='tag-container ${tag}'>
-      <p class='tagLabel'>${tag}</p>
-      <img class='filter-tags ${tag}' src="./assets/icons/navigate/close_icon.svg"/>
-    </li>`);
-  });
-
-  $('.tags').append(
-  `<li class='clear-tags'>clear</li>
-  <li class='close-tags'>
-    <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
-    </img>
-  </li>`);
+  constructTagList(centralNodesByTag);
 
 // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
