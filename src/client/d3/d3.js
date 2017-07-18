@@ -222,12 +222,6 @@ function render(updatedData, nodeDataArray) {
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
       $('.delete-button').removeClass('deleting');
-      function update(url) {
-        d3.json(url, (err, data) => {
-          formatData(data, render);
-          sim.restart();
-        });
-      }
       $.ajax({
         method: 'DELETE',
         url: 'memories',
@@ -240,20 +234,20 @@ function render(updatedData, nodeDataArray) {
   }
 
   $('#memory-input__submit').click((e) => {
+    const data = $('#add-text-form').serialize();
     e.preventDefault();
-
-    function update(url) {
-      d3.json(url, (err, data) => {
-        console.log(data);
-        formatData(data, render);
-        // sim.restart();
-      });
-    }
     $.ajax({
       method: 'POST',
       url: 'memory-input-text',
       data: $('#add-text-form').serialize(),
       success: () => update(url),
     });
+  });
+}
+
+function update(url) {
+  d3.json(url, (err, data) => {
+    formatData(data, render);
+    sim.restart();
   });
 }
