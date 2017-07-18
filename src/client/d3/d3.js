@@ -226,7 +226,7 @@ function render(updatedData, nodeDataArray) {
         method: 'DELETE',
         url: 'memories',
         data: { id },
-        success: () => update(url),
+        success: () => update(),
       });
     }
     hideDeleteButton();
@@ -240,14 +240,16 @@ function render(updatedData, nodeDataArray) {
       method: 'POST',
       url: 'memory-input-text',
       data: $('#add-text-form').serialize(),
-      success: () => update(url),
+      success: () => setTimeout(() => {
+        update();
+      }, 2000),
     });
   });
-}
 
-function update(url) {
-  d3.json(url, (err, data) => {
-    formatData(data, render);
-    sim.restart();
-  });
+  function update() {
+    d3.json(url, (err, data) => {
+      formatData(data, render);
+      sim.restart();
+    });
+  }
 }
