@@ -119,7 +119,7 @@ function showHeading(d){
       .append('text')
         .text(d => d.heading)
         .attr('transform', `translate(-40, -25)`)
-        .attr('fill', '#526173')
+        .attr('fill', 'white')
         .attr('class', 'memory-heading')
         .attr('font-family', 'quicksand')
         .attr('font-size', '0.9em')
