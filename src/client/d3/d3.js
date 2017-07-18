@@ -1,4 +1,4 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submitNewMemory, tagSorting } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
@@ -8,7 +8,7 @@ const url = location.hostname ? '/memories' : jsonUrl;
 d3.json(url, (err, data) => {
   formatData(data, render);
   initTagMenu();
-  submitNewMemory();
+  initSubmitMemory();
 });
 
 const formatData = (data, callback) => {

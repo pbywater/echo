@@ -135,7 +135,7 @@ function hideDeleteButton() {
 }
 
 
-function submitNewMemory() {
+function initSubmitMemory() {
   $('.memory-input__submit')
   .on('click', function() {
     $('.finished')
@@ -160,7 +160,7 @@ module.exports = {
   binByKey,
   getRandomInt,
   initTagMenu,
-  submitNewMemory,
+  initSubmitMemory,
   showDeleteButton,
   hoveringOnDelete,
   hideDeleteButton,
