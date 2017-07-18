@@ -19,6 +19,7 @@ const centralMaxNodesByTag = (tagsArray, startingCx, startingCy) => {
   arrayCopy.forEach((tag, i) => {
     out[tag.max.tag] = {
       id: tag.max.id,
+      heading: tag.max.heading,
       media_type: tag.max.media_type,
       memory_asset_url: tag.max.memory_asset_url || '',
       memory_text: tag.max.memory_text || '',

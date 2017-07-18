@@ -1,4 +1,4 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
@@ -12,8 +12,8 @@ d3.json(url, (err, data) => {
 });
 
 const formatData = (data) => {
-// binByTag sorts data by tag
-// e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
+  // binByTag sorts data by tag
+  // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
   const binnedByTag = binByTag(data);
   // sortedWithMax sorts each tag group to separate max memory (by likes) from others in its group
   const sortedWithMax = [];
@@ -186,6 +186,7 @@ function render(updatedData) {
     d.fy = d.y;
     $(this).addClass('active');
     showDeleteButton();
+    showHeading(d);
   }
 
   function dragging(d) {
@@ -200,6 +201,9 @@ function render(updatedData) {
     if (!d.outer) {
       d.fx = null;
       d.fy = null;
+
+      d3.selectAll('.memory-heading')
+        .remove();
     }
 
     $(this).removeClass('active');
