@@ -4,6 +4,11 @@ const cookieSession = require('cookie-session');
 
 const router = express.Router();
 
+const environment = require('env2');
+
+environment('./config.env');
+
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
   extended: true,
