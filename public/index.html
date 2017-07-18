@@ -144,13 +144,13 @@
   </g>
   </svg>
 
-                <form class="memory-input pencil hide" action="memory-input-text" method="post">
+                <form class="memory-input pencil hide" action="" method="post" id="add-text-form">
                     <label class="memory-input__label pencil"><span class="memory-input__placeholder">Write your memory</span>
               <textarea class="memory-input__text" name="memory_text" type="text" placeholder="My memory..."></textarea>
               <input class="tag-input" name="tag" type="text" placeholder="Enter a tag..."></input>
               <br>
-              <input class="memory-input__submit pencil" type="submit" value="Save">
-            </label>
+              <input class="memory-input__submit pencil" id="memory-input__submit" type="submit" value="Save">
+                    </label>
                 </form>
                 <div class='memory-input camera hide img-background'></div>
                 <img src='assets/icons/card_icons/photo_folder_icon.svg' class='memory-input camera hide image' />

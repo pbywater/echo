@@ -238,4 +238,22 @@ function render(updatedData, nodeDataArray) {
     hideDeleteButton();
     sim.restart();
   }
+
+  $('#memory-input__submit').click((e) => {
+    e.preventDefault();
+
+    function update(url) {
+      d3.json(url, (err, data) => {
+        console.log(data);
+        formatData(data, render);
+        // sim.restart();
+      });
+    }
+    $.ajax({
+      method: 'POST',
+      url: 'memory-input-text',
+      data: $('#add-text-form').serialize(),
+      success: () => update(url),
+    });
+  });
 }
