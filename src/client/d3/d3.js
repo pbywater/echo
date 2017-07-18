@@ -6,7 +6,7 @@ const { appendPopUp, randomPopUp } = require('./modals.js');
 const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
-  formatData(data);
+  render(formatData(data));
   initTagMenu();
   initSubmitMemory();
 });
@@ -29,14 +29,15 @@ const formatData = (data) => {
 // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
 
-  const nodeDataArray = [];
-  Object.keys(processedData.nodes).forEach((key) => {
-    nodeDataArray.push(processedData.nodes[key]);
-  });
-  render(processedData, nodeDataArray);
+  return processedData;
 };
 
-function render(updatedData, nodeDataArray) {
+function render(updatedData) {
+  const nodeDataArray = [];
+  Object.keys(updatedData.nodes).forEach((key) => {
+    nodeDataArray.push(updatedData.nodes[key]);
+  });
+
   const rScale = d3
   .scaleSqrt()
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
@@ -208,7 +209,7 @@ function render(updatedData, nodeDataArray) {
       $('.delete-button').removeClass('deleting');
       function update(url) {
         d3.json(url, (err, data) => {
-          formatData(data);
+          render(formatData(data));
           sim.restart();
         });
       }
