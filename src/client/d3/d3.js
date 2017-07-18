@@ -1,6 +1,7 @@
 const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submitNewMemory, tagSorting } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
+const { appendPopUp, randomPopUp } = require('./modals.js');
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
@@ -9,13 +10,6 @@ d3.json(url, (err, data) => {
   openTagMenu();
   submitNewMemory();
 });
-
-// DELETE THIS
-let id = 100;
-const generatenum = function () {
-  id += 1;
-  return id;
-};
 
 const formatData = (data, callback) => {
 // binByTag sorts data by tag
@@ -38,12 +32,14 @@ const formatData = (data, callback) => {
       <img class='filter-tags ${tag}' src="./assets/icons/navigate/close_icon.svg"/>
     </li>`);
   });
+
   $('.tags').append(
   `<li class='clear-tags'>clear</li>
   <li class='close-tags'>
     <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
     </img>
   </li>`);
+
 // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
 
@@ -52,48 +48,7 @@ const formatData = (data, callback) => {
     nodeDataArray.push(processedData.nodes[key]);
   });
   callback(processedData, nodeDataArray);
-
-  d3
-    .selectAll('#testy')
-    .on('click', () => {
-      processedData.links.push(fakeLink);
-      processedData.nodes[fakeMemory.id] = fakeMemory;
-
-      const nodeDataArray2 = [];
-      Object.keys(processedData.nodes).forEach((key) => {
-        nodeDataArray2.push(processedData.nodes[key]);
-      });
-
-      callback(processedData, nodeDataArray2);
-    });
-
-  const id = generatenum();
-
-  const fakeMemory =
-    {
-      avgrating: 7.3,
-      heading: 'testytesttest',
-      id,
-      index: 5,
-      likes: 3,
-      media_type: 'image',
-      memory_asset_url: 'www.fake.com',
-      memory_text: 'fake',
-      tag: 'family',
-      visits: 1,
-      new: true,
-      vx: 0,
-      vy: 0,
-      x: 110,
-      y: 100,
-    };
-  const fakeLink = {
-    index: 100,
-    source: id,
-    target: 3,
-  };
 };
-
 
 function render(updatedData, nodeDataArray) {
   // const t = d3.transition().duration(750);
@@ -114,19 +69,24 @@ function render(updatedData, nodeDataArray) {
 // EXIT old elements to be removed
   links
     .exit()
-      // .transition()
-      //   .duration(750)
-      //   .ease(d3.easeLinear)
       .style('fill-opacity', 0)
       .remove();
 
   nodes
     .exit()
-      // .transition()
-      //   .duration(750)
-      //   .ease(d3.easeLinear)
       .style('fill-opacity', 0)
       .remove();
+
+  function zoomed() {
+    d3.select('.memory-group').attr('transform', d3.event.transform);
+  }
+
+  const fdGrp = svg
+    .append('g')
+    .attr('class', 'memory-group')
+    .call(d3.zoom()
+      .scaleExtent([1 / 3, 3])
+      .on('zoom', zoomed));
 
 // UPDATE old elements still in the data
   links
@@ -199,16 +159,18 @@ function render(updatedData, nodeDataArray) {
       .call(d3.drag()
         .on('start', dragstart)
         .on('drag', dragging)
-        .on('end', dragend));
+        .on('end', dragend))
+      .on('click', (d) => {
+        appendPopUp(d);
+      });
 
   nodes = enterNodes.merge(nodes);
 
   const sim = d3.forceSimulation()
-  .force('link', d3.forceLink().id(d => d.id))
-  .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
-  .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
-  .force('center', d3.forceCenter(180, 320))
-  .stop();
+    .force('link', d3.forceLink().id(d => d.id))
+    .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
+    .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
+    .force('center', d3.forceCenter(180, 320));
 
   sim
   .nodes(nodeDataArray)
@@ -228,6 +190,10 @@ function render(updatedData, nodeDataArray) {
   .distance(d => 40);
 
   sim.restart();
+
+  d3.select('.shuffle-memories').on('click', () => {
+    randomPopUp(nodeDataArray);
+  });
 
   function dragstart(d) {
     if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
@@ -250,6 +216,7 @@ function render(updatedData, nodeDataArray) {
       d.fx = null;
       d.fy = null;
     }
+
     $(this).removeClass('active');
     d3.select(this).style('fill', 'white');
     if ($('.delete-button').hasClass('deleting')) {

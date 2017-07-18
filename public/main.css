@@ -29,6 +29,7 @@
     background-color: rgb(142, 165, 206);
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(145, 207, 207) 100%);
     -webkit-animation: gradientChange 10s ease-in infinite;
+    overflow: hidden;
 }
 
 @keyframes gradientChange {
@@ -434,17 +435,17 @@
 }
 
 .memory.active {
-  r: 20;
-  fill: #FDACAB;
+    r: 20;
+    fill: #FDACAB;
 }
 
 .delete-button {
-  display: none;
-  position: absolute;
-  width: 100%;
-  height: 50%;
-  left: 0;
-  bottom: 20%;
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    left: 0;
+    bottom: 20%;
 }
 
 .delete-button path {
@@ -477,6 +478,8 @@
     display: none;
     text-align: center;
     height: 50%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .top-bar {
@@ -485,6 +488,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    overflow: scroll;
 }
 
 .shuffle-memories {
@@ -554,46 +558,326 @@
     height: 2vh;
 }
 
+
 /* Media inputs */
 
 .memory-input__text {
-  font-size: 1em;
-  padding: 0.8em;
-  margin-top: 1em;
-  height: 252px;
-  width: 280px;
-  color: #526173;
+    font-size: 1em;
+    padding: 0.8em;
+    margin-top: 1em;
+    height: 200px;
+    width: 280px;
+    color: #526173;
+}
+
+.memory-input.camera, .memory-input.microphone {
+    bottom: 179%;
+    position: absolute;
+    left: 24%;
+    width: 54%;
+    height: 46%;
+    border: 1.5px solid #8EA5CE;
+    border-radius: 4%;
+}
+
+.memory-input.camera.img-background, .memory-input.microphone.img-background {
+    height: 220px;
+    width: 260px;
+    background: #F7F7F7;
+    border: none;
+    border-radius: 2%;
+    left: 14%;
+    bottom: 243%;
+}
+
+.memory-input.camera.image, .memory-input.microphone.image {
+    bottom: 300%;
+    border: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
 }
 
 .memory-input__placeholder {
-  color: #526173;
-  padding: 0.8em;
-  position: relative;
-  left: -19%;
+    color: #526173;
+    padding: 0.8em;
+    position: relative;
+    left: -19%;
+}
+
+label.memory-input__label.camera, label.memory-input__label.microphone {
+    margin: 0;
+    top: 27%;
+    color: #526173;
+    line-height: 1.2em;
+    position: absolute;
+    width: 100%;
+    right: 0%;
+    color: #8EA5CE;
+}
+
+.memory-input__submit.camera, .memory-input__submit.microphone {
+    width: 100%;
+    height: 50px;
+    margin-top: 0;
+    font-size: 0;
+    padding: 0;
+    border-radius: 0;
 }
 
 label.memory-input__label {
-  font-size: 1em;
-  margin: 1em 0;
-  position: absolute;
-  top: -395%;
-  right: 7%;
-  color: #526173;
-  width: 86%;
-  line-height: 1.2em;
+    font-size: 1em;
+    margin: 1em 0;
+    position: absolute;
+    top: -395%;
+    right: 7%;
+    color: #526173;
+    width: 86%;
+    line-height: 1.2em;
 }
 
 .memory-input__submit {
-  width: 114px;
-  height: 40px;
-  margin-top: 20px;
-  font-size: 1em;
-  padding: 0.3em 0.9em;
-  border-radius: 3px;
-  border: none;
-  background-color: #91CFCF;
+    width: 114px;
+    height: 40px;
+    margin-top: 20px;
+    font-size: 1em;
+    padding: 0.3em 0.9em;
+    border-radius: 3px;
+    border: none;
+    background-color: #91CFCF;
 }
 
 .memory-input.hide, .close_icon.hide, .menu_icon.hide {
     display: none !important;
+}
+
+.tag-input {
+    font-size: 0.7em;
+    padding: 0.8em;
+    margin-top: 1em;
+    height: 20px;
+    width: 280px;
+    color: #526173;
+    margin-left: 0.5em;
+}
+
+.popupBoxHolder {
+    transition: width 3s ease-in-out, height 3s ease-in-out, ry 3s ease-in-out;
+}
+
+.popupBox {
+    transition: width 3s ease-in-out, height 3s ease-in-out, ry 3s ease-in-out;
+}
+
+.like-button {
+    transition: width 3s ease-in-out, height 3s ease-in-out;
+}
+
+@keyframes grow {
+    0%: {
+        width: 40px;
+        height: 40px;
+    }
+    50%: {
+        width: 40px;
+        height: 40px;
+    }
+    100%: {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.like-button.liked {
+transition: 1s grow forwards;
+}
+
+/* Sign up / log in styling */
+
+
+/* Needs refactoring!! */
+
+form.signup-form {
+    padding: 20px 0;
+    position: relative;
+    z-index: 2;
+}
+
+input.input {
+    display: block;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: 0;
+    border: 1px solid fade(white, 40%);
+    background-color: fade(white, 20%);
+    width: 250px;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    text-align: left;
+    font-size: 18px;
+    color: #526173;
+    transition-duration: 0.25s;
+    font-weight: 300;
+}
+
+input.input:hover {
+    background-color: fade(white, 40%);
+}
+
+input.input:focus {
+    background-color: white;
+    width: 300px;
+}
+
+input.button {
+    text-align: center;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #8ea5ce;
+}
+
+.form-wrap {
+    position: absolute;
+    z-index: 3;
+    top: 25%;
+    left: 5.55%;
+    background-color: #fff;
+    color: black;
+    width: 320px;
+    margin: 3em auto;
+    box-shadow: 0px 1px 8px #BEBEBE;
+    -webkit-box-shadow: 0px 1px 8px #BEBEBE;
+    -moz-box-shadow: 0px 1px 8px #BEBEBE;
+    margin-top: -0.5rem;
+}
+
+.form-wrap .tabs {
+    overflow: hidden;
+}
+
+.form-wrap .tabs h3 {
+    float: left;
+    width: 50%;
+}
+
+.form-wrap .tabs h3 a {
+    padding: 0.5em 0;
+    text-align: center;
+    font-weight: 400;
+    background-color: #e6e7e8;
+    display: block;
+    color: #666;
+}
+
+.form-wrap .tabs h3 a.active {
+    background-color: #fff;
+}
+
+.form-wrap .tabs-content {
+    padding: 1.5em;
+}
+
+.form-wrap .tabs-content div[id$="tab-content"] {
+    display: none;
+}
+
+.form-wrap .tabs-content .active {
+    display: block !important;
+}
+
+.form-wrap form .input {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    color: #526173;
+    font-family: inherit;
+    padding: .8em 0 10px .8em;
+    border: 1px solid #CFCFCF;
+    outline: 0;
+    display: inline-block;
+    margin: 0 0 .8em 0;
+    padding-right: 2em;
+    width: 100%;
+}
+
+.form-wrap form .button {
+    font-size: 1.2em;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #8ea5ce;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.form-wrap form .button:hover {
+    background-color: #8ea5ce;
+}
+
+.form-wrap form .checkbox {
+    visibility: hidden;
+    padding: 20px;
+    margin: .5em 0 1.5em;
+}
+
+.form-wrap form .checkbox:checked+label:after {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
+
+.form-wrap form label[for] {
+    position: relative;
+    padding-left: 20px;
+    cursor: pointer;
+    color: #526173;
+}
+
+.form-wrap form label[for]:before {
+    content: '';
+    position: absolute;
+    border: 1px solid #CFCFCF;
+    width: 17px;
+    height: 17px;
+    top: 0px;
+    left: -14px;
+}
+
+.form-wrap form label[for]:after {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 5px;
+    background-color: transparent;
+    top: 4px;
+    left: -10px;
+    border: 3px solid #28A55F;
+    border-top: none;
+    border-right: none;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.form-wrap .help-text {
+    margin-top: .6em;
+}
+
+.form-wrap .help-text p {
+    text-align: center;
+    font-size: 14px;
+    color: #526173;
 }

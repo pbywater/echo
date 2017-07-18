@@ -4,9 +4,7 @@ require('env2')('./config.env');
 const { createMemory } = require('./../../database/db_create');
 
 module.exports = (req, res) => {
-  createMemory(req.body, 'text_only', (error, response) => {
-      // 1 hard coded in at the moment.
-      // We will later add the userId here to get the relevant memories.
+  createMemory(req.cookies.name, req.body, 'text_only', (error, response) => {
     if (error) return res(error);
     setTimeout(() => {
       res.redirect('/');
