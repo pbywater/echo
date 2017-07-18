@@ -1,4 +1,14 @@
-const { binByKey, getRandomInt } = require('./helpers/helpers.js');
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+const binByKey = (key, xs) => xs.reduce((binnedArray, elem) => {
+  const targetBin = binnedArray[elem[key]];
+  if (targetBin === undefined) {
+    binnedArray[elem[key]] = [];
+  }
+
+  binnedArray[elem[key]].push(elem);
+  return binnedArray;
+}, {});
 
 const binByTag = arrayToBin => binByKey('tag', arrayToBin);
 
@@ -89,6 +99,8 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
 };
 
 module.exports = {
+  getRandomInt,
+  binByKey,
   binByTag,
   sortWithMax,
   centralMaxNodesByTag,

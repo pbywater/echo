@@ -6,6 +6,7 @@ const { appendPopUp, randomPopUp } = require('./modals.js');
 const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
+  constructTagList(data);
   render(formatData(data));
   initTagMenu();
   initSubmitMemory();
@@ -22,9 +23,6 @@ const formatData = (data) => {
   });
 // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
   const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
-
-// Add unique tags to tag list for user to select from
-  constructTagList(centralNodesByTag);
 
 // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);

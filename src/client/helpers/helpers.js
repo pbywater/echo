@@ -1,21 +1,6 @@
 /* eslint-disable */
+const { sortWithMax, binByTag, centralMaxNodesByTag, binByKey, getRandomInt } = require('../node_transformations');
 const normalTime = 1000;
-
-const binByKey = (key, xs) => {
-    return xs.reduce((binnedArray, elem) => {
-        const targetBin = binnedArray[elem[key]];
-        if (targetBin === undefined) {
-            binnedArray[elem[key]] = [];
-        }
-
-        binnedArray[elem[key]].push(elem);
-        return binnedArray;
-    }, {});
-}
-
-const getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 function showTaggedMemory(memoryToShow) {
     $('.memory').each(function() {
@@ -206,8 +191,18 @@ function initSubmitMemory() {
         })
 }
 
-function constructTagList(uniqueTagList) {
-    Object.keys(uniqueTagList).forEach((tag) => {
+function constructTagList(data) {
+  // binByTag sorts data by tag
+  // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
+  const binnedByTag = binByTag(data);
+  // sortedWithMax sorts each tag group to separate max memory (by likes) from others in its group
+  const sortedWithMax = [];
+  Object.keys(binnedByTag).forEach((tagKey) => {
+    sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
+  });
+// taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
+  const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
+    Object.keys(centralNodesByTag).forEach((tag) => {
         tag = tag.replace(/\W/g, '');
         $('.tags').append(
             `<li class='tag-container ${tag}'>
@@ -225,7 +220,6 @@ function constructTagList(uniqueTagList) {
 }
 
 module.exports = {
-    binByKey,
     getRandomInt,
     initTagMenu,
     initSubmitMemory,
