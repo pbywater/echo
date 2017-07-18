@@ -189,7 +189,7 @@ function render(updatedData, nodeDataArray) {
   .links(updatedData.links)
   .distance(d => 40);
 
-  sim.restart();
+  // sim.restart();
 
   d3.select('.shuffle-memories').on('click', () => {
     randomPopUp(nodeDataArray);
@@ -230,7 +230,7 @@ function render(updatedData, nodeDataArray) {
       });
     }
     hideDeleteButton();
-    sim.restart();
+    // sim.restart();
   }
 
   $('#memory-input__submit').click((e) => {
@@ -240,16 +240,17 @@ function render(updatedData, nodeDataArray) {
       method: 'POST',
       url: 'memory-input-text',
       data: $('#add-text-form').serialize(),
-      success: () => setTimeout(() => {
+      success: () => {
         update();
-      }, 2000),
+        sim.restart();
+      },
     });
   });
 
   function update() {
     d3.json(url, (err, data) => {
       formatData(data, render);
-      sim.restart();
+      // sim.restart();
     });
   }
 }
