@@ -1,6 +1,6 @@
 (function () {
-  document.getElementById('camera').onchange = function () {
-    const files = document.getElementById('camera').files;
+  document.getElementById('photo-save').onchange = function () {
+    const files = document.getElementById('photo-save').files;
     const file = files[0];
     if (file == null) {
       return alert('No file selected.');
@@ -31,7 +31,7 @@ function uploadFile(file, signedRequest, url) {
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        document.getElementById('camera').src = url;
+        document.getElementById('photo-save').src = url;
       } else {
         alert('Could not upload file.');
       }
