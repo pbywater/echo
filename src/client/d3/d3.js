@@ -1,10 +1,12 @@
 const { openTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, submitNewMemory, showHeading } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg } = require('./setup.js');
 const { sortWithMax, binByTag, memoryNodesAndLinks, centralMaxNodesByTag } = require('../node_transformations');
+const { appendPopUp, randomPopUp } = require('./modals.js');
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
+  console.log(data);
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
   const binnedByTag = binByTag(data);
@@ -102,7 +104,10 @@ d3.json(url, (err, data) => {
       .call(d3.drag()
         .on('start', dragstart)
         .on('drag', dragging)
-        .on('end', dragend));
+        .on('end', dragend))
+      .on('click', (d) => {
+        appendPopUp(d);
+      });
 
   const sim = d3.forceSimulation()
     .force('link', d3.forceLink(processedData).id(d => d.id))
@@ -127,6 +132,10 @@ d3.json(url, (err, data) => {
   sim.force('link')
     .links(processedData.links)
     .distance(d => 40);
+
+  d3.select('.shuffle-memories').on('click', () => {
+    randomPopUp(nodeDataArray);
+  });
 
   function dragstart(d) {
     if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
