@@ -19,7 +19,7 @@ module.exports = (req, res) => {
         res.send({ err: err.message });
       }
       if (isAuthenticated) {
-        // need to set cookie
+        req.session.name = login;
         res.redirect('/');
       } else if (!isAuthenticated) {
         // will be refactored, so that err.message is displayed on screen
