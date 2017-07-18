@@ -89,7 +89,7 @@ function closeTagMenu() {
   });
 }
 
-function openTagMenu() {
+function initTagMenu() {
   $('.search-tags').on('click', () => {
     $('.underline').addClass('active');
     $('#to-extend').css('transform', 'rotate(-45deg)').addClass('active');
@@ -159,7 +159,7 @@ function submitNewMemory() {
 module.exports = {
   binByKey,
   getRandomInt,
-  openTagMenu,
+  initTagMenu,
   submitNewMemory,
   showDeleteButton,
   hoveringOnDelete,
