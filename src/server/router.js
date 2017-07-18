@@ -9,11 +9,9 @@ router.use(bodyParser.urlencoded({
   extended: true,
 }));
 
-const sessionSecret = '3294r4whasuodifhd13urde80sufj138ryt9-gu538re9ghvisujela4hrsf4rue5r89';
-
 const session = cookieSession({
   name: 'authenticated',
-  secret: sessionSecret,
+  secret: process.env.SESSION_SECRET,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
