@@ -887,4 +887,7 @@ a:hover {
       width: 100vw;
       height: 100vh;
   }
+  #desktop-background {
+    display: block;
+  }
 }
