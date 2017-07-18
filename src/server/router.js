@@ -23,8 +23,10 @@ const session = cookieSession({
 router.use(session);
 
 router.get('/', require('./controllers/home.js'));
+router.get('/login', require('./controllers/sign-up.js'));
 router.post('/logout', require('./controllers/logout.js'));
 router.post('/memory-input-text', require('./controllers/addTextMemory.js'));
+router.post('/add-new-user', require('./controllers/addNewUser.js'));
 router.post('/login', require('./controllers/login.js'));
 router.route('/memories')
   .get(require('./controllers/getMemories.js'))
