@@ -2,19 +2,19 @@ const connect = require('./db_connect');
 
 const hashPassword = require('./../helpers/hashPassword');
 
-const createMemory = (newMemory, mediaType, callback) => {
+const createMemory = (login, newMemory, mediaType, callback) => {
   connect.query(
     `INSERT INTO memories
         (user_id, memory_text, media_type, memory_asset_url, heading, tag, likes, visits)
      VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8)
+        ((SELECT users.id FROM users WHERE username = $1 OR email = $1),
+          $2, $3, $4, $5, $6, $7, $8)
     `,
-    // Current query will be replaced with query below when signup route is created
-    // VALUES
-    //  ((SELECT users.id FROM users WHERE users.username = $1), $2, $3, $4, $5, $6)`,
-    //  [newMemory.username, newMemory.memoryText, mediaType, newMemory.memory_asset_url, newMemory.heading, newMemory.tag]
-    // $1, $4, $5, $6 are hardcoded below for testing purposes
-    [1, newMemory.memory_text, mediaType, 'dummyURL', 'dummyHeading', newMemory.tag, 1, 1],
+    // when we pass in memory_asset_url, memory_heading, line 17 will be replaced with 15
+    //  [login, newMemory.memoryText, mediaType, newMemory.memory_asset_url, newMemory.heading, newMemory.tag, likes, visits]
+    // $4, $5, $6 are hardcoded below for testing purposes
+    [login, newMemory.memory_text, mediaType, 'dummyURL', 'dummyHeading', newMemory.tag, 0, 0],
+
     (err, res) => {
       if (err) { callback(err); }
       callback(null, res);
