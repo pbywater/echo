@@ -653,13 +653,13 @@ label.memory-input__label {
 }
 
 .tag-input, .heading-input {
-  font-size: 0.7em;
-  padding: 0.8em;
-  margin-top: 1em;
-  height: 20px;
-  width: 280px;
-  color: #526173;
-  margin-left: 0.5em;
+    font-size: 0.7em;
+    padding: 0.8em;
+    margin-top: 1em;
+    height: 20px;
+    width: 280px;
+    color: #526173;
+    margin-left: 0.5em;
 }
 
 .popupBoxHolder {
@@ -690,8 +690,9 @@ label.memory-input__label {
 }
 
 .like-button.liked {
-transition: 1s grow forwards;
+    transition: 1s grow forwards;
 }
+
 
 /* Sign up / log in styling */
 
@@ -881,21 +882,23 @@ a:hover {
     font-size: 14px;
     color: #526173;
 }
+
+
 /* logout button */
 
 .logout-button {
-  color: black;
-  position: absolute;
-  bottom: 10%;
-  right: 10%;
+    color: black;
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
 }
 
 @media screen and (max-width: 768px) {
-  #d3-container {
-      width: 100vw;
-      height: 100vh;
-  }
-  #desktop-background {
-    display: block;
-  }
+    #d3-container {
+        width: 100vw;
+        height: 100vh;
+    }
+    #desktop-background {
+        display: block;
+    }
 }
