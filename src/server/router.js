@@ -32,8 +32,10 @@ router.get('/', require('./controllers/home.js'));
 router.get('/login', require('./controllers/sign-up.js'));
 router.post('/logout', require('./controllers/logout.js'));
 router.post('/memory-input-text', require('./controllers/addTextMemory.js'));
-router.post('/memory-input-photo', require('./controllers/signS3.js'));
-router.put('/memory-input-photo', require('./controllers/addPhotoMemory.js'));
+router.route('/memory-input-photo')
+  .post(require('./controllers/signS3.js'))
+  .put(require('./controllers/addPhotoMemory.js'))
+  .get(require('./controllers/getPhotoMemory.js'));
 router.post('/add-new-user', require('./controllers/addNewUser.js'));
 router.post('/login', require('./controllers/login.js'));
 router.get('/sign-s3', require('./controllers/signS3.js'));
