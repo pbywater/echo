@@ -10,9 +10,6 @@ const createMemory = (login, newMemory, mediaType, memoryUrl, callback) => {
         ((SELECT users.id FROM users WHERE username = $1 OR email = $1),
           $2, $3, $4, $5, $6, $7, $8)
     `,
-    // when we pass in memory_asset_url, memory_heading, line 17 will be replaced with 15
-    //  [login, newMemory.memoryText, mediaType, newMemory.memory_asset_url, newMemory.heading, newMemory.tag, likes, visits]
-    // $4, $5, $6 are hardcoded below for testing purposes
     [login, newMemory.memory_text, mediaType, memoryUrl, newMemory.heading, newMemory.tag, 0, 0],
 
     (err, res) => {
