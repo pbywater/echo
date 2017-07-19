@@ -1,13 +1,11 @@
 (function () {
-  document.getElementById('photo-save').onclick = function () {
-    document.getElementById('camera-input').onchange = function () {
-      const files = document.getElementById('camera-input').files;
-      const file = files[0];
-      if (file == null) {
-        return alert('No file selected.');
-      }
-      getSignedRequest(file);
-    };
+  document.getElementById('camera-input').onchange = function () {
+    const files = document.getElementById('camera-input').files;
+    const file = files[0];
+    if (file == null) {
+      return alert('No file selected.');
+    }
+    getSignedRequest(file);
   };
 }());
 
@@ -17,9 +15,9 @@ function getSignedRequest(file) {
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        console.log('response is ', xhr.responseText);
         const response = JSON.parse(xhr.responseText);
         uploadFile(file, response.signedRequest, response.url);
+        saveInLocalStorage(response.key);
       } else {
         alert('Could not get signed URL.');
       }
@@ -43,6 +41,21 @@ function uploadFile(file, signedRequest, url) {
   xhr.send(file);
 }
 
-function saveInLocalStorage() {
-
+function saveInLocalStorage(imageId) {
+  localStorage.setItem('addedImage', imageId);
 }
+
+document.getElementById('photo-save').onclick = function (e) {
+  e.preventDefault();
+  if (localStorage.getItem('addedImage')) {
+    const tag = $('.tag-input--photo')[0].value;
+    const heading = $('.heading-input--photo')[0].value;
+    const imageId = localStorage.getItem('addedImage');
+    $.ajax({
+      method: 'PUT',
+      url: 'memory-input-photo',
+      data: { tag, heading, imageId },
+      success: localStorage.removeItem('addedImage'),
+    });
+  }
+};
