@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     $('.menu-open-button').on('click', () => {
+      localStorage.removeItem('addedImage');
       $(`#${menuItemId}`)
         .removeClass('wipe')
         .removeClass('finished')
