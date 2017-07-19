@@ -1,11 +1,13 @@
 (function () {
-  document.getElementById('photo-save').onchange = function () {
-    const files = document.getElementById('photo-save').files;
-    const file = files[0];
-    if (file == null) {
-      return alert('No file selected.');
-    }
-    getSignedRequest(file);
+  document.getElementById('photo-save').onclick = function () {
+    document.getElementById('camera-input').onchange = function () {
+      const files = document.getElementById('camera-input').files;
+      const file = files[0];
+      if (file == null) {
+        return alert('No file selected.');
+      }
+      getSignedRequest(file);
+    };
   };
 }());
 
@@ -39,4 +41,8 @@ function uploadFile(file, signedRequest, url) {
     }
   };
   xhr.send(file);
+}
+
+function saveInLocalStorage() {
+
 }

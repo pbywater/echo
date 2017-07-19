@@ -68,3 +68,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
   });
 });
+
+// (function preventDefault(){
+//   $('.memory-input__submit')
+//   .submit((e) => {
+//       e.preventDefault();
+//   })
+// }

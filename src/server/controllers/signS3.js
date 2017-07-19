@@ -1,18 +1,22 @@
 const express = require('express');
 const aws = require('aws-sdk');
 require('env2')('./config.env');
-const createMemory = require('./../../database/db_create');
+// const createMemory = require('./../../database/db_create');
 
 const cuid = require('cuid');
+const { createMemory } = require('./../../database/db_create');
 
 const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
 module.exports = (req, res) => {
   aws.config.update({ accessKeyId: process.env.AWSAccessKeyId, secretAccessKey: process.env.AWSSecretKey, signatureVersion: 'v4', region: 'eu-west-2' });
   const s3 = new aws.S3();
-  const fileName = req.query['file-name'];
-  const fileType = req.query['file-type'];
-  const fileKey = `${cuid()}.${fileName}`;
+  const fileName = req.body.image;
+  const fileType = req.body.image;
+  const length = fileName.split('.').length;
+  console.log('fileType', length);
+  console.log(fileName.split('.')[length]);
+  const fileKey = `${cuid()}.${fileType}`;
   const s3Params = {
     Bucket: S3_BUCKET_NAME,
     Key: fileKey,
@@ -22,6 +26,9 @@ module.exports = (req, res) => {
   };
   console.log('fileKey is ', fileKey);
   console.log('req body is', req.body);
+  console.log('req query', req.query);
+  // const selected = document.getElementById('photo-save').files.length > 0;
+  // console.log('selected image', selected);
 
   // createMemory('test', req.)
 
