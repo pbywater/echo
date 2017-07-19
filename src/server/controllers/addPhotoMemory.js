@@ -1,10 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-require('env2')('./config.env');
-const { createMemory } = require('./../../database/db_create');
-const signs3 = require('./signS3');
+const { updatePhotoMemory } = require('./../../database/db_update');
 
 module.exports = (req, res) => {
-  // signs3(req, res)
-
+  updatePhotoMemory('test', req.body.tag, req.body.heading, req.body.imageId, (err, res) => {
+    if (err) return err;
+  });
 };
