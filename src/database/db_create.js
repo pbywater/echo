@@ -2,7 +2,7 @@ const connect = require('./db_connect');
 
 const hashPassword = require('./../helpers/hashPassword');
 
-const createMemory = (login, newMemory, mediaType, callback) => {
+const createMemory = (login, newMemory, mediaType, memoryUrl, callback) => {
   connect.query(
     `INSERT INTO memories
         (user_id, memory_text, media_type, memory_asset_url, heading, tag, likes, visits)
@@ -13,7 +13,7 @@ const createMemory = (login, newMemory, mediaType, callback) => {
     // when we pass in memory_asset_url, memory_heading, line 17 will be replaced with 15
     //  [login, newMemory.memoryText, mediaType, newMemory.memory_asset_url, newMemory.heading, newMemory.tag, likes, visits]
     // $4, $5, $6 are hardcoded below for testing purposes
-    [login, newMemory.memory_text, mediaType, 'dummyURL', newMemory.heading, newMemory.tag, 0, 0],
+    [login, newMemory.memory_text, mediaType, memoryUrl, newMemory.heading, newMemory.tag, 0, 0],
 
     (err, res) => {
       if (err) { callback(err); }

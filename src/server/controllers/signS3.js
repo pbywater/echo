@@ -1,6 +1,9 @@
 const express = require('express');
 const aws = require('aws-sdk');
 require('env2')('./config.env');
+const createMemory = require('./../../database/db_create');
+
+const cuid = require('cuid');
 
 const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
@@ -9,13 +12,18 @@ module.exports = (req, res) => {
   const s3 = new aws.S3();
   const fileName = req.query['file-name'];
   const fileType = req.query['file-type'];
+  const fileKey = `${cuid()}.${fileName}`;
   const s3Params = {
     Bucket: S3_BUCKET_NAME,
-    Key: fileName,
+    Key: fileKey,
     Expires: 60,
     ContentType: fileType,
     ACL: 'public-read',
   };
+  console.log('fileKey is ', fileKey);
+  console.log('req body is', req.body);
+
+  // createMemory('test', req.)
 
   s3.getSignedUrl('putObject', s3Params, (err, data) => {
     if (err) {
