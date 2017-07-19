@@ -15,10 +15,10 @@ CREATE TABLE users (
 CREATE TABLE memories (
   id                SERIAL                         PRIMARY KEY,
   user_id           INTEGER REFERENCES users(id)   NOT NULL,
-  heading           VARCHAR(50)                    NOT NULL,
+  heading           VARCHAR(50),
   likes             INTEGER,
   visits            INTEGER,
-  tag               VARCHAR(50)                    NOT NULL,
+  tag               VARCHAR(50),                    
   memory_asset_url  VARCHAR(500),
   memory_text       VARCHAR(2000),
   media_type        media_type
