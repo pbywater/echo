@@ -34,7 +34,7 @@ const centralMaxNodesByTag = (tagsArray, startingCx, startingCy) => {
       memory_asset_url: tag.max.memory_asset_url || '',
       memory_text: tag.max.memory_text || '',
       x: startingCx + getRandomInt(-100, 100),
-      y: startingCy + getRandomInt(150, 250) * i,
+      y: startingCy + (getRandomInt(150, 250) * i),
       tag: tag.max.tag,
       likes: tag.max.likes,
     };
@@ -56,7 +56,7 @@ const getXAndY = (angle, distance, startingCx, startingCy) => {
 
 const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentLikes) => {
   const angle = ((2 * Math.PI) / numTagMemories) * memoryIndex;
-  const distance = (tagNode.likes - currentLikes) * 2;
+  const distance = tagNode.likes - currentLikes !== 0 ? (tagNode.likes - currentLikes) * 2 : 50;
   return getXAndY(angle, distance, tagNode.x, tagNode.y);
 };
 
