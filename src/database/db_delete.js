@@ -1,16 +1,16 @@
 const connect = require('./db_connect');
 
+const sqlQuery = 'DELETE FROM memories WHERE memories.id = $1;';
+
 const deleteMemory = (memoryId, callback) => {
-  connect.query(
-    `DELETE FROM memories
-    WHERE memories.id = $1;`, [memoryId], (err) => {
-      if (err) {
-        return callback(err);
-      }
+  connect.query(sqlQuery, [memoryId], (err) => {
+    if (err) {
+      return callback(err);
     }
-  )
-}
+    callback(null);
+  });
+};
 
 module.exports = {
-  deleteMemory
-}
+  deleteMemory,
+};
