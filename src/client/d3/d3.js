@@ -2,13 +2,21 @@ const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initS
 const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
+const { newUserIntro } = require('./newUserIntro.js');
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
-  constructTagList(data);
-  render(formatData(data));
-  initTagMenu();
+  if (data.length > 0) {
+    constructTagList(data);
+    render(formatData(data));
+    initTagMenu();
+  } else {
+    const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
+    const falseProcessedData = { links: [], nodes: falseDataArray };
+    render(falseProcessedData);
+    newUserIntro();
+  }
   initSubmitMemory();
 });
 
@@ -46,6 +54,7 @@ function render(updatedData) {
   .data(updatedData.links, d => d.target.id);
 
   let nodes = nodeGrp
+  .attr('class', 'nodeGroup')
   .selectAll('circle.memory')
   .data(nodeDataArray, d => d.id);
 
