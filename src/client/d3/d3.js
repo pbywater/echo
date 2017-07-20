@@ -19,15 +19,15 @@ d3.json(url, (err, data) => {
 });
 
 const formatData = (data) => {
-    // binByTag sorts data by tag
-    // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
+  // binByTag sorts data by tag
+  // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
   const binnedByTag = binByTag(data);
     // sortedWithMax sorts each tag group to separate max memory (by likes) from others in its group
   const sortedWithMax = [];
   Object.keys(binnedByTag).forEach((tagKey) => {
     sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
   });
-  // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
+// taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
   const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
 
   if (navigator.onLine) {
@@ -51,7 +51,6 @@ function render(updatedData) {
   Object.keys(updatedData.nodes).forEach((key) => {
     nodeDataArray.push(updatedData.nodes[key]);
   });
-
   if (navigator.onLine) {
     const nodeDataArrayToSave = JSON.stringify(nodeDataArray);
     localStorage.nodeDataArraySaved = nodeDataArrayToSave;
@@ -85,88 +84,112 @@ function render(updatedData) {
     d3.select('.memory-group').attr('transform', d3.event.transform);
   }
 
-  const fdGrp = svg
-      .append('g')
-      .attr('class', 'memory-group')
-      .call(d3.zoom()
-        .scaleExtent([1 / 3, 3])
-        .on('zoom', zoomed));
 
-  // UPDATE old elements still in the data
+  let links = linkGrp
+  .selectAll('line.memory')
+  .data(updatedData.links, d => d.target.id);
+
+  let nodes = nodeGrp
+  .selectAll('circle.memory')
+  .data(nodeDataArray, d => d.id);
+
+// EXIT old elements to be removed
   links
-      .attr('x2', d => updatedData.nodes[d.target].x,
-      )
-      .attr('y2', d => updatedData.nodes[d.target].y,
-      )
-      .attr('x1', d => updatedData.nodes[d.source].x,
-      )
-      .attr('y1', d => updatedData.nodes[d.source].y,
-    );
+    .exit()
+      .style('fill-opacity', 0)
+      .remove();
 
   nodes
-      .attr('class', d => `memory ${d.tag}`)
-      .attr('cy', d => d.y)
-      .attr('cx', d => d.x)
-      .attr('r', d => rScale(d.likes));
+    .exit()
+      .style('fill-opacity', 0)
+      .remove();
 
-  // ENTER new elements
+  function zoomed() {
+    d3.select('.memory-group').attr('transform', d3.event.transform);
+  }
+
+  const fdGrp = svg
+    .append('g')
+    .attr('class', 'memory-group')
+    .call(d3.zoom()
+      .scaleExtent([1 / 3, 3])
+      .on('zoom', zoomed));
+
+// UPDATE old elements still in the data
+  links
+    .attr('x2', d => updatedData.nodes[d.target].x,
+    )
+    .attr('y2', d => updatedData.nodes[d.target].y,
+    )
+    .attr('x1', d => updatedData.nodes[d.source].x,
+    )
+    .attr('y1', d => updatedData.nodes[d.source].y,
+  );
+
+  nodes
+    .attr('class', d => `memory ${d.tag}`)
+    .attr('cy', d => d.y)
+    .attr('cx', d => d.x)
+    .attr('r', d => rScale(d.likes));
+
+// ENTER new elements
   const enterLinks = links
-      .enter()
-      .append('line')
-        .attr('id', d => d.id)
-        .attr('x2', (d) => {
-          if (!updatedData.nodes[d.target]) {
-            return updatedData.nodes[d.target.id].x;
-          }
-          return updatedData.nodes[d.target].x;
-        })
-        .attr('y2', (d) => {
-          if (!updatedData.nodes[d.target]) {
-            return updatedData.nodes[d.target.id].y;
-          }
-          return updatedData.nodes[d.target].y;
-        })
-        .attr('x1', (d) => {
-          if (!updatedData.nodes[d.source]) {
-            return updatedData.nodes[d.source.id].x;
-          }
-          return updatedData.nodes[d.source].x;
-        })
-        .attr('y1', (d) => {
-          if (!updatedData.nodes[d.source]) {
-            return updatedData.nodes[d.source.id].y;
-          }
-          return updatedData.nodes[d.source].y;
-        })
-        .style('stroke', 'white')
-        .style('stroke-width', '2px')
-        .style('opacity', '0.8')
-        .attr('class', (d) => {
-          if (!updatedData.nodes[d.source]) {
-            return `memory ${updatedData.nodes[d.source.id].tag}`;
-          }
-          return `memory ${updatedData.nodes[d.source].tag}`;
-        });
+    .enter()
+    .append('line')
+      .attr('id', d => d.id)
+      .attr('x2', (d) => {
+        if (!updatedData.nodes[d.target]) {
+          return updatedData.nodes[d.target.id].x;
+        }
+        return updatedData.nodes[d.target].x;
+      })
+      .attr('y2', (d) => {
+        if (!updatedData.nodes[d.target]) {
+          return updatedData.nodes[d.target.id].y;
+        }
+        return updatedData.nodes[d.target].y;
+      })
+      .attr('x1', (d) => {
+        if (!updatedData.nodes[d.source]) {
+          return updatedData.nodes[d.source.id].x;
+        }
+        return updatedData.nodes[d.source].x;
+      })
+      .attr('y1', (d) => {
+        if (!updatedData.nodes[d.source]) {
+          return updatedData.nodes[d.source.id].y;
+        }
+        return updatedData.nodes[d.source].y;
+      })
+      .style('stroke', 'white')
+      .style('stroke-width', '2px')
+      .style('opacity', '0.8')
+      .attr('class', (d) => {
+        if (!updatedData.nodes[d.source]) {
+          return `memory ${updatedData.nodes[d.source.id].tag}`;
+        }
+        return `memory ${updatedData.nodes[d.source].tag}`;
+      });
 
   links = enterLinks.merge(links);
 
   const enterNodes = nodes
-      .enter()
-      .append('circle')
-        .attr('class', d => `memory ${d.tag}`)
-        .attr('cy', d => d.y)
-        .attr('cx', d => d.x)
-        .attr('r', d => rScale(d.likes))
-        .attr('id', d => d.id)
-        .style('fill', 'white')
-        .style('opacity', '0.8')
-        .call(d3.drag()
-          .on('start', dragstart)
-          .on('drag', dragging)
-          .on('end', dragend))
-        .on('click', (d) => {
-          appendPopUp(d);
-        });
+    .enter()
+    .append('circle')
+      .attr('class', d => `memory ${d.tag}`)
+      .attr('cy', d => d.y)
+      .attr('cx', d => d.x)
+      .attr('r', d => rScale(d.likes))
+      .attr('id', d => d.id)
+      .style('fill', 'white')
+      .style('opacity', '0.8')
+      .call(d3.drag()
+        .on('start', dragstart)
+        .on('drag', dragging)
+        .on('end', dragend))
+      .on('click', (d) => {
+        appendPopUp(d);
+      });
 
   nodes = enterNodes.merge(nodes);
 
@@ -190,8 +213,14 @@ function render(updatedData) {
     });
 
   sim.force('link')
-    .links(updatedData.links)
-    .distance(d => 40);
+  .links(updatedData.links)
+  .distance(d => 40);
+
+  sim.restart();
+
+  d3.select('.shuffle-memories').on('click', () => {
+    randomPopUp(nodeDataArray);
+  });
 
   sim.restart();
 

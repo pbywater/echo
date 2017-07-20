@@ -1,4 +1,14 @@
-const { binByKey } = require('./helpers/helpers.js');
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+const binByKey = (key, xs) => xs.reduce((binnedArray, elem) => {
+  const targetBin = binnedArray[elem[key]];
+  if (targetBin === undefined) {
+    binnedArray[elem[key]] = [];
+  }
+
+  binnedArray[elem[key]].push(elem);
+  return binnedArray;
+}, {});
 
 const binByTag = arrayToBin => binByKey('tag', arrayToBin);
 
@@ -19,14 +29,18 @@ const centralMaxNodesByTag = (tagsArray, startingCx, startingCy) => {
   arrayCopy.forEach((tag, i) => {
     out[tag.max.tag] = {
       id: tag.max.id,
+      heading: tag.max.heading,
       media_type: tag.max.media_type,
       memory_asset_url: tag.max.memory_asset_url || '',
       memory_text: tag.max.memory_text || '',
-      x: startingCx,
-      y: startingCy + 200 * i,
+      x: startingCx + getRandomInt(-100, 100),
+      y: startingCy + (getRandomInt(150, 250) * i),
       tag: tag.max.tag,
       likes: tag.max.likes,
     };
+    if (tag.max.new) {
+      out[tag.max.tag].new = true;
+    }
   });
   return out;
 };
@@ -42,7 +56,7 @@ const getXAndY = (angle, distance, startingCx, startingCy) => {
 
 const getMemoryNodePositions = (tagNode, numTagMemories, memoryIndex, currentLikes) => {
   const angle = ((2 * Math.PI) / numTagMemories) * memoryIndex;
-  const distance = (tagNode.likes - currentLikes) * 2;
+  const distance = tagNode.likes - currentLikes !== 0 ? (tagNode.likes - currentLikes) * 2 : 50;
   return getXAndY(angle, distance, tagNode.x, tagNode.y);
 };
 
@@ -85,6 +99,8 @@ const memoryNodesAndLinks = (tagNodes, memoriesByTag) => {
 };
 
 module.exports = {
+  getRandomInt,
+  binByKey,
   binByTag,
   sortWithMax,
   centralMaxNodesByTag,
