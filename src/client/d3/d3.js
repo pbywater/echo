@@ -52,6 +52,13 @@ const formatData = (data, callback) => {
 
 function render(updatedData, nodeDataArray) {
   // const t = d3.transition().duration(750);
+  svg
+    .selectAll('.node')
+      .remove();
+
+  svg
+    .selectAll('.link')
+      .remove();
 
   const rScale = d3
   .scaleSqrt()
@@ -189,14 +196,14 @@ function render(updatedData, nodeDataArray) {
   .links(updatedData.links)
   .distance(d => 40);
 
-  // sim.restart();
-
   d3.select('.shuffle-memories').on('click', () => {
     randomPopUp(nodeDataArray);
   });
 
   function dragstart(d) {
-    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+    if (!d3.event.active) {
+      sim.alphaTarget(0.3).velocityDecay(0.5).restart();
+    }
     d.fx = d.x;
     d.fy = d.y;
     $(this).addClass('active');
@@ -211,7 +218,11 @@ function render(updatedData, nodeDataArray) {
   }
 
   function dragend(d) {
-    if (!d3.event.active) sim.alphaTarget(0);
+    if (!d3.event.active) {
+      // sim.alphaTar get(0);
+      // sim.alphaTarget(0.3).velocityDecay(0.5).restart();
+    }
+
     if (!d.outer) {
       d.fx = null;
       d.fy = null;
@@ -230,27 +241,30 @@ function render(updatedData, nodeDataArray) {
       });
     }
     hideDeleteButton();
+    // sim.alphaTarget(0.3).velocityDecay(0.5).restart();
     // sim.restart();
+    // sim.alphaTarget(0.3).restart();
   }
 
+
   $('#memory-input__submit').click((e) => {
-    const data = $('#add-text-form').serialize();
     e.preventDefault();
     $.ajax({
       method: 'POST',
       url: 'memory-input-text',
       data: $('#add-text-form').serialize(),
-      success: () => {
-        update();
-        sim.restart();
-      },
+      success: () => update(),
     });
+    // sim.restart();
   });
 
   function update() {
     d3.json(url, (err, data) => {
       formatData(data, render);
       // sim.restart();
+      // sim.alphaTarget(1).restart();
+
+      // sim.alphaTarget(1).velocityDecay(0).restart();
     });
   }
 }
