@@ -9,28 +9,6 @@ if ('serviceWorker' in navigator) {
            .then(() => { console.log('Service Worker Registered'); });
 }
 
-const url = location.hostname ? '/memories' : jsonUrl;
-
-if (navigator.onLine) {
-  d3.json(url, (err, data) => {
-    if (navigator.onLine) {
-      const dataToSave = JSON.stringify(data);
-      localStorage.data = dataToSave;
-    }
-    constructTagList(data);
-    render(formatData(data));
-    initTagMenu();
-    initSubmitMemory();
-  });
-} else {
-  console.log('offline');
-  const offlineData = JSON.parse(localStorage.getItem('data'));
-  constructTagList(offlineData);
-  render(formatData(offlineData));
-  initTagMenu();
-  initSubmitMemory();
-}
-
 const formatData = (data) => {
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
@@ -244,4 +222,26 @@ function render(updatedData) {
     hideDeleteButton();
     sim.restart();
   }
+}
+
+const url = location.hostname ? '/memories' : jsonUrl;
+
+if (navigator.onLine) {
+  d3.json(url, (err, data) => {
+    if (navigator.onLine) {
+      const dataToSave = JSON.stringify(data);
+      localStorage.data = dataToSave;
+    }
+    constructTagList(data);
+    render(formatData(data));
+    initTagMenu();
+    initSubmitMemory();
+  });
+} else {
+  console.log('offline');
+  const offlineData = JSON.parse(localStorage.getItem('data'));
+  constructTagList(offlineData);
+  render(formatData(offlineData));
+  initTagMenu();
+  initSubmitMemory();
 }
