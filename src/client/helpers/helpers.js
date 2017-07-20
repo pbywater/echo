@@ -1,6 +1,7 @@
 /* eslint-disable */
 const { sortWithMax, binByTag, centralMaxNodesByTag, binByKey, getRandomInt } = require('../node_transformations');
 const normalTime = 1000;
+const { animationDuration } = require('./../d3/setup');
 
 function showTaggedMemory(memoryToShow) {
     $('.memory').each(function() {
@@ -184,7 +185,7 @@ function initSubmitMemory() {
                     .show();
                 $('.finished')
                     .removeClass('new-node finished wipe');
-            }, 4500);
+            }, animationDuration);
         })
         .submit((e) => {
             e.preventDefault();
