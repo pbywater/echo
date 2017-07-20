@@ -25,7 +25,10 @@
     .append('g')
       .attr('class', 'nodes');
 
+  const animationDuration = 4500;
+
 module.exports = {
+  animationDuration,
   width,
   height,
   svg,

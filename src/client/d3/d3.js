@@ -1,5 +1,5 @@
 const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, saveMemoryIdToStorage, removeMemoryFromStoredData, removeMemoriesDeletedOffline } = require('../helpers/helpers.js');
-const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
+const { animationDuration, width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
 const { newUserIntro } = require('./newUserIntro.js');
@@ -175,6 +175,9 @@ function render(updatedData) {
     .force('center', d3.forceCenter(180, 320));
 
   sim
+  .alphaTarget(0.3);
+
+  sim
   .nodes(nodeDataArray)
   .on('tick', () => {
     nodes
@@ -191,14 +194,14 @@ function render(updatedData) {
   .links(updatedData.links)
   .distance(d => 40);
 
-  sim.restart();
-
   d3.select('.shuffle-memories').on('click', () => {
     randomPopUp(nodeDataArray);
   });
 
   function dragstart(d) {
-    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+    if (!d3.event.active) {
+      sim.alphaTarget(1).restart();
+    }
     d.fx = d.x;
     d.fy = d.y;
     $(this).addClass('active');
@@ -214,7 +217,10 @@ function render(updatedData) {
   }
 
   function dragend(d) {
-    if (!d3.event.active) sim.alphaTarget(0);
+    if (!d3.event.active) {
+      sim.alphaTarget(0);
+    }
+
     if (!d.outer) {
       d.fx = null;
       d.fy = null;
@@ -228,29 +234,41 @@ function render(updatedData) {
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
       $('.delete-button').removeClass('deleting');
-      function update(url) {
-        d3.json(url, (err, data) => {
-          render(formatData(data));
-          sim.restart();
-        });
-      } if (navigator.onLine) {
+      if (navigator.onLine) {
         $.ajax({
           method: 'DELETE',
           url: 'memories',
           data: { id },
-          success: () => update(url),
+          success: update,
         });
         render(formatData(data));
-        sim.restart();
       } else {
         saveMemoryIdToStorage(id);
         const offlineData = removeMemoryFromStoredData(id);
         render(formatData(offlineData));
-        sim.restart();
       }
     }
     hideDeleteButton();
-    sim.restart();
+  }
+
+  $('#memory-input__submit').click((e) => {
+    e.preventDefault();
+    $.ajax({
+      method: 'POST',
+      url: 'memory-input-text',
+      data: $('#add-text-form').serialize(),
+      success: () => {
+        setTimeout(() => {
+          update();
+        }, animationDuration);
+      },
+    });
+  });
+
+  function update() {
+    d3.json(url, (err, data) => {
+      render(formatData(data));
+    });
   }
 }
 
