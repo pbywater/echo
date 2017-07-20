@@ -255,6 +255,7 @@ function render(updatedData) {
 }
 
 if (navigator.onLine) {
+  onlineLogic();
   removeMemoriesDeletedOffline(onlineLogic);
 } else {
   const offlineData = JSON.parse(localStorage.getItem('data'));

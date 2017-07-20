@@ -270,7 +270,6 @@ function removeMemoriesDeletedOffline(cb) {
     cb();
   })
 }
-cb();
 }
 
 module.exports = {
