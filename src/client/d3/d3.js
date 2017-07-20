@@ -4,29 +4,11 @@ const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = req
 const { appendPopUp, randomPopUp } = require('./modals.js');
 const { newUserIntro } = require('./newUserIntro.js');
 
-<<<<<<< HEAD
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
            .register('service-worker.js')
            .then(() => { console.log('Service Worker Registered'); });
 }
-=======
-const url = location.hostname ? '/memories' : jsonUrl;
-
-d3.json(url, (err, data) => {
-  if (data.length > 0) {
-    constructTagList(data);
-    render(formatData(data));
-    initTagMenu();
-  } else {
-    const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
-    const falseProcessedData = { links: [], nodes: falseDataArray };
-    render(falseProcessedData);
-    newUserIntro();
-  }
-  initSubmitMemory();
-});
->>>>>>> master
 
 const formatData = (data) => {
   // binByTag sorts data by tag
@@ -258,11 +240,18 @@ if (navigator.onLine) {
   removeMemoriesDeletedOffline();
 
   d3.json(url, (err, data) => {
-    const dataToSave = JSON.stringify(data);
-    localStorage.data = dataToSave;
-    constructTagList(data);
-    render(formatData(data));
-    initTagMenu();
+    if (data.length > 0) {
+      const dataToSave = JSON.stringify(data);
+      localStorage.data = dataToSave;
+      constructTagList(data);
+      render(formatData(data));
+      initTagMenu();
+    } else {
+      const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
+      const falseProcessedData = { links: [], nodes: falseDataArray };
+      render(falseProcessedData);
+      newUserIntro();
+    }
     initSubmitMemory();
   });
 } else {
