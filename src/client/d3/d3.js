@@ -49,22 +49,28 @@ function render(updatedData) {
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
   .range([3, 8]);
 
-  let links = linkGrp
-  .selectAll('line.memory')
-  .data(updatedData.links, d => d.target.id);
 
-  let nodes = nodeGrp
-  .attr('class', 'nodeGroup')
+  console.log();
+  const linksG = linkGrp
+  .selectAll('line.memory')
+  .data(updatedData.links, d => d.target)
+  .enter()
+  .append('g');
+
+  const nodesG = nodeGrp
   .selectAll('circle.memory')
-  .data(nodeDataArray, d => d.id);
+  .data(nodeDataArray, d => d.id)
+  .enter()
+  .append('g')
+  .attr('class', 'nodeGroup');
 
 // EXIT old elements to be removed
-  links
+  let links = linksG
     .exit()
       .style('fill-opacity', 0)
       .remove();
 
-  nodes
+  let nodes = nodesG
     .exit()
       .style('fill-opacity', 0)
       .remove();
@@ -99,7 +105,6 @@ function render(updatedData) {
 
 // ENTER new elements
   const enterLinks = links
-    .enter()
     .append('line')
       .attr('id', d => d.id)
       .attr('x2', (d) => {
@@ -139,7 +144,6 @@ function render(updatedData) {
   links = enterLinks.merge(links);
 
   const enterNodes = nodes
-    .enter()
     .append('circle')
       .attr('class', d => `memory ${d.tag}`)
       .attr('cy', d => d.y)
