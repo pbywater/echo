@@ -11,12 +11,25 @@ if ('serviceWorker' in navigator) {
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
-d3.json(url, (err, data) => {
-  constructTagList(data);
-  render(formatData(data));
+if (navigator.onLine) {
+  d3.json(url, (err, data) => {
+    if (navigator.onLine) {
+      const dataToSave = JSON.stringify(data);
+      localStorage.data = dataToSave;
+    }
+    constructTagList(data);
+    render(formatData(data));
+    initTagMenu();
+    initSubmitMemory();
+  });
+} else {
+  console.log('offline');
+  const offlineData = JSON.parse(localStorage.getItem('data'));
+  constructTagList(offlineData);
+  render(formatData(offlineData));
   initTagMenu();
   initSubmitMemory();
-});
+}
 
 const formatData = (data) => {
   // binByTag sorts data by tag
@@ -30,18 +43,8 @@ const formatData = (data) => {
 // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
   const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
 
-  if (navigator.onLine) {
-    const centralNodesByTagToSave = JSON.stringify(centralNodesByTag);
-    localStorage.centralNodesByTagSaved = centralNodesByTagToSave;
-  }
-
   // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
-
-  if (navigator.onLine) {
-    const processedDataToSave = JSON.stringify(processedData);
-    localStorage.processedDataSaved = processedDataToSave;
-  }
 
   return processedData;
 };
@@ -51,39 +54,11 @@ function render(updatedData) {
   Object.keys(updatedData.nodes).forEach((key) => {
     nodeDataArray.push(updatedData.nodes[key]);
   });
-  if (navigator.onLine) {
-    const nodeDataArrayToSave = JSON.stringify(nodeDataArray);
-    localStorage.nodeDataArraySaved = nodeDataArrayToSave;
-  }
 
   const rScale = d3
-    .scaleSqrt()
-    .domain([0, d3.max(nodeDataArray, d => d.likes)])
-    .range([3, 8]);
-
-  let links = linkGrp
-    .selectAll('line.memory')
-    .data(updatedData.links, d => d.target.id);
-
-  let nodes = nodeGrp
-    .selectAll('circle.memory')
-    .data(nodeDataArray, d => d.id);
-
-  // EXIT old elements to be removed
-  links
-      .exit()
-        .style('fill-opacity', 0)
-        .remove();
-
-  nodes
-      .exit()
-        .style('fill-opacity', 0)
-        .remove();
-
-  function zoomed() {
-    d3.select('.memory-group').attr('transform', d3.event.transform);
-  }
-
+  .scaleSqrt()
+  .domain([0, d3.max(nodeDataArray, d => d.likes)])
+  .range([3, 8]);
 
   let links = linkGrp
   .selectAll('line.memory')
@@ -194,33 +169,27 @@ function render(updatedData) {
   nodes = enterNodes.merge(nodes);
 
   const sim = d3.forceSimulation()
-      .force('link', d3.forceLink().id(d => d.id))
-      .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
-      .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
-      .force('center', d3.forceCenter(180, 320));
+    .force('link', d3.forceLink().id(d => d.id))
+    .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
+    .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
+    .force('center', d3.forceCenter(180, 320));
 
   sim
-    .nodes(nodeDataArray)
-    .on('tick', () => {
-      nodes
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y);
-      links
-      .attr('x1', d => updatedData.nodes[d.source.id].x)
-      .attr('y1', d => updatedData.nodes[d.source.id].y)
-      .attr('x2', d => updatedData.nodes[d.target.id].x)
-      .attr('y2', d => updatedData.nodes[d.target.id].y);
-    });
+  .nodes(nodeDataArray)
+  .on('tick', () => {
+    nodes
+    .attr('cx', d => d.x)
+    .attr('cy', d => d.y);
+    links
+    .attr('x1', d => updatedData.nodes[d.source.id].x)
+    .attr('y1', d => updatedData.nodes[d.source.id].y)
+    .attr('x2', d => updatedData.nodes[d.target.id].x)
+    .attr('y2', d => updatedData.nodes[d.target.id].y);
+  });
 
   sim.force('link')
   .links(updatedData.links)
   .distance(d => 40);
-
-  sim.restart();
-
-  d3.select('.shuffle-memories').on('click', () => {
-    randomPopUp(nodeDataArray);
-  });
 
   sim.restart();
 
@@ -251,7 +220,7 @@ function render(updatedData) {
       d.fy = null;
 
       d3.selectAll('.memory-heading')
-          .remove();
+        .remove();
     }
 
     $(this).removeClass('active');
