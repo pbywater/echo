@@ -257,12 +257,10 @@ function removeMemoryFromLocalStorage(index) {
 }
 
 function removeMemoriesDeletedOffline() {
-  console.log('removing');
   if(localStorage.getItem('toDelete') !== null) {
   const deletedMemories = JSON.parse(localStorage.getItem('toDelete'));
   deletedMemories.memories.forEach((memory, index) => {
     memory = parseInt(memory);
-    console.log(typeof(memory));
     $.ajax({
       method: 'DELETE',
       url: 'memories',
