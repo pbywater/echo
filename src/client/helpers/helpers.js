@@ -219,6 +219,42 @@ function constructTagList(data) {
   </li>`);
 }
 
+function saveMemoryIdToStorage(id) {
+  if (localStorage.toDelete) {
+    const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
+    memoriesWaitingToBeRemoved.toDelete.push(id);
+    const saveMemoriesToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
+    localStorage.toDelete = saveMemoriesToDelete;
+  }
+  else {
+    const saveDeletedMemory = JSON.stringify({toDelete: [id]});
+    localStorage.toDelete = saveDeletedMemory;
+  }
+}
+
+function removeMemoryFromStoredData(id) {
+  const offlineData = JSON.parse(localStorage.getItem('data'));
+  offlineData.forEach((memory, index) => {
+    if (memory.id == id) {
+      offlineData.splice(index, 1);
+    }
+  });
+return offlineData;
+}
+
+function removeMemoriesDeletedOffline() {
+  const deletedMemories = JSON.parse(localStorage.getItem('toDelete'));
+  deletedMemories.toDelete.forEach((memory) => {
+    console.log('memory id is ', memory.id);
+    $.ajax({
+      method: 'DELETE',
+      url: 'memories',
+      data: { memory.id },
+      success: () => update(url),
+    });
+  })
+}
+
 module.exports = {
     getRandomInt,
     initTagMenu,
@@ -228,4 +264,6 @@ module.exports = {
     hideDeleteButton,
     showHeading,
     constructTagList,
+    saveMemoryIdToStorage,
+    removeMemoryFromStoredData,
 };

@@ -1,4 +1,4 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, saveMemoryIdToStorage, removeMemoryFromStoredData } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
@@ -221,15 +221,8 @@ function render(updatedData) {
         render(formatData(data));
         sim.restart();
       } else {
-        const saveDeletedMemory = JSON.stringify({ toDelete: id });
-        localStorage.toDelete = saveDeletedMemory;
-        const offlineData = JSON.parse(localStorage.getItem('data'));
-        offlineData.forEach((memory, index) => {
-          if (memory.id == id) {
-            offlineData.splice(index, 1);
-          }
-          return offlineData;
-        });
+        saveMemoryIdToStorage(id);
+        const offlineData = removeMemoryFromStoredData(id);
         render(formatData(offlineData));
         sim.restart();
       }
