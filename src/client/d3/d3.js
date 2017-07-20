@@ -224,16 +224,11 @@ function render(updatedData) {
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
       $('.delete-button').removeClass('deleting');
-      function update() {
-        d3.json(url, (err, data) => {
-          render(formatData(data));
-        });
-      }
       $.ajax({
         method: 'DELETE',
         url: 'memories',
         data: { id },
-        success: () => update(),
+        success: update,
       });
     }
     hideDeleteButton();
