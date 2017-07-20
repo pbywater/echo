@@ -1,5 +1,3 @@
-const express = require('express');
-require('env2')('./config.env');
 const { getMemories } = require('./../../database/db_get');
 
 module.exports = (req, res) => {
