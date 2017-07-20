@@ -1,111 +1,97 @@
 /* eslint-disable */
+const { sortWithMax, binByTag, centralMaxNodesByTag, binByKey, getRandomInt } = require('../node_transformations');
 const normalTime = 1000;
 
-const binByKey = (key, xs) =>
-  xs.reduce((binnedArray, elem) => {
-    const targetBin = binnedArray[elem[key]];
-    if (targetBin === undefined) {
-      binnedArray[elem[key]] = [];
-    }
-
-    binnedArray[elem[key]].push(elem);
-    return binnedArray;
-  }, {});
-
-const getRandomInt = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 function showTaggedMemory(memoryToShow) {
-  $('.memory').each(function () {
-    if ($(this).hasClass(memoryToShow)) {
-      $(this).show();
-    }
-  });
+    $('.memory').each(function() {
+        if ($(this).hasClass(memoryToShow)) {
+            $(this).show();
+        }
+    });
 }
 
 function showMemoriesByActiveTags() {
-  $('.memory').hide();
-  $('.tagLabel').each(function () {
-    if ($(this).is(':visible')) {
-      const tag = $(this).text();
-      showTaggedMemory(tag);
-    }
-  });
+    $('.memory').hide();
+    $('.tagLabel').each(function() {
+        if ($(this).is(':visible')) {
+            const tag = $(this).text();
+            showTaggedMemory(tag);
+        }
+    });
 }
 
 function hideOtherTags(tagToKeep) {
-  $('.tagLabel').each(function () {
-    const tagLabel = $(this).text().replace(/\s+/g, '');
-    if (tagLabel !== tagToKeep) {
-      $(this).parent().hide();
-    }
-  });
+    $('.tagLabel').each(function() {
+        const tagLabel = $(this).text().replace(/\s+/g, '');
+        if (tagLabel !== tagToKeep) {
+            $(this).parent().hide();
+        }
+    });
 }
 
 function hideOtherMemories(memoryTagToKeep) {
-  $('.memory').each(function () {
-    if (!$(this).hasClass(memoryTagToKeep)) {
-      $(this).hide();
-    }
-  });
+    $('.memory').each(function() {
+        if (!$(this).hasClass(memoryTagToKeep)) {
+            $(this).hide();
+        }
+    });
 }
 
 function tagSorting() {
-  $('.tagLabel').on('click', function () {
-    const clickedTag = $(this).text().replace(/\s+/g, '');
-    hideOtherTags(clickedTag);
-    hideOtherMemories(clickedTag);
-  });
+    $('.tagLabel').on('click', function() {
+        const clickedTag = $(this).text().replace(/\s+/g, '');
+        hideOtherTags(clickedTag);
+        hideOtherMemories(clickedTag);
+    });
 }
 
 function clearButton() {
-  $('.clear-tags').on('click', () => {
-    $('.memory').show();
-    $('.tag-container').show();
-  });
+    $('.clear-tags').on('click', () => {
+        $('.memory').show();
+        $('.tag-container').show();
+    });
 }
 
 function removingTags() {
-  $('.filter-tags').on('click', function () {
-    $(this).parent().hide();
-    showMemoriesByActiveTags();
-  });
+    $('.filter-tags').on('click', function() {
+        $(this).parent().hide();
+        showMemoriesByActiveTags();
+    });
 }
 
 function closeTagMenu() {
-  $('.close-tags').on('click', () => {
-    $('.underline').removeClass('active');
-    setTimeout(() => {
-      $('.shuffle-memories').fadeIn(normalTime);
-      $('.to-hide').fadeIn(500);
-    }, normalTime);
-    setTimeout(() => {
-      $('#to-extend').show();
-      $('#to-extend').css('transform', 'rotate(0deg)').removeClass('active');
-    }, 1100);
-    $('.tags, .tags li').fadeOut(normalTime);
-  });
+    $('.close-tags').on('click', () => {
+        $('.underline').removeClass('active');
+        setTimeout(() => {
+            $('.shuffle-memories').fadeIn(normalTime);
+            $('.to-hide').fadeIn(500);
+        }, normalTime);
+        setTimeout(() => {
+            $('#to-extend').show();
+            $('#to-extend').css('transform', 'rotate(0deg)').removeClass('active');
+        }, 1100);
+        $('.tags, .tags li').fadeOut(normalTime);
+    });
 }
 
-function openTagMenu() {
-  $('.search-tags').on('click', () => {
-    $('.underline').addClass('active');
-    $('#to-extend').css('transform', 'rotate(-45deg)').addClass('active');
-    $('.to-hide').hide();
-    $('.shuffle-memories').fadeOut(normalTime);
-    setTimeout(() => {
-      $('#to-extend').hide();
-    }, 900);
-    setTimeout(() => {
-      $('.tags, .tags li').fadeIn(normalTime);
-      $('.tag-container').css('display', 'flex');
-    }, normalTime);
-  });
-  tagSorting();
-  clearButton();
-  closeTagMenu();
-  removingTags();
+function initTagMenu() {
+    $('.search-tags').on('click', () => {
+        $('.underline').addClass('active');
+        $('#to-extend').css('transform', 'rotate(-45deg)').addClass('active');
+        $('.to-hide').hide();
+        $('.shuffle-memories').fadeOut(normalTime);
+        setTimeout(() => {
+            $('#to-extend').hide();
+        }, 900);
+        setTimeout(() => {
+            $('.tags, .tags li').fadeIn(normalTime);
+            $('.tag-container').css('display', 'flex');
+        }, normalTime);
+    });
+    tagSorting();
+    clearButton();
+    closeTagMenu();
+    removingTags();
 }
 
 function showHeading(d){
@@ -168,46 +154,78 @@ function showDeleteButton(d) {
 }
 
 function hoveringOnDelete() {
-  $('.delete-button').on('mouseover', () => {
-    $('.delete-button path').css('fill', '#FF3F56');
-    $('.delete-button').addClass('deleting');
-  });
-  $('.delete-button').on('mouseleave', () => {
-    $('.delete-button path').css('fill', 'white');
-    $('.delete-button').removeClass('deleting');
-  });
+    $('.delete-button').on('mouseover', () => {
+        $('.delete-button path').css('fill', '#FF3F56');
+        $('.delete-button').addClass('deleting');
+    });
+    $('.delete-button').on('mouseleave', () => {
+        $('.delete-button path').css('fill', 'white');
+        $('.delete-button').removeClass('deleting');
+    });
 }
 
 function hideDeleteButton() {
-  $('.delete-button').fadeOut();
-  $('.menu > *:not(.delete-button)').fadeIn();
+    $('.delete-button').fadeOut();
+    $('.menu > *:not(.delete-button)').fadeIn();
 }
 
 
-function submitNewMemory() {
-  $('.memory-input__submit').on('click', function() {
-    $('.finished')
-      .addClass('new-node');
-    $('.finished svg')
-      .hide();
-    $('.memory-input')
-      .addClass('hide');
-    setTimeout(function () {
-      $('.finished svg')
-        .show();
-      $('.finished')
-        .removeClass('new-node finished wipe');
-    }, 4500);
+function initSubmitMemory() {
+    $('.memory-input__submit')
+        .on('click', function() {
+            $('.finished')
+                .addClass('new-node');
+            $('.finished svg')
+                .hide();
+            $('.memory-input')
+                .addClass('hide');
+            setTimeout(function() {
+                $('.finished svg')
+                    .show();
+                $('.finished')
+                    .removeClass('new-node finished wipe');
+            }, 4500);
+        })
+        .submit((e) => {
+            e.preventDefault();
+        })
+}
+
+function constructTagList(data) {
+  // binByTag sorts data by tag
+  // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
+  const binnedByTag = binByTag(data);
+  // sortedWithMax sorts each tag group to separate max memory (by likes) from others in its group
+  const sortedWithMax = [];
+  Object.keys(binnedByTag).forEach((tagKey) => {
+    sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
   });
+// taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
+  const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
+    Object.keys(centralNodesByTag).forEach((tag) => {
+        tag = tag.replace(/\W/g, '');
+        $('.tags').append(
+            `<li class='tag-container ${tag}'>
+      <p class='tagLabel'>${tag}</p>
+      <img class='filter-tags ${tag}' src="./assets/icons/navigate/close_icon.svg"/>
+    </li>`);
+    });
+
+    $('.tags').append(
+        `<li class='clear-tags'>clear</li>
+  <li class='close-tags'>
+    <img class='close-icon' src="./assets/icons/navigate/close_icon.svg">
+    </img>
+  </li>`);
 }
 
 module.exports = {
-  binByKey,
-  getRandomInt,
-  openTagMenu,
-  submitNewMemory,
-  showDeleteButton,
-  hoveringOnDelete,
-  hideDeleteButton,
-  showHeading,
+    getRandomInt,
+    initTagMenu,
+    initSubmitMemory,
+    showDeleteButton,
+    hoveringOnDelete,
+    hideDeleteButton,
+    showHeading,
+    constructTagList,
 };

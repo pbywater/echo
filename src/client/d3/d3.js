@@ -7,7 +7,6 @@ const { newUserIntro } = require('./newUserIntro.js');
 const url = location.hostname ? '/memories' : jsonUrl;
 
 d3.json(url, (err, data) => {
-  console.log(data);
   if (data) {
     // constructTagList(data);
     render(formatData(data));
@@ -17,8 +16,8 @@ d3.json(url, (err, data) => {
     render(falseProcessedData, falseDataArray);
     newUserIntro();
   }
-  initTagMenu();
-  initSubmitMemory();
+  // initTagMenu();
+  // initSubmitMemory();
 });
 
 const formatData = (data) => {
