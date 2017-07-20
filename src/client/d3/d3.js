@@ -10,6 +10,26 @@ if ('serviceWorker' in navigator) {
            .then(() => { console.log('Service Worker Registered'); });
 }
 
+const url = location.hostname ? '/memories' : jsonUrl;
+
+function onlineLogic() {
+  d3.json(url, (err, data) => {
+    if (data.length > 0) {
+      const dataToSave = JSON.stringify(data);
+      localStorage.data = dataToSave;
+      constructTagList(data);
+      render(formatData(data));
+      initTagMenu();
+    } else {
+      const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
+      const falseProcessedData = { links: [], nodes: falseDataArray };
+      render(falseProcessedData);
+      newUserIntro();
+    }
+    initSubmitMemory();
+  });
+}
+
 const formatData = (data) => {
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
@@ -234,26 +254,8 @@ function render(updatedData) {
   }
 }
 
-const url = location.hostname ? '/memories' : jsonUrl;
-
 if (navigator.onLine) {
-  removeMemoriesDeletedOffline();
-
-  d3.json(url, (err, data) => {
-    if (data.length > 0) {
-      const dataToSave = JSON.stringify(data);
-      localStorage.data = dataToSave;
-      constructTagList(data);
-      render(formatData(data));
-      initTagMenu();
-    } else {
-      const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
-      const falseProcessedData = { links: [], nodes: falseDataArray };
-      render(falseProcessedData);
-      newUserIntro();
-    }
-    initSubmitMemory();
-  });
+  removeMemoriesDeletedOffline(onlineLogic);
 } else {
   const offlineData = JSON.parse(localStorage.getItem('data'));
   constructTagList(offlineData);

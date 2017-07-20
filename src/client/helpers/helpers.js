@@ -256,7 +256,7 @@ function removeMemoryFromLocalStorage(index) {
 }
 }
 
-function removeMemoriesDeletedOffline() {
+function removeMemoriesDeletedOffline(cb) {
   if(localStorage.getItem('toDelete') !== null) {
   const deletedMemories = JSON.parse(localStorage.getItem('toDelete'));
   deletedMemories.memories.forEach((memory, index) => {
@@ -267,8 +267,10 @@ function removeMemoriesDeletedOffline() {
       data: { id: memory },
       success: () => removeMemoryFromLocalStorage(index),
     });
+    cb();
   })
 }
+cb();
 }
 
 module.exports = {
