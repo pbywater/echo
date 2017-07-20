@@ -1,30 +1,28 @@
 const { svg } = require('./setup.js');
 
 function newUserIntro() {
-  const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
-
-  const fdGrp = svg
-  .append('g')
-    .attr('class', 'memory-group');
-
-  const nodeGrp = fdGrp
-  .append('g')
-    .attr('class', 'nodes');
-
-  const nodes = nodeGrp
-    .selectAll('circle.node')
-    .data(falseDataArray)
-    .enter()
-    .append('circle')
-      .attr('cy', d => d.y)
-      .attr('cx', d => d.x)
-      .attr('r', 4)
-      .style('fill', 'white')
-      .style('opacity', '0.8')
-      .call(d3.drag()
-        .on('start', dragstart)
-        .on('drag', dragging)
-        .on('end', dragend));
+  // const fdGrp = svg
+  // .append('g')
+  //   .attr('class', 'memory-group');
+  //
+  // const nodeGrp = fdGrp
+  // .append('g')
+  //   .attr('class', 'nodes');
+  //
+  // const nodes = nodeGrp
+  //   .selectAll('circle.node')
+  //   .data(falseDataArray)
+  //   .enter()
+  //   .append('circle')
+  //     .attr('cy', d => d.y)
+  //     .attr('cx', d => d.x)
+  //     .attr('r', 4)
+  //     .style('fill', 'white')
+  //     .style('opacity', '0.8')
+  //     .call(d3.drag()
+  //       .on('start', dragstart)
+  //       .on('drag', dragging)
+        // .on('end', dragend));
 
   const textGroup = nodeGrp
   .append('g')
@@ -122,42 +120,43 @@ function newUserIntro() {
           .style('opacity', 1);
 
 
-  const sim = d3.forceSimulation()
-      .force('forceX', d3.forceX(falseDataArray).strength(0.5).x(d => d.x))
-      .force('forceY', d3.forceY(falseDataArray).strength(0.5).y(d => d.y))
-      .force('center', d3.forceCenter(180, 320));
-
-  sim
-    .nodes(falseDataArray)
-    .on('tick', () => {
-      nodes
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y);
-    });
-
-
-  function dragstart(d) {
-    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
-    d.fx = d.x;
-    d.fy = d.y;
-    $(this).addClass('active');
-  }
-
-  function dragging(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-    d3.select(this).style('fill', '#FDACAB');
-  }
-
-  function dragend(d) {
-    if (!d3.event.active) sim.alphaTarget(0);
-    if (!d.outer) {
-      d.fx = null;
-      d.fy = null;
-    }
-    d3.select(this).style('fill', 'white');
-    $(this).removeClass('active');
-  }
+  // const sim = d3.forceSimulation()
+//       .force('forceX', d3.forceX(falseDataArray).strength(0.5).x(d => d.x))
+//       .force('forceY', d3.forceY(falseDataArray).strength(0.5).y(d => d.y))
+//       .force('center', d3.forceCenter(180, 320));
+//
+//   sim
+//     .nodes(falseDataArray)
+//     .on('tick', () => {
+//       nodes
+//         .attr('cx', d => d.x)
+//         .attr('cy', d => d.y);
+//     });
+//
+//
+//   function dragstart(d) {
+//     if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+//     d.fx = d.x;
+//     d.fy = d.y;
+//     $(this).addClass('active');
+//   }
+//
+//   function dragging(d) {
+//     d.fx = d3.event.x;
+//     d.fy = d3.event.y;
+//     d3.select(this).style('fill', '#FDACAB');
+//   }
+//
+//   function dragend(d) {
+//     if (!d3.event.active) sim.alphaTarget(0);
+//     if (!d.outer) {
+//       d.fx = null;
+//       d.fy = null;
+//     }
+//     d3.select(this).style('fill', 'white');
+//     $(this).removeClass('active');
+//   }
+// }
 }
 
 module.exports = {
