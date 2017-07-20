@@ -211,13 +211,28 @@ function render(updatedData) {
           render(formatData(data));
           sim.restart();
         });
+      } if (navigator.onLine) {
+        $.ajax({
+          method: 'DELETE',
+          url: 'memories',
+          data: { id },
+          success: () => update(url),
+        });
+        render(formatData(data));
+        sim.restart();
+      } else {
+        const saveDeletedMemory = JSON.stringify({ toDelete: id });
+        localStorage.toDelete = saveDeletedMemory;
+        const offlineData = JSON.parse(localStorage.getItem('data'));
+        offlineData.forEach((memory, index) => {
+          if (memory.id == id) {
+            offlineData.splice(index, 1);
+          }
+          return offlineData;
+        });
+        render(formatData(offlineData));
+        sim.restart();
       }
-      $.ajax({
-        method: 'DELETE',
-        url: 'memories',
-        data: { id },
-        success: () => update(url),
-      });
     }
     hideDeleteButton();
     sim.restart();

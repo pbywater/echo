@@ -9,6 +9,7 @@ const filesToCache = [
   '/assets/icons/top_bar/search_icon.svg',
   '/assets/icons/top_bar/shuffle_icon.svg',
   '/assets/icons/card_icons/audio_salmon_icon.svg',
+  '/assets/icons/card_icons/close.svg',
   '/assets/icons/card_icons/camera_salmon_icon.svg',
   '/assets/icons/card_icons/heart_icon_checked.svg',
   '/assets/icons/card_icons/heart_icon_unchecked.svg',
