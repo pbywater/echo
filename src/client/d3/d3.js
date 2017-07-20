@@ -163,6 +163,9 @@ function render(updatedData) {
     .force('center', d3.forceCenter(180, 320));
 
   sim
+  .alphaTarget(0.3);
+
+  sim
   .nodes(nodeDataArray)
   .on('tick', () => {
     nodes
@@ -185,7 +188,7 @@ function render(updatedData) {
 
   function dragstart(d) {
     if (!d3.event.active) {
-      sim.alphaTarget(0.3).velocityDecay(0.5).restart();
+      sim.alphaTarget(1).restart();
     }
     d.fx = d.x;
     d.fy = d.y;
@@ -203,8 +206,7 @@ function render(updatedData) {
 
   function dragend(d) {
     if (!d3.event.active) {
-      // sim.alphaTar get(0);
-      // sim.alphaTarget(0.3).velocityDecay(0.5).restart();
+      sim.alphaTarget(0);
     }
 
     if (!d.outer) {
@@ -223,7 +225,6 @@ function render(updatedData) {
       function update() {
         d3.json(url, (err, data) => {
           render(formatData(data));
-          sim.restart();
         });
       }
       $.ajax({
@@ -234,9 +235,6 @@ function render(updatedData) {
       });
     }
     hideDeleteButton();
-    // sim.alphaTarget(0.3).velocityDecay(0.5).restart();
-    sim.restart();
-    // sim.alphaTarget(0.3).restart();
   }
 
 
@@ -248,16 +246,11 @@ function render(updatedData) {
       data: $('#add-text-form').serialize(),
       success: () => update(),
     });
-    // sim.restart();
   });
 
   function update() {
     d3.json(url, (err, data) => {
       render(formatData(data));
-      sim.restart();
-      // sim.alphaTarget(1).restart();
-
-      // sim.alphaTarget(1).velocityDecay(0).restart();
     });
   }
 }
