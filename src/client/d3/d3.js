@@ -220,22 +220,12 @@ function render(updatedData) {
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
       $('.delete-button').removeClass('deleting');
-<<<<<<< HEAD
-||||||| merged common ancestors
-      function update(url) {
-        d3.json(url, (err, data) => {
-          formatData(data, render);
-          sim.restart();
-        });
-      }
-=======
       function update(url) {
         d3.json(url, (err, data) => {
           render(formatData(data));
           sim.restart();
         });
       }
->>>>>>> master
       $.ajax({
         method: 'DELETE',
         url: 'memories',
@@ -263,8 +253,8 @@ function render(updatedData) {
 
   function update() {
     d3.json(url, (err, data) => {
-      formatData(data, render);
-      // sim.restart();
+      render(formatData(data));
+      sim.restart();
       // sim.alphaTarget(1).restart();
 
       // sim.alphaTarget(1).velocityDecay(0).restart();
