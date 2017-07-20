@@ -239,6 +239,8 @@ function removeMemoryFromStoredData(id) {
       offlineData.splice(index, 1);
     }
   });
+  const offlineDataAfterRemoving = JSON.stringify(offlineData);
+  localStorage.data = offlineDataAfterRemoving;
 return offlineData;
 }
 
