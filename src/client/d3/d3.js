@@ -220,7 +220,7 @@ function render(updatedData) {
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
       $('.delete-button').removeClass('deleting');
-      function update(url) {
+      function update() {
         d3.json(url, (err, data) => {
           render(formatData(data));
           sim.restart();
@@ -235,7 +235,7 @@ function render(updatedData) {
     }
     hideDeleteButton();
     // sim.alphaTarget(0.3).velocityDecay(0.5).restart();
-    // sim.restart();
+    sim.restart();
     // sim.alphaTarget(0.3).restart();
   }
 
