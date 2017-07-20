@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const router = require('./router');
 
-app.use(express.static('public'));
 app.use('/', router);
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
