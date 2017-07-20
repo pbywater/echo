@@ -244,7 +244,11 @@ function render(updatedData) {
       method: 'POST',
       url: 'memory-input-text',
       data: $('#add-text-form').serialize(),
-      success: () => update(),
+      success: () => {
+        setTimeout(() => {
+          update();
+        }, 4500);
+      },
     });
   });
 
