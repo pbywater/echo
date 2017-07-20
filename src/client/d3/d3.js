@@ -35,13 +35,6 @@ function render(updatedData) {
   Object.keys(updatedData.nodes).forEach((key) => {
     nodeDataArray.push(updatedData.nodes[key]);
   });
-  svg
-    .selectAll('.node')
-      .remove();
-
-  svg
-    .selectAll('.link')
-      .remove();
 
   const rScale = d3
   .scaleSqrt()
@@ -236,7 +229,6 @@ function render(updatedData) {
     }
     hideDeleteButton();
   }
-
 
   $('#memory-input__submit').click((e) => {
     e.preventDefault();
