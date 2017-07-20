@@ -220,14 +220,14 @@ function constructTagList(data) {
 }
 
 function saveMemoryIdToStorage(id) {
-  if (localStorage.toDelete) {
+  if (localStorage.getItem('toDelete') !== null) {
     const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
-    memoriesWaitingToBeRemoved.toDelete.push(id);
+    memoriesWaitingToBeRemoved.memories.push(id);
     const saveMemoriesToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
     localStorage.toDelete = saveMemoriesToDelete;
   }
   else {
-    const saveDeletedMemory = JSON.stringify({toDelete: [id]});
+    const saveDeletedMemory = JSON.stringify({memories: [id]});
     localStorage.toDelete = saveDeletedMemory;
   }
 }
@@ -242,17 +242,31 @@ function removeMemoryFromStoredData(id) {
 return offlineData;
 }
 
+function removeMemoryFromLocalStorage(index) {
+  const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
+  if (memoriesWaitingToBeRemoved.memories.length === 1) {
+    localStorage.removeItem('toDelete');
+  }
+  else {
+  memoriesWaitingToBeRemoved.memories.splice(index, 1);
+  const memoriesStillToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
+  localStorage.toDelete = memoriesStillToDelete;
+}
+}
+
 function removeMemoriesDeletedOffline() {
+  console.log('removing');
+  if(localStorage.getItem('toDelete') !== null) {
   const deletedMemories = JSON.parse(localStorage.getItem('toDelete'));
-  deletedMemories.toDelete.forEach((memory) => {
-    console.log('memory id is ', memory.id);
+  deletedMemories.memories.forEach((memory, index) => {
     $.ajax({
       method: 'DELETE',
       url: 'memories',
-      data: { memory.id },
-      success: () => update(url),
+      data: { memory },
+      success: () => removeMemoryFromLocalStorage(index),
     });
   })
+}
 }
 
 module.exports = {
@@ -266,4 +280,5 @@ module.exports = {
     constructTagList,
     saveMemoryIdToStorage,
     removeMemoryFromStoredData,
+    removeMemoriesDeletedOffline,
 };

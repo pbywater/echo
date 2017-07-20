@@ -1,4 +1,4 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, saveMemoryIdToStorage, removeMemoryFromStoredData } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, saveMemoryIdToStorage, removeMemoryFromStoredData, removeMemoriesDeletedOffline } = require('../helpers/helpers.js');
 const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
@@ -235,18 +235,17 @@ function render(updatedData) {
 const url = location.hostname ? '/memories' : jsonUrl;
 
 if (navigator.onLine) {
+  removeMemoriesDeletedOffline();
+
   d3.json(url, (err, data) => {
-    if (navigator.onLine) {
-      const dataToSave = JSON.stringify(data);
-      localStorage.data = dataToSave;
-    }
+    const dataToSave = JSON.stringify(data);
+    localStorage.data = dataToSave;
     constructTagList(data);
     render(formatData(data));
     initTagMenu();
     initSubmitMemory();
   });
 } else {
-  console.log('offline');
   const offlineData = JSON.parse(localStorage.getItem('data'));
   constructTagList(offlineData);
   render(formatData(offlineData));
