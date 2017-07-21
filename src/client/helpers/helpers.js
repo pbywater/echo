@@ -223,6 +223,7 @@ function constructTagList(data) {
 // Will change this to storePendingActions in the next pull req - it is refactored to fit several actions
 function saveMemoryIdToStorage(id) {
 // Same for the refactoring you suggested below!
+if (localStorage.getItem('toDelete') !== null) {
     const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
     memoriesWaitingToBeRemoved.memories.push(id);
     const saveMemoriesToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
@@ -246,6 +247,7 @@ function removeMemoryFromStoredData(id) {
 return offlineData;
 }
 
+// Refactored this in next PR
 function removeMemoryFromLocalStorage(index) {
   const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
   if (memoriesWaitingToBeRemoved.memories.length === 1) {

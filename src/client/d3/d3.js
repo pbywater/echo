@@ -10,7 +10,7 @@ function onlineLogic() {
   d3.json(url, (err, data) => {
     if (data.length > 0) {
       const dataToSave = JSON.stringify(data);
-      localStorage.data = dataToSave;
+      localStorage.setItem('data', dataToSave);
       constructTagList(data);
       render(formatData(data));
       initTagMenu();
