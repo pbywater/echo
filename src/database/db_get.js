@@ -43,8 +43,8 @@ const getUser = (input, callback) => {
   });
 };
 
-const getMemoryById = (id, callback) => {
-  connect.query('SELECT memory_asset_url FROM memories WHERE id = $1', [id], (err, res) => {
+const getMemoryById = (userId, id, callback) => {
+  connect.query('SELECT memory_asset_url FROM memories WHERE user_id = $1 AND id = $2', [userId, id], (err, res) => {
     if (err) return err;
     callback(null, res.rows[0].memory_asset_url);
   });
