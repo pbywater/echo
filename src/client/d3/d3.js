@@ -44,6 +44,10 @@ function render(updatedData) {
     nodeDataArray.push(updatedData.nodes[key]);
   });
 
+  svg
+    .selectAll('.memory-group')
+      .remove();
+
   const rScale = d3
     .scaleSqrt()
     .domain([0, d3.max(nodeDataArray, d => d.likes)])
