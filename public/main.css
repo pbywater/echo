@@ -887,11 +887,15 @@ a:hover {
 /* logout button */
 
 .logout-button {
-    z-index: 2;
-    color: black;
-    position: absolute;
-    /*bottom: 10%;
-    right: 10%;*/
+  z-index: 2;
+  background-color: transparent;
+  color: black;
+  outline: none;
+  border: none;
+  font-size: 1.1em;
+  left: 47%;
+  top: 40%;
+  position: absolute;
 }
 
 @media screen and (max-width: 768px) {
