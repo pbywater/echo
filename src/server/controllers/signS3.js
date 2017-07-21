@@ -26,21 +26,22 @@ module.exports = (req, res) => {
     tag: '',
   };
 
-  createMemory('test', newMemory, 'image', fileKey, (err, res) => {
+  createMemory('test', newMemory, 'image', fileKey, (err, response) => {
     if (err) return err;
-  });
 
-  s3.getSignedUrl('putObject', s3Params, (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.end();
-    }
-    const returnData = {
-      key: s3Params.Key,
-      signedRequest: data,
-      url: `https://${S3_BUCKET_NAME}.s3.amazonaws.com/${fileName}`,
-    };
-    res.write(JSON.stringify(returnData));
-    res.end();
+    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+      if (err) {
+        console.log(err);
+        return res.end();
+      }
+      const returnData = {
+        imageId: response.rows[0].id,
+        key: s3Params.Key,
+        signedRequest: data,
+        url: `https://${S3_BUCKET_NAME}.s3.amazonaws.com/${fileName}`,
+      };
+      res.write(JSON.stringify(returnData));
+      res.end();
+    });
   });
 };
