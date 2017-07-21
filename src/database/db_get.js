@@ -43,7 +43,7 @@ const getUser = (input, callback) => {
   });
 };
 
-const getMemoryUrlById = (id, callback) => {
+const getMemoryById = (id, callback) => {
   connect.query('SELECT memory_asset_url FROM memories WHERE id = $1', [id], (err, res) => {
     if (err) return err;
     callback(null, res.rows[0].memory_asset_url);
@@ -54,5 +54,5 @@ module.exports = {
   getMemories,
   getLikes,
   getUser,
-  getMemoryUrlById,
+  getMemoryById,
 };
