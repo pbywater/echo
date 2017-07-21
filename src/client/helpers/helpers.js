@@ -155,11 +155,11 @@ function showDeleteButton(d) {
 }
 
 function hoveringOnDelete() {
-    $('.delete-button').on('mouseover', () => {
+    $('.delete-button').on('mouseover touchstart', () => {
         $('.delete-button path').css('fill', '#FF3F56');
         $('.delete-button').addClass('deleting');
     });
-    $('.delete-button').on('mouseleave', () => {
+    $('.delete-button').on('mouseleave touchend', () => {
         $('.delete-button path').css('fill', 'white');
         $('.delete-button').removeClass('deleting');
     });
