@@ -78,11 +78,11 @@ const appendMedia = (data) => {
     .selectAll('.popupBoxHolder');
 
   if (data.media_type === 'image') {
-    const memoryUrl = data.memory_asset_url;
+    const memoryId = data.id;
     $.ajax({
       method: 'GET',
       url: 'memory-input-photo',
-      data: { memoryUrl },
+      data: { memoryId },
       success: url => appendImage(url),
     });
     function appendImage(url) {
