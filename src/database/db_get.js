@@ -3,7 +3,7 @@ const connect = require('./db_connect');
 const getMemories = (userLogin, callback) => {
   const userSQLMemories =
   `SELECT memories.id, memories.heading, memories.likes, memories.visits,
-  memories.tag, memories.memory_asset_url, memories.memory_text,
+  memories.tag, memories.memory_text,
   memories.media_type
   FROM memories
   INNER JOIN users
