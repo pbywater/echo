@@ -3,6 +3,7 @@ const connect = require('./db_connect');
 const hashPassword = require('./../helpers/hashPassword');
 
 const createMemory = (login, newMemory, mediaType, callback) => {
+  newMemory.tag = newMemory.tag.toLowerCase();
   connect.query(
     `INSERT INTO memories
         (user_id, memory_text, media_type, memory_asset_url, heading, tag, likes, visits)

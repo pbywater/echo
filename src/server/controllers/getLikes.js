@@ -1,7 +1,4 @@
-const express = require('express');
-require('env2')('./config.env');
 const { getLikes } = require('./../../database/db_get');
-
 
 module.exports = (req, res) => {
   const memoryId = req.params.memoryId;

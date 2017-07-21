@@ -144,7 +144,9 @@ function render(updatedData) {
   });
 
   function dragstart(d) {
-    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+    if (!d3.event.active) {
+      sim.alphaTarget(1).restart();
+    }
     d.fx = d.x;
     d.fy = d.y;
     $(this).addClass('active');
