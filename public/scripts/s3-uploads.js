@@ -9,6 +9,8 @@
   };
 }());
 
+let imageUploadPending = false;
+
 function getSignedRequest(file) {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
@@ -17,7 +19,8 @@ function getSignedRequest(file) {
       if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
         uploadFile(file, response.signedRequest, response.url);
-        saveInLocalStorage(response.key);
+        imageUploadPending = true;
+        updateTagAndHeading(response.imageId);
       } else {
         alert('Could not get signed URL.');
       }
@@ -41,21 +44,18 @@ function uploadFile(file, signedRequest, url) {
   xhr.send(file);
 }
 
-function saveInLocalStorage(imageId) {
-  localStorage.setItem('addedImage', imageId);
+function updateTagAndHeading(imageId) {
+  document.getElementById('photo-save').onclick = function (e) {
+    e.preventDefault();
+    if (imageUploadPending) {
+      const tag = $('.tag-input--photo')[0].value;
+      const heading = $('.heading-input--photo')[0].value;
+      $.ajax({
+        method: 'PUT',
+        url: 'memory-input-photo',
+        data: { tag, heading, imageId },
+        success: () => { imageUploadPending = false; },
+      });
+    }
+  };
 }
-
-document.getElementById('photo-save').onclick = function (e) {
-  e.preventDefault();
-  if (localStorage.getItem('addedImage')) {
-    const tag = $('.tag-input--photo')[0].value;
-    const heading = $('.heading-input--photo')[0].value;
-    const imageId = localStorage.getItem('addedImage');
-    $.ajax({
-      method: 'PUT',
-      url: 'memory-input-photo',
-      data: { tag, heading, imageId },
-      success: localStorage.removeItem('addedImage'),
-    });
-  }
-};
