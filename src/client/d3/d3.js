@@ -1,6 +1,6 @@
 const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading } = require('../helpers/helpers.js');
-const { width, height, jsonUrl, svg } = require('./setup.js');
-const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
+const { animationDuration, width, height, jsonUrl, svg } = require('./setup.js');
+const { sortWithMax, binByTag, memoryNodesAndLinks, centralMaxNodesByTag } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
 const { newUserIntro } = require('./newUserIntro.js');
 
@@ -40,98 +40,70 @@ const formatData = (data) => {
 
 function render(updatedData) {
   const nodeDataArray = [];
-  Object.keys(updatedData.nodes).forEach((key) => {
-    nodeDataArray.push(updatedData.nodes[key]);
+  Object.keys(processedData.nodes).forEach((key) => {
+    nodeDataArray.push(processedData.nodes[key]);
   });
+}
 
-  svg
-    .selectAll('.memory-group')
-      .remove();
-
-  function zoomed() {
-    d3.select('.memory-group').attr('transform', d3.event.transform);
-  }
-
-  const rScale = d3
+const rScale = d3
   .scaleSqrt()
   .domain([0, d3.max(nodeDataArray, d => d.likes)])
   .range([3, 8]);
 
-  const fdGrp = svg
+function zoomed() {
+  d3.select('.memory-group').attr('transform', d3.event.transform);
+}
+
+const fdGrp = svg
     .append('g')
     .attr('class', 'memory-group')
     .call(d3.zoom()
       .scaleExtent([1 / 3, 3])
       .on('zoom', zoomed));
 
-  const linkGrp = fdGrp
+const linkGrp = fdGrp
     .append('g')
     .attr('class', 'links');
 
-  const linksG = linkGrp
-  .selectAll('line.memory')
-  .append('g');
-
-  const nodeGrp = fdGrp
-  .append('g')
-  .attr('class', 'nodes');
-
-  const nodesG = nodeGrp
-  .selectAll('circle.memory')
-  .append('g')
-  .attr('class', 'nodeGroup');
-
-// ENTER new elements
-  let links = linksG
-    .data(updatedData.links, d => d.target)
+const linksG = linkGrp
+    .selectAll('line.link')
+    .data(processedData.links)
     .enter()
+    .append('g');
+
+const links = linksG
     .append('line')
-      .attr('id', d => d.id)
-      .attr('x2', (d) => {
-        if (!updatedData.nodes[d.target]) {
-          return updatedData.nodes[d.target.id].x;
-        }
-        return updatedData.nodes[d.target].x;
-      })
-      .attr('y2', (d) => {
-        if (!updatedData.nodes[d.target]) {
-          return updatedData.nodes[d.target.id].y;
-        }
-        return updatedData.nodes[d.target].y;
-      })
-      .attr('x1', (d) => {
-        if (!updatedData.nodes[d.source]) {
-          return updatedData.nodes[d.source.id].x;
-        }
-        return updatedData.nodes[d.source].x;
-      })
-      .attr('y1', (d) => {
-        if (!updatedData.nodes[d.source]) {
-          return updatedData.nodes[d.source.id].y;
-        }
-        return updatedData.nodes[d.source].y;
-      })
+      .attr('x2', d => processedData.nodes[d.target].x,
+      )
+      .attr('y2', d => processedData.nodes[d.target].y,
+      )
+      .attr('x1', d => processedData.nodes[d.source].x,
+      )
+      .attr('y1', d => processedData.nodes[d.source].y,
+      )
       .style('stroke', 'white')
       .style('stroke-width', '2px')
       .style('opacity', '0.8')
-      .attr('class', (d) => {
-        if (!updatedData.nodes[d.source]) {
-          return `memory ${updatedData.nodes[d.source.id].tag}`;
-        }
-        return `memory ${updatedData.nodes[d.source].tag}`;
-      });
+      .attr('class', d => `memory ${processedData.nodes[d.source].tag}`);
 
-  // links = enterLinks.merge(links);
+const nodeGrp = fdGrp
+    .append('g')
+      .attr('class', 'nodes');
 
-  let nodes = nodesG
-    .data(nodeDataArray, d => d.id)
+const nodesG = nodeGrp
+    .selectAll('circle.node')
+    .data(nodeDataArray)
     .enter()
+    .append('g')
+    .attr('id', d => `nodeGrp${d.id}`);
+
+const nodes = nodesG
     .append('circle')
       .attr('class', d => `memory ${d.tag}`)
+      .attr('id', d => d.id)
       .attr('cy', d => d.y)
       .attr('cx', d => d.x)
       .attr('r', d => rScale(d.likes))
-      .attr('id', d => d.id)
       .style('fill', 'white')
       .style('opacity', '0.8')
       .call(d3.drag()
@@ -142,111 +114,74 @@ function render(updatedData) {
         appendPopUp(d);
       });
 
-  // nodes = enterNodes.merge(nodes);
-
-  const sim = d3.forceSimulation()
-    .force('link', d3.forceLink().id(d => d.id))
+const sim = d3.forceSimulation()
+    .force('link', d3.forceLink(processedData).id(d => d.id))
     .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
     .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
     .force('center', d3.forceCenter(180, 320));
 
-
-    // EXIT old elements to be removed
-  links = linksG
-        .exit()
-          .style('fill-opacity', 0)
-          .remove();
-
-  nodes = nodesG
-        .exit()
-          .style('fill-opacity', 0)
-          .remove();
-
-    // UPDATE old elements still in the data
-  links
-        .attr('x2', d => updatedData.nodes[d.target].x,
-        )
-        .attr('y2', d => updatedData.nodes[d.target].y,
-        )
-        .attr('x1', d => updatedData.nodes[d.source].x,
-        )
-        .attr('y1', d => updatedData.nodes[d.source].y,
-      );
-
-  nodes
-        .attr('class', d => `memory ${d.tag}`)
-        .attr('cy', d => d.y)
-        .attr('cx', d => d.x)
-        .attr('r', d => rScale(d.likes));
-
-  sim
+sim
   .nodes(nodeDataArray)
   .on('tick', () => {
     nodes
-    .attr('cx', d => d.x)
-    .attr('cy', d => d.y);
+      .attr('cx', d => d.x)
+      .attr('cy', d => d.y);
     links
-    .attr('x1', d => updatedData.nodes[d.source.id].x)
-    .attr('y1', d => updatedData.nodes[d.source.id].y)
-    .attr('x2', d => updatedData.nodes[d.target.id].x)
-    .attr('y2', d => updatedData.nodes[d.target.id].y);
+      .attr('x1', d =>
+      processedData.nodes[d.source.id].x)
+      .attr('y1', d => processedData.nodes[d.source.id].y)
+      .attr('x2', d => processedData.nodes[d.target.id].x)
+      .attr('y2', d => processedData.nodes[d.target.id].y);
   });
 
-  sim.force('link')
-  .links(updatedData.links)
-  .distance(d => 40);
+sim.force('link')
+    .links(processedData.links)
+    .distance(d => 40);
 
-  sim.restart();
+d3.select('.shuffle-memories').on('click', () => {
+  randomPopUp(nodeDataArray);
+});
 
-  d3.select('.shuffle-memories').on('click', () => {
-    randomPopUp(nodeDataArray);
-  });
-
-  function dragstart(d) {
-    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
-    d.fx = d.x;
-    d.fy = d.y;
-    $(this).addClass('active');
-    showDeleteButton();
-    showHeading(d);
-  }
-
-  function dragging(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-    d3.select(this).style('fill', '#FDACAB');
-    hoveringOnDelete();
-  }
-
-  function dragend(d) {
-    if (!d3.event.active) sim.alphaTarget(0);
-    if (!d.outer) {
-      d.fx = null;
-      d.fy = null;
-
-      d3.selectAll('.memory-heading')
-        .remove();
-    }
-
-    $(this).removeClass('active');
-    d3.select(this).style('fill', 'white');
-    if ($('.delete-button').hasClass('deleting')) {
-      const id = d3.select(this).attr('id');
-      $('.delete-button').removeClass('deleting');
-      function update(url) {
-        d3.json(url, (err, data) => {
-          render(formatData(data));
-          sim.restart();
-        });
-      }
-      $.ajax({
-        method: 'DELETE',
-        url: 'memories',
-        data: { id },
-        success: () => update(url),
-      });
-    }
-    hideDeleteButton();
-    sim.restart();
-  }
+function dragstart(d) {
+  if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+  d.fx = d.x;
+  d.fy = d.y;
+  $(this).addClass('active');
+  showDeleteButton();
+  showHeading(d);
 }
+
+function dragging(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+  d3.select(this).style('fill', '#FDACAB');
+  hoveringOnDelete();
+}
+
+function dragend(d) {
+  if (!d3.event.active) sim.alphaTarget(0);
+  if (!d.outer) {
+    d.fx = null;
+    d.fy = null;
+
+    d3.selectAll('.memory-heading')
+        .remove();
+  }
+
+  $(this).removeClass('active');
+  d3.select(this).style('fill', 'white');
+  if ($('.delete-button').hasClass('deleting')) {
+    const id = d3.select(this).attr('id');
+      // Line below to be removed when loop is implemented
+    d3.select(this).style('display', 'none');
+    $('.delete-button').removeClass('deleting');
+    $.ajax({
+      type: 'DELETE',
+      url: 'memories',
+      data: { id },
+    });
+  }
+  hideDeleteButton();
+}
+openTagMenu();
+submitNewMemory();
