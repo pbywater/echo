@@ -8,7 +8,6 @@ const s3 = s3init();
 
 module.exports = (req, res) => {
   getMemoryById(req.body.id, (error, response) => {
-    console.log('response', response);
     if (error) return error;
 
     const params = {
