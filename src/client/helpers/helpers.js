@@ -1,6 +1,7 @@
 /* eslint-disable */
 const { sortWithMax, binByTag, centralMaxNodesByTag, binByKey, getRandomInt } = require('../node_transformations');
 const normalTime = 1000;
+const { animationDuration } = require('./../d3/setup');
 
 function showTaggedMemory(memoryToShow) {
     $('.memory').each(function() {
@@ -184,7 +185,7 @@ function initSubmitMemory() {
                     .show();
                 $('.finished')
                     .removeClass('new-node finished wipe');
-            }, 4500);
+            }, animationDuration);
         })
         .submit((e) => {
             e.preventDefault();
@@ -219,6 +220,62 @@ function constructTagList(data) {
   </li>`);
 }
 
+// Will change this to storePendingActions in the next pull req - it is refactored to fit several actions
+function saveMemoryIdToStorage(id) {
+// Same for the refactoring you suggested below!
+if (localStorage.getItem('toDelete') !== null) {
+    const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
+    memoriesWaitingToBeRemoved.memories.push(id);
+    const saveMemoriesToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
+    localStorage.toDelete = saveMemoriesToDelete;
+  }
+  else {
+    const saveDeletedMemory = JSON.stringify({memories: [id]});
+    localStorage.toDelete = saveDeletedMemory;
+  }
+}
+
+function removeMemoryFromStoredData(id) {
+  const offlineData = JSON.parse(localStorage.getItem('data'));
+  offlineData.forEach((memory, index) => {
+    if (memory.id == id) {
+      offlineData.splice(index, 1);
+    }
+  });
+  const offlineDataAfterRemoving = JSON.stringify(offlineData);
+  localStorage.setItem('data', offlineDataAfterRemoving);
+return offlineData;
+}
+
+// Refactored this in next PR - will change name to clearPendingActions
+function removeMemoryFromLocalStorage(index) {
+  const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
+  if (memoriesWaitingToBeRemoved.memories.length === 1) {
+    localStorage.removeItem('toDelete');
+  }
+  else {
+    memoriesWaitingToBeRemoved.memories.splice(index, 1);
+    const memoriesStillToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
+    localStorage.toDelete = memoriesStillToDelete;
+}
+}
+
+function deletePendingMemories(cb) {
+  if(localStorage.getItem('toDelete') !== null) {
+  const deletedMemories = JSON.parse(localStorage.getItem('toDelete'));
+  deletedMemories.memories.forEach((memory, index) => {
+    memory = parseInt(memory);
+    $.ajax({
+      method: 'DELETE',
+      url: 'memories',
+      data: { id: memory },
+      success: () => removeMemoryFromLocalStorage(index),
+    });
+    cb();
+  })
+}
+}
+
 module.exports = {
     getRandomInt,
     initTagMenu,
@@ -228,4 +285,7 @@ module.exports = {
     hideDeleteButton,
     showHeading,
     constructTagList,
+    saveMemoryIdToStorage,
+    removeMemoryFromStoredData,
+    deletePendingMemories,
 };

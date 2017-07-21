@@ -1,4 +1,5 @@
 require('env2')('./config.env');
+
 const { deleteMemory } = require('./../../database/db_delete');
 const { getMemoryById } = require('./../../database/db_get');
 const { s3init } = require('./../../helpers/helpers');
@@ -28,7 +29,6 @@ module.exports = (req, res) => {
   });
   deleteMemory(req.body.id, (error, response) => {
     if (error) return res.status(500).send(error);
-
     res.status(200).send('ok');
   });
 };

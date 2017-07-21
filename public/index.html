@@ -144,14 +144,14 @@
   </g>
   </svg>
 
-                <form class="memory-input pencil hide" action="memory-input-text" method="post">
+                <form class="memory-input pencil hide" action="" method="post" id="add-text-form">
                     <label class="memory-input__label pencil"><span class="memory-input__placeholder">Write your memory</span>
               <input class="heading-input" name="heading" type="text" placeholder="Enter a heading" maxlength="25">
               <textarea class="memory-input__text" name="memory_text" type="text" placeholder="My memory..."></textarea>
               <input class="tag-input" name="tag" type="text" placeholder="Enter a tag"></input>
               <br>
-              <input class="memory-input__submit pencil" type="submit" value="Save">
-            </label>
+              <input class="memory-input__submit pencil" id="memory-input__submit" type="submit" value="Save">
+                    </label>
                 </form>
                 <div class='memory-input camera hide img-background'></div>
                 <img src='assets/icons/card_icons/photo_folder_icon.svg' class='memory-input camera hide image'/>
@@ -168,18 +168,19 @@
                     <label for='microphone' class="memory-input__label microphone">Record a voice note</label>
                     <input id='microphone' class="memory-input__submit microphone" type="file" accept="audio/*" capture="microphone" style='opacity:0;'></input>
                 </form>
-
+              </div>
+              <div class="memory-input cog hide settingsLinks">
+                <p class="aboutLink"><a href="https://github.com/pbywater/echo">About this App</a></p>
+                <form action="logout" method="post">
+                    <input class="logout-button" type="submit" value="Logout">
+                </form>
+              </div>
             </nav>
 
-        </div>
-        <form action="logout" method="post">
-            <input class="logout-button" type="submit" value="Logout">
-        </form>
+
     </div>
 
 </body>
-
-
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 <script src="scripts/main.js"></script>
