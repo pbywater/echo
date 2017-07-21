@@ -1,13 +1,13 @@
 require('env2')('./config.env');
 const { deleteMemory } = require('./../../database/db_delete');
-const { getMemoryUrlById } = require('./../../database/db_get');
+const { getMemoryById } = require('./../../database/db_get');
 const { s3init } = require('./../../helpers/helpers');
 
 const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 const s3 = s3init();
 
 module.exports = (req, res) => {
-  getMemoryUrlById(req.body.id, (error, response) => {
+  getMemoryById(req.body.id, (error, response) => {
     console.log('response', response);
     if (error) return error;
 
