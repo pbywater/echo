@@ -260,7 +260,7 @@ function removeMemoryFromLocalStorage(index) {
 }
 }
 
-function removeMemoriesDeletedOffline(cb) {
+function deletePendingMemories(cb) {
   if(localStorage.getItem('toDelete') !== null) {
   const deletedMemories = JSON.parse(localStorage.getItem('toDelete'));
   deletedMemories.memories.forEach((memory, index) => {
@@ -287,5 +287,5 @@ module.exports = {
     constructTagList,
     saveMemoryIdToStorage,
     removeMemoryFromStoredData,
-    removeMemoriesDeletedOffline,
+    deletePendingMemories,
 };
