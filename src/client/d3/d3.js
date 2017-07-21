@@ -1,4 +1,4 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, hoveringOnDeleteSafari } = require('../helpers/helpers.js');
 const { animationDuration, width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
@@ -203,11 +203,15 @@ function render(updatedData) {
     d.fx = d3.event.x;
     d.fy = d3.event.y;
     d3.select(this).style('fill', '#FDACAB');
-    const nodeTop = d3.event.y;
-    console.log('node top ', nodeTop);
     const buttonTop = $('.delete-button').position().top;
-    console.log('button top ', buttonTop);
-    hoveringOnDelete(nodeTop, buttonTop);
+    const nodeTop = d3.event.y;
+    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+      const height = $('#desktop-background').height();
+      const madness = (height - buttonTop);
+      hoveringOnDeleteSafari(nodeTop, madness);
+    } else {
+      hoveringOnDelete(nodeTop, buttonTop);
+    }
   }
 
   function dragend(d) {

@@ -167,6 +167,19 @@ function hoveringOnDelete(nodeTop, buttonTop) {
 }
 }
 
+function hoveringOnDeleteSafari(nodeTop, buttonTop) {
+  if ($('.delete-button').is(':visible')) {
+  if (nodeTop + 40 >= buttonTop) {
+        $('.delete-button path').css('fill', '#FF3F56');
+        $('.delete-button').addClass('deleting');
+}
+  else {
+        $('.delete-button path').css('fill', 'white');
+        $('.delete-button').removeClass('deleting');
+  }
+}
+}
+
 function hideDeleteButton() {
     $('.delete-button').fadeOut();
     $('.menu > *:not(.delete-button)').fadeIn();
@@ -231,4 +244,5 @@ module.exports = {
     hideDeleteButton,
     showHeading,
     constructTagList,
+    hoveringOnDeleteSafari,
 };
