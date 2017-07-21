@@ -185,7 +185,7 @@ function initSubmitMemory() {
                     .show();
                 $('.finished')
                     .removeClass('new-node finished wipe');
-            }, 4500);
+            }, animationDuration);
         })
         .submit((e) => {
             e.preventDefault();
