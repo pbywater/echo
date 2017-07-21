@@ -203,8 +203,10 @@ function render(updatedData) {
     d.fx = d3.event.x;
     d.fy = d3.event.y;
     d3.select(this).style('fill', '#FDACAB');
-    const nodeTop = $(this).position().top;
+    const nodeTop = d3.event.y;
+    console.log('node top ', nodeTop);
     const buttonTop = $('.delete-button').position().top;
+    console.log('button top ', buttonTop);
     hoveringOnDelete(nodeTop, buttonTop);
   }
 

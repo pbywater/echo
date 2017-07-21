@@ -156,7 +156,7 @@ function showDeleteButton(d) {
 
 function hoveringOnDelete(nodeTop, buttonTop) {
   if ($('.delete-button').is(':visible')) {
-  if (nodeTop >= buttonTop || buttonTop - 20 <= nodeTop) {
+  if (nodeTop >= buttonTop || buttonTop - 40 <= nodeTop) {
         $('.delete-button path').css('fill', '#FF3F56');
         $('.delete-button').addClass('deleting');
 }
