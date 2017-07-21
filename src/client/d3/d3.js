@@ -40,64 +40,63 @@ const formatData = (data) => {
 
 function render(updatedData) {
   const nodeDataArray = [];
-  Object.keys(processedData.nodes).forEach((key) => {
-    nodeDataArray.push(processedData.nodes[key]);
+  Object.keys(updatedData.nodes).forEach((key) => {
+    nodeDataArray.push(updatedData.nodes[key]);
   });
-}
 
-const rScale = d3
-  .scaleSqrt()
-  .domain([0, d3.max(nodeDataArray, d => d.likes)])
-  .range([3, 8]);
+  const rScale = d3
+    .scaleSqrt()
+    .domain([0, d3.max(nodeDataArray, d => d.likes)])
+    .range([3, 8]);
 
-function zoomed() {
-  d3.select('.memory-group').attr('transform', d3.event.transform);
-}
+  function zoomed() {
+    d3.select('.memory-group').attr('transform', d3.event.transform);
+  }
 
-const fdGrp = svg
+  const fdGrp = svg
     .append('g')
-    .attr('class', 'memory-group')
-    .call(d3.zoom()
+      .attr('class', 'memory-group')
+      .call(d3.zoom()
       .scaleExtent([1 / 3, 3])
       .on('zoom', zoomed));
 
-const linkGrp = fdGrp
+  const linkGrp = fdGrp
     .append('g')
-    .attr('class', 'links');
+      .attr('class', 'links');
 
-const linksG = linkGrp
+  const linksG = linkGrp
     .selectAll('line.link')
-    .data(processedData.links)
+    .data(updatedData.links)
     .enter()
     .append('g');
 
-const links = linksG
+  const links = linksG
     .append('line')
-      .attr('x2', d => processedData.nodes[d.target].x,
+      .attr('x2', d => updatedData.nodes[d.target].x,
       )
-      .attr('y2', d => processedData.nodes[d.target].y,
+      .attr('y2', d => updatedData.nodes[d.target].y,
       )
-      .attr('x1', d => processedData.nodes[d.source].x,
+      .attr('x1', d => updatedData.nodes[d.source].x,
       )
-      .attr('y1', d => processedData.nodes[d.source].y,
+      .attr('y1', d => updatedData.nodes[d.source].y,
       )
       .style('stroke', 'white')
       .style('stroke-width', '2px')
       .style('opacity', '0.8')
-      .attr('class', d => `memory ${processedData.nodes[d.source].tag}`);
+      .attr('class', d => `memory ${updatedData.nodes[d.source].tag}`);
 
-const nodeGrp = fdGrp
+  const nodeGrp = fdGrp
     .append('g')
       .attr('class', 'nodes');
 
-const nodesG = nodeGrp
+  const nodesG = nodeGrp
     .selectAll('circle.node')
     .data(nodeDataArray)
     .enter()
     .append('g')
-    .attr('id', d => `nodeGrp${d.id}`);
+      .attr('id', d => `nodeGrp${d.id}`);
 
-const nodes = nodesG
+  const nodes = nodesG
     .append('circle')
       .attr('class', d => `memory ${d.tag}`)
       .attr('id', d => d.id)
@@ -107,81 +106,103 @@ const nodes = nodesG
       .style('fill', 'white')
       .style('opacity', '0.8')
       .call(d3.drag()
-        .on('start', dragstart)
-        .on('drag', dragging)
-        .on('end', dragend))
+      .on('start', dragstart)
+      .on('drag', dragging)
+      .on('end', dragend))
       .on('click', (d) => {
         appendPopUp(d);
       });
 
-const sim = d3.forceSimulation()
-    .force('link', d3.forceLink(processedData).id(d => d.id))
+  const sim = d3.forceSimulation()
+    .force('link', d3.forceLink().id(d => d.id))
     .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
     .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
     .force('center', d3.forceCenter(180, 320));
 
-sim
-  .nodes(nodeDataArray)
-  .on('tick', () => {
-    nodes
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y);
-    links
-      .attr('x1', d =>
-      processedData.nodes[d.source.id].x)
-      .attr('y1', d => processedData.nodes[d.source.id].y)
-      .attr('x2', d => processedData.nodes[d.target.id].x)
-      .attr('y2', d => processedData.nodes[d.target.id].y);
-  });
+  sim
+    .nodes(nodeDataArray)
+    .on('tick', () => {
+      nodes
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y);
+      links
+        .attr('x1', d =>
+        updatedData.nodes[d.source.id].x)
+        .attr('y1', d => updatedData.nodes[d.source.id].y)
+        .attr('x2', d => updatedData.nodes[d.target.id].x)
+        .attr('y2', d => updatedData.nodes[d.target.id].y);
+    });
 
-sim.force('link')
-    .links(processedData.links)
+  sim.force('link')
+    .links(updatedData.links)
     .distance(d => 40);
 
-d3.select('.shuffle-memories').on('click', () => {
-  randomPopUp(nodeDataArray);
-});
+  sim.alphaTarget(0.3);
 
-function dragstart(d) {
-  if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
-  d.fx = d.x;
-  d.fy = d.y;
-  $(this).addClass('active');
-  showDeleteButton();
-  showHeading(d);
-}
+  d3.select('.shuffle-memories').on('click', () => {
+    randomPopUp(nodeDataArray);
+  });
 
-function dragging(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
-  d3.select(this).style('fill', '#FDACAB');
-  hoveringOnDelete();
-}
-
-function dragend(d) {
-  if (!d3.event.active) sim.alphaTarget(0);
-  if (!d.outer) {
-    d.fx = null;
-    d.fy = null;
-
-    d3.selectAll('.memory-heading')
-        .remove();
+  function dragstart(d) {
+    if (!d3.event.active) { sim.alphaTarget(0.3).restart(); }
+    d.fx = d.x;
+    d.fy = d.y;
+    $(this).addClass('active');
+    showDeleteButton();
+    showHeading(d);
   }
 
-  $(this).removeClass('active');
-  d3.select(this).style('fill', 'white');
-  if ($('.delete-button').hasClass('deleting')) {
-    const id = d3.select(this).attr('id');
-      // Line below to be removed when loop is implemented
-    d3.select(this).style('display', 'none');
-    $('.delete-button').removeClass('deleting');
+  function dragging(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+    d3.select(this).style('fill', '#FDACAB');
+    hoveringOnDelete();
+  }
+
+  function dragend(d) {
+    if (!d3.event.active) {
+      sim.alphaTarget(0);
+    }
+    if (!d.outer) {
+      d.fx = null;
+      d.fy = null;
+
+      d3.selectAll('.memory-heading')
+        .remove();
+    }
+
+    $(this).removeClass('active');
+    d3.select(this).style('fill', 'white');
+    if ($('.delete-button').hasClass('deleting')) {
+      const id = d3.select(this).attr('id');
+      $('.delete-button').removeClass('deleting');
+      $.ajax({
+        method: 'DELETE',
+        url: 'memories',
+        data: { id },
+        success: update,
+      });
+    }
+    hideDeleteButton();
+  }
+
+  $('#memory-input__submit').click((e) => {
+    e.preventDefault();
     $.ajax({
-      type: 'DELETE',
-      url: 'memories',
-      data: { id },
+      method: 'POST',
+      url: 'memory-input-text',
+      data: $('#add-text-form').serialize(),
+      success: () => {
+        setTimeout(() => {
+          update();
+        }, animationDuration);
+      },
+    });
+  });
+
+  function update() {
+    d3.json(url, (err, data) => {
+      render(formatData(data));
     });
   }
-  hideDeleteButton();
 }
-openTagMenu();
-submitNewMemory();
