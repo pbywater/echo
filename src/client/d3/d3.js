@@ -1,5 +1,5 @@
 const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, saveMemoryIdToStorage, removeMemoryFromStoredData, deletePendingMemories } = require('../helpers/helpers.js');
-const { animationDuration, width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
+const { animationDuration, width, height, jsonUrl, svg } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
 const { newUserIntro } = require('./newUserIntro.js');
@@ -48,30 +48,14 @@ function render(updatedData) {
     nodeDataArray.push(updatedData.nodes[key]);
   });
 
+  svg
+    .selectAll('.memory-group')
+      .remove();
+
   const rScale = d3
-  .scaleSqrt()
-  .domain([0, d3.max(nodeDataArray, d => d.likes)])
-  .range([3, 8]);
-
-  let links = linkGrp
-  .selectAll('line.memory')
-  .data(updatedData.links, d => d.target.id);
-
-  let nodes = nodeGrp
-  .attr('class', 'nodeGroup')
-  .selectAll('circle.memory')
-  .data(nodeDataArray, d => d.id);
-
-// EXIT old elements to be removed
-  links
-    .exit()
-      .style('fill-opacity', 0)
-      .remove();
-
-  nodes
-    .exit()
-      .style('fill-opacity', 0)
-      .remove();
+    .scaleSqrt()
+    .domain([0, d3.max(nodeDataArray, d => d.likes)])
+    .range([3, 8]);
 
   function zoomed() {
     d3.select('.memory-group').attr('transform', d3.event.transform);
@@ -79,91 +63,66 @@ function render(updatedData) {
 
   const fdGrp = svg
     .append('g')
-    .attr('class', 'memory-group')
-    .call(d3.zoom()
+      .attr('class', 'memory-group')
+      .call(d3.zoom()
       .scaleExtent([1 / 3, 3])
       .on('zoom', zoomed));
 
-// UPDATE old elements still in the data
-  links
-    .attr('x2', d => updatedData.nodes[d.target].x,
-    )
-    .attr('y2', d => updatedData.nodes[d.target].y,
-    )
-    .attr('x1', d => updatedData.nodes[d.source].x,
-    )
-    .attr('y1', d => updatedData.nodes[d.source].y,
-  );
+  const linkGrp = fdGrp
+    .append('g')
+      .attr('class', 'links');
 
-  nodes
-    .attr('class', d => `memory ${d.tag}`)
-    .attr('cy', d => d.y)
-    .attr('cx', d => d.x)
-    .attr('r', d => rScale(d.likes));
-
-// ENTER new elements
-  const enterLinks = links
+  const linksG = linkGrp
+    .selectAll('line.link')
+    .data(updatedData.links)
     .enter()
+    .append('g');
+
+  const links = linksG
     .append('line')
-      .attr('id', d => d.id)
-      .attr('x2', (d) => {
-        if (!updatedData.nodes[d.target]) {
-          return updatedData.nodes[d.target.id].x;
-        }
-        return updatedData.nodes[d.target].x;
-      })
-      .attr('y2', (d) => {
-        if (!updatedData.nodes[d.target]) {
-          return updatedData.nodes[d.target.id].y;
-        }
-        return updatedData.nodes[d.target].y;
-      })
-      .attr('x1', (d) => {
-        if (!updatedData.nodes[d.source]) {
-          return updatedData.nodes[d.source.id].x;
-        }
-        return updatedData.nodes[d.source].x;
-      })
-      .attr('y1', (d) => {
-        if (!updatedData.nodes[d.source]) {
-          return updatedData.nodes[d.source.id].y;
-        }
-        return updatedData.nodes[d.source].y;
-      })
+      .attr('x2', d => updatedData.nodes[d.target].x,
+      )
+      .attr('y2', d => updatedData.nodes[d.target].y,
+      )
+      .attr('x1', d => updatedData.nodes[d.source].x,
+      )
+      .attr('y1', d => updatedData.nodes[d.source].y,
+      )
       .style('stroke', 'white')
       .style('stroke-width', '2px')
       .style('opacity', '0.8')
-      .attr('class', (d) => {
-        if (!updatedData.nodes[d.source]) {
-          return `memory ${updatedData.nodes[d.source.id].tag}`;
-        }
-        return `memory ${updatedData.nodes[d.source].tag}`;
-      });
+      .attr('class', d => `memory ${updatedData.nodes[d.source].tag}`);
 
-  links = enterLinks.merge(links);
+  const nodeGrp = fdGrp
+    .append('g')
+      .attr('class', 'nodes');
 
-  const enterNodes = nodes
+  const nodesG = nodeGrp
+    .selectAll('circle.node')
+    .data(nodeDataArray)
     .enter()
+    .append('g')
+      .attr('id', d => `nodeGrp${d.id}`);
+
+  const nodes = nodesG
     .append('circle')
       .attr('class', d => `memory ${d.tag}`)
+      .attr('id', d => d.id)
       .attr('cy', d => d.y)
       .attr('cx', d => d.x)
       .attr('r', d => rScale(d.likes))
-      .attr('id', d => d.id)
       .style('fill', 'white')
       .style('opacity', '0.8')
       .style('stroke', 'rgb(0, 0, 0)')
       .style('stroke-width', '30px')
       .style('stroke-opacity', '0')
       .call(d3.drag()
-        .on('start', dragstart)
-        .on('drag', dragging)
-        .on('end', dragend))
+      .on('start', dragstart)
+      .on('drag', dragging)
+      .on('end', dragend))
       .on('click', (d) => {
         appendPopUp(d);
       });
-
-  nodes = enterNodes.merge(nodes);
 
   const sim = d3.forceSimulation()
     .force('link', d3.forceLink().id(d => d.id))
@@ -172,24 +131,24 @@ function render(updatedData) {
     .force('center', d3.forceCenter(180, 320));
 
   sim
-  .alphaTarget(0.3);
-
-  sim
-  .nodes(nodeDataArray)
-  .on('tick', () => {
-    nodes
-    .attr('cx', d => d.x)
-    .attr('cy', d => d.y);
-    links
-    .attr('x1', d => updatedData.nodes[d.source.id].x)
-    .attr('y1', d => updatedData.nodes[d.source.id].y)
-    .attr('x2', d => updatedData.nodes[d.target.id].x)
-    .attr('y2', d => updatedData.nodes[d.target.id].y);
-  });
+    .nodes(nodeDataArray)
+    .on('tick', () => {
+      nodes
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y);
+      links
+        .attr('x1', d =>
+        updatedData.nodes[d.source.id].x)
+        .attr('y1', d => updatedData.nodes[d.source.id].y)
+        .attr('x2', d => updatedData.nodes[d.target.id].x)
+        .attr('y2', d => updatedData.nodes[d.target.id].y);
+    });
 
   sim.force('link')
-  .links(updatedData.links)
-  .distance(d => 40);
+    .links(updatedData.links)
+    .distance(d => 40);
+
+  sim.alphaTarget(0.3);
 
   d3.select('.shuffle-memories').on('click', () => {
     randomPopUp(nodeDataArray);
@@ -217,7 +176,6 @@ function render(updatedData) {
     if (!d3.event.active) {
       sim.alphaTarget(0);
     }
-
     if (!d.outer) {
       d.fx = null;
       d.fy = null;
