@@ -254,9 +254,9 @@ function removeMemoryFromLocalStorage(index) {
     localStorage.removeItem('toDelete');
   }
   else {
-  memoriesWaitingToBeRemoved.memories.splice(index, 1);
-  const memoriesStillToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
-  localStorage.toDelete = memoriesStillToDelete;
+    memoriesWaitingToBeRemoved.memories.splice(index, 1);
+    const memoriesStillToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
+    localStorage.toDelete = memoriesStillToDelete;
 }
 }
 
