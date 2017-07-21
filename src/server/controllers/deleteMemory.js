@@ -1,11 +1,10 @@
-const aws = require('aws-sdk');
 require('env2')('./config.env');
 const { deleteMemory } = require('./../../database/db_delete');
 const { getMemoryUrlById } = require('./../../database/db_get');
+const { s3init } = require('./../../helpers/helpers');
 
 const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
-aws.config.update({ accessKeyId: process.env.AWSAccessKeyId, secretAccessKey: process.env.AWSSecretKey, signatureVersion: 'v4', region: 'eu-west-2' });
-const s3 = new aws.S3();
+const s3 = s3init();
 
 module.exports = (req, res) => {
   getMemoryUrlById(req.body.id, (error, response) => {
