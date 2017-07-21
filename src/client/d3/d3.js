@@ -235,7 +235,6 @@ function render(updatedData) {
           data: { id },
           success: update,
         });
-        render(formatData(data));
       } else {
         saveMemoryIdToStorage(id);
         const offlineData = removeMemoryFromStoredData(id);
