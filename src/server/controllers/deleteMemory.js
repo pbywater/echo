@@ -7,7 +7,7 @@ const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 const s3 = s3init();
 
 module.exports = (req, res) => {
-  getMemoryById(req.body.id, (error, response) => {
+  getMemoryById(req.session.id, req.body.id, (error, response) => {
     if (error) return error;
 
     const params = {
