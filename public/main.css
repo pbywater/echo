@@ -883,19 +883,30 @@ a:hover {
     color: #526173;
 }
 
-
 /* logout button */
 
 .logout-button {
   z-index: 2;
   background-color: transparent;
-  color: black;
+  color: #666;
   outline: none;
   border: none;
   font-size: 1.1em;
   left: 47%;
   top: 40%;
   position: absolute;
+}
+
+.logout-button:hover {
+  color: #8ea5ce;
+}
+
+.aboutLink {
+  z-index: 2;
+  position: absolute;
+  left: 45%;
+  top: 34%;
+  font-size: 1.1em;
 }
 
 @media screen and (max-width: 768px) {
@@ -905,6 +916,13 @@ a:hover {
     }
     #desktop-background {
         display: block;
+    }
+
+    .aboutLink {
+      left: 36%;
+    }
+    .logout-button {
+      left: 42%;
     }
 }
 
