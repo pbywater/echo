@@ -1,17 +1,14 @@
-const express = require('express');
-const aws = require('aws-sdk');
+const cuid = require('cuid');
 require('env2')('./config.env');
 
-const connect = require('./../../database/db_connect.js');
-
-const cuid = require('cuid');
 const { createMemory } = require('./../../database/db_create');
+const { s3init } = require('./../../helpers/helpers');
+
+const s3 = s3init();
 
 const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
 module.exports = (req, res) => {
-  aws.config.update({ accessKeyId: process.env.AWSAccessKeyId, secretAccessKey: process.env.AWSSecretKey, signatureVersion: 'v4', region: 'eu-west-2' });
-  const s3 = new aws.S3();
   const fileName = req.query['file-name'];
   const fileType = req.query['file-type'];
   const fileKey = `${cuid()}.${fileName}`;
