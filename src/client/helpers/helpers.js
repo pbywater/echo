@@ -243,7 +243,7 @@ function removeMemoryFromStoredData(id) {
     }
   });
   const offlineDataAfterRemoving = JSON.stringify(offlineData);
-  localStorage.data = offlineDataAfterRemoving;
+  localStorage.setItem('data', offlineDataAfterRemoving);
 return offlineData;
 }
 
