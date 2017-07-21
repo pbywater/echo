@@ -247,7 +247,7 @@ function removeMemoryFromStoredData(id) {
 return offlineData;
 }
 
-// Refactored this in next PR
+// Refactored this in next PR - will change name to clearPendingActions
 function removeMemoryFromLocalStorage(index) {
   const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
   if (memoriesWaitingToBeRemoved.memories.length === 1) {
