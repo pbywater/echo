@@ -3,10 +3,11 @@ require('env2')('./config.env');
 
 const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
-module.exports = (req, res) => {
-  aws.config.update({ accessKeyId: process.env.AWSAccessKeyId, secretAccessKey: process.env.AWSSecretKey, signatureVersion: 'v4', region: 'eu-west-2' });
-  const s3 = new aws.S3();
+const { s3init } = require('./../../helpers/helpers');
 
+const s3 = s3init();
+
+module.exports = (req, res) => {
   const s3Params = {
     Bucket: S3_BUCKET_NAME,
     Key: req.query.memoryUrl,
