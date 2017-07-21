@@ -220,6 +220,7 @@ function constructTagList(data) {
   </li>`);
 }
 
+// Will change this to storePendingActions in the next pull req - it is refactored to fit several actions
 function saveMemoryIdToStorage(id) {
   if (localStorage.getItem('toDelete') !== null) {
     const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
