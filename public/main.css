@@ -887,10 +887,11 @@ a:hover {
 /* logout button */
 
 .logout-button {
+    z-index: 2;
     color: black;
     position: absolute;
-    bottom: 10%;
-    right: 10%;
+    /*bottom: 10%;
+    right: 10%;*/
 }
 
 @media screen and (max-width: 768px) {
@@ -902,3 +903,9 @@ a:hover {
         display: block;
     }
 }
+
+/* TEST */
+position: absolute;
+left: 425px;
+bottom: 500px;
+z-index: 2;
