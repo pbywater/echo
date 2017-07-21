@@ -1,5 +1,5 @@
 const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading } = require('../helpers/helpers.js');
-const { width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
+const { width, height, jsonUrl, svg } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
 const { newUserIntro } = require('./newUserIntro.js');
@@ -44,40 +44,18 @@ function render(updatedData) {
     nodeDataArray.push(updatedData.nodes[key]);
   });
 
-  const rScale = d3
-  .scaleSqrt()
-  .domain([0, d3.max(nodeDataArray, d => d.likes)])
-  .range([3, 8]);
-
-
-  console.log();
-  const linksG = linkGrp
-  .selectAll('line.memory')
-  .data(updatedData.links, d => d.target)
-  .enter()
-  .append('g');
-
-  const nodesG = nodeGrp
-  .selectAll('circle.memory')
-  .data(nodeDataArray, d => d.id)
-  .enter()
-  .append('g')
-  .attr('class', 'nodeGroup');
-
-// EXIT old elements to be removed
-  let links = linksG
-    .exit()
-      .style('fill-opacity', 0)
-      .remove();
-
-  let nodes = nodesG
-    .exit()
-      .style('fill-opacity', 0)
+  svg
+    .selectAll('.memory-group')
       .remove();
 
   function zoomed() {
     d3.select('.memory-group').attr('transform', d3.event.transform);
   }
+
+  const rScale = d3
+  .scaleSqrt()
+  .domain([0, d3.max(nodeDataArray, d => d.likes)])
+  .range([3, 8]);
 
   const fdGrp = svg
     .append('g')
@@ -86,25 +64,27 @@ function render(updatedData) {
       .scaleExtent([1 / 3, 3])
       .on('zoom', zoomed));
 
-// UPDATE old elements still in the data
-  links
-    .attr('x2', d => updatedData.nodes[d.target].x,
-    )
-    .attr('y2', d => updatedData.nodes[d.target].y,
-    )
-    .attr('x1', d => updatedData.nodes[d.source].x,
-    )
-    .attr('y1', d => updatedData.nodes[d.source].y,
-  );
+  const linkGrp = fdGrp
+    .append('g')
+    .attr('class', 'links');
 
-  nodes
-    .attr('class', d => `memory ${d.tag}`)
-    .attr('cy', d => d.y)
-    .attr('cx', d => d.x)
-    .attr('r', d => rScale(d.likes));
+  const linksG = linkGrp
+  .selectAll('line.memory')
+  .append('g');
+
+  const nodeGrp = fdGrp
+  .append('g')
+  .attr('class', 'nodes');
+
+  const nodesG = nodeGrp
+  .selectAll('circle.memory')
+  .append('g')
+  .attr('class', 'nodeGroup');
 
 // ENTER new elements
-  const enterLinks = links
+  let links = linksG
+    .data(updatedData.links, d => d.target)
+    .enter()
     .append('line')
       .attr('id', d => d.id)
       .attr('x2', (d) => {
@@ -141,9 +121,11 @@ function render(updatedData) {
         return `memory ${updatedData.nodes[d.source].tag}`;
       });
 
-  links = enterLinks.merge(links);
+  // links = enterLinks.merge(links);
 
-  const enterNodes = nodes
+  let nodes = nodesG
+    .data(nodeDataArray, d => d.id)
+    .enter()
     .append('circle')
       .attr('class', d => `memory ${d.tag}`)
       .attr('cy', d => d.y)
@@ -160,13 +142,42 @@ function render(updatedData) {
         appendPopUp(d);
       });
 
-  nodes = enterNodes.merge(nodes);
+  // nodes = enterNodes.merge(nodes);
 
   const sim = d3.forceSimulation()
     .force('link', d3.forceLink().id(d => d.id))
     .force('forceX', d3.forceX().strength(0.5).x(d => d.x))
     .force('forceY', d3.forceY().strength(0.5).y(d => d.y))
     .force('center', d3.forceCenter(180, 320));
+
+
+    // EXIT old elements to be removed
+  links = linksG
+        .exit()
+          .style('fill-opacity', 0)
+          .remove();
+
+  nodes = nodesG
+        .exit()
+          .style('fill-opacity', 0)
+          .remove();
+
+    // UPDATE old elements still in the data
+  links
+        .attr('x2', d => updatedData.nodes[d.target].x,
+        )
+        .attr('y2', d => updatedData.nodes[d.target].y,
+        )
+        .attr('x1', d => updatedData.nodes[d.source].x,
+        )
+        .attr('y1', d => updatedData.nodes[d.source].y,
+      );
+
+  nodes
+        .attr('class', d => `memory ${d.tag}`)
+        .attr('cy', d => d.y)
+        .attr('cx', d => d.x)
+        .attr('r', d => rScale(d.likes));
 
   sim
   .nodes(nodeDataArray)
