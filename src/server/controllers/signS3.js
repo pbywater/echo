@@ -32,7 +32,7 @@ module.exports = (req, res) => {
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
       if (err) {
         console.log(err);
-        return res.end();
+        return res.status(500).send('failed to generate asset URL');
       }
       const returnData = {
         imageId: response.rows[0].id,
