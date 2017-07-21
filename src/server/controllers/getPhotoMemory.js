@@ -16,7 +16,7 @@ module.exports = (req, res) => {
   s3.getSignedUrl('getObject', s3Params, (err, url) => {
     if (err) {
       console.log(err);
-      return res.end();
+      return res.status(500).send('failed to generate asset URL');
     }
     res.write(url);
     res.end();
