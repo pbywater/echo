@@ -9,7 +9,7 @@ const createMemory = (login, newMemory, mediaType, memoryUrl, callback) => {
      VALUES
         ((SELECT users.id FROM users WHERE username = $1 OR email = $1),
           $2, $3, $4, $5, $6, $7, $8)
-    `,
+    RETURNING id;`,
     [login, newMemory.memory_text, mediaType, memoryUrl, newMemory.heading, newMemory.tag, 0, 0],
 
     (err, res) => {
