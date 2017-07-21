@@ -155,11 +155,21 @@ function showDeleteButton(d) {
 }
 
 function hoveringOnDelete() {
+  //for desktop
     $('.delete-button').on('mouseover', () => {
         $('.delete-button path').css('fill', '#FF3F56');
         $('.delete-button').addClass('deleting');
     });
     $('.delete-button').on('mouseleave', () => {
+        $('.delete-button path').css('fill', 'white');
+        $('.delete-button').removeClass('deleting');
+    });
+    //for mobile
+    $('.delete-button').on('touchmove', () => {
+        $('.delete-button path').css('fill', '#FF3F56');
+        $('.delete-button').addClass('deleting');
+    });
+    $('.delete-button').on('touchend', () => {
         $('.delete-button path').css('fill', 'white');
         $('.delete-button').removeClass('deleting');
     });
@@ -185,7 +195,7 @@ function initSubmitMemory() {
                     .show();
                 $('.finished')
                     .removeClass('new-node finished wipe');
-            }, animationDuration);
+            }, 4500);
         })
         .submit((e) => {
             e.preventDefault();
