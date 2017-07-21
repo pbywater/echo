@@ -1,4 +1,4 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, saveMemoryIdToStorage, removeMemoryFromStoredData, deletePendingMemories } = require('../helpers/helpers.js');
 const { animationDuration, width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
@@ -6,25 +6,29 @@ const { newUserIntro } = require('./newUserIntro.js');
 
 const url = location.hostname ? '/memories' : jsonUrl;
 
-d3.json(url, (err, data) => {
-  if (data.length > 0) {
-    constructTagList(data);
-    render(formatData(data));
-    initTagMenu();
-  } else {
-    const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
-    const falseProcessedData = { links: [], nodes: falseDataArray };
-    render(falseProcessedData);
-    newUserIntro();
-  }
-  initSubmitMemory();
-});
+function onlineLogic() {
+  d3.json(url, (err, data) => {
+    if (data.length > 0) {
+      const dataToSave = JSON.stringify(data);
+      localStorage.setItem('data', dataToSave);
+      constructTagList(data);
+      render(formatData(data));
+      initTagMenu();
+    } else {
+      const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
+      const falseProcessedData = { links: [], nodes: falseDataArray };
+      render(falseProcessedData);
+      newUserIntro();
+    }
+    initSubmitMemory();
+  });
+}
 
 const formatData = (data) => {
   // binByTag sorts data by tag
   // e.g. {family: Array(5), pets: Array(5), friends: Array(5)}
   const binnedByTag = binByTag(data);
-  // sortedWithMax sorts each tag group to separate max memory (by likes) from others in its group
+    // sortedWithMax sorts each tag group to separate max memory (by likes) from others in its group
   const sortedWithMax = [];
   Object.keys(binnedByTag).forEach((tagKey) => {
     sortedWithMax.push(sortWithMax(binnedByTag[tagKey]));
@@ -32,7 +36,7 @@ const formatData = (data) => {
 // taggedNodesByTag returns an object with the cx and cy for the central node within each tag group
   const centralNodesByTag = centralMaxNodesByTag(sortedWithMax, 160, 120);
 
-// processedData returns a list of nodes and links
+  // processedData returns a list of nodes and links
   const processedData = memoryNodesAndLinks(centralNodesByTag, sortedWithMax);
 
   return processedData;
@@ -224,12 +228,18 @@ function render(updatedData) {
     if ($('.delete-button').hasClass('deleting')) {
       const id = d3.select(this).attr('id');
       $('.delete-button').removeClass('deleting');
-      $.ajax({
-        method: 'DELETE',
-        url: 'memories',
-        data: { id },
-        success: update,
-      });
+      if (navigator.onLine) {
+        $.ajax({
+          method: 'DELETE',
+          url: 'memories',
+          data: { id },
+          success: update,
+        });
+      } else {
+        saveMemoryIdToStorage(id);
+        const offlineData = removeMemoryFromStoredData(id);
+        render(formatData(offlineData));
+      }
     }
     hideDeleteButton();
   }
@@ -253,4 +263,15 @@ function render(updatedData) {
       render(formatData(data));
     });
   }
+}
+
+if (navigator.onLine) {
+  onlineLogic();
+  deletePendingMemories(onlineLogic);
+} else {
+  const offlineData = JSON.parse(localStorage.getItem('data'));
+  constructTagList(offlineData);
+  render(formatData(offlineData));
+  initTagMenu();
+  initSubmitMemory();
 }
