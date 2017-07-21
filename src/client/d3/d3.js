@@ -4,12 +4,6 @@ const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = req
 const { appendPopUp, randomPopUp } = require('./modals.js');
 const { newUserIntro } = require('./newUserIntro.js');
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-           .register('service-worker.js')
-           .then(() => { console.log('Service Worker Registered'); });
-}
-
 const url = location.hostname ? '/memories' : jsonUrl;
 
 function onlineLogic() {
