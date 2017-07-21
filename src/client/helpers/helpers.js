@@ -154,15 +154,17 @@ function showDeleteButton(d) {
   }, 1200);
 }
 
-function hoveringOnDelete() {
-    $('.delete-button').on('mouseover touchstart', () => {
+function hoveringOnDelete(nodeTop, buttonTop) {
+  if ($('.delete-button').is(':visible')) {
+  if (nodeTop >= buttonTop || buttonTop - 20 <= nodeTop) {
         $('.delete-button path').css('fill', '#FF3F56');
         $('.delete-button').addClass('deleting');
-    });
-    $('.delete-button').on('mouseleave touchend', () => {
+}
+  else {
         $('.delete-button path').css('fill', 'white');
         $('.delete-button').removeClass('deleting');
-    });
+  }
+}
 }
 
 function hideDeleteButton() {
