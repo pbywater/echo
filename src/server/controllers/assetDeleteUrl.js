@@ -27,6 +27,7 @@ module.exports = (req, res) => {
       else console.log(data);
     });
   });
+
   deleteMemory(req.body.id, (error, response) => {
     if (error) return res.status(500).send(error);
     res.status(200).send('ok');
