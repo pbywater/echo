@@ -33,15 +33,15 @@ router.get('/login', require('./controllers/sign-up.js'));
 router.post('/logout', require('./controllers/logout.js'));
 router.post('/memory-input-text', require('./controllers/addTextMemory.js'));
 router.route('/memory-input-photo')
-  .post(require('./controllers/signS3.js'))
+  .post(require('./controllers/assetCreateUrl.js'))
   .put(require('./controllers/addPhotoMemory.js'))
-  .get(require('./controllers/getPhotoMemory.js'));
+  .get(require('./controllers/assetGetUrl.js'));
 router.post('/add-new-user', require('./controllers/addNewUser.js'));
 router.post('/login', require('./controllers/login.js'));
-router.get('/sign-s3', require('./controllers/signS3.js'));
+router.get('/sign-s3', require('./controllers/assetCreateUrl.js'));
 router.route('/memories')
   .get(require('./controllers/getMemories.js'))
-  .delete(require('./controllers/deleteMemory.js'));
+  .delete(require('./controllers/assetDeleteUrl.js'));
 router.route('/likes')
   .get(require('./controllers/getLikes.js'))
   .post(require('./controllers/updateLikes.js'));
