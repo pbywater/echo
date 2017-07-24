@@ -10,7 +10,7 @@ const getMemories = (userLogin, callback) => {
   ON users.id = memories.user_id
   WHERE users.id = (SELECT users.id FROM users WHERE username = $1 OR email = $1)`;
 
-  connect.query(userSQLMemories, ['test'], callback);
+  connect.query(userSQLMemories, [userLogin], callback);
 };
 
 const getLikes = (memoryId, callback) => {
