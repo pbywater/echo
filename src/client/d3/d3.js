@@ -1,5 +1,5 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, saveMemoryIdToStorage, removeMemoryFromStoredData, deletePendingMemories } = require('../helpers/helpers.js');
-const { animationDuration, width, height, jsonUrl, svg } = require('./setup.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, hoveringOnDeleteSafari, saveMemoryIdToStorage, removeMemoryFromStoredData, deletePendingMemories } = require('../helpers/helpers.js');
+const { animationDuration, width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
 const { newUserIntro } = require('./newUserIntro.js');
@@ -169,7 +169,15 @@ function render(updatedData) {
     d.fx = d3.event.x;
     d.fy = d3.event.y;
     d3.select(this).style('fill', '#FDACAB');
-    hoveringOnDelete();
+    const buttonTop = $('.delete-button').position().top;
+    const nodeTop = d3.event.y;
+    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+      const height = $('#desktop-background').height();
+      const calculationForButtonTop = (height - buttonTop);
+      hoveringOnDeleteSafari(nodeTop, calculationForButtonTop);
+    } else {
+      hoveringOnDelete(nodeTop, buttonTop);
+    }
   }
 
   function dragend(d) {

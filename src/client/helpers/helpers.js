@@ -154,15 +154,30 @@ function showDeleteButton(d) {
   }, 1200);
 }
 
-function hoveringOnDelete() {
-    $('.delete-button').on('mouseover', () => {
+function hoveringOnDelete(nodeTop, buttonTop) {
+  if ($('.delete-button').is(':visible')) {
+  if (nodeTop >= buttonTop || buttonTop - 40 <= nodeTop) {
         $('.delete-button path').css('fill', '#FF3F56');
         $('.delete-button').addClass('deleting');
-    });
-    $('.delete-button').on('mouseleave', () => {
+}
+  else {
         $('.delete-button path').css('fill', 'white');
         $('.delete-button').removeClass('deleting');
-    });
+  }
+}
+}
+
+function hoveringOnDeleteSafari(nodeTop, buttonTop) {
+  if ($('.delete-button').is(':visible')) {
+  if (nodeTop + 40 >= buttonTop) {
+        $('.delete-button path').css('fill', '#FF3F56');
+        $('.delete-button').addClass('deleting');
+}
+  else {
+        $('.delete-button path').css('fill', 'white');
+        $('.delete-button').removeClass('deleting');
+  }
+}
 }
 
 function hideDeleteButton() {
@@ -285,6 +300,7 @@ module.exports = {
     hideDeleteButton,
     showHeading,
     constructTagList,
+    hoveringOnDeleteSafari,
     saveMemoryIdToStorage,
     removeMemoryFromStoredData,
     deletePendingMemories,
