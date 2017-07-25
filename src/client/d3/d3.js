@@ -121,6 +121,8 @@ function render(updatedData) {
       .on('drag', dragging)
       .on('end', dragend))
       .on('click', (d) => {
+        d3.selectAll('.memory-heading')
+          .remove();
         appendPopUp(d);
       });
 

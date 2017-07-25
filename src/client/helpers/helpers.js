@@ -110,6 +110,7 @@ function showHeading(d){
         .attr('class', 'memory-heading')
         .attr('font-family', 'quicksand')
         .attr('font-size', '0.9em')
+        .attr('fill', 'white')
         .call(d3.drag()
           .on('start', dragstart)
           .on('drag', dragging)

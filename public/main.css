@@ -926,8 +926,6 @@ a:hover {
     }
 }
 
-/* TEST */
-position: absolute;
-left: 425px;
-bottom: 500px;
-z-index: 2;
+.menu-open {
+  display: none;
+}
