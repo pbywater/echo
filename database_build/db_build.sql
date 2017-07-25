@@ -11,7 +11,6 @@ CREATE TABLE users (
   password      VARCHAR(64)     NOT NULL,
   email         VARCHAR(64)     NOT NULL,
   token         VARCHAR(20),
-  token_expiry  VARCHAR(150),
   verified      BOOLEAN         DEFAULT FALSE
 );
 

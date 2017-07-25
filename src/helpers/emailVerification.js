@@ -23,7 +23,7 @@ module.exports = (username, email, token) => {
     subject: 'Please confirm your account',
     text: 'Please confirm your account',
     html: `<p>Hi ${username}, welcome to echo
-    <br> Please confirm your account by visiting the following link: <a href="http://localhost:3000/verify/${token}/${username}">http://localhost:3000/verify/${token}/${username}</a>
+    <br> Please confirm your account by visiting the following link: <br><a href="http://localhost:3000/verify/${token}/${username}">http://localhost:3000/verify/${token}/${username}</a>
     </p>`,
     // change to below for production
     // html: `<p>Hi ${username}, welcome to echo

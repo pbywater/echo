@@ -8,12 +8,8 @@ module.exports = (req, res) => {
   for (let i = 16; i > 0; --i) {
     token += chars[Math.round(Math.random() * (chars.length - 1))];
   }
-  // create expiration date for email verification
-  const expires = new Date();
-  expires.setHours(expires.getHours() + 6);
 
   req.body.token = token;
-  req.body.expires = expires;
 
   createUser(req.body, (error, response) => {
     if (error) {
