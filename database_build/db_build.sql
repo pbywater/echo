@@ -10,7 +10,7 @@ CREATE TABLE users (
   username      VARCHAR(64)     UNIQUE NOT NULL,
   password      VARCHAR(64)     NOT NULL,
   email         VARCHAR(64)     NOT NULL,
-  token         VARCHAR(10),
+  token         VARCHAR(20),
   token_expiry  VARCHAR(150)
 );
 

@@ -1,14 +1,14 @@
 const { createUser } = require('./../../database/db_create');
+const sendEmail = require('./../../helpers/emailVerification');
 
 module.exports = (req, res) => {
-  // create random 16 character token
+  // create random 16 character token for email verification
   const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let token = '';
   for (let i = 16; i > 0; --i) {
     token += chars[Math.round(Math.random() * (chars.length - 1))];
   }
-
-  // create expiration date
+  // create expiration date for email verification
   const expires = new Date();
   expires.setHours(expires.getHours() + 6);
 
@@ -22,4 +22,6 @@ module.exports = (req, res) => {
     }
     res.redirect('/');
   });
+
+  sendEmail(req.body.username, req.body.email, token);
 };
