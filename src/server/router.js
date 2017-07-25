@@ -40,6 +40,6 @@ router.route('/memories')
 router.route('/likes')
   .get(require('./controllers/getLikes.js'))
   .post(require('./controllers/updateLikes.js'));
-router.post('/verify', require('./controllers/verifyEmail.js'));
+router.get('/verify/:token/:username', require('./controllers/verifyEmail.js'));
 
 module.exports = router;

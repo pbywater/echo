@@ -23,8 +23,12 @@ module.exports = (username, email, token) => {
     subject: 'Please confirm your account',
     text: 'Please confirm your account',
     html: `<p>Hi ${username}, welcome to echo
-    <br> Please confirm your account by visiting the following link: <a href="https://echo-af.herokuapp.com/verify/${token}">https://echo-af.herokuapp.com/verify/${token}</a>
+    <br> Please confirm your account by visiting the following link: <a href="http://localhost:3000/verify/${token}/${username}">http://localhost:3000/verify/${token}/${username}</a>
     </p>`,
+    // change to below for production
+    // html: `<p>Hi ${username}, welcome to echo
+    // <br> Please confirm your account by visiting the following link: <a href="https://echo-af.herokuapp.com/verify/${token}/${email}">https://echo-af.herokuapp.com/verify/${token}/${email}</a>
+    // </p>`,
     watchHtml: '<p>Hi apple watch</p>' //just for apple watchHtml
   };
 
