@@ -14,9 +14,6 @@ module.exports = (username, email, token) => {
     debug: true
   }, {
     from: 'Echo do-not-reply <echo.annafreud@gmail.com>',
-    // headers: {
-    //   'wtf is a header': 1000
-    // }
   });
 
   console.log('SMTP Configured');
@@ -24,8 +21,10 @@ module.exports = (username, email, token) => {
   let message = {
     to: `${username} <${email}>`,
     subject: 'Please confirm your account',
-    text: 'Hello this is text',
-    html: '<p><b>Hello</b> this is html</p>',
+    text: 'Please confirm your account',
+    html: `<p>Hi ${username}, welcome to echo
+    <br> Please confirm your account by visiting the following link: <a href="https://echo-af.herokuapp.com/verify/${token}">https://echo-af.herokuapp.com/verify/${token}</a>
+    </p>`,
     watchHtml: '<p>Hi apple watch</p>' //just for apple watchHtml
   };
 
