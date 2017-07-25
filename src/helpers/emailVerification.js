@@ -1,22 +1,21 @@
 const nodemailer = require('nodemailer');
 const bunyan = require('bunyan');
 
-module.exports = (username, email, token) => {
-  let transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: 'echo.annafreud@gmail.com',
-      pass: 'FAC!echo1'
-    },
-    logger: bunyan.createLogger({
-      name: 'nodemailer'
-    }),
-    debug: true
-  }, {
-    from: 'Echo do-not-reply <echo.annafreud@gmail.com>',
-  });
+let transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'echo.annafreud@gmail.com',
+    pass: 'FAC!echo1'
+  },
+  logger: bunyan.createLogger({
+    name: 'nodemailer'
+  }),
+  debug: true
+}, {
+  from: 'Echo do-not-reply <echo.annafreud@gmail.com>',
+});
 
-  console.log('SMTP Configured');
+module.exports = (username, email, token) => {
 
   let message = {
     to: `${username} <${email}>`,

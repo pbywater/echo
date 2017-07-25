@@ -39,13 +39,6 @@ const createUser = (userDetails, callback) => {
             VALUES($1, $2, $3, $4, $5);`, [userDetails.username, hash, userDetails.email, userDetails.token, userDetails.token_expiry], (err) => {
               if (err) { return callback(err); }
               callback(null, 'new user added');
-              // TODO: send email here
-              const data = {
-                from: 'Do not reply <echo.annafreud@gmail.com>',
-                to: userDetails.email,
-                subject: 'Please confirm account',
-                text: 'link here',
-              };
             });
         });
       } else {
