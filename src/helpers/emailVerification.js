@@ -17,7 +17,7 @@ let transporter = nodemailer.createTransport({
   from: 'Echo do-not-reply <echo.annafreud@gmail.com>',
 });
 
-module.exports = (username, email, token) => {
+module.exports = (username, email, token, cb) => {
 
   let message = {
     to: `${username} <${email}>`,
@@ -30,14 +30,13 @@ module.exports = (username, email, token) => {
 
   console.log('sending email');
 
-  transporter.sendMail(message, (err, info) => {
+  transporter.sendMail(message, (err, info, transporter) => {
     if(err){
-      console.log('Error occured');
-      console.log('error.message');
+      cb(err);
       return;
+    } else {
+      cb(null, info);
+      transporter.close();
     }
-    console.log('Message sent successfully!');
-    console.log('Server responded with "%s"', info.response);
-    transporter.close();
   })
 }

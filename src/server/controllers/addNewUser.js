@@ -19,5 +19,12 @@ module.exports = (req, res) => {
     res.redirect('/');
   });
 
-  sendEmail(req.body.username, req.body.email, token);
+  sendEmail(req.body.username, req.body.email, token, (error, info) => {
+    if(error) {
+      res.status(400).send({ error: error.message });
+    } else {
+      console.log('Message sent successfully');
+      console.log('Server responded with "%s"', info.response);
+    }
+  });
 };
