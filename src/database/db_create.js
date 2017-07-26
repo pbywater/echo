@@ -36,7 +36,7 @@ const createUser = (userDetails, callback) => {
           connect.query(
             `INSERT INTO users
             (username, password, email, token)
-            VALUES($1, $2, $3, $4, $5);`, [userDetails.username, hash, userDetails.email, userDetails.token], (err) => {
+            VALUES($1, $2, $3, $4);`, [userDetails.username, hash, userDetails.email, userDetails.token], (err) => {
               if (err) { return callback(err); }
               callback(null, 'new user added');
             });
