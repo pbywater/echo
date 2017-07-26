@@ -236,7 +236,6 @@ function constructTagList(data) {
   </li>`);
 }
 
-// Will change this to storePendingActions in the next pull req - it is refactored to fit several actions
 function storePendingActions(storedName, newObjToSave, itemToPush) {
   if (localStorage.getItem(storedName) !== null) {
     const itemsWaiting = JSON.parse(localStorage.getItem(storedName));
