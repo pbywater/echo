@@ -1,5 +1,7 @@
 /* eslint-disable */
 
+// Based on code from: https://developers.google.com/web/fundamentals/getting-started/codelabs/your-first-pwapp/
+
 const cacheName = 'echo-app-test-1';
 
 const filesToCache = [

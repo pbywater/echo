@@ -165,18 +165,19 @@
                     <label for='microphone' class="memory-input__label microphone">Record a voice note</label>
                     <input id='microphone' class="memory-input__submit microphone" type="file" accept="audio/*" capture="microphone" style='opacity:0;'></input>
                 </form>
-
+              </div>
+              <div class="memory-input cog hide settingsLinks">
+                <p class="aboutLink"><a href="https://github.com/pbywater/echo">About this App</a></p>
+                <form action="logout" method="post">
+                    <input class="logout-button" type="submit" value="Logout">
+                </form>
+              </div>
             </nav>
 
-        </div>
-        <form action="logout" method="post">
-            <input class="logout-button" type="submit" value="Logout">
-        </form>
+
     </div>
 
 </body>
-
-
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 <script src="scripts/main.js"></script>

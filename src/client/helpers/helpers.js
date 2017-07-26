@@ -110,6 +110,7 @@ function showHeading(d){
         .attr('class', 'memory-heading')
         .attr('font-family', 'quicksand')
         .attr('font-size', '0.9em')
+        .attr('fill', 'white')
         .call(d3.drag()
           .on('start', dragstart)
           .on('drag', dragging)
@@ -154,15 +155,30 @@ function showDeleteButton(d) {
   }, 1200);
 }
 
-function hoveringOnDelete() {
-    $('.delete-button').on('mouseover', () => {
+function hoveringOnDelete(nodeTop, buttonTop) {
+  if ($('.delete-button').is(':visible')) {
+  if (nodeTop >= buttonTop || buttonTop - 40 <= nodeTop) {
         $('.delete-button path').css('fill', '#FF3F56');
         $('.delete-button').addClass('deleting');
-    });
-    $('.delete-button').on('mouseleave', () => {
+}
+  else {
         $('.delete-button path').css('fill', 'white');
         $('.delete-button').removeClass('deleting');
-    });
+  }
+}
+}
+
+function hoveringOnDeleteSafari(nodeTop, buttonTop) {
+  if ($('.delete-button').is(':visible')) {
+  if (nodeTop + 40 >= buttonTop) {
+        $('.delete-button path').css('fill', '#FF3F56');
+        $('.delete-button').addClass('deleting');
+}
+  else {
+        $('.delete-button path').css('fill', 'white');
+        $('.delete-button').removeClass('deleting');
+  }
+}
 }
 
 function hideDeleteButton() {
@@ -220,6 +236,7 @@ function constructTagList(data) {
   </li>`);
 }
 
+// Will change this to storePendingActions in the next pull req - it is refactored to fit several actions
 function saveItemsToStorage(storedName, newObjToSave, itemToPush) {
   if (localStorage.getItem(storedName) !== null) {
     const itemsWaiting = JSON.parse(localStorage.getItem(storedName));
@@ -241,23 +258,24 @@ function removeMemoryFromStoredData(id) {
     }
   });
   const offlineDataAfterRemoving = JSON.stringify(offlineData);
-  localStorage.data = offlineDataAfterRemoving;
+  localStorage.setItem('data', offlineDataAfterRemoving);
 return offlineData;
 }
 
+// Refactored this in next PR - will change name to clearPendingActions
 function removeFromLocalStorage(storedName, index) {
   const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem(storedName));
   if (memoriesWaitingToBeRemoved.memories.length === 1) {
     localStorage.removeItem(storedName);
   }
   else {
-  memoriesWaitingToBeRemoved.memories.splice(index, 1);
-  const memoriesStillToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
-  localStorage[storedName] = memoriesStillToDelete;
+    memoriesWaitingToBeRemoved.memories.splice(index, 1);
+    const memoriesStillToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
+    localStorage.toDelete = memoriesStillToDelete;
 }
 }
 
-function removeMemoriesDeletedOffline(cb) {
+function deletePendingMemories(cb) {
   if(localStorage.getItem('toDelete') !== null) {
   const deletedMemories = JSON.parse(localStorage.getItem('toDelete'));
   deletedMemories.memories.forEach((memory, index) => {
@@ -300,7 +318,8 @@ module.exports = {
     showHeading,
     constructTagList,
     saveItemsToStorage,
-    removeMemoryFromStoredData,
-    removeMemoriesDeletedOffline,
     updateOfflineLikes,
+    hoveringOnDeleteSafari,
+    deletePendingMemories,
+    removeMemoryFromStoredData,
 };
