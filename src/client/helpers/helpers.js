@@ -237,7 +237,7 @@ function constructTagList(data) {
 }
 
 // Will change this to storePendingActions in the next pull req - it is refactored to fit several actions
-function saveItemsToStorage(storedName, newObjToSave, itemToPush) {
+function storePendingActions(storedName, newObjToSave, itemToPush) {
   if (localStorage.getItem(storedName) !== null) {
     const itemsWaiting = JSON.parse(localStorage.getItem(storedName));
     itemsWaiting.memories.push(itemToPush);
@@ -262,8 +262,7 @@ function removeMemoryFromStoredData(id) {
 return offlineData;
 }
 
-// Refactored this in next PR - will change name to clearPendingActions
-function removeFromLocalStorage(storedName, index) {
+function clearPendingActions(storedName, index) {
   const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem(storedName));
   if (memoriesWaitingToBeRemoved.memories.length === 1) {
     localStorage.removeItem(storedName);
@@ -284,7 +283,7 @@ function deletePendingMemories(cb) {
       method: 'DELETE',
       url: 'memories',
       data: { id: memory },
-      success: () => removeFromLocalStorage('toDelete', index),
+      success: () => clearPendingActions('toDelete', index),
     });
     cb();
   })
@@ -301,7 +300,7 @@ function updateOfflineLikes(cb) {
       type: 'POST',
       url: '/likes',
       data: { numLikes: newLikeNum, memoryId: id },
-      success: () => removeFromLocalStorage('memoryLikes', index),
+      success: () => clearPendingActions('memoryLikes', index),
     });
     cb();
   })
@@ -317,7 +316,7 @@ module.exports = {
     hideDeleteButton,
     showHeading,
     constructTagList,
-    saveItemsToStorage,
+    storePendingActions,
     updateOfflineLikes,
     hoveringOnDeleteSafari,
     deletePendingMemories,

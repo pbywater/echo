@@ -1,4 +1,4 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, saveItemsToStorage, removeMemoryFromStoredData, removeMemoriesDeletedOffline, updateOfflineLikes, hoveringOnDeleteSafari, deletePendingMemories } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, storePendingActions, removeMemoryFromStoredData, removeMemoriesDeletedOffline, updateOfflineLikes, hoveringOnDeleteSafari, deletePendingMemories } = require('../helpers/helpers.js');
 const { animationDuration, width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
@@ -207,7 +207,7 @@ function render(updatedData) {
           success: update,
         });
       } else {
-        saveItemsToStorage('toDelete', { memories: [id] }, id);
+        storePendingActions('toDelete', { memories: [id] }, id);
         const offlineData = removeMemoryFromStoredData(id);
         render(formatData(offlineData));
       }
