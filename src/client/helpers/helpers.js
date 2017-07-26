@@ -271,7 +271,7 @@ function removeFromLocalStorage(storedName, index) {
   else {
     memoriesWaitingToBeRemoved.memories.splice(index, 1);
     const memoriesStillToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
-    localStorage.toDelete = memoriesStillToDelete;
+    localStorage.setItem('toDelete', memoriesStillToDelete);
 }
 }
 
