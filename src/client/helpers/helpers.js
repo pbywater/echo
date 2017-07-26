@@ -236,18 +236,16 @@ function constructTagList(data) {
   </li>`);
 }
 
-// Will change this to storePendingActions in the next pull req - it is refactored to fit several actions
-function saveMemoryIdToStorage(id) {
-// Same for the refactoring you suggested below!
-if (localStorage.getItem('toDelete') !== null) {
-    const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
-    memoriesWaitingToBeRemoved.memories.push(id);
-    const saveMemoriesToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
-    localStorage.toDelete = saveMemoriesToDelete;
+function storePendingActions(storedName, newObjToSave, itemToPush) {
+  if (localStorage.getItem(storedName) !== null) {
+    const itemsWaiting = JSON.parse(localStorage.getItem(storedName));
+    itemsWaiting.memories.push(itemToPush);
+    const itemsWaitingWithNewItem = JSON.stringify(itemsWaiting);
+    localStorage[storedName] = itemsWaitingWithNewItem;
   }
   else {
-    const saveDeletedMemory = JSON.stringify({memories: [id]});
-    localStorage.toDelete = saveDeletedMemory;
+    const saveObj = JSON.stringify(newObjToSave);
+    localStorage[storedName] = saveObj;
   }
 }
 
@@ -263,16 +261,15 @@ function removeMemoryFromStoredData(id) {
 return offlineData;
 }
 
-// Refactored this in next PR - will change name to clearPendingActions
-function removeMemoryFromLocalStorage(index) {
-  const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem("toDelete"));
+function clearPendingActions(storedName, index) {
+  const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem(storedName));
   if (memoriesWaitingToBeRemoved.memories.length === 1) {
-    localStorage.removeItem('toDelete');
+    localStorage.removeItem(storedName);
   }
   else {
     memoriesWaitingToBeRemoved.memories.splice(index, 1);
     const memoriesStillToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
-    localStorage.toDelete = memoriesStillToDelete;
+    localStorage.setItem('toDelete', memoriesStillToDelete);
 }
 }
 
@@ -285,7 +282,24 @@ function deletePendingMemories(cb) {
       method: 'DELETE',
       url: 'memories',
       data: { id: memory },
-      success: () => removeMemoryFromLocalStorage(index),
+      success: () => clearPendingActions('toDelete', index),
+    });
+    cb();
+  })
+}
+}
+
+function updateOfflineLikes(cb) {
+  if(localStorage.getItem('memoryLikes') !== null) {
+  const newLikes = JSON.parse(localStorage.getItem('memoryLikes'));
+  newLikes.memories.forEach((memory, index) => {
+    const id = parseInt(memory.memoryId);
+    const newLikeNum = parseInt(memory.newLikeNum);
+    $.ajax({
+      type: 'POST',
+      url: '/likes',
+      data: { numLikes: newLikeNum, memoryId: id },
+      success: () => clearPendingActions('memoryLikes', index),
     });
     cb();
   })
@@ -301,8 +315,9 @@ module.exports = {
     hideDeleteButton,
     showHeading,
     constructTagList,
+    storePendingActions,
+    updateOfflineLikes,
     hoveringOnDeleteSafari,
-    saveMemoryIdToStorage,
-    removeMemoryFromStoredData,
     deletePendingMemories,
+    removeMemoryFromStoredData,
 };
