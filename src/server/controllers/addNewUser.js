@@ -11,20 +11,20 @@ module.exports = (req, res) => {
 
   req.body.token = token;
 
-  createUser(req.body, (error, response) => {
-    if (error) {
+  createUser(req.body, (dbError, dbResponse) => {
+    if (dbError) {
       // will be refactored, so that err.message is displayed on screen
       res.status(400).send({ error: error.message });
+      return;
     }
-    res.redirect('/');
-  });
-
-  sendEmail(req.body.username, req.body.email, token, (error, info) => {
-    if(error) {
-      res.status(400).send({ error: error.message });
-    } else {
+    sendEmail(req.body.username, req.body.email, token, (SESError, SESResponse) => {
+      if (SESError) {
+        res.status(400).send({ error: error.message });
+        return
+      }
       console.log('Message sent successfully');
-      console.log('Server responded with "%s"', info.response);
-    }
-  });
+      console.log('Server responded with "%s"', SESResponse.response);
+      res.redirect('/');
+    })
+  })
 };
