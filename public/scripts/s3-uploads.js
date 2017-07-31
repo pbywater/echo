@@ -3,7 +3,7 @@
     const files = document.getElementById('camera-input').files;
     const file = files[0];
     if (file == null) {
-      return alert('No file selected.');
+      return new Error('No file selected.');
     }
     getSignedRequest(file);
   };
@@ -13,7 +13,6 @@ let imageUploadPending = false;
 
 function getSignedRequest(file) {
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
@@ -22,25 +21,26 @@ function getSignedRequest(file) {
         imageUploadPending = true;
         updateTagAndHeading(response.imageId);
       } else {
-        alert('Could not get signed URL.');
+        return new Error('Could not get signed URL.');
       }
     }
   };
+  xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
   xhr.send();
 }
 
 function uploadFile(file, signedRequest, url) {
   const xhr = new XMLHttpRequest();
-  xhr.open('PUT', signedRequest);
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         document.getElementById('photo-save').src = url;
       } else {
-        alert('Could not upload file.');
+        return new Error('Could not upload file.');
       }
     }
   };
+  xhr.open('PUT', signedRequest);
   xhr.send(file);
 }
 
