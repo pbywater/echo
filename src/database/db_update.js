@@ -14,7 +14,16 @@ const updatePhotoMemory = (userId, tag, heading, id, cb) => {
      [userId, tag, heading, id], cb);
 };
 
+const updateEmailVerification = (username, token, cb) => {
+  connect.query(
+    `UPDATE users
+    SET verified = true
+    WHERE users.username = $1
+    AND users.token = $2`, [username, token], cb);
+};
+
 module.exports = {
   updateLikes,
   updatePhotoMemory,
+  updateEmailVerification,
 };

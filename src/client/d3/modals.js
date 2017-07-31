@@ -1,5 +1,5 @@
 const { svg } = require('./setup');
-const { getRandomInt } = require('./../helpers/helpers');
+const { getRandomInt, saveItemsToStorage } = require('./../helpers/helpers');
 
 const appendPopUp = (data) => {
   const holder = svg
@@ -37,11 +37,15 @@ const appendPopUp = (data) => {
         const newLikeNum = parseInt(d3.select('.likeNumber').text()) + 1;
         const memoryId = data.id;
         d3.select('.likeNumber').text(newLikeNum);
-        $.ajax({
-          type: 'POST',
-          url: '/likes',
-          data: { numLikes: newLikeNum, memoryId },
-        });
+        if (navigator.onLine) {
+          $.ajax({
+            type: 'POST',
+            url: '/likes',
+            data: { numLikes: newLikeNum, memoryId },
+          });
+        } else {
+          saveItemsToStorage('memoryLikes', { memories: [{ memoryId, newLikeNum }] }, { memoryId, newLikeNum });
+        }
       });
 
   const likeButton = likeButtonGroup
