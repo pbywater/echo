@@ -234,7 +234,7 @@ function render(updatedData) {
       const heading = splitData[0].split('=')[1];
       const text = splitData[1].split('=')[1];
       const tag = splitData[2].split('=')[1];
-      // storePendingActions('textToAdd', { memories: [{ id, text }] }, { id, text });
+      storePendingActions('textToAdd', { memories: [{ id: 100, heading, text, tag }] }, { id: 100, heading, text, tag });
       // const offlineData = removeMemoryFromStoredData(id);
       // render(formatData(offlineData));
     }

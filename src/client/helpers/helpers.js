@@ -261,6 +261,15 @@ function removeMemoryFromStoredData(id) {
 return offlineData;
 }
 
+function addMemoryToStoredData(id) {
+//   const offlineData = JSON.parse(localStorage.getItem('data'));
+//   const toAdd =
+//   offlineData.push()
+//   const offlineDataAfterAdding = JSON.stringify(offlineData);
+//   localStorage.setItem('data', offlineDataAfterRemoving);
+// return offlineData;
+}
+
 function clearPendingActions(storedName, index) {
   const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem(storedName));
   if (memoriesWaitingToBeRemoved.memories.length === 1) {
