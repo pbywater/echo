@@ -217,16 +217,27 @@ function render(updatedData) {
 
   $('#memory-input__submit').click((e) => {
     e.preventDefault();
-    $.ajax({
-      method: 'POST',
-      url: 'memory-input-text',
-      data: $('#add-text-form').serialize(),
-      success: () => {
-        setTimeout(() => {
-          update();
-        }, animationDuration);
-      },
-    });
+    if (navigator.onLine) {
+      $.ajax({
+        method: 'POST',
+        url: 'memory-input-text',
+        data: $('#add-text-form').serialize(),
+        success: () => {
+          setTimeout(() => {
+            update();
+          }, animationDuration);
+        },
+      });
+    } else {
+      const data = $('#add-text-form').serialize();
+      const splitData = data.split('&');
+      const heading = splitData[0].split('=')[1];
+      const text = splitData[1].split('=')[1];
+      const tag = splitData[2].split('=')[1];
+      // storePendingActions('textToAdd', { memories: [{ id, text }] }, { id, text });
+      // const offlineData = removeMemoryFromStoredData(id);
+      // render(formatData(offlineData));
+    }
   });
 
   function update() {
