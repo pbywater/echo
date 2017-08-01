@@ -1,6 +1,7 @@
 /* eslint-disable */
 const { sortWithMax, binByTag, centralMaxNodesByTag, binByKey, getRandomInt } = require('../node_transformations');
 const normalTime = 1000;
+const { animationDuration } = require('./../d3/setup');
 
 function showTaggedMemory(memoryToShow) {
     $('.memory').each(function() {
@@ -109,6 +110,7 @@ function showHeading(d){
         .attr('class', 'memory-heading')
         .attr('font-family', 'quicksand')
         .attr('font-size', '0.9em')
+        .attr('fill', 'white')
         .call(d3.drag()
           .on('start', dragstart)
           .on('drag', dragging)
@@ -153,15 +155,30 @@ function showDeleteButton(d) {
   }, 1200);
 }
 
-function hoveringOnDelete() {
-    $('.delete-button').on('mouseover', () => {
+function hoveringOnDelete(nodeTop, buttonTop) {
+  if ($('.delete-button').is(':visible')) {
+  if (nodeTop >= buttonTop || buttonTop - 40 <= nodeTop) {
         $('.delete-button path').css('fill', '#FF3F56');
         $('.delete-button').addClass('deleting');
-    });
-    $('.delete-button').on('mouseleave', () => {
+}
+  else {
         $('.delete-button path').css('fill', 'white');
         $('.delete-button').removeClass('deleting');
-    });
+  }
+}
+}
+
+function hoveringOnDeleteSafari(nodeTop, buttonTop) {
+  if ($('.delete-button').is(':visible')) {
+  if (nodeTop + 40 >= buttonTop) {
+        $('.delete-button path').css('fill', '#FF3F56');
+        $('.delete-button').addClass('deleting');
+}
+  else {
+        $('.delete-button path').css('fill', 'white');
+        $('.delete-button').removeClass('deleting');
+  }
+}
 }
 
 function hideDeleteButton() {
@@ -184,7 +201,7 @@ function initSubmitMemory() {
                     .show();
                 $('.finished')
                     .removeClass('new-node finished wipe');
-            }, 4500);
+            }, animationDuration);
         })
         .submit((e) => {
             e.preventDefault();
@@ -219,6 +236,76 @@ function constructTagList(data) {
   </li>`);
 }
 
+function storePendingActions(storedName, newObjToSave, itemToPush) {
+  if (localStorage.getItem(storedName) !== null) {
+    const itemsWaiting = JSON.parse(localStorage.getItem(storedName));
+    itemsWaiting.memories.push(itemToPush);
+    const itemsWaitingWithNewItem = JSON.stringify(itemsWaiting);
+    localStorage[storedName] = itemsWaitingWithNewItem;
+  }
+  else {
+    const saveObj = JSON.stringify(newObjToSave);
+    localStorage[storedName] = saveObj;
+  }
+}
+
+function removeMemoryFromStoredData(id) {
+  const offlineData = JSON.parse(localStorage.getItem('data'));
+  offlineData.forEach((memory, index) => {
+    if (memory.id == id) {
+      offlineData.splice(index, 1);
+    }
+  });
+  const offlineDataAfterRemoving = JSON.stringify(offlineData);
+  localStorage.setItem('data', offlineDataAfterRemoving);
+return offlineData;
+}
+
+function clearPendingActions(storedName, index) {
+  const memoriesWaitingToBeRemoved = JSON.parse(localStorage.getItem(storedName));
+  if (memoriesWaitingToBeRemoved.memories.length === 1) {
+    localStorage.removeItem(storedName);
+  }
+  else {
+    memoriesWaitingToBeRemoved.memories.splice(index, 1);
+    const memoriesStillToDelete = JSON.stringify(memoriesWaitingToBeRemoved);
+    localStorage.setItem('toDelete', memoriesStillToDelete);
+}
+}
+
+function deletePendingMemories(cb) {
+  if(localStorage.getItem('toDelete') !== null) {
+  const deletedMemories = JSON.parse(localStorage.getItem('toDelete'));
+  deletedMemories.memories.forEach((memory, index) => {
+    memory = parseInt(memory);
+    $.ajax({
+      method: 'DELETE',
+      url: 'memories',
+      data: { id: memory },
+      success: () => clearPendingActions('toDelete', index),
+    });
+    cb();
+  })
+}
+}
+
+function updateOfflineLikes(cb) {
+  if(localStorage.getItem('memoryLikes') !== null) {
+  const newLikes = JSON.parse(localStorage.getItem('memoryLikes'));
+  newLikes.memories.forEach((memory, index) => {
+    const id = parseInt(memory.memoryId);
+    const newLikeNum = parseInt(memory.newLikeNum);
+    $.ajax({
+      type: 'POST',
+      url: '/likes',
+      data: { numLikes: newLikeNum, memoryId: id },
+      success: () => clearPendingActions('memoryLikes', index),
+    });
+    cb();
+  })
+}
+}
+
 module.exports = {
     getRandomInt,
     initTagMenu,
@@ -228,4 +315,9 @@ module.exports = {
     hideDeleteButton,
     showHeading,
     constructTagList,
+    storePendingActions,
+    updateOfflineLikes,
+    hoveringOnDeleteSafari,
+    deletePendingMemories,
+    removeMemoryFromStoredData,
 };

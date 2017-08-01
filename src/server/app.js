@@ -13,6 +13,10 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 
+app.use((req, res) => {
+  res.status(404).redirect('/');
+});
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {

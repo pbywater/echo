@@ -3,6 +3,7 @@ const connect = require('./db_connect');
 const hashPassword = require('./../helpers/hashPassword');
 
 const createMemory = (login, newMemory, mediaType, callback) => {
+  newMemory.tag = newMemory.tag.toLowerCase();
   connect.query(
     `INSERT INTO memories
         (user_id, memory_text, media_type, memory_asset_url, heading, tag, likes, visits)
@@ -34,8 +35,8 @@ const createUser = (userDetails, callback) => {
 
           connect.query(
             `INSERT INTO users
-            (username, password, email)
-            VALUES($1, $2, $3);`, [userDetails.username, hash, userDetails.email], (err) => {
+            (username, password, email, token)
+            VALUES($1, $2, $3, $4);`, [userDetails.username, hash, userDetails.email, userDetails.token], (err) => {
               if (err) { return callback(err); }
               callback(null, 'new user added');
             });
