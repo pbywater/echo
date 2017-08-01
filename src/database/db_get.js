@@ -45,13 +45,13 @@ const getUser = (input, callback) => {
 
 const getMemoryById = (userId, id, callback) => {
   connect.query(
-    `SELECT memory_asset_url
+    `SELECT memory_asset_url, media_type
     FROM memories
     WHERE user_id = $1 AND id = $2`, [userId, id], (err, res) => {
       if (err) {
         return callback(err);
       }
-      callback(null, res.rows[0].memory_asset_url);
+      callback(null, res.rows[0]);
     });
 };
 
