@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node src/server/app.js",
     "devStart": "nodemon src/server/app.js",
-    "postinstall": "browserify src/client/main.js -o public/bundle.js",
+    "postinstall": "browserify src/client/main.js -o public/bundle.js -t [ babelify --presets [ es2015 ] ]",
     "test": "node tests/src/client",
-    "build": "browserify src/client/main.js -o public/bundle.js",
-    "watch": "watchify src/client/main.js -o public/bundle.js"
+    "build": "browserify src/client/main.js -o public/bundle.js -t [ babelify --presets [ es2015 ] ]",
+    "watch": "watchify src/client/main.js -o public/bundle.js -t [ babelify --presets [ es2015 ] ]"
   },
   "repository": {
     "type": "git",
@@ -34,9 +34,11 @@
     "pg": "^6.4.0"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^7.3.0",
     "nodemon": "^1.11.0",
-    "tape": "^4.7.0",
     "tap-spec": "^4.1.1",
+    "tape": "^4.7.0",
     "watchify": "^3.9.0"
   }
 }
