@@ -261,13 +261,15 @@ function removeMemoryFromStoredData(id) {
 return offlineData;
 }
 
-function addMemoryToStoredData(id) {
-//   const offlineData = JSON.parse(localStorage.getItem('data'));
-//   const toAdd =
-//   offlineData.push()
-//   const offlineDataAfterAdding = JSON.stringify(offlineData);
-//   localStorage.setItem('data', offlineDataAfterRemoving);
-// return offlineData;
+function addMemoryToStoredData(id, heading, text, tag) {
+  const offlineData = JSON.parse(localStorage.getItem('data'));
+  console.log(offlineData);
+    const toAdd = {heading, id, likes: 0, media_type: "text_only", memory_text: text, tag};
+  offlineData.push(toAdd);
+  console.log(offlineData);
+  const offlineDataAfterAdding = JSON.stringify(offlineData);
+  localStorage.setItem('data', offlineDataAfterAdding);
+return offlineData;
 }
 
 function clearPendingActions(storedName, index) {
@@ -329,4 +331,5 @@ module.exports = {
     hoveringOnDeleteSafari,
     deletePendingMemories,
     removeMemoryFromStoredData,
+    addMemoryToStoredData,
 };

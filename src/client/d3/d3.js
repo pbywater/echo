@@ -1,4 +1,4 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, storePendingActions, removeMemoryFromStoredData, removeMemoriesDeletedOffline, updateOfflineLikes, hoveringOnDeleteSafari, deletePendingMemories } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, storePendingActions, removeMemoryFromStoredData, removeMemoriesDeletedOffline, updateOfflineLikes, hoveringOnDeleteSafari, deletePendingMemories, addMemoryToStoredData } = require('../helpers/helpers.js');
 const { animationDuration, width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
@@ -209,6 +209,7 @@ function render(updatedData) {
       } else {
         storePendingActions('toDelete', { memories: [id] }, id);
         const offlineData = removeMemoryFromStoredData(id);
+        console.log(offlineData);
         render(formatData(offlineData));
       }
     }
@@ -235,8 +236,10 @@ function render(updatedData) {
       const text = splitData[1].split('=')[1];
       const tag = splitData[2].split('=')[1];
       storePendingActions('textToAdd', { memories: [{ id: 100, heading, text, tag }] }, { id: 100, heading, text, tag });
-      // const offlineData = removeMemoryFromStoredData(id);
-      // render(formatData(offlineData));
+      const offlineData = addMemoryToStoredData(100, heading, text, tag);
+      setTimeout(() => {
+        render(formatData(offlineData));
+      }, animationDuration);
     }
   });
 
