@@ -13,9 +13,11 @@ module.exports = (req, res) => {
   getMemoryById(req.session.id, req.query.memoryId, (error, response) => {
     if (error) return error;
 
+    const memoryKey = response.memory_asset_url;
+
     const s3Params = {
       Bucket: S3_BUCKET_NAME,
-      Key: response,
+      Key: memoryKey,
     };
 
     s3.getSignedUrl('getObject', s3Params, (err, url) => {
