@@ -15,7 +15,7 @@ function onlineLogic() {
       render(formatData(data));
       initTagMenu();
     } else {
-      const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
+      const falseDataArray = [{ heading: '', id: 1, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
       const falseProcessedData = { links: [], nodes: falseDataArray };
       render(falseProcessedData);
       newUserIntro();
