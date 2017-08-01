@@ -1,5 +1,3 @@
-const express = require('express');
-require('env2')('./config.env');
 const { updateLikes } = require('./../../database/db_update');
 
 module.exports = (req, res) => {

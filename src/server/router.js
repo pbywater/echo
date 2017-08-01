@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
+require('env2')('./config.env');
 
 const router = express.Router();
 
@@ -39,5 +40,6 @@ router.route('/memories')
 router.route('/likes')
   .get(require('./controllers/getLikes.js'))
   .post(require('./controllers/updateLikes.js'));
+router.get('/verify/:token/:username', require('./controllers/verifyEmail.js'));
 
 module.exports = router;
