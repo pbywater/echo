@@ -41,7 +41,6 @@ module.exports = (req, res) => {
         url: `https://${S3_BUCKET_NAME}.s3.amazonaws.com/${fileName}`,
       };
       res.json(returnData);
-      res.end();
     });
   });
 };
