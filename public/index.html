@@ -154,14 +154,17 @@
                     </label>
                 </form>
                 <div class='memory-input camera hide img-background'></div>
-                <img src='assets/icons/card_icons/photo_folder_icon.svg' class='memory-input camera hide image' />
-                <form class="memory-input camera hide" action="memory-input-text" method="post">
+                <img src='assets/icons/card_icons/photo_folder_icon.svg' class='memory-input camera hide image'/>
+                <form class="memory-input camera hide" action="memory-input-photo" method="post">
+                    <input class="heading-input heading-input--photo delete" name="heading" type="text" placeholder="Enter a heading" maxlength="25" style="margin-bottom: -20%">
+                    <input class="tag-input tag-input--photo delete top" name="tag" type="text" placeholder="Enter a tag" style="margin-bottom: -20%"></input>
                     <label for='camera' class="memory-input__label camera">Take a picture</label>
-                    <input id='camera' class="memory-input__submit camera" type="file" accept="image/*" capture="camera" style='opacity:0;'></input>
+                    <input id="camera-input" class="camera" type="file" accept="image/*" capture="camera" name="image" style='opacity:0;'></input>
+                    <input id="photo-save" class="memory-input__submit camera" type="submit" value="Save">
                 </form>
                 <div class='memory-input microphone hide img-background'></div>
                 <img src='assets/icons/card_icons/audio_folder_icon.svg' class='memory-input microphone hide image' />
-                <form class="memory-input microphone hide" action="memory-input-text" method="post">
+                <form class="memory-input microphone hide" action="memory-input-audio" method="post">
                     <label for='microphone' class="memory-input__label microphone">Record a voice note</label>
                     <input id='microphone' class="memory-input__submit microphone" type="file" accept="audio/*" capture="microphone" style='opacity:0;'></input>
                 </form>
@@ -181,6 +184,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 <script src="scripts/main.js"></script>
+<script src="scripts/s3-uploads.js"></script>
 <script src="bundle.js"></script>
 
 </html>
