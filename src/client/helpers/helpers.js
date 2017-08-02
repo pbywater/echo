@@ -264,10 +264,8 @@ return offlineData;
 function addMemoryToStoredData(id, heading, text, tag) {
   // Unsure whether this is working in the formatData function correctly
   const offlineData = JSON.parse(localStorage.getItem('data'));
-  console.log(offlineData);
     const toAdd = {heading, id, likes: 0, media_type: "text_only", memory_text: text, tag, visits:0, memory_asset_url:''};
   offlineData.push(toAdd);
-  console.log(offlineData);
   const offlineDataAfterAdding = JSON.stringify(offlineData);
   localStorage.setItem('data', offlineDataAfterAdding);
 return offlineData;
@@ -300,13 +298,11 @@ function processPendingMemories(cb) {
   })
 }
 if(localStorage.getItem('textToAdd') !== null) {
-  console.log('not null');
 const newTextMemories = JSON.parse(localStorage.getItem('textToAdd'));
 newTextMemories.memories.forEach((memory, index) => {
   const text = memory.text;
   const heading = memory.heading;
   const tag = memory.tag;
-  console.log('text ', text, 'heading ', heading, 'tag ', tag);
   $.ajax({
     method: 'POST',
     url: 'memory-input-text',

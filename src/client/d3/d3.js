@@ -8,7 +8,6 @@ const url = location.hostname ? '/memories' : jsonUrl;
 
 function onlineLogic() {
   d3.json(url, (err, data) => {
-    console.log('data is ', data);
     if (data.length > 0) {
       const dataToSave = JSON.stringify(data);
       localStorage.setItem('data', dataToSave);
@@ -210,7 +209,6 @@ function render(updatedData) {
       } else {
         storePendingActions('toDelete', { memories: [id] }, id);
         const offlineData = removeMemoryFromStoredData(id);
-        console.log(offlineData);
         render(formatData(offlineData));
       }
     }
