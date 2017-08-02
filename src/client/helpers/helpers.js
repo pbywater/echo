@@ -299,6 +299,23 @@ function processPendingMemories(cb) {
     cb();
   })
 }
+if(localStorage.getItem('textToAdd') !== null) {
+  console.log('not null');
+const newTextMemories = JSON.parse(localStorage.getItem('textToAdd'));
+newTextMemories.memories.forEach((memory, index) => {
+  const text = memory.text;
+  const heading = memory.heading;
+  const tag = memory.tag;
+  console.log('text ', text, 'heading ', heading, 'tag ', tag);
+  $.ajax({
+    method: 'POST',
+    url: 'memory-input-text',
+    data: {memory_text: text, heading, tag},
+    success: () => clearPendingActions('textToAdd', index),
+  });
+  cb();
+})
+}
 }
 
 function updateOfflineLikes(cb) {
