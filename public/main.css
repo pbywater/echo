@@ -938,7 +938,16 @@ a:hover {
 
 .top {
   top: -150px;
+}
 
 .menu-open {
   display: none;
+}
+
+.js-push-btn {
+  z-index: 2;
+  color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
