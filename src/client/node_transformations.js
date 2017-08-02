@@ -31,7 +31,6 @@ const centralMaxNodesByTag = (tagsArray, startingCx, startingCy) => {
       id: tag.max.id,
       heading: tag.max.heading,
       media_type: tag.max.media_type,
-      memory_asset_url: tag.max.memory_asset_url || '',
       memory_text: tag.max.memory_text || '',
       x: startingCx + getRandomInt(-100, 100),
       y: startingCy + (getRandomInt(150, 250) * i),

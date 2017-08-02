@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     $('.menu-open-button').on('click', () => {
+      imageUploadPending = false;
       $(`#${menuItemId}`)
         .removeClass('wipe')
         .removeClass('finished')
