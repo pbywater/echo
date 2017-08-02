@@ -122,6 +122,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
 
   function updateBtn() {
+    if (Notification.permission === 'denied') {
+      pushButton.textContent = 'Push Messaging Blocked.';
+      pushButton.disabled = true;
+      updateSubscriptionOnServer(null);
+      return;
+    }
+
     if (isSubscribed) {
       pushButton.textContent = 'Disable Push Messaging';
     } else {
@@ -158,6 +165,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const subscriptionJson = document.querySelector('.js-subscription-json');
     const subscriptionDetails =
       document.querySelector('.js-subscription-details');
+      console.log('slkdjfnsldkjfnsdkjfnsdlkjfnslkjfn', subscriptionDetails);
 
     if (subscription) {
       subscriptionJson.textContent = JSON.stringify(subscription);

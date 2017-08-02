@@ -951,3 +951,13 @@ a:hover {
   top: 50%;
   left: 50%;
 }
+
+.is-invisible {
+  opacity: 0;
+}
+
+.js-subscription-json {
+  z-index: 2;
+  color: black;
+  position: absolute;
+}
