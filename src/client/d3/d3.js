@@ -1,4 +1,4 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, storePendingActions, removeMemoryFromStoredData, removeMemoriesDeletedOffline, updateOfflineLikes, hoveringOnDeleteSafari, deletePendingMemories, addMemoryToStoredData } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, storePendingActions, removeMemoryFromStoredData, removeMemoriesDeletedOffline, updateOfflineLikes, hoveringOnDeleteSafari, processPendingMemories, addMemoryToStoredData } = require('../helpers/helpers.js');
 const { animationDuration, width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
 const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks, getRandomInt } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
@@ -255,7 +255,7 @@ function render(updatedData) {
 if (navigator.onLine) {
   onlineLogic();
   updateOfflineLikes(onlineLogic);
-  deletePendingMemories(onlineLogic);
+  processPendingMemories(onlineLogic);
 } else {
   const offlineData = JSON.parse(localStorage.getItem('data'));
   constructTagList(offlineData);

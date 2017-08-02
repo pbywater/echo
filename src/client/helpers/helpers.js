@@ -285,7 +285,7 @@ function clearPendingActions(storedName, index) {
 }
 }
 
-function deletePendingMemories(cb) {
+function processPendingMemories(cb) {
   if(localStorage.getItem('toDelete') !== null) {
   const deletedMemories = JSON.parse(localStorage.getItem('toDelete'));
   deletedMemories.memories.forEach((memory, index) => {
@@ -329,7 +329,7 @@ module.exports = {
     storePendingActions,
     updateOfflineLikes,
     hoveringOnDeleteSafari,
-    deletePendingMemories,
+    processPendingMemories,
     removeMemoryFromStoredData,
     addMemoryToStoredData,
 };
