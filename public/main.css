@@ -926,6 +926,19 @@ a:hover {
     }
 }
 
+/* delete */
+
+.delete {
+  margin-bottom: -20%;
+  position: absolute;
+  top: -100px;
+  z-index: 2;
+  bottom: 1000px;
+}
+
+.top {
+  top: -150px;
+
 .menu-open {
   display: none;
 }
