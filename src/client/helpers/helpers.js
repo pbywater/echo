@@ -262,7 +262,6 @@ return offlineData;
 }
 
 function addMemoryToStoredData(id, heading, text, tag) {
-  // Unsure whether this is working in the formatData function correctly
   const offlineData = JSON.parse(localStorage.getItem('data'));
     const toAdd = {heading, id, likes: 0, media_type: "text_only", memory_text: text, tag, visits:0, memory_asset_url:''};
   offlineData.push(toAdd);
