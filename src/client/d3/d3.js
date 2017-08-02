@@ -1,6 +1,6 @@
 const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, storePendingActions, removeMemoryFromStoredData, removeMemoriesDeletedOffline, updateOfflineLikes, hoveringOnDeleteSafari, deletePendingMemories, addMemoryToStoredData } = require('../helpers/helpers.js');
 const { animationDuration, width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
-const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
+const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks, getRandomInt } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
 const { newUserIntro } = require('./newUserIntro.js');
 
@@ -8,6 +8,7 @@ const url = location.hostname ? '/memories' : jsonUrl;
 
 function onlineLogic() {
   d3.json(url, (err, data) => {
+    console.log('data is ', data);
     if (data.length > 0) {
       const dataToSave = JSON.stringify(data);
       localStorage.setItem('data', dataToSave);
@@ -235,8 +236,9 @@ function render(updatedData) {
       const heading = splitData[0].split('=')[1];
       const text = splitData[1].split('=')[1];
       const tag = splitData[2].split('=')[1];
-      storePendingActions('textToAdd', { memories: [{ id: 100, heading, text, tag }] }, { id: 100, heading, text, tag });
-      const offlineData = addMemoryToStoredData(100, heading, text, tag);
+      const id = getRandomInt(10000, 999999);
+      storePendingActions('textToAdd', { memories: [{ id, heading, text, tag }] }, { id, heading, text, tag });
+      const offlineData = addMemoryToStoredData(id, heading, text, tag);
       setTimeout(() => {
         render(formatData(offlineData));
       }, animationDuration);

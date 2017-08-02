@@ -262,9 +262,10 @@ return offlineData;
 }
 
 function addMemoryToStoredData(id, heading, text, tag) {
+  // Unsure whether this is working in the formatData function correctly
   const offlineData = JSON.parse(localStorage.getItem('data'));
   console.log(offlineData);
-    const toAdd = {heading, id, likes: 0, media_type: "text_only", memory_text: text, tag};
+    const toAdd = {heading, id, likes: 0, media_type: "text_only", memory_text: text, tag, visits:0, memory_asset_url:''};
   offlineData.push(toAdd);
   console.log(offlineData);
   const offlineDataAfterAdding = JSON.stringify(offlineData);
@@ -318,7 +319,6 @@ function updateOfflineLikes(cb) {
 }
 
 module.exports = {
-    getRandomInt,
     initTagMenu,
     initSubmitMemory,
     showDeleteButton,
