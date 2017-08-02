@@ -5,7 +5,11 @@
     if (file == null) {
       return new Error('No file selected.');
     }
-    getSignedRequest(file);
+    if (navigator.onLine) {
+      getSignedRequest(file);
+    } else {
+      console.log('offline');
+    }
   };
 }());
 
@@ -45,17 +49,21 @@ function uploadFile(file, signedRequest, url) {
 }
 
 function updateTagAndHeading(imageId) {
-  document.getElementById('photo-save').onclick = function (e) {
-    e.preventDefault();
-    if (imageUploadPending) {
-      const tag = $('.tag-input--photo')[0].value;
-      const heading = $('.heading-input--photo')[0].value;
-      $.ajax({
-        method: 'PUT',
-        url: 'memory-input-photo',
-        data: { tag, heading, imageId },
-        success: () => { imageUploadPending = false; },
-      });
-    }
-  };
+  if (navigator.onLine) {
+    document.getElementById('photo-save').onclick = function (e) {
+      e.preventDefault();
+      if (imageUploadPending) {
+        const tag = $('.tag-input--photo')[0].value;
+        const heading = $('.heading-input--photo')[0].value;
+        $.ajax({
+          method: 'PUT',
+          url: 'memory-input-photo',
+          data: { tag, heading, imageId },
+          success: () => { imageUploadPending = false; },
+        });
+      }
+    };
+  } else {
+    console.log('offline logic');
+  }
 }
