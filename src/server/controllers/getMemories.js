@@ -1,7 +1,7 @@
 const { getMemories } = require('./../../database/db_get');
 
 module.exports = (req, res) => {
-  getMemories(req.session.name, (error, memories) => {
+  getMemories('test', (error, memories) => {
     if (error) {
       res.send(error);
       return;
