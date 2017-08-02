@@ -8,7 +8,7 @@
     if (navigator.onLine) {
       getSignedRequest(file);
     } else {
-      console.log('offline');
+      storePendingActions('photoToAdd', { memories: [id] }, id);
     }
   };
 }());
