@@ -47,5 +47,6 @@ router.route('/likes')
   .post(require('./controllers/updateLikes.js'));
 router.get('/verify/:token/:username', require('./controllers/verifyEmail.js'));
 router.post('/api/save-subscription', require('./controllers/saveNotificationSubscription.js'));
+router.post('/api/trigger-push-msg', require('./controllers/triggerPushMsg.js'));
 
 module.exports = router;

@@ -12,7 +12,7 @@ CREATE TABLE users (
   email                       VARCHAR(64)     NOT NULL,
   token                       VARCHAR(20),
   verified                    BOOLEAN         DEFAULT FALSE,
-  notification_subscription   VARCHAR(1000)
+  notification_subscription   VARCHAR(1000)   DEFAULT NULL
 );
 
 CREATE TABLE memories (

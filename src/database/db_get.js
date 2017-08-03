@@ -55,9 +55,22 @@ const getMemoryById = (userId, id, callback) => {
     });
 };
 
+const getSubscriptions = (callback) => {
+  connect.query(
+    `SELECT notification_subscription
+    FROM users
+    WHERE notification_subscription IS NOT NULL;`, (err, res) => {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, res.rows)
+    });
+};
+
 module.exports = {
   getMemories,
   getLikes,
   getUser,
   getMemoryById,
+  getSubscriptions,
 };
