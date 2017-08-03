@@ -26,7 +26,7 @@ module.exports = (req, res) => {
     tag: '',
   };
 
-  createMemory('test', newMemory, 'image', fileKey, (err, response) => {
+  createMemory(1, newMemory, 'image', fileKey, (err, response) => {
     if (err) return err;
     console.log('response in createurl is ', response);
     s3.getSignedUrl('putObject', s3Params, (err, data) => {

@@ -7,7 +7,11 @@
     }
     if (navigator.onLine) {
       getSignedRequest(file);
+    } else if (localStorage.getItem('imageToSave') && localStorage.getItem('imageTagAndHeading')) {
+      console.log('already exists');
+      alert("Sorry - you can only add one photo memory while you're offline");
     } else {
+      console.log('getting into else');
       saveFileToLocalStorage(file);
       updateTagAndHeading();
     }
@@ -19,9 +23,11 @@ let imageUploadPending = false;
 function getSignedRequest(file) {
   console.log('file in getSignedRequest is', file);
   const xhr = new XMLHttpRequest();
+  console.log('xhr is ', xhr);
   xhr.onreadystatechange = () => {
     console.log('in xhr request');
     if (xhr.readyState === 4) {
+      console.log('in xhr readyState');
       if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
         console.log('response in xhr is ', response);
@@ -29,6 +35,7 @@ function getSignedRequest(file) {
         imageUploadPending = true;
         updateTagAndHeading(response.imageId);
       } else {
+        console.log('error place', xhr.status);
         removeImagesFromStorage();
         return new Error('Could not get signed URL.');
       }
@@ -68,7 +75,7 @@ function updateTagAndHeading(imageId) {
     }
   };
   if (navigator.onLine && localStorage.getItem('imageTagAndHeading')) {
-    const tagAndHeading = localStorage.getItem('imageTagAndHeading');
+    const tagAndHeading = JSON.parse(localStorage.getItem('imageTagAndHeading'));
     addTagAndHeadingToDB(tagAndHeading.tag, tagAndHeading.heading, imageId);
     localStorage.removeItem('imageToSave');
   }
