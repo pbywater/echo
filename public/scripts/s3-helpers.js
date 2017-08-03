@@ -22,8 +22,6 @@ function retrieveFile(fileSource) {
 }
 
 function addTagAndHeadingToDB(tag, heading, imageId) {
-  console.log('addTagAndHeadingToDB');
-  console.log('adding tag of ', tag, 'heading of ', heading, 'imageID of ', imageId);
   $.ajax({
     method: 'PUT',
     url: 'memory-input-photo',

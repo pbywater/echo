@@ -10,10 +10,8 @@ function s3handling(fileSource) {
       if (navigator.onLine) {
         getSignedRequest(file);
       } else if (localStorage.getItem(`toSaveFrom${fileSource}`) && localStorage.getItem(`${fileSource}TagAndHeading`)) {
-        console.log('already exists');
         alert("Sorry - you can only add one photo/audio memory while you're offline");
       } else {
-        console.log('getting into else');
         saveFileToLocalStorage(file, fileSource);
         updateTagAndHeading();
       }
@@ -23,21 +21,15 @@ function s3handling(fileSource) {
   let uploadPending = false;
 
   function getSignedRequest(file) {
-    console.log('file in getSignedRequest is', file);
     const xhr = new XMLHttpRequest();
-    console.log('xhr is ', xhr);
     xhr.onreadystatechange = () => {
-      console.log('in xhr request');
       if (xhr.readyState === 4) {
-        console.log('in xhr readyState');
         if (xhr.status === 200) {
           const response = JSON.parse(xhr.responseText);
-          console.log('response in xhr is ', response);
           uploadFile(file, response.signedRequest, response.url);
           uploadPending = true;
           updateTagAndHeading(response.imageId);
         } else {
-          console.log('error place', xhr.status);
           removeItemsFromStorage(fileSource);
           return new Error('Could not get signed URL.');
         }
@@ -48,7 +40,6 @@ function s3handling(fileSource) {
   }
 
   function uploadFile(file, signedRequest, url) {
-    console.log('file is uploadFile is ', file);
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
@@ -64,7 +55,6 @@ function s3handling(fileSource) {
   }
 
   function updateTagAndHeading(imageId) {
-    console.log('imageId in updateTagAndHeading is ', imageId);
     document.getElementById('camera-save').onclick = function (e) {
       e.preventDefault();
       const tag = $(`.tag-input--${fileSource}`)[0].value;
@@ -87,7 +77,6 @@ function s3handling(fileSource) {
     if (localStorage.getItem(`${fileSource}TagAndHeading`) && navigator.onLine) {
       const file = retrieveImage();
       if (file) {
-        console.log('file is ', file);
         getSignedRequest(file);
       } else {
         localStorage.removeItem(`${fileSource}TagAndHeading`);
