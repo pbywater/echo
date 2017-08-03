@@ -8,7 +8,7 @@
     if (navigator.onLine) {
       getSignedRequest(file);
     } else {
-      storePendingActions('photoToAdd', { memories: [id] }, id);
+      saveFileToLocalStorage(file);
     }
   };
 }());
@@ -49,21 +49,26 @@ function uploadFile(file, signedRequest, url) {
 }
 
 function updateTagAndHeading(imageId) {
-  if (navigator.onLine) {
-    document.getElementById('photo-save').onclick = function (e) {
-      e.preventDefault();
-      if (imageUploadPending) {
-        const tag = $('.tag-input--photo')[0].value;
-        const heading = $('.heading-input--photo')[0].value;
-        $.ajax({
-          method: 'PUT',
-          url: 'memory-input-photo',
-          data: { tag, heading, imageId },
-          success: () => { imageUploadPending = false; },
-        });
-      }
-    };
-  } else {
-    console.log('offline logic');
-  }
+  document.getElementById('photo-save').onclick = function (e) {
+    e.preventDefault();
+    if (imageUploadPending) {
+      const tag = $('.tag-input--photo')[0].value;
+      const heading = $('.heading-input--photo')[0].value;
+      $.ajax({
+        method: 'PUT',
+        url: 'memory-input-photo',
+        data: { tag, heading, imageId },
+        success: () => { imageUploadPending = false; },
+      });
+    }
+  };
 }
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  if (navigator.onLine) {
+    const file = retrieveImage();
+    if (file) {
+      getSignedRequest(file);
+    }
+  }
+});

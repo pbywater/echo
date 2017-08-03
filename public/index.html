@@ -159,7 +159,7 @@
                     <input class="heading-input heading-input--photo delete" name="heading" type="text" placeholder="Enter a heading" maxlength="25" style="margin-bottom: -20%">
                     <input class="tag-input tag-input--photo delete top" name="tag" type="text" placeholder="Enter a tag" style="margin-bottom: -20%"></input>
                     <label for='camera' class="memory-input__label camera">Take a picture</label>
-                    <input id="camera-input" class="camera" type="file" accept="image/*" capture="camera" name="image" style='opacity:0;'></input>
+                    <input id="camera-input" class="camera" type="file" accept="image/*" capture="camera" name="image" style='opacity:0;' onchange='previewFile()'></input>
                     <input id="photo-save" class="memory-input__submit camera" type="submit" value="Save">
                 </form>
                 <div class='memory-input microphone hide img-background'></div>
