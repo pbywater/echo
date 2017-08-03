@@ -13,8 +13,23 @@ function saveFileToLocalStorage(file) {
 function retrieveImage() {
   const image = localStorage.getItem('imageToSave');
   const fileName = localStorage.getItem('imageName');
-  const retrievedImage = dataURLtoFile(image, fileName);
-  return retrievedImage;
+  if (image && fileName) {
+    const retrievedImage = dataURLtoFile(image, fileName);
+    return retrievedImage;
+  }
+
+  return null;
+}
+
+function addTagAndHeadingToDB(tag, heading, imageId) {
+  console.log('addTagAndHeadingToDB');
+  console.log('adding tag of ', tag, 'heading of ', heading, 'imageID of ', imageId);
+  $.ajax({
+    method: 'PUT',
+    url: 'memory-input-photo',
+    data: { tag, heading, imageId },
+    success: () => { imageUploadPending = false; },
+  });
 }
 
 function dataURLtoFile(dataurl, filename) {
