@@ -66,14 +66,14 @@ function updateTagAndHeading(imageId) {
       localStorage.setItem('imageTagAndHeading', tagAndHeading);
     }
   };
-  if (navigator.onLine && localStorage.getItem('imageTagAndHeading').length) {
+  if (navigator.onLine && localStorage.getItem('imageTagAndHeading')) {
     const tagAndHeading = localStorage.getItem('imageTagAndHeading');
     addTagAndHeadingToDB(tagAndHeading.tag, tagAndHeading.heading, imageId);
   }
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-  if (navigator.onLine) {
+  if (localStorage.getItem('imageTagAndHeading') && navigator.onLine) {
     const file = retrieveImage();
     if (file) {
       console.log('file is ', file);
