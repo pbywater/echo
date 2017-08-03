@@ -21,6 +21,7 @@ function getSignedRequest(file) {
         imageUploadPending = true;
         updateTagAndHeading(response.imageId);
       } else {
+        console.log('xhr.status', xhr);
         return new Error('Could not get signed URL.');
       }
     }

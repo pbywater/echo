@@ -4,7 +4,6 @@ const hashPassword = require('./../helpers/hashPassword');
 
 const createMemory = (id, newMemory, mediaType, memoryUrl, callback) => {
   newMemory.tag = newMemory.tag.toLowerCase();
-
   connect.query(
     `INSERT INTO memories
         (user_id, memory_text, media_type, memory_asset_url, heading, tag, likes, visits)
@@ -14,7 +13,10 @@ const createMemory = (id, newMemory, mediaType, memoryUrl, callback) => {
     [id, newMemory.memory_text, mediaType, memoryUrl, newMemory.heading, newMemory.tag, 0, 0],
 
     (err, res) => {
-      if (err) { callback(err); }
+      if (err) {
+        console.log('err', err);
+        callback(err);
+      }
       callback(null, res);
     });
 };

@@ -22,8 +22,18 @@ const updateEmailVerification = (username, token, cb) => {
     AND users.token = $2`, [username, token], cb);
 };
 
+
+const updateNotificationSubscription = (subscription, username, cb) => {
+  connect.query(
+    `UPDATE users
+    SET notification_subscription = $1
+    WHERE users.username = $2
+    OR users.email = $2`, [subscription, username], cb);
+}
+
 module.exports = {
   updateLikes,
   updatePhotoMemory,
   updateEmailVerification,
+  updateNotificationSubscription,
 };

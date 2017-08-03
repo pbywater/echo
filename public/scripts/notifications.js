@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     .then(function(subscription) {
       console.log('HERE', JSON.stringify(subscription));
       console.log('User is subscribed.');
-      sendSubscriptionToBackEnd(subscription)
+      sendSubscriptionToBackEnd(subscription);
       updateSubscriptionOnServer(subscription);
 
       isSubscribed = true;
