@@ -1,8 +1,8 @@
-function saveFileToLocalStorage(file) {
+function saveFileToLocalStorage(file, fileSource) {
   const reader = new FileReader();
-  localStorage.setItem('imageName', file.name);
   reader.addEventListener('load', () => {
-    localStorage.setItem('imageToSave', reader.result);
+    localStorage.setItem(`toSaveFrom${fileSource}`, reader.result);
+    localStorage.setItem(`${fileSource}fileName`, reader.name);
   }, false);
 
   if (file) {
@@ -10,12 +10,12 @@ function saveFileToLocalStorage(file) {
   }
 }
 
-function retrieveImage() {
-  const image = localStorage.getItem('imageToSave');
-  const fileName = localStorage.getItem('imageName');
-  if (image && fileName) {
-    const retrievedImage = dataURLtoFile(image, fileName);
-    return retrievedImage;
+function retrieveFile(fileSource) {
+  const file = localStorage.getItem(`toSaveFrom${fileSource}`);
+  const fileName = localStorage.getItem(`${fileSource}fileName`);
+  if (file && fileName) {
+    const retrievedFile = dataURLtoFile(image, fileName);
+    return retrievedFile;
   }
 
   return null;
@@ -28,7 +28,7 @@ function addTagAndHeadingToDB(tag, heading, imageId) {
     method: 'PUT',
     url: 'memory-input-photo',
     data: { tag, heading, imageId },
-    success: () => { imageUploadPending = false; },
+    success: () => { uploadPending = false; },
   });
 }
 
@@ -44,7 +44,8 @@ function dataURLtoFile(dataurl, filename) {
   return new File([u8arr], filename, { type: mime });
 }
 
-function removeImagesFromStorage() {
-  localStorage.removeItem('imageToSave');
-  localStorage.removeItem('tagAndHeading');
+function removeItemsFromStorage(fileSource) {
+  localStorage.removeItem(`toSaveFrom${fileSource}`);
+  localStorage.removeItem(`${fileSource}fileName`);
+  localStorage.removeItem(`${fileSource}TagAndHeading`);
 }
