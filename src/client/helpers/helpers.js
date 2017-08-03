@@ -258,7 +258,7 @@ function removeMemoryFromStoredData(id) {
   });
   const offlineDataAfterRemoving = JSON.stringify(offlineData);
   localStorage.setItem('data', offlineDataAfterRemoving);
-return offlineData;
+  return offlineData;
 }
 
 function addMemoryToStoredData(id, heading, text, tag) {
@@ -297,17 +297,17 @@ function processPendingMemories(cb) {
   })
 }
 if(localStorage.getItem('textToAdd') !== null) {
-const newTextMemories = JSON.parse(localStorage.getItem('textToAdd'));
-newTextMemories.memories.forEach((memory, index) => {
-  const text = memory.text;
-  const heading = memory.heading;
-  const tag = memory.tag;
-  $.ajax({
-    method: 'POST',
-    url: 'memory-input-text',
-    data: {memory_text: text, heading, tag},
-    success: () => clearPendingActions('textToAdd', index),
-  });
+  const newTextMemories = JSON.parse(localStorage.getItem('textToAdd'));
+  newTextMemories.memories.forEach((memory, index) => {
+    const text = memory.text;
+    const heading = memory.heading;
+    const tag = memory.tag;
+    $.ajax({
+      method: 'POST',
+      url: 'memory-input-text',
+      data: {memory_text: text, heading, tag},
+      success: () => clearPendingActions('textToAdd', index),
+      });
   cb();
 })
 }
