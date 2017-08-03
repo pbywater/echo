@@ -29,6 +29,7 @@ function getSignedRequest(file) {
         imageUploadPending = true;
         updateTagAndHeading(response.imageId);
       } else {
+        removeImagesFromStorage();
         return new Error('Could not get signed URL.');
       }
     }
@@ -69,6 +70,7 @@ function updateTagAndHeading(imageId) {
   if (navigator.onLine && localStorage.getItem('imageTagAndHeading')) {
     const tagAndHeading = localStorage.getItem('imageTagAndHeading');
     addTagAndHeadingToDB(tagAndHeading.tag, tagAndHeading.heading, imageId);
+    localStorage.removeItem('imageToSave');
   }
 }
 
@@ -78,6 +80,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (file) {
       console.log('file is ', file);
       getSignedRequest(file);
+    } else {
+      localStorage.removeItem('imageTagAndHeading');
     }
+  } else if (localStorage.getItem('imageToSave')) {
+    localStorage.removeItem('imageToSave');
   }
 });

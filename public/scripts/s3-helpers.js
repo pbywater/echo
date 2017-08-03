@@ -43,3 +43,8 @@ function dataURLtoFile(dataurl, filename) {
   }
   return new File([u8arr], filename, { type: mime });
 }
+
+function removeImagesFromStorage() {
+  localStorage.removeItem('imageToSave');
+  localStorage.removeItem('tagAndHeading');
+}
