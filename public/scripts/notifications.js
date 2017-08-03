@@ -90,8 +90,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
       applicationServerKey: applicationServerKey
     })
     .then(function(subscription) {
+      console.log('HERE', JSON.stringify(subscription));
       console.log('User is subscribed.');
-
+      sendSubscriptionToBackEnd(subscription)
       updateSubscriptionOnServer(subscription);
 
       isSubscribed = true;
@@ -137,6 +138,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
       isSubscribed = false;
 
       updateBtn();
+    });
+  }
+
+  function sendSubscriptionToBackEnd(subscription) {
+    return fetch('/api/save-subscription/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(subscription)
+    })
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error('Bad status code from server.');
+      }
+
+      return response.json();
+    })
+    .then(function(responseData) {
+      if (!(responseData.data && responseData.data.success)) {
+        throw new Error('Bad response from server.');
+      }
     });
   }
 });
