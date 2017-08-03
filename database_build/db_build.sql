@@ -6,12 +6,13 @@ DROP TYPE IF EXISTS media_type CASCADE;
 CREATE TYPE media_type AS ENUM ( 'text_only', 'audio', 'video', 'image' );
 
 CREATE TABLE users (
-  id            SERIAL          PRIMARY KEY,
-  username      VARCHAR(64)     UNIQUE NOT NULL,
-  password      VARCHAR(64)     NOT NULL,
-  email         VARCHAR(64)     NOT NULL,
-  token         VARCHAR(20),
-  verified      BOOLEAN         DEFAULT FALSE
+  id                          SERIAL          PRIMARY KEY,
+  username                    VARCHAR(64)     UNIQUE NOT NULL,
+  password                    VARCHAR(64)     NOT NULL,
+  email                       VARCHAR(64)     NOT NULL,
+  token                       VARCHAR(20),
+  verified                    BOOLEAN         DEFAULT FALSE,
+  notification_subscription   VARCHAR(1000)
 );
 
 CREATE TABLE memories (
