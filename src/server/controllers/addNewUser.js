@@ -8,7 +8,7 @@ module.exports = (req, res) => {
   for (let i = 16; i > 0; --i) {
     token += chars[Math.round(Math.random() * (chars.length - 1))];
   }
-
+  req.session.name = req.body.email;
   req.body.token = token;
 
   createUser(req.body, (dbError, dbResponse) => {
@@ -17,6 +17,7 @@ module.exports = (req, res) => {
       res.status(400).send({ error: error.message });
       return;
     }
+    req.session.id = dbResponse.rows[0].id;
     sendEmail(req.body.username, req.body.email, token, (SESError, SESResponse) => {
       if (SESError) {
         res.status(400).send({ error: error.message });
