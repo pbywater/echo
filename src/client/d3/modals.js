@@ -82,15 +82,16 @@ const appendMedia = (data) => {
     .selectAll('.popupBoxHolder');
 
   if (data.media_type === 'image') {
-    const memoryId = data.id;
-    $.ajax({
-      method: 'GET',
-      url: 'memory-input-photo',
-      data: { memoryId },
-      success: url => appendImage(url),
-    });
-    function appendImage(url) {
-      popup
+    if (navigator.onLine) {
+      const memoryId = data.id;
+      $.ajax({
+        method: 'GET',
+        url: 'memory-input-photo',
+        data: { memoryId },
+        success: url => appendImage(url),
+      });
+      function appendImage(url) {
+        popup
         .append('svg:image')
           .attr('class', 'mediaHolder')
           .attr('transform', 'translate(0, 0)')
@@ -98,13 +99,23 @@ const appendMedia = (data) => {
           .attr('height', 350)
           .attr('xlink:href', url)
           .attr('ry', 5);
-      popup
+        popup
         .append('text')
           .attr('class', 'mediaHeading')
           .attr('transform', 'translate(20, 350)')
           .style('fill', '#526173')
           .attr('font-family', 'Quicksand')
           .text(data.heading);
+      }
+    } else {
+      popup
+      .append('svg:image')
+        .attr('class', 'mediaHolder')
+        .attr('transform', 'translate(0, 0)')
+        .attr('width', 300)
+        .attr('height', 350)
+        .attr('xlink:href', '../../../public/assets/offline-message.png')
+        .attr('ry', 5);
     }
   } else if (data.media_type === 'text_only') {
     popup
