@@ -2,7 +2,7 @@
   "name": "Echo",
   "short_name": "Echo",
   "description": "Memory storing app",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f5f5f5",
@@ -41,8 +41,8 @@
   ],
   "author": {
     "name": "Philippa Bywater, Joey Scott & Alice Carr",
-    "website": "",
-    "github": "",
+    "website": "https://github.com/pbywater/echo",
+    "github": "https://github.com/pbywater/echo",
     "source-repo": "https://github.com/pbywater/echo"
   }
 }
