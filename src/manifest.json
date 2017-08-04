@@ -1,0 +1,48 @@
+{
+  "name": "Echo",
+  "short_name": "Echo",
+  "description": "Memory storing app",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f5f5",
+  "theme_color": "#f5f5f5",
+  "icons": [
+    {
+      "src": "./public/assets/favicon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./public/assets/favicon.png",
+      "type": "image/png",
+      "sizes": "168x168"
+    },
+    {
+      "src": "./public/assets/favicon.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "./public/assets/favicon.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./public/assets/favicon.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "./public/assets/favicon.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    }
+  ],
+  "author": {
+    "name": "Philippa Bywater, Joey Scott & Alice Carr",
+    "website": "",
+    "github": "",
+    "source-repo": "https://github.com/pbywater/echo"
+  }
+}
