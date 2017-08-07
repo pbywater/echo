@@ -82,21 +82,30 @@ const appendMedia = (data) => {
     .selectAll('.popupBoxHolder');
 
   if (data.media_type === 'image') {
-    popup
-      .append('svg:image')
-        .attr('class', 'mediaHolder')
-        .attr('transform', 'translate(0, 0)')
-        .attr('width', 300)
-        .attr('height', 350)
-        .attr('xlink:href', data.memory_asset_url)
-        .attr('ry', 5);
-    popup
-      .append('text')
-        .attr('class', 'mediaHeading')
-        .attr('transform', 'translate(20, 350)')
-        .style('fill', '#526173')
-        .attr('font-family', 'Quicksand')
-        .text(data.heading);
+    const memoryId = data.id;
+    $.ajax({
+      method: 'GET',
+      url: 'memory-input-photo',
+      data: { memoryId },
+      success: url => appendImage(url),
+    });
+    function appendImage(url) {
+      popup
+        .append('svg:image')
+          .attr('class', 'mediaHolder')
+          .attr('transform', 'translate(0, 0)')
+          .attr('width', 300)
+          .attr('height', 350)
+          .attr('xlink:href', url)
+          .attr('ry', 5);
+      popup
+        .append('text')
+          .attr('class', 'mediaHeading')
+          .attr('transform', 'translate(20, 350)')
+          .style('fill', '#526173')
+          .attr('font-family', 'Quicksand')
+          .text(data.heading);
+    }
   } else if (data.media_type === 'text_only') {
     popup
       .append('text')

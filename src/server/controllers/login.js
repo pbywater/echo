@@ -20,6 +20,7 @@ module.exports = (req, res) => {
       }
       if (isAuthenticated) {
         req.session.name = login;
+        req.session.id = user.id;
         res.redirect('/');
       } else if (!isAuthenticated) {
         // will be refactored, so that err.message is displayed on screen

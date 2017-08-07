@@ -1,6 +1,6 @@
 
 function newUserIntro() {
-  const textGroup = d3.select('.nodeGroup')
+  const textGroup = d3.select('#nodeGrp1')
   .append('g')
     .attr('transform', 'translate(110,100)')
     .attr('class', 'text-group-1')

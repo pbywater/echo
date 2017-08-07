@@ -1,6 +1,6 @@
-const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, storePendingActions, removeMemoryFromStoredData, removeMemoriesDeletedOffline, updateOfflineLikes, hoveringOnDeleteSafari, deletePendingMemories } = require('../helpers/helpers.js');
+const { initTagMenu, showDeleteButton, hoveringOnDelete, hideDeleteButton, initSubmitMemory, tagSorting, constructTagList, showHeading, storePendingActions, removeMemoryFromStoredData, removeMemoriesDeletedOffline, updateOfflineLikes, hoveringOnDeleteSafari, processPendingMemories, addMemoryToStoredData } = require('../helpers/helpers.js');
 const { animationDuration, width, height, jsonUrl, svg, fdGrp, nodeGrp, linkGrp } = require('./setup.js');
-const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks } = require('../node_transformations');
+const { sortWithMax, binByTag, centralMaxNodesByTag, memoryNodesAndLinks, getRandomInt } = require('../node_transformations');
 const { appendPopUp, randomPopUp } = require('./modals.js');
 const { newUserIntro } = require('./newUserIntro.js');
 
@@ -15,7 +15,7 @@ function onlineLogic() {
       render(formatData(data));
       initTagMenu();
     } else {
-      const falseDataArray = [{ heading: 'test', id: 100, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
+      const falseDataArray = [{ heading: '', id: 1, index: 0, likes: 5, visits: 1, x: 215, y: 170 }];
       const falseProcessedData = { links: [], nodes: falseDataArray };
       render(falseProcessedData);
       newUserIntro();
@@ -217,16 +217,30 @@ function render(updatedData) {
 
   $('#memory-input__submit').click((e) => {
     e.preventDefault();
-    $.ajax({
-      method: 'POST',
-      url: 'memory-input-text',
-      data: $('#add-text-form').serialize(),
-      success: () => {
-        setTimeout(() => {
-          update();
-        }, animationDuration);
-      },
-    });
+    if (navigator.onLine) {
+      $.ajax({
+        method: 'POST',
+        url: 'memory-input-text',
+        data: $('#add-text-form').serialize(),
+        success: () => {
+          setTimeout(() => {
+            update();
+          }, animationDuration);
+        },
+      });
+    } else {
+      const data = $('#add-text-form').serialize();
+      const splitData = data.split('&');
+      const heading = splitData[0].split('=')[1];
+      const text = splitData[1].split('=')[1];
+      const tag = splitData[2].split('=')[1];
+      const id = getRandomInt(10000, 999999);
+      storePendingActions('textToAdd', { memories: [{ id, heading, text, tag }] }, { id, heading, text, tag });
+      const offlineData = addMemoryToStoredData(id, heading, text, tag);
+      setTimeout(() => {
+        render(formatData(offlineData));
+      }, animationDuration);
+    }
   });
 
   function update() {
@@ -239,7 +253,7 @@ function render(updatedData) {
 if (navigator.onLine) {
   onlineLogic();
   updateOfflineLikes(onlineLogic);
-  deletePendingMemories(onlineLogic);
+  processPendingMemories(onlineLogic);
 } else {
   const offlineData = JSON.parse(localStorage.getItem('data'));
   constructTagList(offlineData);
