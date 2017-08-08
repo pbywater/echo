@@ -18,13 +18,20 @@ module.exports = {
         },
       },
     },
+    {
+      urlPattern: /d3js\.org/,
+      handler: 'cacheFirst',
+      options: {
+        cache: {
+          name: 'd3-cache',
+        },
+      },
+    },
   ],
+  stripPrefix: 'public/',
   verbose: true,
   staticFileGlobs: [
     'public/assets/icons/**/*.svg',
-    'https://code.jquery.com/jquery-3.2.1.min.js',
-    'https://d3js.org/d3.v4.min.js',
-    'https://fonts.googleapis.com/css?family=Quicksand:300,400,500',
     'public/*.html',
     'public/*.css',
     'public/**/*.js',
