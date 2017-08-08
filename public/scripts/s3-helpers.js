@@ -48,3 +48,11 @@ function removeItemsFromStorage(fileSource) {
   localStorage.removeItem(`${fileSource}fileName`);
   localStorage.removeItem(`${fileSource}TagAndHeading`);
 }
+
+module.exports = {
+  removeItemsFromStorage,
+  dataURLtoFile,
+  addTagAndHeadingToDB,
+  retrieveFile,
+  saveFileToLocalStorage,
+};

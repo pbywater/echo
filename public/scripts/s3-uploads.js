@@ -1,3 +1,4 @@
+const { saveFileToLocalStorage, addTagAndHeadingToDB, removeItemsFromStorage } = require('./s3-helpers.js');
 
 function s3handling(fileSource) {
   document.getElementById(`${fileSource}-input`).onchange = function () {
