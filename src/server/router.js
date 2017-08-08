@@ -20,7 +20,7 @@ const session = cookieSession({
   secret: process.env.SESSION_SECRET,
   cookie: {
     secure: process.env.NODE_ENV === 'production',
-    httpOnly: true,
+    httpOnly: true, //we'll need to change this to https when we officially launch on heroku
     signed: true,
     maxAge: 1 * 60 * 60 * 1000, // 1 hour
   },
