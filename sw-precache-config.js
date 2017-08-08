@@ -1,4 +1,24 @@
 module.exports = {
+  runtimeCaching: [
+    {
+      urlPattern: /jquery\.com/,
+      handler: 'cacheFirst',
+      options: {
+        cache: {
+          name: 'jquery-cache',
+        },
+      },
+    },
+    {
+      urlPattern: /googleapis\.com/,
+      handler: 'cacheFirst',
+      options: {
+        cache: {
+          name: 'font-cache',
+        },
+      },
+    },
+  ],
   verbose: true,
   staticFileGlobs: [
     'public/assets/icons/**/*.svg',

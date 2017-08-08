@@ -8,8 +8,8 @@
     "devStart": "nodemon src/server/app.js",
     "postinstall": "browserify src/client/main.js -o public/bundle.js -t [ babelify --presets [ es2015 ] ]",
     "test": "node tests/src/client",
-    "build": "browserify src/client/main.js -o public/bundle.js -t [ babelify --presets [ es2015 ] ] && sw-precache --config=public/sw-precache-config.js",
-    "watch": "watchify src/client/main.js -o public/bundle.js -t [ babelify --presets [ es2015 ] ] && sw-precache --config=public/sw-precache-config.js"
+    "build": "browserify src/client/main.js -o public/bundle.js -t [ babelify --presets [ es2015 ] ] && sw-precache --config=sw-precache-config.js",
+    "watch": "watchify src/client/main.js -o public/bundle.js -t [ babelify --presets [ es2015 ] ] && sw-precache --config=sw-precache-config.js"
   },
   "repository": {
     "type": "git",
