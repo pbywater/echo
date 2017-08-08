@@ -33,9 +33,10 @@ const createUser = (userDetails, callback) => {
           connect.query(
             `INSERT INTO users
             (username, password, email, token)
-            VALUES($1, $2, $3, $4);`, [userDetails.username, hash, userDetails.email, userDetails.token], (err) => {
+            VALUES($1, $2, $3, $4)
+            RETURNING id;`, [userDetails.username, hash, userDetails.email, userDetails.token], (err, res) => {
               if (err) { return callback(err); }
-              callback(null, 'new user added');
+              callback(null, res);
             });
         });
       } else {

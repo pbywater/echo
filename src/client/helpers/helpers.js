@@ -258,6 +258,15 @@ function removeMemoryFromStoredData(id) {
   });
   const offlineDataAfterRemoving = JSON.stringify(offlineData);
   localStorage.setItem('data', offlineDataAfterRemoving);
+  return offlineData;
+}
+
+function addMemoryToStoredData(id, heading, text, tag) {
+  const offlineData = JSON.parse(localStorage.getItem('data'));
+    const toAdd = {heading, id, likes: 0, media_type: "text_only", memory_text: text, tag, visits:0, memory_asset_url:''};
+  offlineData.push(toAdd);
+  const offlineDataAfterAdding = JSON.stringify(offlineData);
+  localStorage.setItem('data', offlineDataAfterAdding);
 return offlineData;
 }
 
@@ -273,7 +282,7 @@ function clearPendingActions(storedName, index) {
 }
 }
 
-function deletePendingMemories(cb) {
+function processPendingMemories(cb) {
   if(localStorage.getItem('toDelete') !== null) {
   const deletedMemories = JSON.parse(localStorage.getItem('toDelete'));
   deletedMemories.memories.forEach((memory, index) => {
@@ -286,6 +295,21 @@ function deletePendingMemories(cb) {
     });
     cb();
   })
+}
+if(localStorage.getItem('textToAdd') !== null) {
+  const newTextMemories = JSON.parse(localStorage.getItem('textToAdd'));
+  newTextMemories.memories.forEach((memory, index) => {
+    const text = memory.text;
+    const heading = memory.heading;
+    const tag = memory.tag;
+    $.ajax({
+      method: 'POST',
+      url: 'memory-input-text',
+      data: {memory_text: text, heading, tag},
+      success: () => clearPendingActions('textToAdd', index),
+      });
+  cb();
+})
 }
 }
 
@@ -307,7 +331,6 @@ function updateOfflineLikes(cb) {
 }
 
 module.exports = {
-    getRandomInt,
     initTagMenu,
     initSubmitMemory,
     showDeleteButton,
@@ -318,6 +341,7 @@ module.exports = {
     storePendingActions,
     updateOfflineLikes,
     hoveringOnDeleteSafari,
-    deletePendingMemories,
+    processPendingMemories,
     removeMemoryFromStoredData,
+    addMemoryToStoredData,
 };
