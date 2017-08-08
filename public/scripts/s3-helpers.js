@@ -14,7 +14,7 @@ function retrieveFile(fileSource) {
   const file = localStorage.getItem(`toSaveFrom${fileSource}`);
   const fileName = localStorage.getItem(`${fileSource}fileName`);
   if (file && fileName) {
-    const retrievedFile = dataURLtoFile(image, fileName);
+    const retrievedFile = dataURLtoFile(file, fileName);
     return retrievedFile;
   }
 
