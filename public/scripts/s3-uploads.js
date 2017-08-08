@@ -1,22 +1,20 @@
 
 function s3handling(fileSource) {
-  (function () {
-    document.getElementById(`${fileSource}-input`).onchange = function () {
-      const files = document.getElementById(`${fileSource}-input`).files;
-      const file = files[0];
-      if (file == null) {
-        return new Error('No file selected.');
-      }
-      if (navigator.onLine) {
-        getSignedRequest(file);
-      } else if (localStorage.getItem(`toSaveFrom${fileSource}`) && localStorage.getItem(`${fileSource}TagAndHeading`)) {
-        alert("Sorry - you can only add one photo/audio memory while you're offline");
-      } else {
-        saveFileToLocalStorage(file, fileSource);
-        updateTagAndHeading();
-      }
-    };
-  }());
+  document.getElementById(`${fileSource}-input`).onchange = function () {
+    const files = document.getElementById(`${fileSource}-input`).files;
+    const file = files[0];
+    if (file == null) {
+      return new Error('No file selected.');
+    }
+    if (navigator.onLine) {
+      getSignedRequest(file);
+    } else if (localStorage.getItem(`toSaveFrom${fileSource}`) && localStorage.getItem(`${fileSource}TagAndHeading`)) {
+      alert("Sorry - you can only add one photo/audio memory while you're offline");
+    } else {
+      saveFileToLocalStorage(file, fileSource);
+      updateTagAndHeading();
+    }
+  };
 
   let uploadPending = false;
 
