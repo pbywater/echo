@@ -9,7 +9,6 @@ const s3 = s3init();
 const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
 module.exports = (req, res) => {
-  console.log(req.query);
   const fileName = req.query['file-name'];
   const fileType = req.query['file-type'];
   const fileKey = `${cuid()}.${fileName}`;
