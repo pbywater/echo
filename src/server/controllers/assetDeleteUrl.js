@@ -8,7 +8,7 @@ const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 const s3 = s3init();
 
 module.exports = (req, res) => {
-  getMemoryById('test', req.body.id, (err, response) => {
+  getMemoryById(req.session.id, req.body.id, (err, response) => {
     if (err) return err;
 
     if (response.media_type === 'image' || response.media_type === 'audio') {

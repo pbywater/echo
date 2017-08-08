@@ -10,7 +10,7 @@ const { s3init } = require('./../../helpers/helpers');
 const s3 = s3init();
 
 module.exports = (req, res) => {
-  getMemoryById('test', req.query.memoryId, (error, response) => {
+  getMemoryById(req.session.id, req.query.memoryId, (error, response) => {
     if (error) return error;
 
     const memoryKey = response.memory_asset_url;

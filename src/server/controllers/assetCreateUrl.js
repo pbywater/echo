@@ -9,6 +9,7 @@ const s3 = s3init();
 const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
 module.exports = (req, res) => {
+  console.log(req.query);
   const fileName = req.query['file-name'];
   const fileType = req.query['file-type'];
   const fileKey = `${cuid()}.${fileName}`;
@@ -26,7 +27,7 @@ module.exports = (req, res) => {
     tag: '',
   };
 
-  createMemory(1, newMemory, 'media', fileKey, (err, response) => {
+  createMemory(req.session.id, newMemory, 'media', fileKey, (err, response) => {
     if (err) return err;
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
       if (err) {
