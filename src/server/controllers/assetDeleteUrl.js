@@ -30,7 +30,7 @@ module.exports = (req, res) => {
       });
     }
 
-    deleteMemory(req.session.id, req.body.id, (error) => {
+    deleteMemory(13, req.body.id, (error) => {
       if (error) {
         return res.status(500).send(error);
       }
