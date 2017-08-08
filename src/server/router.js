@@ -3,12 +3,9 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 require('env2')('./config.env');
 
+const { checkSignIn } = require('./../helpers/helpers.js');
+
 const router = express.Router();
-
-const environment = require('env2');
-
-environment('./config.env');
-
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
@@ -29,22 +26,23 @@ const session = cookieSession({
 router.use(session);
 
 router.get('/', require('./controllers/home.js'));
-router.get('/login', require('./controllers/sign-up.js'));
-router.post('/logout', require('./controllers/logout.js'));
-router.post('/memory-input-text', require('./controllers/addTextMemory.js'));
+router.post('/logout', checkSignIn, require('./controllers/logout.js'));
+router.post('/memory-input-text', checkSignIn, require('./controllers/addTextMemory.js'));
 router.route('/memory-input-photo')
-  .post(require('./controllers/assetCreateUrl.js'))
-  .put(require('./controllers/addPhotoMemory.js'))
-  .get(require('./controllers/assetGetUrl.js'));
+  .post(checkSignIn, require('./controllers/assetCreateUrl.js'))
+  .put(checkSignIn, require('./controllers/addPhotoMemory.js'))
+  .get(checkSignIn, require('./controllers/assetGetUrl.js'));
 router.post('/add-new-user', require('./controllers/addNewUser.js'));
-router.post('/login', require('./controllers/login.js'));
-router.get('/sign-s3', require('./controllers/assetCreateUrl.js'));
+router.route('/login')
+  .get(require('./controllers/sign-up.js'))
+  .post(require('./controllers/login.js'));
+router.get('/sign-s3', checkSignIn, require('./controllers/assetCreateUrl.js'));
 router.route('/memories')
-  .get(require('./controllers/getMemories.js'))
-  .delete(require('./controllers/assetDeleteUrl.js'));
+  .get(checkSignIn, require('./controllers/getMemories.js'))
+  .delete(checkSignIn, require('./controllers/assetDeleteUrl.js'));
 router.route('/likes')
-  .get(require('./controllers/getLikes.js'))
-  .post(require('./controllers/updateLikes.js'));
+  .get(checkSignIn, require('./controllers/getLikes.js'))
+  .post(checkSignIn, require('./controllers/updateLikes.js'));
 router.get('/verify/:token/:username', require('./controllers/verifyEmail.js'));
 
 module.exports = router;

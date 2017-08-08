@@ -12,7 +12,15 @@ const s3init = () => {
   return s3;
 };
 
+const checkSignIn = (req, res, next) => {
+  if (req.session.id || req.session.name) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+};
 
 module.exports = {
   s3init,
+  checkSignIn,
 };
