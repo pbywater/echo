@@ -54,7 +54,7 @@ function s3handling(fileSource) {
   }
 
   function updateTagAndHeading(imageId) {
-    document.getElementById('camera-save').onclick = function (e) {
+    document.getElementById(`${fileSource}-save`).onclick = function (e) {
       e.preventDefault();
       const tag = $(`.tag-input--${fileSource}`)[0].value;
       const heading = $(`.heading-input--${fileSource}`)[0].value;
