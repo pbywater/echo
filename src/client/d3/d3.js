@@ -228,7 +228,6 @@ function render(updatedData) {
         },
       });
     } else {
-      console.log('offline');
       const data = $('#add-text-form').serialize();
       const splitData = data.split('&');
       const heading = splitData[0].split('=')[1];
