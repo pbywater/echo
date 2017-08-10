@@ -61,7 +61,7 @@
 }
 
 .menu-open {
-    display: none;
+    display: none !important;
 }
 
 .menu-open:checked+.menu-open-button {
