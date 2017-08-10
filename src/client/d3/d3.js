@@ -214,7 +214,6 @@ function render(updatedData) {
     }
     hideDeleteButton();
   }
-
   $('#memory-input__submit').click((e) => {
     e.preventDefault();
     if (navigator.onLine) {
