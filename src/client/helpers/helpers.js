@@ -196,7 +196,15 @@ function initSubmitMemory() {
                 .hide();
             $('.memory-input')
                 .addClass('hide');
+            $('.menu_icon')
+                .removeClass('hide');
+            $('.close_icon')
+                .addClass('hide');
             setTimeout(function() {
+                $('.menu-item')
+                    .show();
+                $('.menu-open')
+                    .prop('checked', false);
                 $('.finished svg')
                     .show();
                 $('.finished')
