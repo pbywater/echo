@@ -200,6 +200,10 @@ function initSubmitMemory() {
                 .removeClass('hide');
             $('.close_icon')
                 .addClass('hide');
+            $(this)
+                .closest('form')
+                .find("input[type=text], textarea")
+                .val("");
             setTimeout(function() {
                 $('.menu-item')
                     .show();
