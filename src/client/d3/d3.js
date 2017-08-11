@@ -242,6 +242,12 @@ function render(updatedData) {
     }
   });
 
+  $('#camera-save').click((e) => {
+    setTimeout(() => {
+      update();
+    }, animationDuration);
+  });
+
   function update() {
     d3.json(url, (err, data) => {
       render(formatData(data));
