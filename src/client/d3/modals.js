@@ -81,7 +81,7 @@ const appendMedia = (data) => {
   const popup = svg
     .selectAll('.popupBoxHolder');
 
-  if (data.media_type === 'image') {
+  if (data.media_type === 'media') {
     const memoryId = data.id;
     $.ajax({
       method: 'GET',

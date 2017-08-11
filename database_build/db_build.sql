@@ -3,7 +3,7 @@ BEGIN;
 DROP TABLE IF EXISTS memories, users CASCADE;
 DROP TYPE IF EXISTS media_type CASCADE;
 
-CREATE TYPE media_type AS ENUM ( 'text_only', 'audio', 'video', 'image' );
+CREATE TYPE media_type AS ENUM ( 'text_only', 'audio', 'video', 'image', 'media' );
 
 CREATE TABLE users (
   id            SERIAL          PRIMARY KEY,

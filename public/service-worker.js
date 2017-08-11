@@ -1,3 +1,43 @@
+/* eslint-disable */
+
+// Based on code from: https://developers.google.com/web/fundamentals/getting-started/codelabs/your-first-pwapp/
+
+const cacheName = 'echo-app-test-1';
+
+const filesToCache = [
+  '/assets/icons/card_icons/audio_folder_icon.svg',
+  '/assets/icons/navigate/close_icon.svg',
+  '/assets/icons/navigate/menu_icon.svg',
+  '/assets/icons/top_bar/search_icon.svg',
+  '/assets/icons/top_bar/shuffle_icon.svg',
+  '/assets/icons/card_icons/audio_salmon_icon.svg',
+  '/assets/icons/card_icons/close.svg',
+  '/assets/icons/card_icons/camera_salmon_icon.svg',
+  '/assets/icons/card_icons/heart_icon_checked.svg',
+  '/assets/icons/card_icons/heart_icon_unchecked.svg',
+  '/assets/icons/card_icons/pencil_salmon_icon.svg',
+  '/assets/icons/card_icons/photo_folder_icon.svg',
+  '/assets/icons/card_icons/photo_folder_icon.svg',
+  'https://code.jquery.com/jquery-3.2.1.min.js',
+  'https://d3js.org/d3.v4.min.js',
+  'https://fonts.googleapis.com/css?family=Quicksand:300,400,500',
+  '/',
+  '/index.html',
+  '/main.css',
+  '/bundle.js',
+  '/scripts/main.js',
+  '/scripts/s3-uploads.js',
+  '/scripts/s3-helpers.js'];
+
+  self.addEventListener('install', function(e) {
+    console.log('[ServiceWorker] Install');
+    e.waitUntil(
+      caches.open(cacheName).then(function(cache) {
+        console.log('[ServiceWorker] Caching app shell');
+        return cache.addAll(filesToCache);
+      })
+    );
+  });
 /**
  * Copyright 2016 Google Inc. All rights reserved.
  *
@@ -176,10 +216,10 @@ self.addEventListener('install', function(event) {
         );
       });
     }).then(function() {
-      
+
       // Force the SW to transition from installing -> active state
       return self.skipWaiting();
-      
+
     })
   );
 });
@@ -199,9 +239,9 @@ self.addEventListener('activate', function(event) {
         );
       });
     }).then(function() {
-      
+
       return self.clients.claim();
-      
+
     })
   );
 });
@@ -262,7 +302,7 @@ self.addEventListener('fetch', function(event) {
 
 
 // *** Start of auto-included sw-toolbox code. ***
-/* 
+/*
  Copyright 2016 Google Inc. All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -288,7 +328,3 @@ self.addEventListener('fetch', function(event) {
 toolbox.router.get(/jquery\.com/, toolbox.cacheFirst, {"cache":{"name":"jquery-cache"}});
 toolbox.router.get(/googleapis\.com/, toolbox.cacheFirst, {"cache":{"name":"font-cache"}});
 toolbox.router.get(/d3js\.org/, toolbox.cacheFirst, {"cache":{"name":"d3-cache"}});
-
-
-
-
