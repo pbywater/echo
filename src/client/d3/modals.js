@@ -1,5 +1,6 @@
 const { svg } = require('./setup');
-const { getRandomInt, saveItemsToStorage } = require('./../helpers/helpers');
+const { saveItemsToStorage } = require('./../helpers/helpers');
+const { getRandomInt } = require('./../node_transformations');
 
 const appendPopUp = (data) => {
   const holder = svg
