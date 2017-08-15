@@ -20,7 +20,7 @@ module.exports = (req, res) => {
     req.session.id = dbResponse.rows[0].id;
     sendEmail(req.body.username, req.body.email, token, (SESError, SESResponse) => {
       if (SESError) {
-        res.status(400).send({ error: error.message });
+        res.status(400).send({ SESError: SESError.message });
         return;
       }
       console.log('Message sent successfully');
