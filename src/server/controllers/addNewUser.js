@@ -14,18 +14,18 @@ module.exports = (req, res) => {
   createUser(req.body, (dbError, dbResponse) => {
     if (dbError) {
       // will be refactored, so that err.message is displayed on screen
-      res.status(400).send({ error: error.message });
+      res.status(400).send({ dbError: dbError.message });
       return;
     }
     req.session.id = dbResponse.rows[0].id;
     sendEmail(req.body.username, req.body.email, token, (SESError, SESResponse) => {
       if (SESError) {
         res.status(400).send({ error: error.message });
-        return
+        return;
       }
       console.log('Message sent successfully');
       console.log('Server responded with "%s"', SESResponse.response);
       res.redirect('/');
-    })
-  })
+    });
+  });
 };
