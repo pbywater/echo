@@ -618,12 +618,8 @@ label.memory-input__label.camera, label.memory-input__label.microphone {
 }
 
 .memory-input__submit.camera, .memory-input__submit.microphone {
-    width: 100%;
-    height: 50px;
-    margin-top: 0;
-    font-size: 0;
-    padding: 0;
-    border-radius: 0;
+    position: relative;
+    bottom: -45%;
 }
 
 label.memory-input__label {
