@@ -664,6 +664,13 @@ label.memory-input__label {
     top: -610%;
 }
 
+#camera-input, #microphone-input {
+    position: relative;
+    width: 100%;
+    top: -116%;
+    height: 46%;
+}
+
 .popupBoxHolder {
     transition: width 3s ease-in-out, height 3s ease-in-out, ry 3s ease-in-out;
 }
