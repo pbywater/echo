@@ -581,7 +581,7 @@
 }
 
 .memory-input.camera.img-background, .memory-input.microphone.img-background {
-    height: 220px;
+    height: 155px;
     width: 260px;
     background: #F7F7F7;
     border: none;
@@ -591,7 +591,7 @@
 }
 
 .memory-input.camera.image, .memory-input.microphone.image {
-    bottom: 300%;
+    bottom: 275%;
     border: none;
     width: 100%;
     height: 100%;
@@ -619,7 +619,7 @@ label.memory-input__label.camera, label.memory-input__label.microphone {
 
 .memory-input__submit.camera, .memory-input__submit.microphone {
     position: relative;
-    bottom: -45%;
+    bottom: 90%;
 }
 
 label.memory-input__label {
@@ -649,6 +649,7 @@ label.memory-input__label {
 }
 
 .tag-input, .heading-input {
+    position: relative;
     font-size: 0.7em;
     padding: 0.8em;
     margin-top: 1em;
@@ -656,6 +657,11 @@ label.memory-input__label {
     width: 280px;
     color: #526173;
     margin-left: 0.5em;
+}
+
+.heading-input--camera, .heading-input--microphone, .tag-input--camera, .tag-input--microphone {
+    left: -28%;
+    top: -610%;
 }
 
 .popupBoxHolder {
@@ -921,19 +927,6 @@ a:hover {
       left: 42%;
     }
 }
-
-/* delete */
-
-.delete {
-  margin-bottom: -20%;
-  position: absolute;
-  top: -100px;
-  z-index: 2;
-  bottom: 1000px;
-}
-
-.top {
-  top: -150px;
 
 .menu-open {
   display: none;
