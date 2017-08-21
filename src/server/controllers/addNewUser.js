@@ -25,7 +25,7 @@ module.exports = (req, res) => {
       }
       console.log('Message sent successfully');
       console.log('Server responded with "%s"', SESResponse.response);
-      res.redirect('/');
+      res.status(200).redirect('/');
     });
   });
 };

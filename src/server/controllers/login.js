@@ -9,22 +9,22 @@ module.exports = (req, res) => {
   getUser(req.body, (err, user) => {
     if (err) {
       // will be refactored, so that err.message is displayed on screen
-      res.send({ err: err.message });
+      res.status(400).send({ err: err.message });
       return;
     }
 
     bcrypt.compare(password, user.password, (err, isAuthenticated) => {
       if (err) {
         // will be refactored, so that err.message is displayed on screen
-        res.send({ err: err.message });
+        res.status(400).send({ err: err.message });
       }
       if (isAuthenticated) {
         req.session.name = login;
         req.session.id = user.id;
-        res.redirect('/');
+        res.status(200).redirect('/');
       } else if (!isAuthenticated) {
         // will be refactored, so that err.message is displayed on screen
-        res.send('Incorrect password');
+        res.status(400).send('Incorrect password');
       }
     });
   });
