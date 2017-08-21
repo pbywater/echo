@@ -910,7 +910,7 @@ a:hover {
 }
 
 @media screen and (max-width: 768px) {
-    #d3-container {
+    #d3-container, .login-background {
         width: 100vw;
         height: 100vh;
     }
