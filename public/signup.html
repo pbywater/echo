@@ -23,6 +23,7 @@
                 <input type="email" class="input" id="user_email" autocomplete="off" placeholder="Email" name="email" required autofocus maxlength="64">
                 <input type="text" class="input" id="user_name" autocomplete="off" placeholder="Username" name="username" required  minlength="3" maxlength="64">
                 <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password" name="password" minlength="6" maxlength="64" required>
+                <p class="error-signup"></p>
                 <input id="submit-signup" class="button" type="submit" value="Sign Up">
               </form><!--.login-form-->
             </div><!--.signup-tab-content-->
@@ -32,7 +33,6 @@
                 <input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email or Username" name="login" required  minlength="3" maxlength="64">
                 <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password" name="password" required minlength="6" maxlength="64">
                 <p class="error-login"></p>
-
                 <input id="submit-login" class="button" type="submit" value="Login">
               </form><!--.login-form-->
               <div class="help-text">
@@ -51,6 +51,5 @@
   <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
   <script src="scripts/sign-up.js"></script>
   <script src="scripts/loginValidation.js"></script>
-  <script src="scripts/signUpValidation.js"></script>
   <script src="bundle.js"></script>
 </html>
