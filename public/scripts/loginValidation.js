@@ -1,7 +1,14 @@
+$('#submit-signup').on('click', ((e) => {
+  e.preventDefault();
+  const data = $('.signup-form').serialize();
+  fetch('POST', 'add-new-user', data, handleSignUpOutput);
+}),
+);
+
 $('#submit-login').on('click', ((e) => {
   e.preventDefault();
   const data = $('.login-form').serialize();
-  fetch('POST', 'login', data, handleFetchOutput);
+  fetch('POST', 'login', data, handleLoginOutput);
 }),
 );
 
@@ -22,7 +29,7 @@ function fetch(method, url, data, handleResponseCallback) {
   xhr.send(data);
 }
 
-function handleFetchOutput(err, data) {
+function handleLoginOutput(err, data) {
   if (err) {
     loginError(err);
   } else {
@@ -30,8 +37,24 @@ function handleFetchOutput(err, data) {
   }
 }
 
+function handleSignUpOutput(err, data) {
+  if (err) {
+    signUpError(err);
+  } else {
+    window.location.replace('/');
+  }
+}
+
 function loginError(errorMessage) {
   $('.error-login')
+    .text(`**${errorMessage}`)
+    .css('color', '#ff3f56')
+    .css('padding', '1em')
+    .css('padding-top', '0')
+    .show();
+}
+function signUpError(errorMessage) {
+  $('.error-signup')
     .text(`**${errorMessage}`)
     .css('color', '#ff3f56')
     .css('padding', '1em')
