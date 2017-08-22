@@ -214,8 +214,10 @@ function render(updatedData) {
     }
     hideDeleteButton();
   }
-  $('#memory-input__submit').click((e) => {
+
+  $('#memory-input__submit').bind('click.text', (e) => {
     e.preventDefault();
+    $('#memory-input__submit').unbind('click.text');
     if (navigator.onLine) {
       $.ajax({
         method: 'POST',
