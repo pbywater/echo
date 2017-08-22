@@ -497,8 +497,8 @@
 }
 
 .search-tags {
-    padding-right: 3%;
-    padding-top: 2%;
+    margin-right: 3%;
+    margin-top: 2%;
     transition: width 1s ease;
 }
 
