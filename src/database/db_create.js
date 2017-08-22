@@ -24,18 +24,18 @@ const createUser = (userDetails, callback) => {
     `SELECT username
     FROM users
     WHERE username = $1;`, [userDetails.username], (err, res) => {
-      if (err) { return callback(err); }
+      if (err) { return callback(new Error('Sorry, there was an internal error.')); }
 
       if (!res.rows[0]) {
         hashPassword(userDetails.password, (err, hash) => {
-          if (err) { return callback(err); }
+          if (err) { return callback(new Error('Sorry, there was an internal error.')); }
 
           connect.query(
             `INSERT INTO users
             (username, password, email, token)
             VALUES($1, $2, $3, $4)
             RETURNING id;`, [userDetails.username, hash, userDetails.email, userDetails.token], (err, res) => {
-              if (err) { return callback(err); }
+              if (err) { return callback(new Error('Sorry, there was an internal error.')); }
               callback(null, res);
             });
         });
