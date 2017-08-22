@@ -19,9 +19,9 @@ module.exports = (req, res) => {
         return;
       }
 
-      bcrypt.compare(parsedData.password, user.password, (err, isAuthenticated) => {
+      bcrypt.compare(parsedData.password, user.password, (error, isAuthenticated) => {
         if (err) {
-          res.status(400).send(JSON.stringify(err.message));
+          res.status(400).send(JSON.stringify(error.message));
         }
         if (isAuthenticated) {
           req.session.name = parsedData.login;
