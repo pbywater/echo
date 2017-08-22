@@ -8,6 +8,7 @@ const url = location.hostname ? '/memories' : jsonUrl;
 
 function onlineLogic() {
   d3.json(url, (err, data) => {
+    console.log('data is ', data);
     if (data.length > 0) {
       const dataToSave = JSON.stringify(data);
       localStorage.setItem('data', dataToSave);
@@ -214,31 +215,34 @@ function render(updatedData) {
     }
     hideDeleteButton();
   }
-  $('#memory-input__submit').click((e) => {
+
+  $('#memory-input__submit').on('click', (e) => {
     e.preventDefault();
-    if (navigator.onLine) {
-      $.ajax({
-        method: 'POST',
-        url: 'memory-input-text',
-        data: $('#add-text-form').serialize(),
-        success: () => {
-          setTimeout(() => {
-            update();
-          }, animationDuration);
-        },
-      });
-    } else {
-      const data = $('#add-text-form').serialize();
-      const splitData = data.split('&');
-      const heading = splitData[0].split('=')[1];
-      const text = splitData[1].split('=')[1];
-      const tag = splitData[2].split('=')[1];
-      const id = getRandomInt(10000, 999999);
-      storePendingActions('textToAdd', { memories: [{ id, heading, text, tag }] }, { id, heading, text, tag });
-      const offlineData = addMemoryToStoredData(id, heading, text, tag);
-      setTimeout(() => {
-        render(formatData(offlineData));
-      }, animationDuration);
+    const data = $('#add-text-form').serialize();
+    const splitData = data.split('&');
+    const heading = splitData[0].split('=')[1];
+    if (heading !== '') {
+      if (navigator.onLine) {
+        $.ajax({
+          method: 'POST',
+          url: 'memory-input-text',
+          data: $('#add-text-form').serialize(),
+          success: () => {
+            setTimeout(() => {
+              update();
+            }, animationDuration);
+          },
+        });
+      } else {
+        const text = splitData[1].split('=')[1];
+        const tag = splitData[2].split('=')[1];
+        const id = getRandomInt(10000, 999999);
+        storePendingActions('textToAdd', { memories: [{ id, heading, text, tag }] }, { id, heading, text, tag });
+        const offlineData = addMemoryToStoredData(id, heading, text, tag);
+        setTimeout(() => {
+          render(formatData(offlineData));
+        }, animationDuration);
+      }
     }
   });
 
