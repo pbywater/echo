@@ -23,7 +23,7 @@ const getLikes = (memoryId, callback) => {
     });
 };
 
-const userSQL = 'SELECT * FROM users WHERE username = $1 OR email = $1';
+const userSQL = 'SELECT * FROM users WHERE username = $1';
 
 const getUser = (input, callback) => {
   connect.query(userSQL, [input.login], (err, user) => {
