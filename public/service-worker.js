@@ -1,43 +1,3 @@
-/* eslint-disable */
-
-// Based on code from: https://developers.google.com/web/fundamentals/getting-started/codelabs/your-first-pwapp/
-
-const cacheName = 'echo-app-test-1';
-
-const filesToCache = [
-  '/assets/icons/card_icons/audio_folder_icon.svg',
-  '/assets/icons/navigate/close_icon.svg',
-  '/assets/icons/navigate/menu_icon.svg',
-  '/assets/icons/top_bar/search_icon.svg',
-  '/assets/icons/top_bar/shuffle_icon.svg',
-  '/assets/icons/card_icons/audio_salmon_icon.svg',
-  '/assets/icons/card_icons/close.svg',
-  '/assets/icons/card_icons/camera_salmon_icon.svg',
-  '/assets/icons/card_icons/heart_icon_checked.svg',
-  '/assets/icons/card_icons/heart_icon_unchecked.svg',
-  '/assets/icons/card_icons/pencil_salmon_icon.svg',
-  '/assets/icons/card_icons/photo_folder_icon.svg',
-  '/assets/icons/card_icons/photo_folder_icon.svg',
-  'https://code.jquery.com/jquery-3.2.1.min.js',
-  'https://d3js.org/d3.v4.min.js',
-  'https://fonts.googleapis.com/css?family=Quicksand:300,400,500',
-  '/',
-  '/index.html',
-  '/main.css',
-  '/bundle.js',
-  '/scripts/main.js',
-  '/scripts/s3-uploads.js',
-  '/scripts/s3-helpers.js'];
-
-  self.addEventListener('install', function(e) {
-    console.log('[ServiceWorker] Install');
-    e.waitUntil(
-      caches.open(cacheName).then(function(cache) {
-        console.log('[ServiceWorker] Caching app shell');
-        return cache.addAll(filesToCache);
-      })
-    );
-  });
 /**
  * Copyright 2016 Google Inc. All rights reserved.
  *
@@ -77,7 +37,7 @@ const filesToCache = [
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [["assets/icons/card_icons/audio_folder_icon.svg","d5bd1cf1cac9185e26128fdfb58253bd"],["assets/icons/card_icons/audio_salmon_icon.svg","018dd5b9129c3a5a5d89f8ed68a44e71"],["assets/icons/card_icons/camera_salmon_icon.svg","a3de01cdc015bc8e4aae7be22f339c1b"],["assets/icons/card_icons/close.svg","ebb5848c9a47fd1b781d8d04f94dfd7c"],["assets/icons/card_icons/heart_icon_checked.svg","6c60e9b1da5ab164ff2183f3a39c3062"],["assets/icons/card_icons/heart_icon_unchecked.svg","a9952d29ad03817b8c90b9ed22a96397"],["assets/icons/card_icons/pencil_salmon_icon.svg","52070ab497f796b2f0a13e82417aecf3"],["assets/icons/card_icons/photo_folder_icon.svg","df37ef2e68eca35ebeac707a7480f2c7"],["assets/icons/menu/audio/audio_outline_icon_1.svg","0a586a33012eb7dac2a75bbd312c0b93"],["assets/icons/menu/audio/audio_outline_icon_2.svg","b074ac582dd2b00b55fffe1726ce1482"],["assets/icons/menu/notification/notification_glyph_icon_1.svg","2a2ab022ac288ce398890d852fafa5b8"],["assets/icons/menu/notification/notification_glyph_icon_2.svg","00c2239003eb0c9fa8a7e3e5aaa7895a"],["assets/icons/menu/notification/notification_outline_icon_1.svg","5b595c3385346a5008a3fdb8236dbbc7"],["assets/icons/menu/notification/notification_outline_icon_2.svg","dca0e2cc66e990e982b0982b1f16f43a"],["assets/icons/menu/settings/settings_glyph_icon_1.svg","88f0efa971f050f96c6844473def4131"],["assets/icons/menu/settings/settings_outline_icon_1.svg","71a88213a74dceb7537376cc4c595891"],["assets/icons/menu/settings/settings_outline_icon_2.svg","fff938a8a52e8248504ccbb3e5d38f28"],["assets/icons/menu/take_photo/camera_glyph_icon_1.svg","c64d168d6bf1567c9f8d66a8d84bacec"],["assets/icons/menu/take_photo/camera_glyph_icon_2.svg","be4b399617e9b1887d829edecca9cd52"],["assets/icons/menu/take_photo/camera_glyph_icon_3.svg","b2ab4248950140cfc71833d9c8c80972"],["assets/icons/menu/take_photo/camera_outline_icon.svg","83dbe10f3880fefb355e96366227ca76"],["assets/icons/menu/write/pencil_glyph_icon_1.svg","7f8f2b54a3e8d8d3ee84654a18a94993"],["assets/icons/menu/write/pencil_glyph_icon_2.svg","5d1d17a789c4a21ddab44f7172944f1d"],["assets/icons/menu/write/pencil_outline_icon_1.svg","e918e7d6ece1d7d786ae26e06e83d890"],["assets/icons/navigate/close_icon.svg","56e8f8d3e232d580c7402be15df9afc7"],["assets/icons/navigate/menu_icon.svg","12c980cef3bcb43838003aec1d8a86fd"],["assets/icons/top_bar/search_icon.svg","4c895ef08cebd9fc373a5ff0198071cd"],["assets/icons/top_bar/shuffle_icon.svg","10889b7bd12cb585c47eb7dcafef59f8"],["bundle.js","e2c94d28704824932d6ba48cec13bd35"],["index.html","aa867f25a787f6e15a40dc7ece7e7eca"],["main.css","23579d19ee8743894651c9381030a120"],["scripts/main.js","d8f57542ca14d334fbd3d54a564dc206"],["scripts/s3-uploads.js","4222ced1c59930cc8c11e4833209499b"],["scripts/sign-up.js","ccd66df844169c66df404ef7871ec53b"],["signup.html","32c38429ae0bdc6fc6d61bd9bd8a49ed"]];
+var precacheConfig = [["assets/icons/card_icons/audio_folder_icon.svg","d5bd1cf1cac9185e26128fdfb58253bd"],["assets/icons/card_icons/audio_salmon_icon.svg","018dd5b9129c3a5a5d89f8ed68a44e71"],["assets/icons/card_icons/camera_salmon_icon.svg","a3de01cdc015bc8e4aae7be22f339c1b"],["assets/icons/card_icons/close.svg","ebb5848c9a47fd1b781d8d04f94dfd7c"],["assets/icons/card_icons/heart_icon_checked.svg","6c60e9b1da5ab164ff2183f3a39c3062"],["assets/icons/card_icons/heart_icon_unchecked.svg","a9952d29ad03817b8c90b9ed22a96397"],["assets/icons/card_icons/pencil_salmon_icon.svg","52070ab497f796b2f0a13e82417aecf3"],["assets/icons/card_icons/photo_folder_icon.svg","df37ef2e68eca35ebeac707a7480f2c7"],["assets/icons/menu/audio/audio_outline_icon_1.svg","0a586a33012eb7dac2a75bbd312c0b93"],["assets/icons/menu/audio/audio_outline_icon_2.svg","b074ac582dd2b00b55fffe1726ce1482"],["assets/icons/menu/notification/notification_glyph_icon_1.svg","2a2ab022ac288ce398890d852fafa5b8"],["assets/icons/menu/notification/notification_glyph_icon_2.svg","00c2239003eb0c9fa8a7e3e5aaa7895a"],["assets/icons/menu/notification/notification_outline_icon_1.svg","5b595c3385346a5008a3fdb8236dbbc7"],["assets/icons/menu/notification/notification_outline_icon_2.svg","dca0e2cc66e990e982b0982b1f16f43a"],["assets/icons/menu/settings/settings_glyph_icon_1.svg","88f0efa971f050f96c6844473def4131"],["assets/icons/menu/settings/settings_outline_icon_1.svg","71a88213a74dceb7537376cc4c595891"],["assets/icons/menu/settings/settings_outline_icon_2.svg","fff938a8a52e8248504ccbb3e5d38f28"],["assets/icons/menu/take_photo/camera_glyph_icon_1.svg","c64d168d6bf1567c9f8d66a8d84bacec"],["assets/icons/menu/take_photo/camera_glyph_icon_2.svg","be4b399617e9b1887d829edecca9cd52"],["assets/icons/menu/take_photo/camera_glyph_icon_3.svg","b2ab4248950140cfc71833d9c8c80972"],["assets/icons/menu/take_photo/camera_outline_icon.svg","83dbe10f3880fefb355e96366227ca76"],["assets/icons/menu/write/pencil_glyph_icon_1.svg","7f8f2b54a3e8d8d3ee84654a18a94993"],["assets/icons/menu/write/pencil_glyph_icon_2.svg","5d1d17a789c4a21ddab44f7172944f1d"],["assets/icons/menu/write/pencil_outline_icon_1.svg","e918e7d6ece1d7d786ae26e06e83d890"],["assets/icons/navigate/close_icon.svg","56e8f8d3e232d580c7402be15df9afc7"],["assets/icons/navigate/menu_icon.svg","12c980cef3bcb43838003aec1d8a86fd"],["assets/icons/top_bar/search_icon.svg","4c895ef08cebd9fc373a5ff0198071cd"],["assets/icons/top_bar/shuffle_icon.svg","10889b7bd12cb585c47eb7dcafef59f8"],["bundle.js","7f6348eb01fc21923aea9700b619840e"],["index.html","257895aa7e1c2172618ed7ada866ba3a"],["main.css","c3d53c53f4b47ffb542b947f0a0e6d66"],["scripts/main.js","6307da3b47f437f9dc7b4953dc4ef33c"],["scripts/s3-helpers.js","8638e7ee62c64fc56c74b4b2ba90b5f0"],["scripts/s3-uploads.js","cfb6b5657c630f4c75a08349f48fe706"],["scripts/sign-up.js","ccd66df844169c66df404ef7871ec53b"],["scripts/syncedClosing.js","5c9437285caa08c3bd13bd855ba5ddd4"],["signup.html","32c38429ae0bdc6fc6d61bd9bd8a49ed"]];
 var cacheName = 'sw-precache-v3-sw-precache-' + (self.registration ? self.registration.scope : '');
 
 
@@ -216,10 +176,10 @@ self.addEventListener('install', function(event) {
         );
       });
     }).then(function() {
-
+      
       // Force the SW to transition from installing -> active state
       return self.skipWaiting();
-
+      
     })
   );
 });
@@ -239,9 +199,9 @@ self.addEventListener('activate', function(event) {
         );
       });
     }).then(function() {
-
+      
       return self.clients.claim();
-
+      
     })
   );
 });
@@ -302,7 +262,7 @@ self.addEventListener('fetch', function(event) {
 
 
 // *** Start of auto-included sw-toolbox code. ***
-/*
+/* 
  Copyright 2016 Google Inc. All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -328,3 +288,7 @@ self.addEventListener('fetch', function(event) {
 toolbox.router.get(/jquery\.com/, toolbox.cacheFirst, {"cache":{"name":"jquery-cache"}});
 toolbox.router.get(/googleapis\.com/, toolbox.cacheFirst, {"cache":{"name":"font-cache"}});
 toolbox.router.get(/d3js\.org/, toolbox.cacheFirst, {"cache":{"name":"d3-cache"}});
+
+
+
+

@@ -35,7 +35,7 @@ function newUserIntro() {
         .transition()
           .delay(500)
           .duration(500)
-        .attr('transform', 'translate(-95,200)')
+        .attr('transform', 'translate(-95,160)')
         .text('Your first memory will be saved in this bubble')
         .style('opacity', 1);
         d3.select('.tap')
@@ -45,7 +45,7 @@ function newUserIntro() {
         .transition()
           .delay(1000)
           .duration(500)
-        .attr('transform', 'translate(-20,248)')
+        .attr('transform', 'translate(-20,230)')
         .style('opacity', 1);
         d3.select('.text-group-3')
         .on('click', () => {
