@@ -1,31 +1,36 @@
 const { getUser } = require('./../../database/db_get');
 
 const bcrypt = require('bcrypt');
+const qs = require('querystring');
 
 module.exports = (req, res) => {
-  const login = req.body.login;
-  const password = req.body.password;
+  let body = '';
+  req.on('data', (chunk) => {
+    body += chunk;
+  });
+  req.on('end', () => {
+    const parsedData = {};
+    parsedData.login = qs.parse(body).login;
+    parsedData.password = qs.parse(body).password;
 
-  getUser(req.body, (err, user) => {
-    if (err) {
-      // will be refactored, so that err.message is displayed on screen
-      res.status(400).send({ err: err.message });
-      return;
-    }
-
-    bcrypt.compare(password, user.password, (err, isAuthenticated) => {
+    getUser(parsedData, (err, user) => {
       if (err) {
-        // will be refactored, so that err.message is displayed on screen
-        res.status(400).send({ err: err.message });
+        res.status(400).send(JSON.stringify(err.message));
+        return;
       }
-      if (isAuthenticated) {
-        req.session.name = login;
-        req.session.id = user.id;
-        res.status(200).redirect('/');
-      } else if (!isAuthenticated) {
-        // will be refactored, so that err.message is displayed on screen
-        res.status(400).send('Incorrect password');
-      }
+
+      bcrypt.compare(parsedData.password, user.password, (err, isAuthenticated) => {
+        if (err) {
+          res.status(400).send(JSON.stringify(err.message));
+        }
+        if (isAuthenticated) {
+          req.session.name = parsedData.login;
+          req.session.id = user.id;
+          res.status(200).redirect('/');
+        } else if (!isAuthenticated) {
+          res.status(400).send(JSON.stringify('Incorrect password'));
+        }
+      });
     });
   });
 };
