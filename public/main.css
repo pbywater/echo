@@ -24,13 +24,13 @@
     background: lightgrey;
 }
 
-#d3-container, .login-background {
+#d3-container {
     position: absolute;
     width: 360px;
     height: 640px;
 }
 
-.d3-background, .login-background {
+.d3-background {
     position: absolute;
     background-color: #8EA5CE;
     background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(142, 165, 206, 0)), to(#91CFCF));
@@ -1125,7 +1125,7 @@ a:hover {
 }
 
 @media screen and (max-width: 768px) {
-    #d3-container, .login-background {
+    #d3-container {
         width: 100vw;
         height: 100vh;
     }
