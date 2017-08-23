@@ -39,6 +39,8 @@ router.route('/login')
 router.route('/password_reset')
   .get(require('./controllers/getPasswordReset.js'))
   .post(require('./controllers/postPasswordReset.js'));
+router.route('/password_redirect')
+  .get(require('./controllers/getPasswordRedirect.js'));
 router.get('/sign-s3', checkSignIn, require('./controllers/assetCreateUrl.js'));
 router.route('/memories')
   .get(checkSignIn, require('./controllers/getMemories.js'))
@@ -47,5 +49,8 @@ router.route('/likes')
   .get(checkSignIn, require('./controllers/getLikes.js'))
   .post(checkSignIn, require('./controllers/updateLikes.js'));
 router.get('/verify/:token/:username', require('./controllers/verifyEmail.js'));
+router.route('/reset/:token/:username')
+  .get(require('./controllers/resetPassword.js'))
+  .post(require('./controllers/updatePassword.js'));
 
 module.exports = router;
