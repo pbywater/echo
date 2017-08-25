@@ -11,7 +11,7 @@ module.exports = (req, res) => {
   getMemoryById(req.session.id, req.body.id, (err, response) => {
     if (err) return err;
 
-    if (response.media_type === 'image' || response.media_type === 'audio') {
+    if (response.media_type === 'media') {
       const s3key = response.memory_asset_url;
 
       const params = {

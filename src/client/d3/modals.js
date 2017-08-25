@@ -91,7 +91,8 @@ const appendMedia = (data) => {
       success: url => appendImage(url),
     });
     function appendImage(url) {
-      popup
+      if (fileInput.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
+        popup
         .append('svg:image')
           .attr('class', 'mediaHolder')
           .attr('transform', 'translate(0, 0)')
@@ -99,13 +100,23 @@ const appendMedia = (data) => {
           .attr('height', 350)
           .attr('xlink:href', url)
           .attr('ry', 5);
+      } else {
+        popup
+          .append('svg:audio')
+            .attr('class', 'mediaHolder')
+            .attr('transform', 'translate(0, 0)')
+            .attr('width', 300)
+            .attr('height', 350)
+            .attr('xlink:href', url)
+            .attr('ry', 5);
+      }
       popup
-        .append('text')
-          .attr('class', 'mediaHeading')
-          .attr('transform', 'translate(20, 350)')
-          .style('fill', '#526173')
-          .attr('font-family', 'Quicksand')
-          .text(data.heading);
+          .append('text')
+            .attr('class', 'mediaHeading')
+            .attr('transform', 'translate(20, 350)')
+            .style('fill', '#526173')
+            .attr('font-family', 'Quicksand')
+            .text(data.heading);
     }
   } else if (data.media_type === 'text_only') {
     popup

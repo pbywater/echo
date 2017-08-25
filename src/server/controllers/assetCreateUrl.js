@@ -27,12 +27,16 @@ module.exports = (req, res) => {
   };
 
   createMemory(req.session.id, newMemory, 'media', fileKey, (err, response) => {
+    console.log('session is ', req.session.id);
+    console.log('fileKey is ', fileKey);
     if (err) return err;
     s3.getSignedUrl('putObject', s3Params, (err, data) => {
       if (err) {
         console.log(err);
         return res.status(500).send('failed to generate asset URL');
       }
+      console.log('response is ', response);
+
       const returnData = {
         imageId: response.rows[0].id,
         key: s3Params.Key,
