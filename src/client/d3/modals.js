@@ -91,7 +91,7 @@ const appendMedia = (data) => {
       success: url => appendImage(url),
     });
     function appendImage(url) {
-      if (!url.match(/.(jpg|jpeg|png|gif)$/i)) {
+      if (url.match(/\.(jpg|gif|png|jpeg)/) === null) {
         popup
           .append('text')
             .attr('class', 'audioHolder')
@@ -99,6 +99,9 @@ const appendMedia = (data) => {
             .attr('width', 300)
             .attr('height', 350)
             .text('Play audio');
+        $('.audioHolder').on('click', () => {
+          window.open(url, '_blank');
+        });
       } else {
         popup
         .append('svg:image')

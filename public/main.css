@@ -1144,3 +1144,8 @@ a:hover {
 .menu-open {
   display: none;
 }
+
+.audioHolder {
+  stroke: #8ea5ce;
+  cursor: pointer;
+}
