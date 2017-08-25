@@ -21,26 +21,37 @@ const createMemory = (id, newMemory, mediaType, memoryUrl, callback) => {
 
 const createUser = (userDetails, callback) => {
   connect.query(
-    `SELECT username
+    `SELECT email
     FROM users
-    WHERE username = $1;`, [userDetails.username], (err, res) => {
-      if (err) { return callback(err); }
+    WHERE email = $1;`, [userDetails.email], (err, emailRes) => {
+      if (err) { return callback(new Error('Sorry, there was an internal error.')); }
 
-      if (!res.rows[0]) {
-        hashPassword(userDetails.password, (err, hash) => {
-          if (err) { return callback(err); }
+      if (!emailRes.rows[0]) {
+        connect.query(
+          `SELECT username
+          FROM users
+          WHERE username = $1;`, [userDetails.username], (err, usernameRes) => {
+            if (err) { return callback(new Error('Sorry, there was an internal error.')); }
 
-          connect.query(
-            `INSERT INTO users
-            (username, password, email, token)
-            VALUES($1, $2, $3, $4)
-            RETURNING id;`, [userDetails.username, hash, userDetails.email, userDetails.token], (err, res) => {
-              if (err) { return callback(err); }
-              callback(null, res);
-            });
-        });
+            if (!usernameRes.rows[0]) {
+              hashPassword(userDetails.password, (err, hash) => {
+                if (err) { return callback(new Error('Sorry, there was an internal error.')); }
+
+                connect.query(
+                  `INSERT INTO users
+                  (username, password, email, token)
+                  VALUES($1, $2, $3, $4)
+                  RETURNING id;`, [userDetails.username, hash, userDetails.email, userDetails.token], (err, res) => {
+                    if (err) { return callback(new Error('Sorry, there was an internal error.')); }
+                    callback(null, res);
+                  });
+              });
+            } else {
+              callback(new Error('Sorry, that username is taken.'));
+            }
+          });
       } else {
-        callback(new Error('Sorry, that username is taken.'));
+        callback(new Error('Sorry, that email address is already in use.'));
       }
     });
 };

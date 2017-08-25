@@ -1077,6 +1077,27 @@ a:hover {
     color: #526173;
 }
 
+.form-wrap .tabs h3 .password-tab {
+  padding: 0.7em;
+  background-color: white;
+}
+
+.form-wrap .tabs-content__password {
+  padding: 4px 1.5em 1.5em 1.5em;
+}
+
+.password-heading {
+  width: 100% !important;
+}
+
+.form-wrap form .button__password {
+  text-transform: inherit;
+}
+
+.form-wrap__password {
+  top: 30%;
+}
+
 /* logout button */
 
 .logout-button {

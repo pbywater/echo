@@ -23,16 +23,9 @@ const getLikes = (memoryId, callback) => {
     });
 };
 
-const userSQL = 'SELECT * FROM users WHERE username = $1 OR email = $1';
+const userSQL = 'SELECT * FROM users WHERE username = $1';
 
 const getUser = (input, callback) => {
-  const unacceptableInput = /[ !#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]/;
-
-  if (unacceptableInput.test(input.login)
-    || unacceptableInput.test(input.password)) {
-    return callback(new Error('Enter a valid email address / username and password'));
-  }
-
   connect.query(userSQL, [input.login], (err, user) => {
     if (err) {
       return callback(err);

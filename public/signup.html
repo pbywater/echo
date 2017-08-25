@@ -19,29 +19,24 @@
 
           <div class="tabs-content">
             <div id="signup-tab-content" class="active">
-              <form class="signup-form" action="add-new-user" method="post">
-                <input type="email" class="input" id="user_email" autocomplete="off" placeholder="Email" name="email">
-                <input type="text" class="input" id="user_name" autocomplete="off" placeholder="Username" name="username">
-                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password" name="password">
-                <input class="button" type="submit" value="Sign Up">
+              <form class="signup-form" action="" method="post">
+                <input type="email" class="input" id="user_email" autocomplete="off" placeholder="Email" name="email" required autofocus maxlength="64">
+                <input type="text" class="input" id="user_name" autocomplete="off" placeholder="Username" name="username" required  minlength="3" maxlength="64">
+                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password" name="password" minlength="6" maxlength="64" required>
+                <p class="error-signup"></p>
+                <input id="submit-signup" class="button" type="submit" value="Sign Up">
               </form><!--.login-form-->
-              <div class="help-text">
-                <p>By signing up, you agree to our</p>
-                <p><a href="#">Terms of service</a></p>
-              </div><!--.help-text-->
             </div><!--.signup-tab-content-->
 
             <div id="login-tab-content">
-              <form class="login-form" action="login" method="post">
-                <input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email or Username" name="login">
-                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password" name="password">
-                <input type="checkbox" class="checkbox" id="remember_me">
-                <label for="remember_me">Remember me</label>
-
-                <input class="button" type="submit" value="Login">
+              <form class="login-form" action="" method="post">
+                <input type="text" class="input" id="user_login" autocomplete="off" placeholder="Username" name="login" required  minlength="3" maxlength="64">
+                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password" name="password" required minlength="6" maxlength="64">
+                <p class="error-login"></p>
+                <input id="submit-login" class="button" type="submit" value="Login">
               </form><!--.login-form-->
               <div class="help-text">
-                <p><a href="#">Forget your password?</a></p>
+                <p><a href="/password_reset">Forget your password?</a></p>
               </div><!--.help-text-->
             </div><!--.login-tab-content-->
           </div><!--.tabs-content-->
@@ -55,5 +50,6 @@
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
   <script src="scripts/sign-up.js"></script>
+  <script src="scripts/loginValidation.js"></script>
   <script src="bundle.js"></script>
 </html>
