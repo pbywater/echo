@@ -36,6 +36,19 @@ const getUser = (input, callback) => {
   });
 };
 
+const emailSQL = 'SELECT * FROM users WHERE email = $1';
+
+const getUserByEmail = (input, callback) => {
+  connect.query(emailSQL, [input.email], (err, user) => {
+    if (err) {
+      return callback(err);
+    } else if (user.rows.length === 0) {
+      return callback(new Error('This email does not exist'));
+    }
+    callback(null, user.rows[0]);
+  });
+};
+
 const getMemoryById = (userId, id, callback) => {
   connect.query(
     `SELECT memory_asset_url, media_type
@@ -52,5 +65,6 @@ module.exports = {
   getMemories,
   getLikes,
   getUser,
+  getUserByEmail,
   getMemoryById,
 };

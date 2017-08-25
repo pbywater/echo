@@ -1,5 +1,5 @@
 const { createUser } = require('./../../database/db_create');
-const sendEmail = require('./../../helpers/emailVerification');
+const { sendEmail } = require('./../../helpers/emailVerification');
 const qs = require('querystring');
 
 module.exports = (req, res) => {

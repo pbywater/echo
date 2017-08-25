@@ -1,4 +1,5 @@
 const connect = require('./db_connect');
+const hashPassword = require('./../helpers/hashPassword');
 
 const updateLikes = (likeNum, memoryId, cb) => {
   connect.query(
@@ -22,8 +23,29 @@ const updateEmailVerification = (username, token, cb) => {
     AND users.token = $2`, [username, token], cb);
 };
 
+const updatePasswordToken = (email, token, cb) => {
+  connect.query(
+    `UPDATE users
+    SET passwordtoken = $2
+    WHERE email = $1`, [email, token], cb);
+};
+
+const updatePassword = (username, password, passwordToken, cb) => {
+  hashPassword(password, (err, hash) => {
+    if (err) { return cb(new Error('Sorry, there was an internal error.')); }
+
+    connect.query(
+      `UPDATE users
+      SET password = $2, passwordtoken = $4
+      WHERE username = $1
+      AND passwordtoken = $3`, [username, hash, passwordToken, ''], cb);
+  });
+};
+
 module.exports = {
   updateLikes,
   updatePhotoMemory,
   updateEmailVerification,
+  updatePasswordToken,
+  updatePassword,
 };
